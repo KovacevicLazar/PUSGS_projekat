@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: "sign-up",
-    component: SignUpComponent
+    component: SignUpComponent,
   },
   {
     path: "rent-a-car",
