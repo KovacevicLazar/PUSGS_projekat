@@ -10,6 +10,7 @@ import { StartingPageComponent } from './componente/starting-page/starting-page/
 import { FriendsComponent } from './componente/friends/friends.component';
 import { AirlineComponent } from './componente/airlane/airline/airline.component';
 import { RentACarComponent } from './componente/rent-a-car/rent-a-car/rent-a-car.component';
+import { AirlineFilteredComponent } from './componente/airline-filtered/airline-filtered.component';
 
 
 
@@ -21,7 +22,8 @@ import { RentACarComponent } from './componente/rent-a-car/rent-a-car/rent-a-car
     StartingPageComponent,
     FriendsComponent,
     AirlineComponent,
-    RentACarComponent
+    RentACarComponent,
+    AirlineFilteredComponent
     
   ],
   imports: [

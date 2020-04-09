@@ -97,7 +97,7 @@
 									</div>
 								</div>
 								<div class="form-btn">
-									<button class="submit-btn">Show flights</button>
+									<button class="submit-btn" routerLink ="/airline-filtered" >Show flights</button>
 								</div>
 							</form>
 						</div>
@@ -106,3 +106,7 @@
 			</div>
 		</div>
 	</div>
+
+	<div [hidden]="allAirline.length === 0">
+        <app-airline-filtered [allAirline]="allAirline"></app-airline-filtered>
+    </div>

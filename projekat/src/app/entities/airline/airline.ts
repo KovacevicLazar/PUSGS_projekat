@@ -12,4 +12,4 @@ export class Airline{
         this.description = description;
         this.mark = mark;
         this.destinations  = destinations;
-    }
+    }}

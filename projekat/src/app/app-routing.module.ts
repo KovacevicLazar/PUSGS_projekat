@@ -7,6 +7,7 @@ import { StartingPageComponent } from './componente/starting-page/starting-page/
 import { SignInComponent } from './componente/sign-in/sign-in/sign-in.component';
 import { SignUpComponent } from './componente/sign-up/sign-up/sign-up.component';
 import {  RentACarComponent } from './componente/rent-a-car/rent-a-car/rent-a-car.component';
+import { AirlineFilteredComponent } from './componente/airline-filtered/airline-filtered.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,17 @@ const routes: Routes = [
   },
   {
     path: "airline",
-    component: AirlineComponent
+    component: AirlineComponent,
+    children:[
+      {
+        path: "airline-filtered",
+        component: AirlineFilteredComponent,
+      }
+    ]
+  },
+  {
+    path: "airline-filtered",
+    component: AirlineFilteredComponent,
   },
   {
     path: "sign-in",
