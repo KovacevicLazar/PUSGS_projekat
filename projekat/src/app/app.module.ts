@@ -8,6 +8,8 @@ import { SignInComponent } from './componente/sign-in/sign-in/sign-in.component'
 
 import { StartingPageComponent } from './componente/starting-page/starting-page/starting-page.component';
 import { FriendsComponent } from './componente/friends/friends.component';
+import { AirlineComponent } from './componente/airlane/airline/airline.component';
+import { RentACarComponent } from './componente/rent-a-car/rent-a-car/rent-a-car.component';
 
 
 
@@ -17,7 +19,9 @@ import { FriendsComponent } from './componente/friends/friends.component';
     NavMenuComponent,
     SignInComponent,
     StartingPageComponent,
-    FriendsComponent
+    FriendsComponent,
+    AirlineComponent,
+    RentACarComponent
     
   ],
   imports: [

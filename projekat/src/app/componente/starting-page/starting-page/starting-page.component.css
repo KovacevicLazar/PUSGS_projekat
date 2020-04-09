@@ -16,15 +16,15 @@ margin: 0px 10px;
 transition: 1s;
 
 }
-.box1{
+.car{
     background: url("../../../../assets/images/car.jpg");
 }
 
-.box2{
+.sign-in{
     background: url("../../../../assets/images/sign-in.png");
 }
 
-.box3{
+.sign-up{
     background: url("../../../../assets/images/key.jpg");
 }
 .box:hover{
@@ -34,14 +34,14 @@ transition: 1s;
     box-shadow: 2px 2px 2px #000;
     
 }
-.box1:hover{
+.car:hover{
     background: url("../../../../assets/images/car.jpg")
 }
 
-.box2:hover{
+.sign-in:hover{
     background: url("../../../../assets/images/sign-in.png");
 }
 
-.box3:hover{
+.sign-up:hover{
     background: url("../../../../assets/images/key.jpg")
 }
