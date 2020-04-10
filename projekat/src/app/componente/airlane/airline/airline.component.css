@@ -1,32 +1,28 @@
 section {
 	position: relative;
-	height: 100vh;
+	
 }
 
 .section .section-center {
 	position: absolute;
-	top: 50%;
+	top: 0;
 	left: 0;
 	right: 0;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
+	
 }
 
 #booking {
 	font-family: 'Lato', sans-serif;
 	background-image: url("../../../../assets/images/background.jpg");
-	background-size: cover;
-	background-position: center;
 	color: #191a1e;
 }
 
 .booking-form {
 	position: relative;
 	background: #fff;
-	max-width: 642px;
-	width: 100%;
+	
 	margin: auto;
-	padding: 45px 25px 25px;
+	padding: 25px 25px 25px;
 	border-radius: 4px;
 	-webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
 	box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
@@ -39,13 +35,12 @@ section {
 
 .booking-form .form-control {
 	background-color: #fff;
-	height: 65px;
+	
 	padding: 0px 15px;
-	padding-top: 24px;
+	
 	color: #191a1e;
 	border: 2px solid #dfe5e9;
 	font-size: 16px;
-	font-weight: 700;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	border-radius: 4px;
@@ -101,13 +96,11 @@ section {
 
 .booking-form .form-label {
 	position: absolute;
-	top: 6px;
-	left: 20px;
-	font-weight: 700;
+	top: -20px;
+	font-weight: 100;
 	text-transform: uppercase;
-	line-height: 24px;
-	height: 24px;
-	font-size: 12px;
+	
+	font-size: 16px;
 	color: #98c9ee;
 }
 
@@ -168,8 +161,8 @@ section {
 .booking-form .submit-btn {
 	color: #fff;
 	background-color: #4fa3e3;
-	font-weight: 400;
-	height: 65px;
+	font-weight: 200;
+	height: 40px;
 	font-size: 18px;
 	border: none;
 	width: 100%;
@@ -178,14 +171,15 @@ section {
 }
 
 .booking-cta {
-	margin-top: 45px;
+	margin-top: 55px;
+	text-align: center;
 }
 
 .booking-cta h1 {
-	font-size: 52px;
+	font-size: 26px;
 	text-transform: uppercase;
 	color: #4fa3e3;
-	font-weight: 400;
+	font-weight: 200;
 }
 
 .booking-cta p {
