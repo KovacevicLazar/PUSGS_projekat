@@ -1,25 +1,28 @@
 section {
 	position: relative;
 	
+
+	
 }
 
 .section .section-center {
-	position: absolute;
+	position: relative;
 	top: 0;
 	left: 0;
 	right: 0;
+	background-image: url("../../../../assets/images/background.jpg")!important;
 	
 }
 
 #booking {
 	font-family: 'Lato', sans-serif;
-	background-image: url("../../../../assets/images/background.jpg");
+	
 	color: #191a1e;
 }
 
 .booking-form {
 	position: relative;
-	background: #fff;
+	background: transparent;	
 	
 	margin: auto;
 	padding: 25px 25px 25px;
