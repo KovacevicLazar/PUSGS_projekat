@@ -17,9 +17,9 @@ export class AirlineService{
     mockedAirlines(): Array<Airline>{
         let allAirlines = new Array<Airline>();
 
-        const a1 = new Airline("Wizzair","Tuzla,Solunska 5","Mnogo dobra kompanija",5,"Spanija,Italija");
-        const a2 = new Airline("SrbijaLetovi","Subotica,Pap Pavla","Mnogo jeftina",2,"Sve Evropske zemlje");
-        const a3 = new Airline("SekoviciTravel","Sekovici,BB","Kidaju",3,"Samo Amerika");
+        const a1 = new Airline(1,"Wizzair","Tuzla,Solunska 5","Mnogo dobra kompanija",5,"Spanija,Italija");
+        const a2 = new Airline(2,"SrbijaLetovi","Subotica,Pap Pavla","Mnogo jeftina",2,"Sve Evropske zemlje");
+        const a3 = new Airline(3,"SekoviciTravel","Sekovici,BB","Kidaju",3,"Samo amerika");
 
         allAirlines.push(a1);
         allAirlines.push(a2);
