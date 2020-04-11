@@ -8,6 +8,8 @@ import { SignInComponent } from './componente/sign-in/sign-in/sign-in.component'
 import { SignUpComponent } from './componente/sign-up/sign-up/sign-up.component';
 import {  RentACarComponent } from './componente/rent-a-car/rent-a-car/rent-a-car.component';
 import { AirlineFilteredComponent } from './componente/airline-filtered/airline-filtered.component';
+import { RentACarFilteredComponent} from './componente/rent-a-car-filtered/rent-a-car-filtered/rent-a-car-filtered.component';
+import { pathToFileURL } from 'url';
 
 
 const routes: Routes = [
@@ -29,6 +31,20 @@ const routes: Routes = [
   {
     path: "airline-filtered",
     component: AirlineFilteredComponent,
+  },
+  {
+    path: "rent-a-car",
+    component: RentACarComponent,
+    children: [
+    {
+      path: "rent-a-car-filtered",
+      component: RentACarFilteredComponent, 
+    }
+   ]
+  },
+  {
+    path: "rent-a-car-filtered",
+    component: RentACarFilteredComponent, 
   },
   {
     path: "sign-in",

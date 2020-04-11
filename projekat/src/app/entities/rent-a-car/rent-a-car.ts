@@ -6,9 +6,9 @@ export class RentCar{
     address: string;
     description: string;
     mark: number;
-    availableCars: Array<Car>;
+    availableCars: string;
 
-    constructor(id: number,name: string,address: string,description: string,mark: number,availableCars: Array<Car>)
+    constructor(id: number,name: string,address: string,description: string,mark: number,availableCars: string)
     {
         this.id = id;
         this.name = name;

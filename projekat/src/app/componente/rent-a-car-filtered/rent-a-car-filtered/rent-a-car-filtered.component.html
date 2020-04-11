@@ -1,0 +1,20 @@
+<hr/>
+<h5  class="booking-ctar" >Rezultati filtriranja po zadatim parametrima</h5>
+<table class="table table-hover">
+    <thead class="booking-cta">
+        <tr>
+            <th scope="col">name:</th>
+            <th scope="col"> address:</th>
+            <th scope="col">description:</th>
+            <th scope="col">mark:</th>
+        </tr>
+    </thead>
+    <tbody class="results">
+        <tr *ngFor="let rentcars of allrentcars">
+            <td>{{rentcars.name}}</td>
+            <td>{{rentcars.address}}</td>
+            <td>{{rentcars.description}}</td>
+            <td>{{rentcars.mark}}</td>
+        </tr>
+    </tbody>
+</table>

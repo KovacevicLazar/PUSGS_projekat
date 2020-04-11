@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { User } from 'src/app/entities/user/user';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {LoginModel}from 'src/app/entities/loginModel/login-model'
 
 @Component({
@@ -12,8 +12,9 @@ import {LoginModel}from 'src/app/entities/loginModel/login-model'
 export class SignInComponent implements OnInit {
 
   allUsers : Array<User>;
+ 
 
-  user : LoginModel = {
+  Loginuser : LoginModel = {
     email: '',
     password: '',
   };
@@ -33,9 +34,9 @@ export class SignInComponent implements OnInit {
 
   
   singIn() : void{
-    this.user=this.loginForm.value;
+    this.Loginuser=this.loginForm.value;
      this.allUsers.forEach(element => {
-       if(element.email===this.user.email){
+       if(element.email===this.Loginuser.email){
          console.log("Uspesno logovanje")
        }
      });
