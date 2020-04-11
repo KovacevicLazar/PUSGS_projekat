@@ -4,16 +4,12 @@
       <h1>Sign in</h1>
       <br/>
       <br/>
-      <form  (ngSubmit)="singIn()">
-        <input type="text" formControlName="email" placeholder="E-mail" />
-        <input type="password" formControlName="password" placeholder="Password" />
-        
-        <input type="submit" name="signin_submit" value="Sign me in" />
-
+      <form  >
+        <input type="text" [(ngModel)]="email" name="email"   placeholder="E-mail" />
+        <input type="password"  [(ngModel)]="password" name="password"   placeholder="Password" />
+        <button class="social-signin twitter" (click)="onSubmit()" >Sing in</button>
+        Email: {{email}}  pass: {{password}}
       </form>
-   
-
-    
     </div>
     
     <div class="right">
