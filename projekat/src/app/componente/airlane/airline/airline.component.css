@@ -1,31 +1,31 @@
-section {
+.section {
 	position: relative;
-	
-
-	
+	height: 100vh;
 }
 
 .section .section-center {
-	position: relative;
-	top: 0;
+	position: absolute;
+	top: 50%;
 	left: 0;
 	right: 0;
-	background-image: url("../../../../assets/images/background.jpg")!important;
-	
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 #booking {
-	font-family: 'Lato', sans-serif;
-	
+	font-family: 'Montserrat', sans-serif;
+	background-image: url('../../../../assets/images/background.jpg');
+	background-size: cover;
+	background-position: center;
 	color: #191a1e;
 }
 
 .booking-form {
 	position: relative;
-	background: transparent;	
-	
-	margin: auto;
-	padding: 25px 25px 25px;
+	background: #cce0ff;
+	opacity: 90%;
+	margin-top: -200px;
+	padding: 35px 25px 25px;
 	border-radius: 4px;
 	-webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
 	box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
@@ -52,15 +52,18 @@ section {
 }
 
 .booking-form .form-control::-webkit-input-placeholder {
-	color: #dfe5e9;
+	color: #aeafaf;
+	
 }
 
 .booking-form .form-control:-ms-input-placeholder {
-	color: #dfe5e9;
+	color: #aeafaf;
+	
 }
 
 .booking-form .form-control::placeholder {
-	color: #dfe5e9;
+	color: #aeafaf;
+	
 }
 
 .booking-form .form-control:focus {
@@ -104,7 +107,7 @@ section {
 	text-transform: uppercase;
 	
 	font-size: 16px;
-	color: #98c9ee;
+	color:  #0066ff;
 }
 
 .booking-form .form-checkbox input {
@@ -144,7 +147,7 @@ section {
 	width: 0px;
 	height: 0px;
 	border-radius: 50%;
-	background-color: #4fa3e3;
+	background-color: #0066ff;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	-webkit-transition: 0.2s all;
@@ -163,7 +166,7 @@ section {
 
 .booking-form .submit-btn {
 	color: #fff;
-	background-color: #4fa3e3;
+	background-color:#0066ff;
 	font-weight: 200;
 	height: 40px;
 	font-size: 18px;
@@ -174,14 +177,14 @@ section {
 }
 
 .booking-cta {
-	margin-top: 55px;
+	margin-top: -260px;
 	text-align: center;
 }
 
 .booking-cta h1 {
 	font-size: 26px;
 	text-transform: uppercase;
-	color: #4fa3e3;
+	color:   #0066ff;
 	font-weight: 200;
 }
 

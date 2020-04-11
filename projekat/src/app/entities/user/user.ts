@@ -1,9 +1,4 @@
-enum Role{
-    Registred,
-    CarAdmin,
-    AirlineAdmin,
-    SystemAdmin,
-}  
+import { Role} from 'src/app/entities/Enums/role.enum';
 
 export class User{
    
@@ -12,9 +7,12 @@ export class User{
     email: string;
     phone: string;
     address: string;
-    role: Role;   
-
-    constructor(name: string,surname : string, email: string,phone: string, address: string, role: Role)
+    role: Role;  
+    password : string; 
+    
+    
+   
+    constructor(name: string,surname : string, email: string,phone: string, address: string, role: Role, password : string)
     {
         this.name = name;
         this.surname = surname;
@@ -22,6 +20,7 @@ export class User{
         this.phone = phone;
         this.address = address;
         this.role = role;
+        this.password=password;
     }
    
 }

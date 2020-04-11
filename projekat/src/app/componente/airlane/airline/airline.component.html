@@ -1,113 +1,112 @@
+
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
- <body>
-
-
-    <div id="booking" class="section">
-		<div class="section-center">
-			<div class="container">
-				<div class="row">
-					<div class="booking-cta">
-						<h1>Book your flight today</h1>
-					</div>
+<body>
+<div id="booking" class="section">
+	<div class="section-center">
+		<div class="container">
+			<div class="row">
+				<div class="booking-cta">
+					<h1>Book your flight today</h1>
 				</div>
-				<div class="row">
-					
-					<div class="col-xl-7 col-xl-offset-1">
-						<div class="booking-form">
-							<form>
-								<div class="row">
-									<div class="col-sm-3">
-										<div class="form-group">
-											<span class="form-label">Flying from</span>
-											<input class="form-control" type="text" placeholder="City or airport">
-										</div>
-									</div>
-									<div class="col-sm-3">
-										<div class="form-group">
-											<span class="form-label">Flyning to</span>
-											<input class="form-control" type="text" placeholder="City or airport">
-										</div>
-									</div>
-									<div class="col-sm-3">
-										<div class="form-group">
-											<span class="form-label">Adults (18+)</span>
-											<select class="form-control">
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-											</select>
-											<span class="select-arrow"></span>
-										</div>
-									</div>
-									<div class="col-sm-3">
-										<div class="form-group">
-											<span class="form-label">Way</span>
-											<select class="form-control">
-												<option>Roundtrip</option>
-												<option>One way</option>
-												<option>Multi-City</option>
-											</select>
-											<span class="select-arrow"></span>
-										</div>
+			</div>
+			<div class="row">
+				
+				<div class="col-xl-7 col-xl-offset-1">
+					<div class="booking-form">
+						<form>
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="form-group">
+										<span class="form-label">Flying from</span>
+										<input class="form-control" type="text" placeholder="City or airport">
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-sm-3">
-										<div class="form-group">
-											<span class="form-label">Departing</span>
-											<input class="form-control" type="date" required>
-										</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<span class="form-label">Flyning to</span>
+										<input class="form-control" type="text" placeholder="City or airport">
 									</div>
-									<div class="col-sm-3">
-										<div class="form-group">
-											<span class="form-label">Returning</span>
-											<input class="form-control" type="date" required>
-										</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<span class="form-label">Adults (18+)</span>
+										<select class="form-control">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+										</select>
+										<span class="select-arrow"></span>
 									</div>
-									<div class="col-sm-3">
-										<div class="form-group">
-											<span class="form-label">Children (0-17)</span>
-											<select class="form-control">
-												<option>0</option>
-												<option>1</option>
-												<option>2</option>
-											</select>
-											<span class="select-arrow"></span>
-										</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<span class="form-label">Way</span>
+										<select class="form-control">
+											<option>Roundtrip</option>
+											<option>One way</option>
+											<option>Multi-City</option>
+										</select>
+										<span class="select-arrow"></span>
 									</div>
-									
-									<div class="col-sm-3">
-										<div class="form-group">
-											<span class="form-label">Class</span>
-											<select class="form-control">
-												<option>Economy class</option>
-												<option>Business class</option>
-												<option>First class</option>
-											</select>
-											<span class="select-arrow"></span>
-										</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="form-group">
+										<span class="form-label">Departing</span>
+										<input class="form-control" type="date" required>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<span class="form-label">Returning</span>
+										<input class="form-control" type="date" required>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<span class="form-label">Children (0-17)</span>
+										<select class="form-control">
+											<option>0</option>
+											<option>1</option>
+											<option>2</option>
+										</select>
+										<span class="select-arrow"></span>
 									</div>
 								</div>
 								
-								<div class="form-btn">
-									<button class="submit-btn" routerLink ="/airline-filtered" >Show flights</button>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<span class="form-label">Class</span>
+										<select class="form-control">
+											<option>Economy class</option>
+											<option>Business class</option>
+											<option>First class</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
 								</div>
-							</form>
-						</div>
+							</div>
+							
+							<div class="form-btn">
+								<button class="submit-btn"  (click)="filterAirline()" >Show flights</button>
+							</div>
+						</form>
 					</div>
 				</div>
-				<div [hidden]="allAirline.length === 0">
-					<app-airline-filtered [allAirline]="allAirline"></app-airline-filtered>
-				</div>
-				<div [hidden]="allAirline.length !== 0">
-					<h5 style="font-size: 16px; color: #4fa3e3; font-weight: 100; text-align: center;">TRENUTNO NEMA DOSTUPNIH LETOVA KOJI ZADOVALJAVAJU ZADATE PARAMETRE.</h5>
-				</div>
+			</div>
+			<div style="background:  #cce0ff;opacity: 90%; " [hidden]="allAirline.length === 0">
+				<app-airline-filtered [allAirline]="allAirline"></app-airline-filtered>
+			</div>
+			<div  style="background:  #cce0ff" [hidden]="allAirline.length !== 0">
+				<h5 style="font-size: 16px; color:  #0066ff; opacity: 90%; font-weight: 100; text-align: center;">TRENUTNO NEMA DOSTUPNIH LETOVA KOJI ZADOVALJAVAJU ZADATE PARAMETRE.</h5>
 			</div>
 		</div>
 	</div>
+</div>
 </body>

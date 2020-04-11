@@ -16,9 +16,9 @@ export class UserService{
     mockedUsers(): Array<User>{
         let allUsers = new Array<User>();
 
-        const u1 = new User("Amar","Gile","gile@yahoo.com","064323232","Sekovici BB", 0);
-        const u2 = new User("Joco","Isic","keke@gmail.com","066323112","Begorad",1);
-        const u3 = new User("Sanja","Savinovic","sanjci@hotmail.com","222883","Nis",3);
+        const u1 = new User("Amar","Gile","gile@yahoo.com","064323232","Sekovici BB", 0, "11");
+        const u2 = new User("Joco","Isic","keke@gmail.com","066323112","Begorad",1,"11");
+        const u3 = new User("Sanja","Savinovic","sanjci@hotmail.com","222883","Nis",3,"11");
 
         allUsers.push(u1);
         allUsers.push(u2);

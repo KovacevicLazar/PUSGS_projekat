@@ -18,4 +18,8 @@ export class AirlineComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  filterAirline(): void{
+    
+  }
+
 }
