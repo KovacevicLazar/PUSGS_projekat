@@ -19,6 +19,7 @@ import { RegisteredUserComponent } from './componente/registered-user/registered
 import { AdminComponent } from './componente/admin/admin.component';
 import { AdminOfAirlineComponent } from './componente/admin-of-airline/admin-of-airline.component';
 import { AdminOfRentACarComponent } from './componente/admin-of-rent-a-car/admin-of-rent-a-car.component';
+import { ProfileComponent } from './componente/profile/profile.component';
 
 
 
@@ -38,7 +39,8 @@ import { AdminOfRentACarComponent } from './componente/admin-of-rent-a-car/admin
     RegisteredUserComponent,
     AdminComponent,
     AdminOfAirlineComponent,
-    AdminOfRentACarComponent
+    AdminOfRentACarComponent,
+    ProfileComponent
     
   ],
   imports: [

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/entities/user/user';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { NgForm } from '@angular/forms';
-import { NgModule } from '@angular/core';
+
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +11,6 @@ import { NgModule } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
   id: number;
   user: User;
   

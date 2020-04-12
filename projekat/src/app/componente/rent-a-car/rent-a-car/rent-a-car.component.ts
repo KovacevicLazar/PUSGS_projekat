@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RentCar } from 'src/app/entities/rent-a-car/rent-a-car';
 import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -11,10 +12,13 @@ import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-s
 export class RentACarComponent implements OnInit {
 
   allrentcars: Array<RentCar>;
-
-  constructor(private rentCarService: RentCarService) {
+  id : number;
+  constructor(private rentCarService: RentCarService, private route: ActivatedRoute) {
       this.allrentcars = this.rentCarService.loadRentCars();
+      route.params.subscribe(params => { this.id = params['id']; })
    }
+
+
 
   ngOnInit(): void {
   }
