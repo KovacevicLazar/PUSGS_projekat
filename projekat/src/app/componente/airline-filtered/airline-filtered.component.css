@@ -5,3 +5,14 @@
     font-weight: 100;
     text-align: center;
 }
+
+.btndestinfo{
+	color: white;
+	background-color:#0066ff;
+	height: 25px;
+	font-size: 14px;
+	border: none;
+	width: 80%;
+	border-radius: 4px;
+	text-transform: uppercase
+}

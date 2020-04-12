@@ -1,3 +1,4 @@
+
 <div class="col-md-9 personal-info">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -8,48 +9,49 @@
       <div class="form-group">
         <label class="col-lg-3 control-label">First name:</label>
         <div class="col-lg-8">
-          <input class="form-control" type="text" value="Jane">
+          <input class="form-control" type="text"  value={{user.name}}>
         </div>
       </div>
       <div class="form-group">
         <label class="col-lg-3 control-label">Last name:</label>
         <div class="col-lg-8">
-          <input class="form-control" type="text" value="Bishop">
+          <input class="form-control" type="text" value={{user.surname}}>
         </div>
       </div>
       
       <div class="form-group">
         <label class="col-lg-3 control-label">Email:</label>
         <div class="col-lg-8">
-          <input class="form-control" type="text" value="pera@gmail.com">
+          <input class="form-control" type="text" value={{user.email}}>
         </div>
       </div>
 
       <div class="form-group">
         <label class="col-lg-3 control-label">Phone Number:</label>
         <div class="col-lg-8">
-          <input class="form-control" type="tel" >
+          <input class="form-control" type="tel" value={{user.phone}}>
         </div>
       </div>
       
       <div class="form-group">
         <label class="col-md-3 control-label">Password:</label>
         <div class="col-md-8">
-          <input class="form-control" type="password" value="11111122333">
+          <input class="form-control" type="password" value={{user.password}}>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-3 control-label">Confirm password:</label>
         <div class="col-md-8">
-          <input class="form-control" type="password" value="11111122333">
+          <input class="form-control" type="password" value={{user.password}}>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-3 control-label"></label>
         <div class="col-md-8">
-          <input type="button" class="btn btn-primary" value="Save Changes">
-          
+          <button type="submit" class="btn btn-primary" (click)="saveChanges()" >Save Changes</button>
         </div>
       </div>
+      
     </form>
+  
   </div>

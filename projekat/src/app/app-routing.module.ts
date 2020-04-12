@@ -10,22 +10,47 @@ import {  RentACarComponent } from './componente/rent-a-car/rent-a-car/rent-a-ca
 import { AirlineFilteredComponent } from './componente/airline-filtered/airline-filtered.component';
 import { RentACarFilteredComponent} from './componente/rent-a-car-filtered/rent-a-car-filtered/rent-a-car-filtered.component';
 import { pathToFileURL } from 'url';
+import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';
+import { AdminComponent } from './componente/admin/admin.component';
+import { AdminOfAirlineComponent } from './componente/admin-of-airline/admin-of-airline.component';
+import { AdminOfRentACarComponent } from './componente/admin-of-rent-a-car/admin-of-rent-a-car.component';
 
 
 const routes: Routes = [
-
   {
     path: "",
     component: StartingPageComponent
   },
   {
+    path: "regus",
+    children: [
+      { path: "", component: RegisteredUserComponent },
+      { path: ":id", component: RegisteredUserComponent},
+      { path: ":id/profile", component: ProfileComponent },
+      { path: ":id/friends", component: FriendsComponent },
+      { path: ":id/airline", component: AirlineComponent },
+      {  path: ":id/rent-a-car", component: RentACarComponent}
+    ]
+  },
+  {
+    path: "admin",
+    component: AdminComponent
+  },
+  {
+    path: "airlineadmin",
+    component: AdminOfAirlineComponent
+  },
+  {
+    path: "rentacaradmin",
+    component: AdminOfRentACarComponent
+  },
+  {
     path: "airline",
     component: AirlineComponent,
-    children:[
-      {
-        path: "airline-filtered",
-        component: AirlineFilteredComponent,
-      }
+    children: [
+      { path: "", component: AirlineComponent },
+      { path: ":id", component: AirlineComponent},
+      { path: "airline-filtered", component: AirlineFilteredComponent, }
     ]
   },
   {
@@ -61,7 +86,11 @@ const routes: Routes = [
 
   {
     path: "profile",
-    component: ProfileComponent
+    children: [
+      { path: "", component: ProfileComponent },
+      { path: ":id", component: ProfileComponent},
+      
+    ]
   },
   {
     path: "friends",

@@ -15,6 +15,10 @@ import { AirlineFilteredComponent } from './componente/airline-filtered/airline-
 import { RentACarFilteredComponent } from './componente/rent-a-car-filtered/rent-a-car-filtered/rent-a-car-filtered.component';
 import { SignUpComponent} from './componente/sign-up/sign-up/sign-up.component';
 import { from } from 'rxjs';
+import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';
+import { AdminComponent } from './componente/admin/admin.component';
+import { AdminOfAirlineComponent } from './componente/admin-of-airline/admin-of-airline.component';
+import { AdminOfRentACarComponent } from './componente/admin-of-rent-a-car/admin-of-rent-a-car.component';
 
 
 
@@ -30,7 +34,11 @@ import { from } from 'rxjs';
     AirlineComponent,
     RentACarComponent,
     AirlineFilteredComponent,
-    RentACarFilteredComponent
+    RentACarFilteredComponent,
+    RegisteredUserComponent,
+    AdminComponent,
+    AdminOfAirlineComponent,
+    AdminOfRentACarComponent
     
   ],
   imports: [

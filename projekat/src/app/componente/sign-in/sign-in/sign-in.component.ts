@@ -26,26 +26,38 @@ export class SignInComponent implements OnInit {
   }
 
   
-  onSubmit() {
-    this.allUsers.forEach(element => {
-      if(element.email===this.email && element.password===this.password){
-        if(element.role===Role.Registred){
-          this.router.navigate(['/airline']);
-        }
-        else if(element.role===Role.SystemAdmin){
+  onSubmit() 
+  {
+    
+      let emailExist = false;
+      this.allUsers.forEach(element => {
 
-        }
-        else if(element.role===Role.CarAdmin){
+        if(element.email===this.email){
+          emailExist=true;
+          if(element.password===this.password){
+            if(element.role===Role.Registred){
+              this.router.navigate(['/regus/'.concat(element.id.toString())]);
+            }
+            else if(element.role===Role.SystemAdmin){
+    
+            }
+            else if(element.role===Role.CarAdmin){
+    
+            }
+            else if(element.role===Role.AirlineAdmin){
+    
+            }
+          }
+          else{
+            alert("Password incorrect");
+          }
+        } 
 
-        }
-        else if(element.role===Role.AirlineAdmin){
-
-        }
-
+      });
+      if(!emailExist){
+        alert("Email incorrect");
       }
-      
-    });
-   
+
   }
 
 }
