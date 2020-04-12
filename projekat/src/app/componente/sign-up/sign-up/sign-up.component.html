@@ -1,26 +1,27 @@
 <div id="login-box">
-    <div class="left">
-      <h1>Sign up</h1>
-      <form (ngsubmit)="SingUp()" >
-        <input type="text" id="name" placeholder="Name" />
-        <input type="text" id="surname" placeholder="Surname" />
-        <input type="text" id="phonenumber" placeholder="Mobile Phone" />
-        <input type="text" id="city" placeholder="City" />
-        <input type="text" id="email" placeholder="E-mail" />
-        <input type="password" id="password" placeholder="Password" />
-        <input type="password" id="password2" placeholder="Retype password" />
-        
-        <input type="submit" id="signup_submit"  value="Sign me up" />
-
-      </form>  
-    </div>
-    
-    <div class="right">
-      <span class="loginwith">Sign in with<br />social network</span>
+  <div class="left">
+    <h1>Sign up</h1>
+    <form >
+      <input type="text" [(ngModel)]="name" name="name" placeholder="Name" />
+      <input type="text" [(ngModel)]="surname" name="surname" placeholder="Surname"  />
+      <input type="text" [(ngModel)]="phone" name="phone" placeholder="Mobile Phone"  />
+      <input type="text" [(ngModel)]="address" name="address" placeholder="Address"/>
+      <input type="text" [(ngModel)]="email" name="email" placeholder="E-mail" />
+      <input type="password" [(ngModel)]="password" name="password" placeholder="Password"/>
+      <input type="password" [(ngModel)]="password2" name="password2" placeholder="Repeat Password" />
       
-      <button class="social-signin facebook">Log in with facebook</button>
-      <button class="social-signin twitter">Log in with Twitter</button>
-      <button class="social-signin google">Log in with Google+</button>
-    </div>
-    <div class="or">OR</div>
+      
+      <button class="social-signin twitter" (click)="onSubmit()" >Sign Up</button> 
+
+    </form>  
   </div>
+  
+  <div class="right">
+    <span class="loginwith">Sign in with<br />social network</span>
+    
+    <button class="social-signin facebook">Log in with facebook</button>
+    <button class="social-signin twitter">Log in with Twitter</button>
+    <button class="social-signin google">Log in with Google+</button>
+  </div>
+  <div class="or">OR</div>
+</div>

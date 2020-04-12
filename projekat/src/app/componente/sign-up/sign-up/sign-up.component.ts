@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import{ User} from 'src/app/entities/User/user';
+import { UserService } from 'src/app/services/user-service/user.service';
 import { Role} from 'src/app/entities/Enums/role.enum';
+import { NgForm } from '@angular/forms';
+import { RouterModule,Router }  from '@angular/router';
 
 
 @Component({
@@ -10,16 +13,58 @@ import { Role} from 'src/app/entities/Enums/role.enum';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  allUsers: Array<User>;
+  public name ="";
+  public  surname="";
+  public phone ="";
+  public address = "";
+  public email="";
+  public password ="";
+  public password2 = "";
+
+
+  constructor(private userService: UserService,private router : Router) { 
+    this.allUsers = this.userService.loadUsers();
+    
+  }
 
   ngOnInit(): void {
   }
 
-  SingUp() : void{
-      
-    let newUser = new User("name","surname","email","phonenumber","city",Role.Registred,"password");
-    console.log('Logged');
+  onSubmit()
+  {
+    let broj = 1;
 
+    if(this.password !== this.password2)
+    {
+      alert("The passwords doesnt match please try again");
+      
+    }
+    else
+    {
+      this.allUsers.forEach(element =>{
+        if(element.email === this.email)
+        {       
+            alert("There is already a user with this e-mail");   
+            broj = 2;                         
+        }                    
+      })
+
+      if(broj == 1)
+      {
+        let newUser = new User(this.name,this.surname,this.email,this.phone,this.address,Role.Registred,this.password);
+        this.allUsers.push(newUser);
+        this.router.navigate(['/sign-in']);
+        console.log('Logged');
+      }
+      
+    }
+
+      
+    
+    
+     
   }
+
 
 }

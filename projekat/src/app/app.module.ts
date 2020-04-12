@@ -13,7 +13,9 @@ import { AirlineComponent } from './componente/airlane/airline/airline.component
 import { RentACarComponent } from './componente/rent-a-car/rent-a-car/rent-a-car.component';
 import { AirlineFilteredComponent } from './componente/airline-filtered/airline-filtered.component';
 import { RentACarFilteredComponent } from './componente/rent-a-car-filtered/rent-a-car-filtered/rent-a-car-filtered.component';
+import { SignUpComponent} from './componente/sign-up/sign-up/sign-up.component';
 import { from } from 'rxjs';
+
 
 
 
@@ -22,6 +24,7 @@ import { from } from 'rxjs';
     AppComponent,
     NavMenuComponent,
     SignInComponent,
+    SignUpComponent,
     StartingPageComponent,
     FriendsComponent,
     AirlineComponent,
