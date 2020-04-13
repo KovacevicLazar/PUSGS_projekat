@@ -16,9 +16,7 @@ import { RentACarFilteredComponent } from './componente/rent-a-car-filtered/rent
 import { SignUpComponent} from './componente/sign-up/sign-up/sign-up.component';
 import { from } from 'rxjs';
 import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';
-import { AdminComponent } from './componente/admin/admin.component';
-import { AdminOfAirlineComponent } from './componente/admin-of-airline/admin-of-airline.component';
-import { AdminOfRentACarComponent } from './componente/admin-of-rent-a-car/admin-of-rent-a-car.component';
+
 import { ProfileComponent } from './componente/profile/profile.component';
 
 
@@ -37,9 +35,6 @@ import { ProfileComponent } from './componente/profile/profile.component';
     AirlineFilteredComponent,
     RentACarFilteredComponent,
     RegisteredUserComponent,
-    AdminComponent,
-    AdminOfAirlineComponent,
-    AdminOfRentACarComponent,
     ProfileComponent
     
   ],
