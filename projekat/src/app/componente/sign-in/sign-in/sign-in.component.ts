@@ -39,13 +39,13 @@ export class SignInComponent implements OnInit {
               this.router.navigate(['/regus/'.concat(element.id.toString())]);
             }
             else if(element.role===Role.SystemAdmin){
-    
+              this.router.navigate(['/regus/'.concat(element.id.toString())]);
             }
             else if(element.role===Role.CarAdmin){
-    
+              this.router.navigate(['/regus/'.concat(element.id.toString())]);
             }
             else if(element.role===Role.AirlineAdmin){
-    
+              this.router.navigate(['/regus/'.concat(element.id.toString())]);
             }
           }
           else{
