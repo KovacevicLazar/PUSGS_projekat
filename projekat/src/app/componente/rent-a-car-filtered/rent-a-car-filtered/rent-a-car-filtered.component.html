@@ -1,4 +1,5 @@
 <hr/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <h5  class="booking-ctar" >Rezultati filtriranja po zadatim parametrima</h5>
 <table class="table table-hover">
     <thead class="booking-cta">
@@ -7,6 +8,7 @@
             <th scope="col"> address:</th>
             <th scope="col">description:</th>
             <th scope="col">mark:</th>
+            <th scope="col">available cars</th>
         </tr>
     </thead>
     <tbody class="results">
@@ -14,7 +16,56 @@
             <td>{{rentcars.name}}</td>
             <td>{{rentcars.address}}</td>
             <td>{{rentcars.description}}</td>
-            <td>{{rentcars.mark}}</td>
+            <td>
+                <div class="profile-stars">
+                    <!-- START NO 1-->
+                    <div *ngIf="rentcars.mark < 0.5; then thenBlock1 else elseBlock1"></div>
+                    <ng-template #thenBlock1><i class="material-icons">star_border</i></ng-template>
+                    <ng-template #elseBlock1>
+                        <div *ngIf="rentcars.mark < 1; then thenBlock11 else elseBlock11"></div>
+                        <ng-template #thenBlock11><i class="material-icons">star_half</i></ng-template>
+                        <ng-template #elseBlock11><i class="material-icons">star</i></ng-template>
+                    </ng-template>
+                    <!-- START NO 2-->
+                    <div *ngIf="rentcars.mark < 1.5; then thenBlock2 else elseBlock2"></div>
+                    <ng-template #thenBlock2><i class="material-icons">star_border</i></ng-template>
+                    <ng-template #elseBlock2>
+                        <div *ngIf="rentcars.mark < 2; then thenBlock22 else elseBlock22"></div>
+                        <ng-template #thenBlock22><i class="material-icons">star_half</i></ng-template>
+                        <ng-template #elseBlock22><i class="material-icons">star</i></ng-template>
+                    </ng-template>
+                    <!-- START NO 3-->
+                    <div *ngIf="rentcars.mark < 2.5; then thenBlock3 else elseBlock3"></div>
+                    <ng-template #thenBlock3><i class="material-icons">star_border</i></ng-template>
+                    <ng-template #elseBlock3>
+                        <div *ngIf="rentcars.mark < 3; then thenBlock33 else elseBlock33"></div>
+                        <ng-template #thenBlock33><i class="material-icons">star_half</i></ng-template>
+                        <ng-template #elseBlock33><i class="material-icons">star</i></ng-template>
+                    </ng-template>
+                    <!-- START NO 4-->
+                    <div *ngIf="rentcars.mark < 3.5; then thenBlock4 else elseBlock4"></div>
+                    <ng-template #thenBlock4><i class="material-icons">star_border</i></ng-template>
+                    <ng-template #elseBlock4>
+                        <div *ngIf="rentcars.mark < 4; then thenBlock44 else elseBlock44"></div>
+                        <ng-template #thenBlock44><i class="material-icons">star_half</i></ng-template>
+                        <ng-template #elseBlock44><i class="material-icons">star</i></ng-template>
+                    </ng-template>
+                    <!-- START NO 5-->
+                    <div *ngIf="rentcars.mark < 4.5; then thenBlock5 else elseBlock5"></div>
+                    <ng-template #thenBlock5><i class="material-icons">star_border</i></ng-template>
+                    <ng-template #elseBlock5>
+                        <div *ngIf="rentcars.mark < 5; then thenBlock55 else elseBlock55"></div>
+                        <ng-template #thenBlock55><i class="material-icons">star_half</i></ng-template>
+                        <ng-template #elseBlock55><i class="material-icons">star</i></ng-template>
+                    </ng-template>
+                </div>
+            </td>
+            <td>
+                <!-- Prenos id-ja kao parametra putanje komponenti -->
+                <button class="btnavcarsinfo" routerLink="/hotel/{{rentcars.id}}/ds">
+                    Dostupna Auta
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>
