@@ -9,7 +9,7 @@ export class AirlineService{
     
     constructor() {}
 
-    loadCars(){
+    loadAirlines(){
         console.log('Ucitavanje kompanija...');
         return this.mockedAirlines();
     }

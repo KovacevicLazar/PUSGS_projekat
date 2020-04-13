@@ -36,7 +36,7 @@ const routes: Routes = [
     component: AirlineComponent,
     children: [
       { path: "", component: AirlineComponent },
-      { path: ":id", component: AirlineComponent},
+      { path: ":id", component: RegisteredUserComponent},
       { path: "airline-filtered", component: AirlineFilteredComponent, }
     ]
   },

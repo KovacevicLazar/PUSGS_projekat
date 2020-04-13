@@ -17,11 +17,13 @@ export class AirlineComponent implements OnInit {
   id: number;
   user: User;
   constructor(private userService: UserService, private airlineService: AirlineService, private route: ActivatedRoute) { 
-    this.allAirline = this.airlineService.mockedAirlines();
+    this.allAirline = this.airlineService.loadAirlines();
     route.params.subscribe(params => { this.id = params['id']; })
     this.userService.loadUsers().forEach(element => {
       if(element.id==this.id){
         this.user=element;
+        
+        
       }
     });
   }
