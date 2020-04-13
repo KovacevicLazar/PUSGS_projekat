@@ -16,12 +16,15 @@ export class RentACarComponent implements OnInit {
   allrentcars: Array<RentCar>;
   id : number;
   user : User;
+  RegistratedUser : number;
   constructor(private rentCarService: RentCarService, private route: ActivatedRoute,private userService : UserService) {
+      this.RegistratedUser= 0;
       this.allrentcars = this.rentCarService.loadRentCars();
       route.params.subscribe(params => { this.id = params['id']; })
       this.userService.loadUsers().forEach(element => {
         if(element.id==this.id){
           this.user=element;
+          this.RegistratedUser=1;
         }
       });
    }

@@ -18,6 +18,7 @@ import { from } from 'rxjs';
 import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';
 
 import { ProfileComponent } from './componente/profile/profile.component';
+import { StartingPageNavMenuComponent } from './componente/starting-page-nav-menu/starting-page-nav-menu.component';
 
 
 
@@ -35,7 +36,8 @@ import { ProfileComponent } from './componente/profile/profile.component';
     AirlineFilteredComponent,
     RentACarFilteredComponent,
     RegisteredUserComponent,
-    ProfileComponent
+    ProfileComponent,
+    StartingPageNavMenuComponent
     
   ],
   imports: [

@@ -12,20 +12,23 @@ import { User } from 'src/app/entities/user/user';
 })
 export class AirlineComponent implements OnInit {
   
-  allAirline: Array<Airline>;
+  allAirline : Array<Airline>;
   
   id: number;
   user: User;
+  RegistratedUser : number;
+
   constructor(private userService: UserService, private airlineService: AirlineService, private route: ActivatedRoute) { 
-    this.allAirline = this.airlineService.loadAirlines();
+    this.RegistratedUser=0;
     route.params.subscribe(params => { this.id = params['id']; })
     this.userService.loadUsers().forEach(element => {
       if(element.id==this.id){
         this.user=element;
-        
-        
+        this.RegistratedUser=1;
       }
+
     });
+    this.allAirline = this.airlineService.loadAirlines();
   }
 
   ngOnInit(): void {

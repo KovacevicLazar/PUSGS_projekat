@@ -1,6 +1,6 @@
 <div class="topnav">
-    <a routerLink ="/regus/{{userID.id}}/airline">FLIGHT</a>
-    <a routerLink ="/regus/{{userID.id}}/rent-a-car" >CAR</a>
-    <a [hidden]="userID.role==3 || userID.role ==2 || userID.role==1" routerLink ="/regus/{{userID.id}}/friends">FRIENDS</a>
-    <a  routerLink ="/regus/{{userID.id}}/profile">PROFILE</a>
+    <a routerLink ="/regus/{{user.id}}/airline">FLIGHT</a>
+    <a routerLink ="/regus/{{user.id}}/rent-a-car" >CAR</a>
+    <a [hidden]="user.role==3 || user.role ==2 || user.role==1" routerLink ="/regus/{{user.id}}/friends">FRIENDS</a>
+    <a  routerLink ="/regus/{{user.id}}/profile">PROFILE</a>
   </div> 

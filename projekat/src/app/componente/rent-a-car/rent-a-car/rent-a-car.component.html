@@ -4,8 +4,11 @@
    
 
 	<body>
-		<div *ngIf="user.role == 0 || user.role == 1 || user.role == 2 || user.role == 3">
-			<app-nav-menu [userID]="user"></app-nav-menu> 
+		<div *ngIf="RegistratedUser != 0">
+			<app-nav-menu [user]="user"></app-nav-menu> 
+		</div>
+		<div *ngIf="RegistratedUser == 0">
+			<app-starting-page-nav-menu></app-starting-page-nav-menu>
 		</div>
 			
 		<div id="booking" class="section">

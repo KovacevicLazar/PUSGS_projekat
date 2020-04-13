@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NavMenuComponent implements OnInit {
 
-  @Input() userID;
+  @Input() user;
   
   constructor() { }
 

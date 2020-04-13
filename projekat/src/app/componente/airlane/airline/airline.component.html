@@ -1,16 +1,13 @@
 
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
 <body>
-	<div *ngIf="user.role == 0 || user.role == 1 || user.role == 2 || user.role == 3">
-		<app-nav-menu [userID]="user"></app-nav-menu> 
-	</div>
-		
 	
+		
+	<div *ngIf="RegistratedUser != 0">
+		<app-nav-menu [user]="user"></app-nav-menu> 
+	</div>
+	<div *ngIf="RegistratedUser == 0">
+		<app-starting-page-nav-menu></app-starting-page-nav-menu>
+	</div>
 		
 
 <div id="booking" class="section">
