@@ -15,7 +15,12 @@
         <tr *ngFor="let airline of allAirline">
             <td>{{airline.name}}</td>
             <td>{{airline.address}}</td>
-            <td>{{airline.description}}</td>
+            <td>
+                <!-- Prenos id-ja kao parametra putanje komponenti -->
+                <button class="btndescriptioninfo" routerLink="/hotel/{{airline.id}}/ds">
+                    Read more...
+                </button>
+            </td>
             <td>
                 <div class="profile-stars">
                     <!-- START NO 1-->

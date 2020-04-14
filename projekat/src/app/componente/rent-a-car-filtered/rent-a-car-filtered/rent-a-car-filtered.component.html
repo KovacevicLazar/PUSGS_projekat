@@ -15,7 +15,12 @@
         <tr *ngFor="let rentcars of allrentcars">
             <td>{{rentcars.name}}</td>
             <td>{{rentcars.address}}</td>
-            <td>{{rentcars.description}}</td>
+            <td>
+                <!-- Prenos id-ja kao parametra putanje komponenti -->
+                <button class="btndescricarsinfo" routerLink="/hotel/{{rentcars.id}}/ds">
+                   Read more...
+                </button>
+            </td>
             <td>
                 <div class="profile-stars">
                     <!-- START NO 1-->
