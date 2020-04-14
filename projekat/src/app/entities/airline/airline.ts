@@ -1,3 +1,5 @@
+import { Flight } from '../flight/flight';
+
 export class Airline{
     id: number;
     name: string;
@@ -5,6 +7,7 @@ export class Airline{
     description: string;
     mark: number;
     destinations: string;
+    flights: Array<Flight>;
 
     constructor(id:number,name: string,address: string,description: string,mark: number,destinations: string)
     {
