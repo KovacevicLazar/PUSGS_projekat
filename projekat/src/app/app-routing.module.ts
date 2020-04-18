@@ -11,6 +11,7 @@ import { AirlineFilteredComponent } from './componente/airline-filtered/airline-
 import { RentACarFilteredComponent} from './componente/rent-a-car-filtered/rent-a-car-filtered/rent-a-car-filtered.component';
 import { pathToFileURL } from 'url';
 import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';
+import { AddRentACarComponent} from './componente/add-rent-a-car/add-rent-a-car/add-rent-a-car.component';
 
 
 const routes: Routes = [
@@ -26,7 +27,8 @@ const routes: Routes = [
       { path: ":id/profile", component: ProfileComponent },
       { path: ":id/friends", component: FriendsComponent },
       { path: ":id/airline", component: AirlineComponent },
-      {  path: ":id/rent-a-car", component: RentACarComponent}
+      {  path: ":id/rent-a-car", component: RentACarComponent},
+      { path: ":id/add-rent-a-car", component: AddRentACarComponent}
     ]
   },
  
@@ -69,6 +71,10 @@ const routes: Routes = [
   {
     path: "rent-a-car",
     component: RentACarComponent
+  },
+  {
+    path: "add-rent-a-car",
+    component: AddRentACarComponent
   },
 
   {

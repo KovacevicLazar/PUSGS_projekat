@@ -19,6 +19,7 @@ import { RegisteredUserComponent } from './componente/registered-user/registered
 
 import { ProfileComponent } from './componente/profile/profile.component';
 import { StartingPageNavMenuComponent } from './componente/starting-page-nav-menu/starting-page-nav-menu.component';
+import { AddRentACarComponent } from './componente/add-rent-a-car/add-rent-a-car/add-rent-a-car.component';
 
 
 
@@ -37,7 +38,8 @@ import { StartingPageNavMenuComponent } from './componente/starting-page-nav-men
     RentACarFilteredComponent,
     RegisteredUserComponent,
     ProfileComponent,
-    StartingPageNavMenuComponent
+    StartingPageNavMenuComponent,
+    AddRentACarComponent
     
   ],
   imports: [
