@@ -20,6 +20,7 @@ import { RegisteredUserComponent } from './componente/registered-user/registered
 import { ProfileComponent } from './componente/profile/profile.component';
 import { StartingPageNavMenuComponent } from './componente/starting-page-nav-menu/starting-page-nav-menu.component';
 import { AddRentACarComponent } from './componente/add-rent-a-car/add-rent-a-car/add-rent-a-car.component';
+import { PageNotFoundComponent } from './componente/page-not-found/page-not-found/page-not-found.component';
 
 
 
@@ -39,7 +40,8 @@ import { AddRentACarComponent } from './componente/add-rent-a-car/add-rent-a-car
     RegisteredUserComponent,
     ProfileComponent,
     StartingPageNavMenuComponent,
-    AddRentACarComponent
+    AddRentACarComponent,
+    PageNotFoundComponent
     
   ],
   imports: [

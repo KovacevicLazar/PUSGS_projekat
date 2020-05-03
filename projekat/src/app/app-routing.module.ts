@@ -12,7 +12,7 @@ import { RentACarFilteredComponent} from './componente/rent-a-car-filtered/rent-
 import { pathToFileURL } from 'url';
 import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';
 import { AddRentACarComponent} from './componente/add-rent-a-car/add-rent-a-car/add-rent-a-car.component';
-
+import {PageNotFoundComponent} from './componente/page-not-found/page-not-found/page-not-found.component'
 
 const routes: Routes = [
   {
@@ -89,6 +89,7 @@ const routes: Routes = [
     path: "friends",
     component: FriendsComponent
   },
+  { path: "**", component: PageNotFoundComponent }
 ];
 
 @NgModule({
