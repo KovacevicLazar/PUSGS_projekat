@@ -1,4 +1,5 @@
 import { Component, OnInit , Input} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-airline-filtered',
@@ -9,9 +10,14 @@ export class AirlineFilteredComponent implements OnInit {
 
   @Input() allAirline;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  OnSubmit(airline)
+  {
+      this.router.navigate(['/nonregusDesc' ,airline.id]) 
   }
 
 }

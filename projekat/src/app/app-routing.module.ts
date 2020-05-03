@@ -13,6 +13,8 @@ import { pathToFileURL } from 'url';
 import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';
 import { AddRentACarComponent} from './componente/add-rent-a-car/add-rent-a-car/add-rent-a-car.component';
 import {PageNotFoundComponent} from './componente/page-not-found/page-not-found/page-not-found.component'
+import {RentCarDescriptionComponent} from './componente/rent-car-description/rent-car-description/rent-car-description.component';
+import { AirlineDescriptionComponent } from './componente/airline-description/airline-description.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,15 @@ const routes: Routes = [
       { path: ":id/airline", component: AirlineComponent },
       {  path: ":id/rent-a-car", component: RentACarComponent},
       { path: ":id/add-rent-a-car", component: AddRentACarComponent}
+    ]
+  },
+
+  {
+    path: "nonregusDesc",
+    children: [
+      
+     { path : ":rentcarId",component: RentCarDescriptionComponent},
+     { path : ":airlineId", component: AirlineDescriptionComponent }
     ]
   },
  

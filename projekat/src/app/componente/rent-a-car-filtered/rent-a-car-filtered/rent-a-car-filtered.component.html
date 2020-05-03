@@ -17,7 +17,7 @@
             <td>{{rentcars.address}}</td>
             <td>
                 <!-- Prenos id-ja kao parametra putanje komponenti -->
-                <button class="btndescricarsinfo" routerLink="/hotel/{{rentcars.id}}/ds">
+                <button class="btndescricarsinfo" (click) = "OnSubmit(rentcars)">
                    Read more...
                 </button>
             </td>

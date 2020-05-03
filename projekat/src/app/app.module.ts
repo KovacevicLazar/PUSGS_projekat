@@ -21,6 +21,8 @@ import { ProfileComponent } from './componente/profile/profile.component';
 import { StartingPageNavMenuComponent } from './componente/starting-page-nav-menu/starting-page-nav-menu.component';
 import { AddRentACarComponent } from './componente/add-rent-a-car/add-rent-a-car/add-rent-a-car.component';
 import { PageNotFoundComponent } from './componente/page-not-found/page-not-found/page-not-found.component';
+import { RentCarDescriptionComponent } from './componente/rent-car-description/rent-car-description/rent-car-description.component';
+import { AirlineDescriptionComponent } from './componente/airline-description/airline-description.component';
 
 
 
@@ -41,7 +43,9 @@ import { PageNotFoundComponent } from './componente/page-not-found/page-not-foun
     ProfileComponent,
     StartingPageNavMenuComponent,
     AddRentACarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RentCarDescriptionComponent,
+    AirlineDescriptionComponent
     
   ],
   imports: [
