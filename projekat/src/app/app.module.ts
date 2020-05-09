@@ -11,7 +11,7 @@ import { StartingPageComponent } from './componente/starting-page/starting-page/
 import { FriendsComponent } from './componente/friends/friends.component';
 import { AirlineComponent } from './componente/airlane/airline/airline.component';
 import { RentACarComponent } from './componente/rent-a-car/rent-a-car/rent-a-car.component';
-import { AirlineFilteredComponent } from './componente/airline-filtered/airline-filtered.component';
+import { AirlineFilteredComponent } from './componente/airline-table/airline-filtered.component';
 import { RentACarFilteredComponent } from './componente/rent-a-car-filtered/rent-a-car-filtered/rent-a-car-filtered.component';
 import { SignUpComponent} from './componente/sign-up/sign-up/sign-up.component';
 import { from } from 'rxjs';
@@ -23,6 +23,7 @@ import { AddRentACarComponent } from './componente/add-rent-a-car/add-rent-a-car
 import { PageNotFoundComponent } from './componente/page-not-found/page-not-found/page-not-found.component';
 import { RentCarDescriptionComponent } from './componente/rent-car-description/rent-car-description/rent-car-description.component';
 import { AirlineDescriptionComponent } from './componente/airline-description/airline-description.component';
+import { FlyghtsTableComponent } from './componente/flyghts-table/flyghts-table.component';
 
 
 
@@ -45,7 +46,8 @@ import { AirlineDescriptionComponent } from './componente/airline-description/ai
     AddRentACarComponent,
     PageNotFoundComponent,
     RentCarDescriptionComponent,
-    AirlineDescriptionComponent
+    AirlineDescriptionComponent,
+    FlyghtsTableComponent
     
   ],
   imports: [

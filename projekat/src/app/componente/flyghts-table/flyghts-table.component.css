@@ -1,0 +1,19 @@
+.booking-cta {
+	font-size: 16px;
+	text-transform: uppercase;
+	color:  #0066ff;
+    font-weight: 100;
+    text-align: center;
+}
+
+.btndestinfo{
+	color: white;
+	background-color:#0066ff;
+	height: 25px;
+	font-size: 4px;
+    border: none;
+    text-align: center;
+	
+	border-radius: 1px;
+	text-transform: uppercase
+}

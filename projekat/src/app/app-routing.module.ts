@@ -7,7 +7,7 @@ import { StartingPageComponent } from './componente/starting-page/starting-page/
 import { SignInComponent } from './componente/sign-in/sign-in/sign-in.component';
 import { SignUpComponent } from './componente/sign-up/sign-up/sign-up.component';
 import {  RentACarComponent } from './componente/rent-a-car/rent-a-car/rent-a-car.component';
-import { AirlineFilteredComponent } from './componente/airline-filtered/airline-filtered.component';
+import { AirlineFilteredComponent } from './componente/airline-table/airline-filtered.component';
 import { RentACarFilteredComponent} from './componente/rent-a-car-filtered/rent-a-car-filtered/rent-a-car-filtered.component';
 import { pathToFileURL } from 'url';
 import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';

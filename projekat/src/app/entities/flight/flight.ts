@@ -7,14 +7,14 @@ export class Flight {
     dateReturn: Date;
     flightDuration: Date;
     flightDistance:number;
-    numberStops: number;
-    locationsStops: Array<string>;
+    numberTransit: number;
+    Transitlocations: Array<string>;
     vacantSeats: number;
     busySeats: number;
     ticketPrice: number;
 
 
-    constructor(id: number, flyingfrom : string,flyingTo: string,dateDepart: Date,dateReturn: Date,flightDistance:number,numberStops: number,locationsStops: Array<string>,vacantSeats: number,ticketPrice: number){
+    constructor(id: number, flyingfrom : string,flyingTo: string,dateDepart: Date,dateReturn: Date,flightDistance:number,numberTransit: number,Transitlocations: Array<string>,vacantSeats: number,ticketPrice: number){
        
         this.id=id;
 
@@ -24,8 +24,8 @@ export class Flight {
         this.dateReturn=dateReturn;
         this.flightDuration= this.calculateDuration(dateReturn,dateDepart);
         this.flightDistance=flightDistance;
-        this.numberStops=numberStops;
-        this.locationsStops=locationsStops;
+        this.numberTransit=numberTransit;
+        this.Transitlocations=Transitlocations;
         this.vacantSeats=vacantSeats;
         this.ticketPrice=ticketPrice;
     }

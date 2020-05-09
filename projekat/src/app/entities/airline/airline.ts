@@ -7,7 +7,7 @@ export class Airline{
     description: string;
     mark: number;
     destinations: string;
-    flights: Array<Flight>;
+    flights = new Array<Flight>(); // obavezno ovako... ne ovako: flights: Array<Flight>;
 
     constructor(id:number,name: string,address: string,description: string,mark: number,destinations: string)
     {
