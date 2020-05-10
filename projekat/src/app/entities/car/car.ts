@@ -7,14 +7,15 @@ export class Car{
     year: number;
     pricePerDay:number;
     
+    gps: string;
     babySeats: number;
     checkedInDate: Date;
     checkedOutDate: Date;
-    currentlyAvailable: Boolean;
+    currentlyAvailable: boolean;
     
     
 
-    constructor(id: number,location: string,address:string,brand: string,model: string,year: number,pricePerDay: number,available: boolean,babyseats:number)
+    constructor(id: number,location: string,address:string,brand: string,model: string,year: number,pricePerDay: number,available: boolean,babyseats:number,gps:string)
     {
         this.id = id;
         this.location = location
@@ -25,6 +26,7 @@ export class Car{
         this.pricePerDay = pricePerDay;
         this.currentlyAvailable = available;
         this.babySeats = babyseats;
+        this.gps = gps;
        
     }
 }

@@ -29,10 +29,12 @@ export class RentCarService{
       //  const r5 = new RentCar(5,"RentalCars","Dortmund","Opis 5",3,"Spisak 5");
        // const r6 = new RentCar(6,"DriftyCars","Doha","Opis 6", 4.5,"Spisak 6");
 
-       const c1 = new Car(1,"Sekovici","Solunska 5","Audi","A7",2017,198,true,1);
-       const c2 = new Car(1,"Tokio","New Street 22","Golf","5",2010,220,true,2);
+       const c1 = new Car(1,"Sekovici","Solunska 5","Audi","A7",2017,198,true,1,"Yes");
+       const c2 = new Car(1,"Tokio","New Street 22","Golf","5",2010,220,true,2,"No");
+       const c3 = new Car(2,"Berlin","Tegel 46","Ford","Fiesta",1995,88,true,0,"yes");
 
        r1.availableCars.push(c1);
+       r1.availableCars.push(c3);
        r2.availableCars.push(c2);
 
 

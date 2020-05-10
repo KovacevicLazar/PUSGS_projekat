@@ -22,6 +22,8 @@ export class RentACarComponent implements OnInit {
 
   public pickUpLocation ="";
   seats: number;
+  public Gps ="";
+  
  
 
   ClickedToCheck: number;
@@ -54,33 +56,63 @@ export class RentACarComponent implements OnInit {
     
     this.allrentcars.forEach(element =>{
       element.availableCars.forEach(element1 => {
-        if(this.pickUpLocation.length != 0 && this.seats == null)
+        if(this.pickUpLocation.length != 0 && this.seats == null && this.Gps.length !=0)
         {
-          if(element1.location.toLocaleLowerCase() == this.pickUpLocation.toLowerCase() || element1.address.toLowerCase() == this.pickUpLocation.toLowerCase())
+          if((element1.location.toLocaleLowerCase() == this.pickUpLocation.toLowerCase() || element1.address.toLowerCase() == this.pickUpLocation.toLowerCase()) && this.Gps.toLowerCase() == element1.gps.toLowerCase())
+          {
+            this.Cars.push(element1);
+          }
+        }
+        else if(this.pickUpLocation.length != 0 && this.seats == null && this.Gps == "")
+        {
+          if(element1.location.toLocaleLowerCase() == this.pickUpLocation.toLowerCase() || element1.address.toLowerCase() == this.pickUpLocation.toLowerCase() )
           {
             this.Cars.push(element1);
           }
         }
        
 
-        else if(this.pickUpLocation.length != 0 && this.seats != null)
+        else if(this.pickUpLocation.length != 0 && this.seats != null && this.Gps.length !=0)
+        {
+          if((element1.location.toLocaleLowerCase() == this.pickUpLocation.toLowerCase() || element1.address.toLowerCase() == this.pickUpLocation.toLowerCase()) && this.seats == element1.babySeats && this.Gps.toUpperCase() == element1.gps.toUpperCase())
+          {
+            this.Cars.push(element1);
+          }
+        }
+        else if(this.pickUpLocation.length != 0 && this.seats != null && this.Gps =="")
         {
           if((element1.location.toLocaleLowerCase() == this.pickUpLocation.toLowerCase() || element1.address.toLowerCase() == this.pickUpLocation.toLowerCase()) && this.seats == element1.babySeats)
           {
             this.Cars.push(element1);
           }
         }
-        else if(this.pickUpLocation == "" && this.seats != null)
+        else if(this.pickUpLocation == "" && this.seats != null && this.Gps != "")
         {
-          if(this.seats == element1.babySeats)
+          if(this.seats == element1.babySeats && this.Gps.toLowerCase() == element1.gps.toLowerCase())
           {
             this.Cars.push(element1);
           }
         }
-        else if(this.pickUpLocation == "" && this.seats == null)
+
+        else if(this.pickUpLocation == "" && this.seats != null && this.Gps == "")
+        {
+          if(this.seats == element1.babySeats )
+          {
+            this.Cars.push(element1);
+          }
+        }
+        else if(this.pickUpLocation =="" && this.seats == null && this.Gps != "")
+        {
+            if(element1.gps.toLocaleLowerCase() == this.Gps.toLocaleLowerCase())
+            {
+              this.Cars.push(element1);
+            }
+        }
+        else if(this.pickUpLocation == "" && this.seats == null && this.Gps == "")
         {
           this.Cars.push(element1);
         }
+        
         
       })
     })

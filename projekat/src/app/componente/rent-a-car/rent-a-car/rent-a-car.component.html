@@ -31,9 +31,22 @@
 									<div class="form-group">
 										<span  class="form-label">Baby seats</span>
 										<select class="form-control" name = "seats" [(ngModel)] = "seats">
+											
 											<option>0</option>
 											<option>1</option>
 											<option>2</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<span  class="form-label">GPS</span>
+										<select class="form-control" name="Gps" [(ngModel)]="Gps">
+											<option></option>
+											<option>Yes</option>
+											<option>No</option>
+									
 										</select>
 										<span class="select-arrow"></span>
 									</div>
@@ -52,7 +65,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="form-btn">
-										<button class="submit-btn" (click)="CheckCars()">Check availability</button>
+										<button class="submit-btn" (click)="CheckCars()">Check available cars</button>
 									</div>
 								</div>
 							</form>
@@ -68,7 +81,7 @@
 						<app-car-table [Cars] ="Cars"></app-car-table>
 					</div>
 					<div [hidden]="Cars.length !== 0 || ClickedToCheck == 0">
-						<h5 style="font-size: 16px; color: #4fa3e3; font-weight: 100; text-align: center;">TRENUTNO NEMA DOSTUPNIH AUTOMOBILA ZA ZADATE PARAMETRE.</h5>
+						<h5 style="font-size: 26px; color:white; font-weight: 100; text-align: center;">TRENUTNO NEMA DOSTUPNIH AUTOMOBILA ZA ZADATE PARAMETRE.</h5>
 					</div>
 				</div>
 			</div>
