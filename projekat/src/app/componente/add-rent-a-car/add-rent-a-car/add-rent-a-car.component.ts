@@ -42,8 +42,8 @@ export class AddRentACarComponent implements OnInit {
 
     if(temp)
     {
-      let newRentCar = new  RentCar(6,this.name,this.address,this.description,this.mark,this.availableCars);
-      this.allRentCars.push(newRentCar);
+      //let newRentCar = new  RentCar(6,this.name,this.address,this.description,this.mark,this.availableCars);
+      //this.allRentCars.push(newRentCar);
       alert("Uspjesno ste dodali novi Rent a Car servis");
       
 

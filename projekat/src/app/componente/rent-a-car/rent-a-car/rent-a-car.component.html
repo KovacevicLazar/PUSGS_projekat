@@ -52,17 +52,23 @@
 								</div>
 								<div class="col-md-4">
 									<div class="form-btn">
-										<button class="submit-btn" routerLink ="/rent-a-car-filtered">Check availability</button>
+										<button class="submit-btn" (click)="CheckCars()">Check availability</button>
 									</div>
 								</div>
 							</form>
 						</div>
 					</div>
-					<div [hidden]="allrentcars.length === 0">
+					<div [hidden]="allrentcars.length === 0 || ClickedToCheck == 1 ">
 						<app-rent-a-car-filtered [allrentcars]="allrentcars"></app-rent-a-car-filtered>
 					</div>
-					<div [hidden]="allrentcars.length !== 0">
-						<h5 style="font-size: 16px; color: #4fa3e3; font-weight: 100; text-align: center;">TRENUTNO NEMA DOSTUPNIH LETOVA KOJI ZADOVALJAVAJU ZADATE PARAMETRE.</h5>
+					<div [hidden]="allrentcars.length !== 0 || ClickedToCheck == 1">
+						<h5 style="font-size: 16px; color: #4fa3e3; font-weight: 100; text-align: center;">TRENUTNO NEMA DOSTUPNIH RENT CAR SERVISA.</h5>
+					</div>
+					<div   [hidden]="Cars.length == 0 || ClickedToCheck == 0">
+						<app-car-table [Cars] ="Cars"></app-car-table>
+					</div>
+					<div [hidden]="Cars.length !== 0 || ClickedToCheck == 0">
+						<h5 style="font-size: 16px; color: #4fa3e3; font-weight: 100; text-align: center;">TRENUTNO NEMA DOSTUPNIH AUTOMOBILA ZA ZADATE PARAMETRE.</h5>
 					</div>
 				</div>
 			</div>

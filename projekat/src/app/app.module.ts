@@ -24,6 +24,7 @@ import { PageNotFoundComponent } from './componente/page-not-found/page-not-foun
 import { RentCarDescriptionComponent } from './componente/rent-car-description/rent-car-description/rent-car-description.component';
 import { AirlineDescriptionComponent } from './componente/airline-description/airline-description.component';
 import { FlyghtsTableComponent } from './componente/flyghts-table/flyghts-table.component';
+import { CarTableComponent } from './componente/car-table/car-table/car-table.component';
 
 
 
@@ -47,7 +48,8 @@ import { FlyghtsTableComponent } from './componente/flyghts-table/flyghts-table.
     PageNotFoundComponent,
     RentCarDescriptionComponent,
     AirlineDescriptionComponent,
-    FlyghtsTableComponent
+    FlyghtsTableComponent,
+    CarTableComponent
     
   ],
   imports: [

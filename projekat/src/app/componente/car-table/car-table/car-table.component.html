@@ -1,0 +1,24 @@
+<hr/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<h5  class="booking-ctar" >Rezultati filtriranja po zadatim parametrima</h5>
+<table class="table table-hover">
+    <thead class="booking-cta">
+        <tr>
+            <th scope="col">Pick Up Place:</th>
+            <th scope="col"> Brand:</th>
+            <th scope="col">Model:</th>
+            <th scope="col">Year:</th>
+            <th scope="col">Price Per Day </th>
+        </tr>
+    </thead>
+    <tbody class="results">
+        <tr *ngFor="let car of Cars">
+            <td>{{car.location}} <br>{{car.address}}</td>
+            <td>{{car.brand}}</td>
+            <td>{{car.model}}</td>
+            <td>{{car.year}}</td>
+            <td>{{car.pricePerDay}}</td>          
+            
+        </tr>
+    </tbody>
+</table>
