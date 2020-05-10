@@ -9,6 +9,9 @@ export class User{
     address: string;
     role: Role;  
     password : string; 
+
+    friends = new Array<User>();
+    friendsRequests = new Array<User>();
     
     
    

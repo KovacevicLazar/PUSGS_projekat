@@ -23,6 +23,12 @@ export class UserService{
         const u5 = new User(5,"David","Milosevic","daki@gmail.com","062323112","Sekovici",0,"444");
         const u6 = new User(6,"Sofija","Glisic","sofija@yahoo.com","065678323","Trnovo",1,"11111");
 
+        u1.friendsRequests.push(u2);
+        u1.friendsRequests.push(u6);
+
+        u1.friends.push(u3);
+        u1.friends.push(u4);
+
         allUsers.push(u1);
         allUsers.push(u2);
         allUsers.push(u3);

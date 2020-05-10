@@ -7,18 +7,54 @@
 <div>
 
     <form class="form-inline" style="text-align: right; padding: 20px 20px 20px;" >
-        <input class="form-control mr-sm-2"  type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Friends</button>
+        <input class="form-control mr-sm-2" name="SearchFriend" [(ngModel)]="SearchFriend" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click) ="Search()">Search Friends</button>
     </form>
-    <table class="table">
+    <table class="table" style="width: 70%; margin-left: 200px;" >
         <thead class="thead-dark">
-          <tr>
-            <th style="color: #4fa3e3;font-weight: 100; text-align: center;" scope="col">First Name:</th>
-            <th style="color: #4fa3e3;font-weight: 100; text-align: center;"  scope="col">Last Name:</th>
-            <th style="color: #4fa3e3;font-weight: 100; text-align: center;"  scope="col">Accepted:</th>
+          <tr style="color: #4fa3e3;font-weight: bold; font-size: 30;">
+            <th></th>
+            <th  scope="col">First Name:</th>
+            <th  scope="col">Last Name:</th>
+            <th   scope="col">Accepted:</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody [hidden]="FilteredFriend.length != 0">
+          <tr  *ngFor="let friend of user.friends" style="background:#b9e6f0; font-weight: bold;">
+            <td scope="col"> slika</td>
+            <td scope="col">{{friend.name}}</td>
+            <td scope="col">{{friend.surname}}</td>
+            <td scope="col">
+            <button (click) ="RemoveFriend(friend)" style="background:#f22222;border-color: gray;">
+              Remove Friend
+            </button>
+            </td>
+          </tr>
+
+          <tr *ngFor="let friend of user.friendsRequests" style="background:#b9f0c3; font-weight: bold;">
+            <td scope="col"> slika</td>
+            <td scope="col">{{friend.name}}</td>
+            <td scope="col">{{friend.surname}}</td>
+            <td scope="col">
+              <button  (click) ="AcceptFriendRequest(friend)" style="background: #56f072; border-color: gray;">
+                Accept Request
+              </button>
+            </td>
+          </tr>
+            
+        </tbody>
+        <tbody [hidden]="FilteredFriend.length == 0">
+
+          <tr *ngFor="let friend of FilteredFriend" style="background:#b9e6f0; font-weight: bold;">
+            <td scope="col"> slika </td>s
+            <td scope="col">{{friend.name}}</td>
+            <td scope="col">{{friend.surname}}</td>
+            <td scope="col">
+              <button (click) ="RemoveFriend(friend)"  style="background:#f22222;border-color: gray;">
+                Remove Friend
+              </button>
+            </td>
+          </tr>
             
         </tbody>
     </table>
