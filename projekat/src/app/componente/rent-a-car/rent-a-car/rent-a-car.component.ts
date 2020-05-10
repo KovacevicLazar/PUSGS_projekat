@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user-service/user.service';
 import { User } from 'src/app/entities/user/user';
 import { Car } from 'src/app/entities/car/car';
 import { element } from 'protractor';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -17,6 +18,11 @@ export class RentACarComponent implements OnInit {
 
   allrentcars: Array<RentCar>;
   Cars = new Array<Car>();
+
+
+  public pickUpLocation ="";
+  seats: number;
+ 
 
   ClickedToCheck: number;
   id : number;
@@ -43,10 +49,39 @@ export class RentACarComponent implements OnInit {
   CheckCars(): void
   {
     this.ClickedToCheck = 1;
+    this.Cars.length = 0;
+    
     
     this.allrentcars.forEach(element =>{
       element.availableCars.forEach(element1 => {
-        this.Cars.push(element1);
+        if(this.pickUpLocation.length != 0 && this.seats == null)
+        {
+          if(element1.location.toLocaleLowerCase() == this.pickUpLocation.toLowerCase() || element1.address.toLowerCase() == this.pickUpLocation.toLowerCase())
+          {
+            this.Cars.push(element1);
+          }
+        }
+       
+
+        else if(this.pickUpLocation.length != 0 && this.seats != null)
+        {
+          if((element1.location.toLocaleLowerCase() == this.pickUpLocation.toLowerCase() || element1.address.toLowerCase() == this.pickUpLocation.toLowerCase()) && this.seats == element1.babySeats)
+          {
+            this.Cars.push(element1);
+          }
+        }
+        else if(this.pickUpLocation == "" && this.seats != null)
+        {
+          if(this.seats == element1.babySeats)
+          {
+            this.Cars.push(element1);
+          }
+        }
+        else if(this.pickUpLocation == "" && this.seats == null)
+        {
+          this.Cars.push(element1);
+        }
+        
       })
     })
   }

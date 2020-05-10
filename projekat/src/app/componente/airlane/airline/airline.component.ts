@@ -50,6 +50,8 @@ export class AirlineComponent implements OnInit {
 
   filterFlights(): void{
     this.SearchButtonClicket=1;
+    this.Flights.length = 0;
+
     let a=this.flyingTo;
     this.allAirline.forEach(element => {
       element.flights.forEach(element => {
