@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="booking-cta">
-					<h1>Book your flight today {{flyingfrom}}</h1>
+					<h1>Book your flight today!</h1>
 				</div>
 			</div>
 			<div class="row">
@@ -51,7 +51,7 @@
 									<div class="form-group">
 										<span class="form-label">Way</span>
 										<select name="way" class="form-control" [(ngModel)]="way">
-											<option  value="Roundtrip">Roundtrip</option>
+											<option  value="Round Trip">Round Trip</option>
 											<option value="One way">One way</option>
 											<option  value="Multi-City">Multi-City</option>
 										</select>
@@ -68,8 +68,10 @@
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
-										<span class="form-label">Returning</span>
-										<input name="dateReturn" [(ngModel)]="dateReturn" class="form-control" type="date" required>
+										<div [hidden]="way != 'Round Trip'">
+											<span class="form-label">Returning</span>
+											<input name="dateReturn" [(ngModel)]="dateReturn" class="form-control" type="date" required>
+										</div>
 									</div>
 								</div>
 								<div class="col-sm-3">

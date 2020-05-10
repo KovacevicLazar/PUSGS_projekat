@@ -4,7 +4,7 @@ export class Flight {
     flyingfrom : string;
     flyingTo: string;
     dateDepart: Date;
-    dateReturn: Date;
+    dateArrival: Date;
     flightDuration: Date;
     flightDistance:number;
     numberTransit: number;
@@ -14,15 +14,15 @@ export class Flight {
     ticketPrice: number;
 
 
-    constructor(id: number, flyingfrom : string,flyingTo: string,dateDepart: Date,dateReturn: Date,flightDistance:number,numberTransit: number,Transitlocations: Array<string>,vacantSeats: number,ticketPrice: number){
+    constructor(id: number, flyingfrom : string,flyingTo: string,dateDepart: Date,dateArrival: Date,flightDistance:number,numberTransit: number,Transitlocations: Array<string>,vacantSeats: number,ticketPrice: number){
        
         this.id=id;
 
         this.flyingfrom=flyingfrom;
         this.flyingTo=flyingTo;
         this.dateDepart=dateDepart;
-        this.dateReturn=dateReturn;
-        this.flightDuration= this.calculateDuration(dateReturn,dateDepart);
+        this.dateArrival=dateArrival;
+        this.flightDuration= this.calculateDuration(dateArrival,dateDepart);
         this.flightDistance=flightDistance;
         this.numberTransit=numberTransit;
         this.Transitlocations=Transitlocations;
@@ -30,9 +30,9 @@ export class Flight {
         this.ticketPrice=ticketPrice;
     }
 
-    calculateDuration(dateReturn: Date,dateDepart: Date): Date
+    calculateDuration(dateArrival: Date,dateDepart: Date): Date
     {
-        var msec = dateReturn.getTime() - dateDepart.getTime();
+        var msec = dateArrival.getTime() - dateDepart.getTime();
         var mins = Math.floor(msec / 60000);
         var hrs = Math.floor(mins / 60);
         var days = Math.floor(hrs / 24);

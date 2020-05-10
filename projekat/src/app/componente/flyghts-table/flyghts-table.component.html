@@ -15,7 +15,7 @@
     <tbody >
         <tr *ngFor="let flight of Flights">
             <td>{{flight.flyingfrom}} <br> {{flight.dateDepart | date:'medium' }}</td>
-            <td> {{flight.flyingTo}} <br> {{flight.dateReturn | date:'medium'}}</td>
+            <td> {{flight.flyingTo}} <br> {{flight.dateArrival | date:'medium' }}</td>
             <td> {{flight.numberTransit}} </td>
             <td> h:m:s <br> {{flight.flightDuration | date: "H:m:s" }} </td>
             <td>{{flight.ticketPrice}}</td>
