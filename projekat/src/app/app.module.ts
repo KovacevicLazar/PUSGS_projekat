@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule}from '@angular/forms'
+import {FormsModule}from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,9 @@ import { FlyghtsTableComponent } from './componente/flyghts-table/flyghts-table.
 import { CarTableComponent } from './componente/car-table/car-table/car-table.component';
 import { AddAirlineComponent } from './componente/add-airline/add-airline/add-airline.component';
 import { AddRcServisComponent } from './componente/add-rc-servis/add-rc-servis/add-rc-servis.component';
+import { SeatReservationComponent } from './componente/seat-reservation/seat-reservation.component';
+import { ReservedSeatDialogComponent } from './componente/reserved-seat-dialog/reserved-seat-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -52,13 +56,20 @@ import { AddRcServisComponent } from './componente/add-rc-servis/add-rc-servis/a
     FlyghtsTableComponent,
     CarTableComponent,
     AddAirlineComponent,
-    AddRcServisComponent
+    AddRcServisComponent,
+    SeatReservationComponent,
+    ReservedSeatDialogComponent
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    BrowserAnimationsModule
+  ],
+  entryComponents:[
+    ReservedSeatDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

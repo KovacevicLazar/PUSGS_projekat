@@ -9,7 +9,6 @@
             <th >Transit:</th>
             <th >Duration:</th>
 
-            <th >Ticket Price:</th>
         </tr>
     </thead>
     <tbody >
@@ -18,7 +17,12 @@
             <td> {{flight.flyingTo}} <br> {{flight.dateArrival | date:'medium' }}</td>
             <td> {{flight.numberTransit}} </td>
             <td> h:m:s <br> {{flight.flightDuration | date: "H:m:s" }} </td>
-            <td>{{flight.ticketPrice}}</td>
+            <td>
+                Price:<span class="price-text">{{flight.ticketPrice}}€</span> <br/>
+                <button (click) ="SelectFlight(flight)" class="button1">
+                  Select
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>

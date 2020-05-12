@@ -17,3 +17,23 @@
 	border-radius: 1px;
 	text-transform: uppercase
 }
+
+.price-text{
+	font-size: 24px;
+	font-family: "cerapro-bold",sans-serif;
+	font-weight: 700;
+	line-height: 28px;
+}
+
+.button1{
+	
+	display: flex;
+	
+	text-align: center;
+	
+	height: 30px;
+	width: 70%;
+	border-radius: 3px;
+	color: #fff;
+	background-color: var(--bpk-button-primary-background-color,#00a698);
+}

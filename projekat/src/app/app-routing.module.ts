@@ -17,6 +17,7 @@ import {RentCarDescriptionComponent} from './componente/rent-car-description/ren
 import { AirlineDescriptionComponent } from './componente/airline-description/airline-description.component';
 import { AddRcServisComponent} from './componente/add-rc-servis/add-rc-servis/add-rc-servis.component';
 import { AddAirlineComponent} from './componente/add-airline/add-airline/add-airline.component';
+import { SeatReservationComponent } from './componente/seat-reservation/seat-reservation.component';
 
 const routes: Routes = [
   {
@@ -30,7 +31,12 @@ const routes: Routes = [
       { path: ":id", component: RegisteredUserComponent},
       { path: ":id/profile", component: ProfileComponent },
       { path: ":id/friends", component: FriendsComponent },
-      { path: ":id/airline", component: AirlineComponent },
+      { path: ":id/airline", 
+      children:[
+        {path: "" , component: AirlineComponent},
+        {path: ":flightID" , component: SeatReservationComponent}
+      ]
+    },
       {  path: ":id/rent-a-car", component: RentACarComponent},
       { path: ":id/new-rc-servis",component:AddRcServisComponent},
       { path: ":id/new-airline",component: AddAirlineComponent}

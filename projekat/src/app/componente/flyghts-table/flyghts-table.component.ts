@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-flyghts-table',
@@ -7,9 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FlyghtsTableComponent implements OnInit {
   @Input() Flights;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  SelectFlight(flight){
+    this.router.navigate(['/regus/1/airline/' ,flight.id]) 
   }
 
 }
