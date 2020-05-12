@@ -19,12 +19,14 @@ import { RegisteredUserComponent } from './componente/registered-user/registered
 
 import { ProfileComponent } from './componente/profile/profile.component';
 import { StartingPageNavMenuComponent } from './componente/starting-page-nav-menu/starting-page-nav-menu.component';
-import { AddRentACarComponent } from './componente/add-rent-a-car/add-rent-a-car/add-rent-a-car.component';
+
 import { PageNotFoundComponent } from './componente/page-not-found/page-not-found/page-not-found.component';
 import { RentCarDescriptionComponent } from './componente/rent-car-description/rent-car-description/rent-car-description.component';
 import { AirlineDescriptionComponent } from './componente/airline-description/airline-description.component';
 import { FlyghtsTableComponent } from './componente/flyghts-table/flyghts-table.component';
 import { CarTableComponent } from './componente/car-table/car-table/car-table.component';
+import { AddAirlineComponent } from './componente/add-airline/add-airline/add-airline.component';
+import { AddRcServisComponent } from './componente/add-rc-servis/add-rc-servis/add-rc-servis.component';
 
 
 
@@ -43,13 +45,14 @@ import { CarTableComponent } from './componente/car-table/car-table/car-table.co
     RentACarFilteredComponent,
     RegisteredUserComponent,
     ProfileComponent,
-    StartingPageNavMenuComponent,
-    AddRentACarComponent,
+    StartingPageNavMenuComponent,   
     PageNotFoundComponent,
     RentCarDescriptionComponent,
     AirlineDescriptionComponent,
     FlyghtsTableComponent,
-    CarTableComponent
+    CarTableComponent,
+    AddAirlineComponent,
+    AddRcServisComponent
     
   ],
   imports: [

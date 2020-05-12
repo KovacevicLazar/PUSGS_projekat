@@ -72,7 +72,7 @@
 						</div>
 					</div>
 					<div [hidden]="allrentcars.length === 0 || ClickedToCheck == 1 ">
-						<app-rent-a-car-filtered [allrentcars]="allrentcars"></app-rent-a-car-filtered>
+						<app-rent-a-car-filtered [allrentcars]="allrentcars" [user] ="user"></app-rent-a-car-filtered>
 					</div>
 					<div [hidden]="allrentcars.length !== 0 || ClickedToCheck == 1">
 						<h5 style="font-size: 16px; color: #4fa3e3; font-weight: 100; text-align: center;">TRENUTNO NEMA DOSTUPNIH RENT CAR SERVISA.</h5>

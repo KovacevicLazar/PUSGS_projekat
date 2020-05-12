@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 export class AirlineFilteredComponent implements OnInit {
 
   @Input() allAirline;
+  @Input() user;
+  id: number;
 
   constructor(private router: Router) { }
 

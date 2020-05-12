@@ -1,8 +1,10 @@
 <div class="topnav">
-    <a style="float: left;" routerLink ="/regus/{{user.id}}/airline">FLIGHT</a>
-    <a style="float: left;" routerLink ="/regus/{{user.id}}/rent-a-car" >CAR</a>
-    <a style="float: left;" [hidden]="user.role==3 || user.role ==2 || user.role==1" routerLink ="/regus/{{user.id}}/friends">FRIENDS</a>
-    <a  style="float: left;" routerLink ="/regus/{{user.id}}/profile">PROFILE</a>
-    <a style="float: right;" [hidden]="user.role ==0 || user.role == 2 || user.role==3" routerLink ="/regus/{{user.id}}/add-rent-a-car">ADD A RENT A CAR SERVICE</a>
-    <a  style="float: right;" routerLink="">LOGOUT</a>
-  </div> 
+  <a style="float: left;" routerLink ="/regus/{{user.id}}/airline">FLIGHT</a>
+  <a style="float: left;" routerLink ="/regus/{{user.id}}/rent-a-car" >CAR</a>
+  <a style="float: left;" [hidden]="user.role==3 || user.role ==2 || user.role==1" routerLink ="/regus/{{user.id}}/friends">FRIENDS</a>
+  <a  style="float: left;" routerLink ="/regus/{{user.id}}/profile">PROFILE</a>
+  <a  style="float: right;" routerLink="">LOGOUT</a>
+  <a style="float: right;" [hidden]="user.role ==0 || user.role == 1 || user.role==2" routerLink ="/regus/{{user.id}}/new-rc-servis">NEW RENT A CAR SERVICE</a>
+  <a style="float: right;" [hidden]="user.role ==0 || user.role == 1 || user.role == 2" routerLink ="/regus/{{user.id}}/new-airline"> NEW AIRLINE</a>
+  
+</div> 

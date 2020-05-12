@@ -6,18 +6,18 @@ import { NgForm } from '@angular/forms';
 import { RouterModule,Router }  from '@angular/router';
 
 @Component({
-  selector: 'app-add-rent-a-car',
-  templateUrl: './add-rent-a-car.component.html',
-  styleUrls: ['./add-rent-a-car.component.css']
+  selector: 'app-add-rc-servis',
+  templateUrl: './add-rc-servis.component.html',
+  styleUrls: ['./add-rc-servis.component.css']
 })
-export class AddRentACarComponent implements OnInit {
+export class AddRcServisComponent implements OnInit {
 
   allRentCars : Array<RentCar>;
   public name="";
   public address="";
   public mark;
-  public availableCars ="";
   public description="";
+  ocijena: number;
   
 
   constructor(private rentcarService : RentCarService,private router :Router) {
@@ -30,21 +30,29 @@ export class AddRentACarComponent implements OnInit {
 
   onSubmit()
   {
-
+    this.ocijena = this.mark;
     let temp = true;
     this.allRentCars.forEach(element =>{
-      if(element.name === this.name)
+      if(element.name.toUpperCase() === this.name.toUpperCase())
       {       
-          alert("This Rent a car servce alreaddy exists");   
+          alert("This name is taken, a rent a car service with this name already exsists");   
           temp = false;                               
-      }                    
+      }    
+                   
     })
+
+      if(this.name == "" || this.address == "" || this.description == "" || this.ocijena == null)
+      {
+        alert("You have to fill all fields, invalid request");
+        temp = false;
+      }   
 
     if(temp)
     {
-      //let newRentCar = new  RentCar(6,this.name,this.address,this.description,this.mark,this.availableCars);
-      //this.allRentCars.push(newRentCar);
-      alert("Uspjesno ste dodali novi Rent a Car servis");
+      let newRentCar = new  RentCar(6,this.name,this.address,this.description,this.mark);
+      this.allRentCars.push(newRentCar);
+      alert("The new rent a car service is succesfully added! ");
+      
       
 
     }

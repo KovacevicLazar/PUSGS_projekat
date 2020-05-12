@@ -2,6 +2,7 @@ import { Component, OnInit,Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-rent-a-car-filtered',
   templateUrl: './rent-a-car-filtered.component.html',
@@ -10,6 +11,9 @@ import { Router } from '@angular/router';
 export class RentACarFilteredComponent implements OnInit {
 
   @Input() allrentcars;
+  @Input() user;
+ 
+  
   
   constructor(private router: Router) { }
 
@@ -20,5 +24,6 @@ export class RentACarFilteredComponent implements OnInit {
   {
       this.router.navigate(['/nonregusDesc',rentcars.id])
   }
+  
 
 }

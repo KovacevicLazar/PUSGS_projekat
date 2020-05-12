@@ -11,10 +11,12 @@ import { AirlineFilteredComponent } from './componente/airline-table/airline-fil
 import { RentACarFilteredComponent} from './componente/rent-a-car-filtered/rent-a-car-filtered/rent-a-car-filtered.component';
 import { pathToFileURL } from 'url';
 import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';
-import { AddRentACarComponent} from './componente/add-rent-a-car/add-rent-a-car/add-rent-a-car.component';
+
 import {PageNotFoundComponent} from './componente/page-not-found/page-not-found/page-not-found.component'
 import {RentCarDescriptionComponent} from './componente/rent-car-description/rent-car-description/rent-car-description.component';
 import { AirlineDescriptionComponent } from './componente/airline-description/airline-description.component';
+import { AddRcServisComponent} from './componente/add-rc-servis/add-rc-servis/add-rc-servis.component';
+import { AddAirlineComponent} from './componente/add-airline/add-airline/add-airline.component';
 
 const routes: Routes = [
   {
@@ -30,7 +32,8 @@ const routes: Routes = [
       { path: ":id/friends", component: FriendsComponent },
       { path: ":id/airline", component: AirlineComponent },
       {  path: ":id/rent-a-car", component: RentACarComponent},
-      { path: ":id/add-rent-a-car", component: AddRentACarComponent}
+      { path: ":id/new-rc-servis",component:AddRcServisComponent},
+      { path: ":id/new-airline",component: AddAirlineComponent}
     ]
   },
 
@@ -83,10 +86,7 @@ const routes: Routes = [
     path: "rent-a-car",
     component: RentACarComponent
   },
-  {
-    path: "add-rent-a-car",
-    component: AddRentACarComponent
-  },
+  
 
   {
     path: "profile",

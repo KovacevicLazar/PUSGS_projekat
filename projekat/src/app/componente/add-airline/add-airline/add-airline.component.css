@@ -8,7 +8,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+  -font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
@@ -141,4 +141,9 @@ fieldset {
 
 :-ms-input-placeholder {
   color: #888;
+}
+
+.header
+{
+    text-align: center;
 }
