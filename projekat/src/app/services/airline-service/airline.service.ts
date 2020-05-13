@@ -27,8 +27,8 @@ export class AirlineService{
         
 
        let TransitLocations = new Array<string>();
-       const f1=new Flight(0,"Beograd","Budimpesta",new Date(2020,7,14,10,30,0,0),new Date(2020,7,14,11,30,0,0),110,0,TransitLocations,120,340);
-       const f2=new Flight(1,"Beograd","Bec",new Date(2020,7,14,12,30,0,0),new Date(2020,7,14,11,30,0,0),210,0,TransitLocations,120,440);
+       const f1=new Flight(0,"Beograd","Budimpesta",new Date(2020,7,14,10,30,0,0),new Date(2020,7,14,11,30,0,0),110,0,TransitLocations,250);
+       const f2=new Flight(1,"Beograd","Bec",new Date(2020,7,14,12,30,0,0),new Date(2020,7,14,11,30,0,0),210,0,TransitLocations,330);
 
         a1.flights.push(f1);
         a2.flights.push(f2);

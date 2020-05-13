@@ -32,7 +32,7 @@
 
         <!-- Structural directive - only visible on selection -->
         <div style="text-align: right; margin-right: 220px;">
-            <div class="legend">SEATS SELECTED : <br/> {{SelectedSeats}} </div>
+            <div class="legend">SEATS SELECTED : <br/> {{selected.toString()}} </div>
             <div>
                 PRICE : {{ticketPrice}} * {{selected.length}} = {{ticketPrice*selected.length}} €
             </div>
@@ -41,7 +41,7 @@
         <!-- Action buttons -->
         <div style="width: 100%;">
             <button (click)="Back()" class="btnClear">Back</button>
-            <button mat-reised-button  (click)="openDialog()" [disabled]="selected.length === 0" class="btnBuy">Buy Tickets</button>
+            <button mat-reised-button  (click)="showSelected()"  class="btnBuy">Buy Tickets</button>
         </div>        
     </main>     
 </div>

@@ -1,3 +1,5 @@
+import { Seat } from '../seat/seat';
+
 export class Flight {
     
     id: number;
@@ -12,9 +14,10 @@ export class Flight {
     vacantSeats: number;
     busySeats: number;
     ticketPrice: number;
+    reservedSeats= new Array<Seat>() ;//['A2', 'A3', 'F5', 'F1', 'F2','F6', 'F7', 'F8'];
 
 
-    constructor(id: number, flyingfrom : string,flyingTo: string,dateDepart: Date,dateArrival: Date,flightDistance:number,numberTransit: number,Transitlocations: Array<string>,vacantSeats: number,ticketPrice: number){
+    constructor(id: number, flyingfrom : string,flyingTo: string,dateDepart: Date,dateArrival: Date,flightDistance:number,numberTransit: number,Transitlocations: Array<string>,ticketPrice: number){
        
         this.id=id;
 
@@ -26,7 +29,7 @@ export class Flight {
         this.flightDistance=flightDistance;
         this.numberTransit=numberTransit;
         this.Transitlocations=Transitlocations;
-        this.vacantSeats=vacantSeats;
+        this.vacantSeats=120; // svaki let nek ima isto sedista zbog grafickog prikaza za rezervaciju sedista..
         this.ticketPrice=ticketPrice;
     }
 

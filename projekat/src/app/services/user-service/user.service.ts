@@ -25,7 +25,14 @@ export class UserService{
 
         u1.friendsRequests.push(u2);
         u1.friendsRequests.push(u6);
+        
 
+        u1.friends.push(u3);
+        u1.friends.push(u4);
+        u1.friends.push(u3);
+        u1.friends.push(u4);
+        u1.friends.push(u3);
+        u1.friends.push(u4);
         u1.friends.push(u3);
         u1.friends.push(u4);
 
