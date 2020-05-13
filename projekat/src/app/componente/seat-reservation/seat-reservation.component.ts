@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservedSeatDialogComponent } from '../reserved-seat-dialog/reserved-seat-dialog.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Flight } from 'src/app/entities/flight/flight';
 import { AirlineService } from 'src/app/services/airline-service/airline.service';
 import {MatDialog,MatDialogRef, MAT_DIALOG_DATA}from '@angular/material/dialog';
@@ -20,19 +20,19 @@ export class SeatReservationComponent implements OnInit {
   userData= new Array<string>();
 
 
-  flight:Flight; 
+  flight : Flight; 
   user : User;
 
   
-  //variable declarations
-  flies:string ="";
-  time: string = ""
+  //
+  flies:string ="";//Tekst koji se ispisuje na vrhu
+ 
 
   rows: string[] = ['A', 'B', 'C', 'D', 'E', 'F'];
   cols: number[]  = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16,17,18,19,20];
 
   reserved = new Array<string>(); //koristimo za prikaz sedista koja su vec bila rezervisana
-  reservedSeat : Array<Seat>; //sedista koja smo slektoval(sa podacima o korisniku sedista)
+  reservedSeat= new Array<Seat>(); //sedista koja smo slektoval(sa podacima o korisniku sedista)
 
   selected: string[] = []; // pozicija selektovanih sedista
  
@@ -40,7 +40,7 @@ export class SeatReservationComponent implements OnInit {
   ticketPrice: number ;
   totalPrice: number = 0;
 
-  constructor(private userService : UserService ,private route: ActivatedRoute, private airlineService : AirlineService, public dialog: MatDialog) {
+  constructor(private userService : UserService, private router: Router ,private route: ActivatedRoute, private airlineService : AirlineService, public dialog: MatDialog) {
     let flightid = parseInt(this.route.snapshot.paramMap.get('flightID'));
     let userid = parseInt(this.route.snapshot.paramMap.get('id'));
     
@@ -85,55 +85,46 @@ export class SeatReservationComponent implements OnInit {
   Back() {
       this.selected = [];
       this.reservedSeat=[];
+      this.router.navigate(['/regus/' + this.user.id.toString() + '/airline']) 
   }
   //click handler
   seatClicked(seatPos: string) {
-      var index = this.selected.indexOf(seatPos);
+    var index = this.selected.indexOf(seatPos);
       
-      if(index !== -1) {
-          // seat already selected, remove
-          this.selected.splice(index, 1)
-
-          this.reservedSeat.forEach((element, index) => {
-            if(this.reservedSeat[index].seatName==seatPos){
-              this.reservedSeat.slice(index,1);
-            }
-          });
-
-      } else {
-          //push to selected array only if it is not reserved
-          if(this.reserved.indexOf(seatPos) === -1){
-            this.openDialog(seatPos).afterClosed().subscribe(result => {
-              if(result=="Cancel"){
-                alert("Rezervisanje ovog sedista nije uspelo. Pokusajte ponvo.")
-              }
-              else{
-                result= result as Array<string>;
-                let seat= new Seat();
-                seat.seatName=seatPos;
-                seat.nameOfUser=result[0];
-                seat.surnameOfUser= result[1];
-                seat.passportNumberOfUser= result[2];
-                
-                this.selected.push(seatPos);
-                this.reservedSeat.push(seat);
-              }
-            });
-            
-          }
+    if(this.reserved.indexOf(seatPos) === -1){
+      this.openDialog(seatPos).afterClosed().subscribe(result => {
+        if(result=="Cancel"){
+          alert("Rezervisanje ovog sedista nije uspelo. Pokusajte ponvo.")
+        }
+        else{
+          result= result as Array<string>;
+          let seat= new Seat();
+          seat.seatName=seatPos;
+          seat.nameOfUser=result[0];
+          seat.surnameOfUser= result[1];
+          seat.passportNumberOfUser= result[2];
               
-      }
+          this.selected.push(seatPos);
+          this.reservedSeat.push(seat);
+        }
+      });  
+    }
   }
-  //Buy button handler
   showSelected = function() {
       if(this.selected.length > 0) 
       {
-        alert("Reserved Seats: " + this.selected + "\nTotal: "+(this.ticketPrice * this.selected.length) + "€");
-        
         this.reservedSeat.forEach(element => {
           this.flight.reservedSeats.push(element);
           //treba menjati i u bazi ovaj let
         });
+
+        this.user.flightReservations.push(this.flight);
+
+        //Ovde poslati mejl korisniku za informaciju o destinaciji
+        alert("Reserved Seats: " + this.selected + "\nTotal: "+(this.ticketPrice * this.selected.length) + "€");
+
+        this.router.navigate(['/regus/' + this.user.id.toString() + '/history-of-reservation']) 
+
       } else {
           alert("No seats selected!");
       }

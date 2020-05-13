@@ -1,4 +1,6 @@
 import { Role} from 'src/app/entities/Enums/role.enum';
+import { Flight } from '../flight/flight';
+import { Car } from '../car/car';
 
 export class User{
     id : number
@@ -12,6 +14,9 @@ export class User{
 
     friends = new Array<User>();
     friendsRequests = new Array<User>();
+
+    flightReservations =  new Array<Flight>();
+    carReservations= new Array<Car>();
     
     
    

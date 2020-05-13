@@ -45,6 +45,7 @@ export class ReservedSeatDialogComponent implements OnInit {
     this.name=friend.name;
     this.surname=friend.surname;
     this.passportNumber="231";//treba dodati u klasu user i ovo polje
+    //Potrebno prijatelju je poslati poruku sa zahtevom ovde
   }
   myData(){
     this.name=this.user.name;

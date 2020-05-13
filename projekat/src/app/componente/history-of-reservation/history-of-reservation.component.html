@@ -1,0 +1,22 @@
+<table  class="table table-hover">
+    <thead>
+        <tr class="booking-cta">
+            <th >Depart:</th>
+            <th >Landing:</th>
+            <th >Transit:</th>
+            <th >Duration:</th>
+
+        </tr>
+    </thead>
+    <tbody >
+        <tr *ngFor="let flight of user.flightReservations">
+            <td>{{flight.flyingfrom}} <br> {{flight.dateDepart | date:'medium' }}</td>
+            <td> {{flight.flyingTo}} <br> {{flight.dateArrival | date:'medium' }}</td>
+            <td> {{flight.numberTransit}} </td>
+            <td> h:m:s <br> {{flight.flightDuration | date: "H:m:s" }} </td>
+            <td>
+                Price:<span class="price-text">{{flight.ticketPrice}}€</span> <br/>
+            </td>
+        </tr>
+    </tbody>
+</table>

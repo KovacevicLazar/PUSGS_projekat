@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/entities/user/user';
+import { Flight } from 'src/app/entities/flight/flight';
 
 @Injectable({
     providedIn: 'root'
@@ -35,6 +36,15 @@ export class UserService{
         u1.friends.push(u4);
         u1.friends.push(u3);
         u1.friends.push(u4);
+
+
+        const f1=new Flight(0,"Beograd","Budimpesta",new Date(2020,7,14,10,30,0,0),new Date(2020,7,14,11,30,0,0),110,0,null,250);
+        const f2=new Flight(1,"Beograd","Bec",new Date(2020,7,14,12,30,0,0),new Date(2020,7,14,11,30,0,0),210,0,null,330);
+
+        u1.flightReservations.push(f1);
+        u1.flightReservations.push(f2);
+        u1.flightReservations.push(f1);
+        u1.flightReservations.push(f2);
 
         allUsers.push(u1);
         allUsers.push(u2);

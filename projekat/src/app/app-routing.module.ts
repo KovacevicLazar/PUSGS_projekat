@@ -18,6 +18,7 @@ import { AirlineDescriptionComponent } from './componente/airline-description/ai
 import { AddRcServisComponent} from './componente/add-rc-servis/add-rc-servis/add-rc-servis.component';
 import { AddAirlineComponent} from './componente/add-airline/add-airline/add-airline.component';
 import { SeatReservationComponent } from './componente/seat-reservation/seat-reservation.component';
+import { HistoryOfReservationComponent } from './componente/history-of-reservation/history-of-reservation.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,8 @@ const routes: Routes = [
         {path: "" , component: AirlineComponent},
         {path: ":flightID" , component: SeatReservationComponent}
       ]
-    },
+      },
+      { path: ":id/history-of-reservation", component: HistoryOfReservationComponent},
       {  path: ":id/rent-a-car", component: RentACarComponent},
       { path: ":id/new-rc-servis",component:AddRcServisComponent},
       { path: ":id/new-airline",component: AddAirlineComponent}

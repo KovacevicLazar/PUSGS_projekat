@@ -31,6 +31,7 @@ import { AddRcServisComponent } from './componente/add-rc-servis/add-rc-servis/a
 import { SeatReservationComponent } from './componente/seat-reservation/seat-reservation.component';
 import { ReservedSeatDialogComponent } from './componente/reserved-seat-dialog/reserved-seat-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HistoryOfReservationComponent } from './componente/history-of-reservation/history-of-reservation.component';
 
 
 
@@ -58,7 +59,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AddAirlineComponent,
     AddRcServisComponent,
     SeatReservationComponent,
-    ReservedSeatDialogComponent
+    ReservedSeatDialogComponent,
+    HistoryOfReservationComponent
     
   ],
   imports: [
