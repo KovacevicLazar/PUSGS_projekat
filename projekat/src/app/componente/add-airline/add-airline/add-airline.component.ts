@@ -19,6 +19,7 @@ export class AddAirlineComponent implements OnInit {
   public name="";
   public address="";
   public mark;
+  public destinations ="";
   public description="";
   ocijena: number;
 
@@ -51,7 +52,7 @@ export class AddAirlineComponent implements OnInit {
 
     if(temp)
     {
-      let newAirline = new  Airline(6,this.name,this.address,this.description,this.mark);
+      let newAirline = new  Airline(6,this.name,this.address,this.description,this.mark,this.destinations);
       this.allAirlines.push(newAirline);
       alert("The new airline is succesfully added! ");
       

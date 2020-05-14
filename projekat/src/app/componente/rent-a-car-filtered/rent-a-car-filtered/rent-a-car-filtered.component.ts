@@ -22,7 +22,12 @@ export class RentACarFilteredComponent implements OnInit {
   }
   OnSubmit(rentcars)
   {
-      this.router.navigate(['/nonregusDesc',rentcars.id])
+      
+    this.router.navigate(['/nonregRC/'.concat(rentcars.id.toString(),'/rentcDesc')]);
+  }
+  FilialsClick(rentcars)
+  {
+    this.router.navigate(['/nonregRC/'.concat(rentcars.id.toString(),'/rentCarDest')]);
   }
   
 

@@ -16,6 +16,7 @@ export class AddRcServisComponent implements OnInit {
   public name="";
   public address="";
   public mark;
+  public branches ="";
   public description="";
   ocijena: number;
   
@@ -49,7 +50,7 @@ export class AddRcServisComponent implements OnInit {
 
     if(temp)
     {
-      let newRentCar = new  RentCar(6,this.name,this.address,this.description,this.mark);
+      let newRentCar = new  RentCar(6,this.name,this.address,this.description,this.mark,this.branches);
       this.allRentCars.push(newRentCar);
       alert("The new rent a car service is succesfully added! ");
       

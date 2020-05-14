@@ -19,7 +19,12 @@ export class AirlineFilteredComponent implements OnInit {
 
   OnSubmit(airline)
   {
-      this.router.navigate(['/nonregusDesc' ,airline.id]) 
+    this.router.navigate(['/nonreg/'.concat(airline.id.toString(),'/airDesc')]);
+  }
+
+  DestDugme(airline)
+  {
+    this.router.navigate(['/nonreg/'.concat(airline.id.toString(),'/airDest')]);
   }
 
 }

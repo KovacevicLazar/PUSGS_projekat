@@ -19,6 +19,8 @@ import { AddRcServisComponent} from './componente/add-rc-servis/add-rc-servis/ad
 import { AddAirlineComponent} from './componente/add-airline/add-airline/add-airline.component';
 import { SeatReservationComponent } from './componente/seat-reservation/seat-reservation.component';
 import { HistoryOfReservationComponent } from './componente/history-of-reservation/history-of-reservation.component';
+import { AirlineDestinationsComponent } from './componente/airline-destinations/airline-destinations/airline-destinations.component';
+import { RentCarBranchComponent } from './componente/rent-car-branch/rent-car-branch/rent-car-branch.component';
 
 const routes: Routes = [
   {
@@ -46,14 +48,21 @@ const routes: Routes = [
   },
 
   {
-    path: "nonregusDesc",
+    path: "nonreg",
     children: [
-      
-     { path : ":rentcarId",component: RentCarDescriptionComponent},
-     { path : ":airlineId", component: AirlineDescriptionComponent }
+     { path : ":idAir/airDesc", component: AirlineDescriptionComponent },
+     { path : ":idAir/airDest",component: AirlineDestinationsComponent}
     ]
   },
- 
+
+  { path: "nonregRC",
+  children: [
+    { path : ":idRC/rentcDesc",component: RentCarDescriptionComponent },
+    { path : ":idRC/rentCarDest",component: RentCarBranchComponent}
+  ]
+},
+
+
  
   {
     path: "airline",

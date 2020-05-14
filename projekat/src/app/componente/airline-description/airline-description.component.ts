@@ -18,7 +18,7 @@ export class AirlineDescriptionComponent implements OnInit {
   constructor(private airlineService: AirlineService,private route: ActivatedRoute) { 
     this.allAirlines = this.airlineService.loadAirlines();
 
-    let id = parseInt(this.route.snapshot.paramMap.get('id'));
+    let id = parseInt(this.route.snapshot.paramMap.get('idAir'));
     this.airlineId = id;
 
     this.allAirlines.forEach(element =>{

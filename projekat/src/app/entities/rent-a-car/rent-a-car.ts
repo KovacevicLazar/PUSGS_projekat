@@ -7,14 +7,16 @@ export class RentCar{
     description: string;
     mark: number;
     availableCars =  new Array<Car>();
+    branches: string;
 
-    constructor(id: number,name: string,address: string,description: string,mark: number)
+    constructor(id: number,name: string,address: string,description: string,mark: number,branches: string)
     {
         this.id = id;
         this.name = name;
         this.address = address;
         this.description = description;
         this.mark = mark;
+        this.branches = branches;
        
     }
 

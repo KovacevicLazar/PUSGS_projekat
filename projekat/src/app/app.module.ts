@@ -32,6 +32,8 @@ import { SeatReservationComponent } from './componente/seat-reservation/seat-res
 import { ReservedSeatDialogComponent } from './componente/reserved-seat-dialog/reserved-seat-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HistoryOfReservationComponent } from './componente/history-of-reservation/history-of-reservation.component';
+import { AirlineDestinationsComponent } from './componente/airline-destinations/airline-destinations/airline-destinations.component';
+import { RentCarBranchComponent } from './componente/rent-car-branch/rent-car-branch/rent-car-branch.component';
 
 
 
@@ -60,7 +62,9 @@ import { HistoryOfReservationComponent } from './componente/history-of-reservati
     AddRcServisComponent,
     SeatReservationComponent,
     ReservedSeatDialogComponent,
-    HistoryOfReservationComponent
+    HistoryOfReservationComponent,
+    AirlineDestinationsComponent,
+    RentCarBranchComponent
     
   ],
   imports: [
