@@ -6,5 +6,6 @@
   <a  style="float: right;" routerLink="">LOGOUT</a>
   <a style="float: right;" [hidden]="user.role ==0 || user.role == 1 || user.role==2" routerLink ="/regus/{{user.id}}/new-rc-servis">NEW RENT A CAR SERVICE</a>
   <a style="float: right;" [hidden]="user.role ==0 || user.role == 1 || user.role == 2" routerLink ="/regus/{{user.id}}/new-airline"> NEW AIRLINE</a>
-  
+  <a style="float: right;" [hidden]="user.role == 0 || user.role == 2 || user.role == 3" routerLink ="/regus/{{user.id}}/myRCservis"> SERVICE INFO</a>
+  <a style="float: right;" [hidden] ="user.role == 0 || user.role == 2 || user.role == 3" routerLink ="/regus/{{user.id}}/myCarList"> LIST OF CARS</a>
 </div> 

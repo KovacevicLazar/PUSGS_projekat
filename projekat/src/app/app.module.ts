@@ -34,6 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HistoryOfReservationComponent } from './componente/history-of-reservation/history-of-reservation.component';
 import { AirlineDestinationsComponent } from './componente/airline-destinations/airline-destinations/airline-destinations.component';
 import { RentCarBranchComponent } from './componente/rent-car-branch/rent-car-branch/rent-car-branch.component';
+import { MyRcServisComponent } from './componente/my-rc-servis/my-rc-servis/my-rc-servis.component';
+import { MyCarListComponent } from './componente/my-car-list/my-car-list/my-car-list.component';
 
 
 
@@ -64,7 +66,9 @@ import { RentCarBranchComponent } from './componente/rent-car-branch/rent-car-br
     ReservedSeatDialogComponent,
     HistoryOfReservationComponent,
     AirlineDestinationsComponent,
-    RentCarBranchComponent
+    RentCarBranchComponent,
+    MyRcServisComponent,
+    MyCarListComponent
     
   ],
   imports: [
