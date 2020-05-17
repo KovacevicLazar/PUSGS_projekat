@@ -1,0 +1,15 @@
+.sectiondiv {
+	position: relative;
+    height: 100vh;
+    background: #6ca1f1;
+	background-size: cover;
+	background-position: center;
+}
+
+.naslov
+{
+    font-size: large;
+    font: bold;
+    text-align: center;
+
+}

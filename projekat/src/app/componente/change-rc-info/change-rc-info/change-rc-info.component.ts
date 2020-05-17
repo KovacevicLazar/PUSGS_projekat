@@ -5,29 +5,37 @@ import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-s
 import { User } from 'src/app/entities/user/user';
 import { RouterModule,Router }  from '@angular/router';
 import { UserService } from 'src/app/services/user-service/user.service';
-
+import { NgForm } from '@angular/forms';
 
 
 
 @Component({
-  selector: 'app-my-rc-servis',
-  templateUrl: './my-rc-servis.component.html',
-  styleUrls: ['./my-rc-servis.component.css']
+  selector: 'app-change-rc-info',
+  templateUrl: './change-rc-info.component.html',
+  styleUrls: ['./change-rc-info.component.css']
 })
-export class MyRcServisComponent implements OnInit {
-
- 
+export class ChangeRcInfoComponent implements OnInit {
 
   allRentcCars: Array<RentCar>;
   myrentcar: RentCar;
   
   id : number;
   user: User;
+  public description ="";
+  public branches ="";
+  public address ="";
+  public name ="";
+ 
+
+  
+  
+  
 
   
   constructor(private rentcarService: RentCarService  ,private router: Router,private route: ActivatedRoute,private userService : UserService) { 
 
     this.allRentcCars = this.rentcarService.loadRentCars();
+   
     
     route.params.subscribe(params => { this.id = params['id']; })
     this.userService.loadUsers().forEach(element => {
@@ -49,14 +57,24 @@ export class MyRcServisComponent implements OnInit {
          
         }
       });
+      
   }
 
   ngOnInit(): void {
   }
 
-  ChangeInfos()
+  SaveChanges()
   {
-    this.router.navigate(['/regus/'.concat(this.user.id.toString(),'/myRCservis/changeInfo')]);
+    let check = true;
+    if(this.name.trim() =="" || this.address.trim() == "" || this.description.trim() =="" || this.branches.trim() == "")
+    {
+      alert("Sva polja moraju biti popunjena");
+       check= false
+    }
+    if(check)
+    {
+      //vratiti nazad
+    }
   }
 
 }

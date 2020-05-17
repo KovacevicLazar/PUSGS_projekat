@@ -23,6 +23,7 @@ import { AirlineDestinationsComponent } from './componente/airline-destinations/
 import { RentCarBranchComponent } from './componente/rent-car-branch/rent-car-branch/rent-car-branch.component';
 import { MyRcServisComponent } from './componente/my-rc-servis/my-rc-servis/my-rc-servis.component';
 import { MyCarListComponent } from './componente/my-car-list/my-car-list/my-car-list.component';
+import { ChangeRcInfoComponent } from './componente/change-rc-info/change-rc-info/change-rc-info.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,12 @@ const routes: Routes = [
       { path: ":id", component: RegisteredUserComponent},
       { path: ":id/profile", component: ProfileComponent },
       { path: ":id/friends", component: FriendsComponent },
-      { path: ":id/myRCservis",component: MyRcServisComponent},
+      { path: ":id/myRCservis",
+        children:[
+         { path: "", component: MyRcServisComponent},
+         { path:"changeInfo",component: ChangeRcInfoComponent }
+        ]
+      },
       { path: ":id/myCarList", component: MyCarListComponent},
       { path: ":id/airline", 
       children:[
@@ -48,6 +54,7 @@ const routes: Routes = [
       {  path: ":id/rent-a-car", component: RentACarComponent},
       { path: ":id/new-rc-servis",component:AddRcServisComponent},
       { path: ":id/new-airline",component: AddAirlineComponent}
+      
     ]
   },
 

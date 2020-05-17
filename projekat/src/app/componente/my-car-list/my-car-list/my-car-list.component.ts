@@ -6,6 +6,7 @@ import { User } from 'src/app/entities/user/user';
 import { RouterModule,Router }  from '@angular/router';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { Car } from 'src/app/entities/car/car';
+import { element } from 'protractor';
 
 
 
@@ -23,6 +24,8 @@ export class MyCarListComponent implements OnInit {
   user : User;
   imeneko: string;
   allcars: Array<Car>;
+  check1: boolean;
+  check2: boolean;
 
   
   constructor(private rentcarService: RentCarService  ,private router: Router,private route: ActivatedRoute,private userService : UserService) { 
@@ -52,6 +55,42 @@ export class MyCarListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  Remove(car,allcars)
+  {
+      if(car.currentlyAvailable == true)
+      {
+        alert("You can't remove this car, it's booked for a customer")
+      }
+      else
+      {
+        allcars.forEach(element =>
+          {
+            if(element.id == car.id)
+            {
+              allcars.splice(element.id,1);
+            }
+          })
+      }
+  }
+
+  Modify(car,allcars)
+  {
+    if(car.currentlyAvailable == true)
+    {
+      alert("You can't modify this car, it's already booked for a customer,")
+    }
+    else
+    {
+      allcars.forEach(element =>
+        {
+          if(element.id == car.id)
+          {
+            allcars.splice(element.id,1);
+          }
+        })
+    }
   }
 
 }
