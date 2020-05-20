@@ -16,3 +16,5 @@
 	border-radius: 4px;
 	text-transform: uppercase
 }
+
+tr:nth-child(even) {background-color:#a5c6fa;}

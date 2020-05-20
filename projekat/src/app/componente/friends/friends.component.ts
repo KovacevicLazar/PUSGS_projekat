@@ -43,6 +43,14 @@ export class FriendsComponent implements OnInit {
     });
   }
 
+  DeleteRequest(friend){
+    this.user.friendsRequests.forEach((element, index) => {
+      if(element.id==friend.id){
+        this.user.friendsRequests.splice(index,1);
+      }
+    });
+  }
+
   Search(){
     this.FilteredFriend.length=0;
     if(this.SearchFriend==""){

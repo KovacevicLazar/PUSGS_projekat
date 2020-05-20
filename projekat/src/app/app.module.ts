@@ -37,6 +37,8 @@ import { RentCarBranchComponent } from './componente/rent-car-branch/rent-car-br
 import { MyRcServisComponent } from './componente/my-rc-servis/my-rc-servis/my-rc-servis.component';
 import { MyCarListComponent } from './componente/my-car-list/my-car-list/my-car-list.component';
 import { ChangeRcInfoComponent } from './componente/change-rc-info/change-rc-info/change-rc-info.component';
+import { MyAirlineServisComponent } from './componente/my-airline-servis/my-airline-servis.component';
+import { MyFlightListComponent } from './componente/my-flight-list/my-flight-list.component';
 
 
 
@@ -70,7 +72,9 @@ import { ChangeRcInfoComponent } from './componente/change-rc-info/change-rc-inf
     RentCarBranchComponent,
     MyRcServisComponent,
     MyCarListComponent,
-    ChangeRcInfoComponent
+    ChangeRcInfoComponent,
+    MyAirlineServisComponent,
+    MyFlightListComponent
     
   ],
   imports: [

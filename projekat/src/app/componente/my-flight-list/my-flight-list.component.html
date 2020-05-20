@@ -1,11 +1,6 @@
+<hr/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<div>
-    <app-nav-menu [user]="user"></app-nav-menu> 
-</div>
-<div class="header">
-  
-    <div class="headerTitle">YOUR RESERVATIONS </div>
-</div>
 <table  class="table table-hover">
     <thead>
         <tr class="booking-cta">
@@ -17,7 +12,7 @@
         </tr>
     </thead>
     <tbody >
-        <tr *ngFor="let flight of user.flightReservations">
+        <tr *ngFor="let flight of allFlight">
             <td>{{flight.flyingfrom}} <br> {{flight.dateDepart | date:'medium' }}</td>
             <td> {{flight.flyingTo}} <br> {{flight.dateArrival | date:'medium' }}</td>
             <td> {{flight.numberTransit}} </td>
@@ -25,6 +20,13 @@
             <td>
                 Price:<span class="price-text">{{flight.ticketPrice}}€</span> <br/>
             </td>
+            <td >
+                <button  type="button" class="btn btn-primary btn-lg" (click) ="Modify()">Modify</button>
+            </td>
+            <td>
+                <button  type="button" class="btn btn-primary btn-lg" (click)="Remove()">Remove</button>
+            </td>
+        
         </tr>
     </tbody>
 </table>
