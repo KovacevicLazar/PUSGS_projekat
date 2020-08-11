@@ -9,8 +9,10 @@ export class RentCar{
     availableCars =  new Array<Car>();
     branches: string;
     adminId: number;
+    adminName: string;
+    activated:boolean;
 
-    constructor(id: number,name: string,address: string,description: string,mark: number,branches: string,adminId: number)
+    constructor(id: number,name: string,address: string,description: string,mark: number,branches: string,adminId: number, adminName: string)
     {
         this.id = id;
         this.name = name;
@@ -19,7 +21,8 @@ export class RentCar{
         this.mark = mark;
         this.branches = branches;
         this.adminId = adminId;
-       
+        this.adminName=adminName;
+        this.activated=false;
     }
 
 }

@@ -106,12 +106,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="background:  #cce0ff;opacity: 90%; " [hidden]="allAirline.length === 0 || SearchButtonClicket == 1">
-				<app-airline-filtered [allAirline]="allAirline"></app-airline-filtered>
-			</div>
-			<div  style="background:  #cce0ff" [hidden]="allAirline.length !== 0 || SearchButtonClicket == 1">
-				<h5 style="font-size: 16px; color:  #0066ff; opacity: 90%; font-weight: 100; text-align: center;">TRENUTNO NEMA AVIO KOMPANIJA.</h5>
-			</div>
+			
 			<div style="background:  #cce0ff;opacity: 90%; " [hidden]="SearchButtonClicket == 0 || Flights.length === 0 ">
 				<app-flyghts-table [Flights]="Flights"></app-flyghts-table>
 			</div>

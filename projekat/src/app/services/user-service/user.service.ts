@@ -20,7 +20,7 @@ export class UserService{
         const u1 = new User(1,"Petar","Vlacic","pera@gmail.com","065222272","Mostar", 0, "123");
         const u2 = new User(2,"Helena","Isic","helena@yahoo.com","066323112","Beograd",1,"111");
         const u3 = new User(3,"Milos","Krasic","milos@hotmail.com","064373221","Nis",2,"321");
-        const u4 = new User(4,"Jovana","Cojic","joca@hotmail.com","065493515","Novi Sad",3,"222883");
+        const u4 = new User(4,"Jovana","Cojic","superadmin@hotmail.com","065493515","Novi Sad",3,"222883");
         const u5 = new User(5,"David","Milosevic","daki@gmail.com","062323112","Sekovici",0,"444");
         const u6 = new User(6,"Sofija","Glisic","sofija@yahoo.com","065678323","Trnovo",1,"11111");
 

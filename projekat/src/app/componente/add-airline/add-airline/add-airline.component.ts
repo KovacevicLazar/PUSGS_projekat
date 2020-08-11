@@ -17,6 +17,7 @@ export class AddAirlineComponent implements OnInit {
   
 
   public name="";
+  public username="";
   public address="";
   public mark;
   public destinations ="";
@@ -44,7 +45,7 @@ export class AddAirlineComponent implements OnInit {
                    
     })
 
-      if(this.name == "" || this.address == "" || this.description == "" || this.ocijena == null)
+      if(this.name == "" || this.address == "" || this.username == "")
       {
         alert("You have to fill all fields, invalid request");
         temp = false;
@@ -52,11 +53,10 @@ export class AddAirlineComponent implements OnInit {
 
     if(temp)
     {
-      let newAirline = new  Airline(6,this.name,this.address,this.description,this.mark,this.destinations);
+      let newAirline = new  Airline(6,this.name,this.address,this.description,this.mark,this.destinations,1,this.username);
       this.allAirlines.push(newAirline);
       alert("The new airline is succesfully added! ");
-      
-      
+      this.router.navigate(['/regus/4/all-airline']);
 
     }
   }

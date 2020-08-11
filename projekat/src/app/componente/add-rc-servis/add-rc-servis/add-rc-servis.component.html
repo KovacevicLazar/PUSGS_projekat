@@ -3,17 +3,17 @@
     <h3> New Rent a Car Service</h3>
     <br>
     <fieldset>
-      <input type="text" [(ngModel)]="name" name="name"  placeholder="Name of the service.."  tabindex="1" required autofocus>
+      <input type="text" [(ngModel)]="username" name="username"  placeholder="Username of admin..."  tabindex="1" required autofocus>
+    </fieldset>
+
+    <fieldset>
+      <input type="text" [(ngModel)]="name" name="name"  placeholder="Name of the new company..."  tabindex="1" required autofocus>
     </fieldset>
     <fieldset>
-      <input type="email"  [(ngModel)] ="address" name="address"  placeholder="Addres of the service..."  tabindex="2" required>
+      <input type="email"  [(ngModel)] ="address" name="address"  placeholder="Addres of the company..."  tabindex="2" required>
     </fieldset>
-    <fieldset>
-      <input  type="tel" [(ngModel)] ="mark" name ="mark"    placeholder="Your mark of the service..." tabindex="3" required>
-    </fieldset>
-    <fieldset>
-      <textarea   type ="text" [(ngModel)] = "branches" name="branches" placeholder="branches ...." tabindex="4" required></textarea>
-    </fieldset>
+    
+    
     <fieldset>
       <textarea   type ="text" [(ngModel)] = "description" name="description" placeholder="Description ...." tabindex="5" required></textarea>
     </fieldset>

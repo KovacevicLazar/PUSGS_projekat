@@ -26,6 +26,8 @@ import { MyCarListComponent } from './componente/my-car-list/my-car-list/my-car-
 import { ChangeRcInfoComponent } from './componente/change-rc-info/change-rc-info/change-rc-info.component';
 import { MyAirlineServisComponent } from './componente/my-airline-servis/my-airline-servis.component';
 import { MyFlightListComponent } from './componente/my-flight-list/my-flight-list.component';
+import { ListOfAirlinesComponent } from './componente/list-of-airlines/list-of-airlines.component';
+import { ListOfCarCompaniesComponent } from './componente/list-of-car-companies/list-of-car-companies.component';
 
 const routes: Routes = [
   {
@@ -65,8 +67,10 @@ const routes: Routes = [
       },
       { path: ":id/history-of-reservation", component: HistoryOfReservationComponent},
       {  path: ":id/rent-a-car", component: RentACarComponent},
-      { path: ":id/new-rc-servis",component:AddRcServisComponent},
-      { path: ":id/new-airline",component: AddAirlineComponent}
+      { path: ":id/all-rc-servis",component: ListOfCarCompaniesComponent},
+      { path: ":id/all-airline",component: ListOfAirlinesComponent},
+      { path: ":id/add-airline",component: AddAirlineComponent},
+      { path: ":id/add-rcServis",component: AddRcServisComponent}
       
     ]
   },
@@ -97,6 +101,20 @@ const routes: Routes = [
       { path: "airline-filtered", component: AirlineFilteredComponent, }
     ]
   },
+
+
+
+  {
+    path: "airline-table",
+    component: AirlineFilteredComponent,
+  },
+  {
+    path: "rent-a-car-table",
+    component: RentACarFilteredComponent,
+  },
+
+
+
   {
     path: "airline-filtered",
     component: AirlineFilteredComponent,

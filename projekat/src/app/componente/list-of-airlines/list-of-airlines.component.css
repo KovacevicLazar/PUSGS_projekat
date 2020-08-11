@@ -1,0 +1,97 @@
+.dataTables_length, .dataTables_wrapper {
+    font-size: 1.6rem;
+}
+.dataTables_length select, .dataTables_wrapper select, .dataTables_length input, .dataTables_wrapper input {
+    background-color: #f9f9f9;
+    border: 1px solid #999;
+    border-radius: 4px;
+    height: 3rem;
+    line-height: 2;
+    font-size: 1.8rem;
+    color: #333;
+}
+.dataTables_length .dataTables_length, .dataTables_wrapper .dataTables_length, .dataTables_length .dataTables_filter, .dataTables_wrapper .dataTables_filter {
+    margin-top: 30px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    display: inline-flex;
+}
+.paginate_button {
+    min-width: 4rem;
+    display: inline-block;
+    text-align: center;
+    padding: 1rem 1.6rem;
+    margin-top: -1rem;
+    border: 2px solid lightblue;
+}
+.paginate_button:not(.previous) {
+    border-left: none;
+}
+.paginate_button.previous {
+    border-radius: 8px 0 0 8px;
+    min-width: 7rem;
+}
+.paginate_button.next {
+    border-radius: 0 8px 8px 0;
+    min-width: 7rem;
+}
+.paginate_button:hover {
+    cursor: pointer;
+    background-color: #eee;
+    text-decoration: none;
+}
+
+th
+{
+    cursor: pointer;
+}
+
+td,th
+{
+    text-align: center;
+}
+.container
+{
+    margin-top: 40px;
+}
+
+.btn {
+    box-sizing: border-box;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #e74c3c;
+    border-radius: 0.6em;
+    color: #e74c3c;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 1rem;
+    line-height: 1;
+    margin: 20px;
+    margin-left: 200px;
+    padding: 1.0em 2.4em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-weight:1000;
+    left:60%;
+    
+}
+.btn:hover, .btn:focus {
+    color: #fff;
+    outline: 0;
+}
+.fourth {
+    border-color: #303F9F;
+    color: black;
+    background-image: linear-gradient(45deg, #303F9F 50%, transparent 50%);
+    background-position: 100%;
+    background-size: 500%;
+    transition: background 300ms ease-in-out;
+}
+.fourth:hover {
+    background-position: 0;
+}
+
+ 

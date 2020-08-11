@@ -14,12 +14,12 @@ export class AddRcServisComponent implements OnInit {
 
   allRentCars : Array<RentCar>;
   public name="";
+  public username="";
   public address="";
   public mark;
-  public branches ="";
+  public destinations ="";
   public description="";
   ocijena: number;
-  
 
   constructor(private rentcarService : RentCarService,private router :Router) {
     this.allRentCars = this.rentcarService.loadRentCars();
@@ -42,7 +42,7 @@ export class AddRcServisComponent implements OnInit {
                    
     })
 
-      if(this.name == "" || this.address == "" || this.description == "" || this.ocijena == null)
+      if(this.name == "" || this.address == "" || this.username == "")
       {
         alert("You have to fill all fields, invalid request");
         temp = false;
@@ -53,7 +53,7 @@ export class AddRcServisComponent implements OnInit {
      // let newRentCar = new  RentCar(6,this.name,this.address,this.description,this.mark,this.branches);
       //this.allRentCars.push(newRentCar);
       alert("The new rent a car service is succesfully added! ");
-      
+      this.router.navigate(['/regus/4/all-rc-servis']);
       
 
     }

@@ -9,9 +9,11 @@ export class Airline{
     destinations: string;
     flights = new Array<Flight>(); // obavezno ovako... ne ovako: flights: Array<Flight>;
     adminId: number;
+    adminName: string;
+    activated: boolean;
     
 
-    constructor(id:number,name: string,address: string,description: string,mark: number,destinations: string,adminId: number)
+    constructor(id:number,name: string,address: string,description: string,mark: number,destinations: string,adminId: number,adminName: string)
     {
         this.id = id;
         this.name = name;
@@ -20,6 +22,7 @@ export class Airline{
         this.mark = mark;
         this.destinations = destinations;
         this.adminId=adminId;
-       
+        this.adminName=adminName;
+        this.activated=false;
     }
 }

@@ -3,17 +3,16 @@
     <h3 class ="header"> New Airline</h3>
     <br>
     <fieldset>
+      <input type="text" [(ngModel)]="username" name="username"  placeholder="Username of admin..."  tabindex="1" required autofocus>
+    </fieldset>
+
+    <fieldset>
       <input type="text" [(ngModel)]="name" name="name"  placeholder="Name of the new airline..."  tabindex="1" required autofocus>
     </fieldset>
     <fieldset>
       <input type="email"  [(ngModel)] ="address" name="address"  placeholder="Addres of the airline..."  tabindex="2" required>
     </fieldset>
-    <fieldset>
-      <input  type="tel" [(ngModel)] ="mark" name ="mark"    placeholder="Your mark of the service..." tabindex="3" required>
-    </fieldset>
-    <fieldset>
-      <textarea  type="destinations" [(ngModel)] ="destinations" name ="destinations"    placeholder="Destinations..." tabindex="4" required></textarea>
-    </fieldset>
+    
     
     <fieldset>
       <textarea   type ="text" [(ngModel)] = "description" name="description" placeholder="Description ...." tabindex="5" required></textarea>

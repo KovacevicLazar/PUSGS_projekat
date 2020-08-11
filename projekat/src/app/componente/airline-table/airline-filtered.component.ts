@@ -1,5 +1,6 @@
 import { Component, OnInit , Input} from '@angular/core';
 import { Router } from '@angular/router';
+import { AirlineService } from 'src/app/services/airline-service/airline.service';
 
 @Component({
   selector: 'app-airline-filtered',
@@ -12,7 +13,9 @@ export class AirlineFilteredComponent implements OnInit {
   @Input() user;
   id: number;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private Airlines:AirlineService) { 
+    this.allAirline=Airlines.loadAirlines();
+  }
 
   ngOnInit(): void {
   }

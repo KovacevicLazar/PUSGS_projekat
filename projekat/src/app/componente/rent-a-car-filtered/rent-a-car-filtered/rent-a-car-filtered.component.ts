@@ -1,5 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-service';
 
 
 
@@ -15,7 +16,9 @@ export class RentACarFilteredComponent implements OnInit {
  
   
   
-  constructor(private router: Router) { }
+  constructor(private RentACars:RentCarService,private router: Router) { 
+    this.allrentcars=RentACars.loadRentCars();
+  }
 
   ngOnInit(): void {
   
