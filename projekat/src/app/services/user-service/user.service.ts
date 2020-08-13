@@ -17,26 +17,27 @@ export class UserService{
     mockedUsers(): Array<User>{
         let allUsers = new Array<User>();
 
-        const u1 = new User(1,"Petar","Vlacic","pera@gmail.com","065222272","Mostar", 0, "123");
-        const u2 = new User(2,"Helena","Isic","helena@yahoo.com","066323112","Beograd",1,"111");
-        const u3 = new User(3,"Milos","Krasic","milos@hotmail.com","064373221","Nis",2,"321");
-        const u4 = new User(4,"Jovana","Cojic","superadmin@hotmail.com","065493515","Novi Sad",3,"222883");
-        const u5 = new User(5,"David","Milosevic","daki@gmail.com","062323112","Sekovici",0,"444");
-        const u6 = new User(6,"Sofija","Glisic","sofija@yahoo.com","065678323","Trnovo",1,"11111");
-
-        u1.friendsRequests.push(u2);
-        u1.friendsRequests.push(u6);
+        const u1 = new User(1,"Petar","Vlacic","obican1@gmail.com","065222272","Mostar", 0, "obican1");
+        const u2 = new User(2,"David","Milosevic","obican2@gmail.com","062323112","Sekovici",0,"obican2");
+        const u3 = new User(3,"Novi","nOVIc","obican3@gmail.com","065678323","Trnovo",0,"obican3");
+        const u4 = new User(4,"Petar","Vlacic","obican4@gmail.com","065222272","Mostar", 0, "obican4");
+        const u5 = new User(5,"David","Milosevic","obican5@gmail.com","062323112","Sekovici",0,"obican5");
+        const u6 = new User(6,"Novi","nOVIc","obican6@gmail.com","065678323","Trnovo",0,"obican6");
+        const u7 = new User(7,"Helena","Isic","caradmin1@gmail.com","066323112","Beograd",1,"caradmin1");
+        const u8 = new User(8,"Sofija","Glisic","caradmin2@gmail.com","065678323","Trnovo",1,"caradmin2");
+        const u9 = new User(9,"Milos","Krasic","avioadmin1@gmail.com","064373221","Nis",2,"avioadmin1");
+        const u10 = new User(10,"Jovana","Cojic","superadmin@gmail.com","065493515","Novi Sad",3,"superadmin");
+        
+        
         
 
-        u1.friends.push(u3);
-        u1.friends.push(u4);
-        u1.friends.push(u3);
-        u1.friends.push(u4);
-        u1.friends.push(u3);
-        u1.friends.push(u4);
-        u1.friends.push(u3);
-        u1.friends.push(u4);
+        u1.friendsRequests.push(u2);
+        u1.friendsRequests.push(u3);
+        
 
+        u1.friends.push(u4);
+        u1.friends.push(u5);
+       
 
         const f1=new Flight(0,"Beograd","Budimpesta",new Date(2020,7,14,10,30,0,0),new Date(2020,7,14,11,30,0,0),110,0,null,250);
         const f2=new Flight(1,"Beograd","Bec",new Date(2020,7,14,12,30,0,0),new Date(2020,7,14,11,30,0,0),210,0,null,330);
@@ -52,6 +53,10 @@ export class UserService{
         allUsers.push(u4);
         allUsers.push(u5);
         allUsers.push(u6);
+        allUsers.push(u7);
+        allUsers.push(u8);
+        allUsers.push(u9);
+        allUsers.push(u10);
 
         return allUsers;
     }

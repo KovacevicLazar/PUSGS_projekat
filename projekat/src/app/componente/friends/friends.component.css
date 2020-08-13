@@ -5,3 +5,13 @@
     font-weight: 100;
     text-align: center;
 }
+.table{
+	width: 70%;
+	 margin-left: 200px;
+	 border-collapse: collapse;
+}
+tr{
+	border: solid thin;
+	border-color: blue;
+	
+}

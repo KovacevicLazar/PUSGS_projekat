@@ -14,6 +14,7 @@ export class User{
 
     friends = new Array<User>();
     friendsRequests = new Array<User>();
+    friendsSentRequests= new Array<User>();
 
     flightReservations =  new Array<Flight>();
     carReservations= new Array<Car>();
