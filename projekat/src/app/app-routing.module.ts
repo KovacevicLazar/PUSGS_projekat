@@ -28,6 +28,7 @@ import { MyAirlineServisComponent } from './componente/my-airline-servis/my-airl
 import { MyFlightListComponent } from './componente/my-flight-list/my-flight-list.component';
 import { ListOfAirlinesComponent } from './componente/list-of-airlines/list-of-airlines.component';
 import { ListOfCarCompaniesComponent } from './componente/list-of-car-companies/list-of-car-companies.component';
+import { AdminAddCarComponent } from './componente/admin-add-car/admin-add-car.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,7 @@ const routes: Routes = [
          { path:"changeInfo",component: ChangeRcInfoComponent }
         ]
       },
+      { path: ":id/admin-add-car", component: AdminAddCarComponent },
       { path: ":id/myCarList", component: MyCarListComponent},
 
 

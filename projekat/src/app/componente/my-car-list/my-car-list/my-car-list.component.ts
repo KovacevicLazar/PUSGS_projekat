@@ -59,17 +59,18 @@ export class MyCarListComponent implements OnInit {
 
   Remove(car,allcars)
   {
-      if(car.currentlyAvailable == true)
+      if(car.currentlyAvailable != true)
       {
         alert("You can't remove this car, it's booked for a customer")
+
       }
       else
       {
-        allcars.forEach(element =>
+        allcars.forEach((element,index) =>
           {
             if(element.id == car.id)
             {
-              allcars.splice(element.id,1);
+              allcars.splice(index,1);
             }
           })
       }
@@ -77,19 +78,13 @@ export class MyCarListComponent implements OnInit {
 
   Modify(car,allcars)
   {
-    if(car.currentlyAvailable == true)
+    if(car.currentlyAvailable != true)
     {
       alert("You can't modify this car, it's already booked for a customer,")
     }
     else
     {
-      allcars.forEach(element =>
-        {
-          if(element.id == car.id)
-          {
-            allcars.splice(element.id,1);
-          }
-        })
+      //
     }
   }
 
