@@ -42,6 +42,8 @@ import { MyFlightListComponent } from './componente/my-flight-list/my-flight-lis
 import { ListOfAirlinesComponent } from './componente/list-of-airlines/list-of-airlines.component';
 import { ListOfCarCompaniesComponent } from './componente/list-of-car-companies/list-of-car-companies.component';
 import { AdminAddCarComponent } from './componente/admin-add-car/admin-add-car.component';
+import { AdminAddFlightComponent } from './componente/admin-add-flight/admin-add-flight.component';
+import { ChangeFlightComponent } from './componente/change-flight/change-flight.component';
 
 
 
@@ -80,7 +82,9 @@ import { AdminAddCarComponent } from './componente/admin-add-car/admin-add-car.c
     MyFlightListComponent,
     ListOfAirlinesComponent,
     ListOfCarCompaniesComponent,
-    AdminAddCarComponent
+    AdminAddCarComponent,
+    AdminAddFlightComponent,
+    ChangeFlightComponent
     
   ],
   imports: [

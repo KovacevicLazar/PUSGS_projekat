@@ -1,32 +1,40 @@
-<hr/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<app-nav-menu [user]="user"></app-nav-menu>
 
-<table  class="table table-hover">
+
+<button  class="button" routerLink="/regus/{{user.id}}/admin-add-flight">Add flight</button>
+
+<table class="responstable">
     <thead>
         <tr class="booking-cta">
             <th >Depart:</th>
             <th >Landing:</th>
             <th >Transit:</th>
             <th >Duration:</th>
-
+            <th >Price:</th>
+            <th></th>
+            <th></th>
+    
         </tr>
     </thead>
     <tbody >
-        <tr *ngFor="let flight of allFlight">
+        <tr *ngFor="let flight of Flights">
             <td>{{flight.flyingfrom}} <br> {{flight.dateDepart | date:'medium' }}</td>
             <td> {{flight.flyingTo}} <br> {{flight.dateArrival | date:'medium' }}</td>
             <td> {{flight.numberTransit}} </td>
             <td> h:m:s <br> {{flight.flightDuration | date: "H:m:s" }} </td>
             <td>
                 Price:<span class="price-text">{{flight.ticketPrice}}€</span> <br/>
+                
             </td>
             <td >
-                <button  type="button" class="btn btn-primary btn-lg" (click) ="Modify()">Modify</button>
+                <button class="buttonModify" type="button"  (click) ="Modify(flight,Flights)">Modify</button>
             </td>
             <td>
-                <button  type="button" class="btn btn-primary btn-lg" (click)="Remove()">Remove</button>
+                <button class="buttonRemove"  type="button"  (click)="Remove(flight,Flights)">Remove</button>
             </td>
-        
         </tr>
     </tbody>
+
 </table>
+  
+ 

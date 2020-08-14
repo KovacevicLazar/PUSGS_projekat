@@ -1,19 +1,11 @@
 <app-nav-menu [user]="user"></app-nav-menu>
-<form>
+
     <div class="container">
 
 
       <label><b>Location</b></label>
-      <input [(ngModel)]="Location" type="text" placeholder="Location"  required>
-
-      
-      
-      
-      
-    
-    
-
-      
+      <input [(ngModel)]="Location" type="text" name="Location" placeholder="Location"  required>
+ 
 
       <div class="row">
         <div class="col-md-3">
@@ -73,5 +65,3 @@
       <button type="submit" class="registerbtn" (click) = "AddNewCar()">Submit</button>
     </div>
   
-    
-  </form>

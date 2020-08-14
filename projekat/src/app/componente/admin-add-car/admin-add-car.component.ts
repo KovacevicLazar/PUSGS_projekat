@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { User } from 'src/app/entities/user/user';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Car } from 'src/app/entities/car/car';
 
 @Component({
@@ -22,7 +22,7 @@ export class AdminAddCarComponent implements OnInit {
  CarModel="";
  Babyseats ="";
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { 
+  constructor(private userService: UserService, private route: ActivatedRoute,private router: Router) { 
     route.params.subscribe(params => { this.id = params['id']; })
     this.userService.loadUsers().forEach(element => {
       if(element.id==this.id){
@@ -38,13 +38,15 @@ export class AdminAddCarComponent implements OnInit {
 
   AddNewCar()
   {
-    if(this.Location == "" ||   Number(this.NumberOfSeats) == NaN || Number(this.PricePerDay) == NaN || this.Brand == "" || this.CarModel == "" || Number(this.year) == NaN || Number(this.Babyseats) == NaN)
+    if(this.Location == "" ||   isNaN(Number(this.NumberOfSeats)) || isNaN(Number(this.PricePerDay)) || this.Brand == "" || this.CarModel == "" ||  isNaN(Number(this.year)) || isNaN(Number(this.Babyseats)) )
     {
       alert("All fields are required! ")
     }
     else
     {
       let newCar = new Car(10,this.Location,"",this.Brand,this.CarModel,Number(this.year),Number(this.PricePerDay),true,Number(this.Babyseats),"");
+      this.router.navigate(['/regus/'.concat(this.user.id.toString(),'/myCarList')]);
+   
     }
   }
 
