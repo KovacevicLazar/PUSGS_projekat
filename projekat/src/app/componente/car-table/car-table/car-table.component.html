@@ -9,6 +9,7 @@
             <th scope="col">Model:</th>
             <th scope="col">Year:</th>
             <th scope="col">Price Per Day </th>
+            <th></th>
         </tr>
     </thead>
     <tbody class="results">
@@ -17,7 +18,9 @@
             <td>{{car.brand}}</td>
             <td>{{car.model}}</td>
             <td>{{car.year}}</td>
-            <td>{{car.pricePerDay}}</td>          
+            <td>{{car.pricePerDay}}</td>   
+            <td><button  type="button" (click) ="Reserve(car)" class="buttonModify" >Reserve </button></td>  
+
             
         </tr>
     </tbody>

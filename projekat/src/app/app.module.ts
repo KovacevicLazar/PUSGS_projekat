@@ -44,6 +44,7 @@ import { ListOfCarCompaniesComponent } from './componente/list-of-car-companies/
 import { AdminAddCarComponent } from './componente/admin-add-car/admin-add-car.component';
 import { AdminAddFlightComponent } from './componente/admin-add-flight/admin-add-flight.component';
 import { ChangeFlightComponent } from './componente/change-flight/change-flight.component';
+import { ReservationCarDialogComponent } from './componente/reservation-car-dialog/reservation-car-dialog.component';
 
 
 
@@ -84,7 +85,8 @@ import { ChangeFlightComponent } from './componente/change-flight/change-flight.
     ListOfCarCompaniesComponent,
     AdminAddCarComponent,
     AdminAddFlightComponent,
-    ChangeFlightComponent
+    ChangeFlightComponent,
+    ReservationCarDialogComponent
     
   ],
   imports: [
