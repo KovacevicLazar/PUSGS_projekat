@@ -10,6 +10,10 @@ import { Car } from 'src/app/entities/car/car';
 export class ReservationCarDialogComponent implements OnInit {
 
   car: Car;
+  DaysReserved = 0;
+  DayOfReservation ="";
+  TotalResult ="";
+  
   
 
   constructor(public dialogRef: MatDialogRef<ReservationCarDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) { 
@@ -18,6 +22,10 @@ export class ReservationCarDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  Cancel(){
+    this.dialogRef.close("Cancel");
   }
 
 }
