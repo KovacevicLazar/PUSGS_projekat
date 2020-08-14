@@ -75,6 +75,7 @@ export class ChangeFlightComponent implements OnInit {
       alert("Podaci nisu dobro uneti");
     }
   }
+  
   Cancel(){
     this.dialogRef.close("Cancel");
   }
