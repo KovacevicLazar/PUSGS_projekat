@@ -10,37 +10,37 @@
         <input class="form-control mr-sm-2" name="SearchFriend" [(ngModel)]="SearchFriend" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click) ="Search()">Search Friends</button>
     </form>
-    <table class="table"  >
-        <thead class="thead-dark">
-          <tr style="color: #4fa3e3;font-weight: bold; font-size: 30;">
+    <table  class="table table-hover">
+        <thead>
+          <tr class="booking-cta">
             <th></th>
-            <th  scope="col">First Name:</th>
-            <th  scope="col">Last Name:</th>
-            <th   scope="col">Accepted:</th>
+            <th class="th-info"  scope="col">First Name:</th>
+            <th class="th-info"  scope="col">Last Name:</th>
+            <th class="th-info"  scope="col">Accepted:</th>
           </tr>
         </thead>
 
         <tbody [hidden]="FilteredFriend.length != 0 || FilteredFriendRequest.length != 0 || FilteredOtherUsers.length!=0 || FilteredFriendSentRequest.length!=0 ">
-          <tr  *ngFor="let friend of user.friends" style="background:#b9e6f0; font-weight: bold;">
-            <td scope="col"> slika</td>
-            <td scope="col">{{friend.name}}</td>
-            <td scope="col">{{friend.surname}}</td>
-            <td scope="col">
-            <button (click) ="RemoveFriend(friend)" style="background:#f22222;border-color: gray; width: 140px;">
+          <tr  *ngFor="let friend of user.friends" >
+            <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
+            <td class="td-info" scope="col">{{friend.name}}</td>
+            <td class="td-info" scope="col">{{friend.surname}}</td>
+            <td class="td-buttons" scope="col">
+            <button class="buttonReject" (click) ="RemoveFriend(friend)" >
               Remove Friend
             </button>
             </td>
           </tr>
 
-          <tr *ngFor="let friend of user.friendsRequests" style="background:#b9f0c3; font-weight: bold;">
-            <td scope="col"> slika</td>
-            <td scope="col">{{friend.name}}</td>
-            <td scope="col">{{friend.surname}}</td>
-            <td scope="col">
-              <button  (click) ="AcceptFriendRequest(friend)" style="background: #56f072; border-color: gray; width: 70px;">
+          <tr *ngFor="let friend of user.friendsRequests" >
+            <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
+            <td class="td-info" scope="col">{{friend.name}}</td>
+            <td class="td-info" scope="col">{{friend.surname}}</td>
+            <td class="td-buttons" scope="col">
+              <button class="buttonAccept"  (click) ="AcceptFriendRequest(friend)" >
                 Accept Request
               </button>
-              <button (click) ="DeleteRequest(friend)" style="background:#f22222;border-color: gray; width: 70px;">
+              <button class="buttonReject" (click) ="DeleteRequest(friend)" >
                 Delete Request
               </button>
             </td>
@@ -48,24 +48,24 @@
           </tr>
 
 
-          <tr *ngFor="let user of OtherUser" style="background:#e7f098; font-weight: bold;">
-            <td scope="col"> slika</td>
-            <td scope="col">{{user.name}}</td>
-            <td scope="col">{{user.surname}}</td>
-            <td scope="col">
-              <button  (click) ="SendRequest(user)" style="background: #56f072; border-color: gray; width: 140px;">
+          <tr *ngFor="let user of OtherUser" >
+            <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
+            <td class="td-info" scope="col">{{user.name}}</td>
+            <td class="td-info" scope="col">{{user.surname}}</td>
+            <td class="td-buttons" scope="col">
+              <button class="buttonAccept" (click) ="SendRequest(user)" >
                 Send Request
               </button>
               
             </td>
             
           </tr>
-          <tr *ngFor="let friend of user.friendsSentRequests" style="background:#6086da; font-weight: bold;">
-            <td scope="col"> slika</td>
-            <td scope="col">{{friend.name}}</td>
-            <td scope="col">{{friend.surname}}</td>
-            <td scope="col">
-              <button  (click) ="CancelRequest(friend)" style="background: #56f072; border-color: gray; width: 140px;">
+          <tr *ngFor="let friend of user.friendsSentRequests" >
+            <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
+            <td class="td-info" scope="col">{{friend.name}}</td>
+            <td class="td-info" scope="col">{{friend.surname}}</td>
+            <td class="td-buttons" scope="col">
+              <button class="buttonReject"  (click) ="CancelRequest(friend)" >
                 Cancel Request
               </button>
               
@@ -80,10 +80,10 @@
         <tbody [hidden]="FilteredFriend.length == 0 ">
          
             <tr  *ngFor="let friend of FilteredFriend" style="background:#b9e6f0; font-weight: bold;">
-              <td scope="col"> slika</td>
-              <td scope="col">{{friend.name}}</td>
-              <td scope="col">{{friend.surname}}</td>
-              <td scope="col">
+              <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
+              <td class="td-info" scope="col">{{friend.name}}</td>
+              <td class="td-info" scope="col">{{friend.surname}}</td>
+              <td class="td-buttons" scope="col">
               <button (click) ="RemoveFriend(friend)" style="background:#f22222;border-color: gray; width: 140px;">
                 Remove Friend
               </button>
@@ -95,10 +95,10 @@
         <tbody [hidden]="FilteredFriendRequest.length == 0 ">
 
             <tr  *ngFor="let friend of FilteredFriendRequest" style="background:#b9f0c3; font-weight: bold;">
-              <td scope="col"> slika</td>
-              <td scope="col">{{friend.name}}</td>
-              <td scope="col">{{friend.surname}}</td>
-              <td scope="col">
+              <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
+              <td class="td-info" scope="col">{{friend.name}}</td>
+              <td class="td-info" scope="col">{{friend.surname}}</td>
+              <td class="td-buttons" scope="col">
                 <button  (click) ="AcceptFriendRequest(friend)" style="background: #56f072; border-color: gray; width: 70px;">
                   Accept Request
                 </button>
@@ -111,10 +111,10 @@
 
         <tbody [hidden]="FilteredFriendSentRequest.length == 0 ">
           <tr *ngFor="let friend of FilteredFriendSentRequest" style="background:#6086da; font-weight: bold;">
-            <td scope="col"> slika</td>
-            <td scope="col">{{friend.name}}</td>
-            <td scope="col">{{friend.surname}}</td>
-            <td scope="col">
+            <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
+            <td class="td-info" scope="col">{{friend.name}}</td>
+            <td class="td-info" scope="col">{{friend.surname}}</td>
+            <td class="td-buttons" scope="col">
               <button  (click) ="CancelRequest(friend)" style="background: #56f072; border-color: gray; width: 140px;">
                 Cancel Request
               </button>
@@ -126,10 +126,10 @@
 
       <tbody [hidden]="FilteredOtherUsers.length == 0 ">
         <tr *ngFor="let user of FilteredOtherUsers" style="background:#e7f098; font-weight: bold;">
-          <td scope="col"> slika</td>
-          <td scope="col">{{user.name}}</td>
-          <td scope="col">{{user.surname}}</td>
-          <td scope="col">
+          <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
+          <td class="td-info" scope="col">{{user.name}}</td>
+          <td class="td-info" scope="col">{{user.surname}}</td>
+          <td class="td-buttons" scope="col">
             <button  (click) ="SendRequest(user)" style="background: #56f072; border-color: gray; width: 140px;">
               Send Request
             </button>
