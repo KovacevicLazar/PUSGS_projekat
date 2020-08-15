@@ -10,14 +10,17 @@ import { Car } from 'src/app/entities/car/car';
 export class ReservationCarDialogComponent implements OnInit {
 
   car: Car;
-  DaysReserved = 0;
+  ReturnDate = "";
   DayOfReservation ="";
   TotalResult ="";
+  numberOfDays =1;
+  currentDate :string;
   
   
 
   constructor(public dialogRef: MatDialogRef<ReservationCarDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) { 
     this.car = this.data.car;
+    this.currentDate = new Date().toString();
 
   }
 
@@ -26,6 +29,34 @@ export class ReservationCarDialogComponent implements OnInit {
 
   Cancel(){
     this.dialogRef.close("Cancel");
+  }
+
+  CalculateDay()
+  {
+    if(this.DayOfReservation != "" && this.ReturnDate != "")
+    {
+      var msec = Date.parse(this.ReturnDate) - Date.parse(this.DayOfReservation);
+     var mins = Math.floor(msec / 60000);
+     var hrs = Math.floor(mins / 60);
+     var days = Math.floor(hrs / 24);
+     if(days >= 0)
+     {
+      if(days == 0)
+      {
+        days += 1;
+      }
+      this.numberOfDays = days;
+     }
+     else
+     {
+      this.numberOfDays = days;
+       alert("Unvalid Date pick! ")
+     }
+
+
+    }
+    
+
   }
 
 }

@@ -9,8 +9,7 @@ export class Car{
     
     gps: string;
     babySeats: number;
-    checkedInDate: Date;
-    checkedOutDate: Date;
+   
     currentlyAvailable: boolean;
     
     

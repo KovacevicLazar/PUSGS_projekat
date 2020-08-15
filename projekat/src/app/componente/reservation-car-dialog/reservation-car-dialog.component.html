@@ -20,9 +20,9 @@
             <p><i class="fas fa-car info"></i>Brand: {{car.brand}} </p>
             <p><i class="far fa-calendar-alt info"></i>Year: {{car.year}} </p>   
             <p><i class="fas fa-dollar-sign info"></i>Price per day: {{car.pricePerDay}}</p>
-            <p><i class="fas fa-clock info"></i><input [(ngModel)]="DaysReserved" placeholder="Numbe rof days:" name="DaysReserved" type="number"></p>
-        <p><i class="fas fa-clock info"></i><input name="DayOfReservation" [(ngModel)]="DayOfReservation"  type="date" ></p>
-        <p><i class="fas fa-dollar-sign info"></i>Total price: {{car.pricePerDay*DaysReserved}}</p>
+            <p><i class="fas fa-clock info"></i>Pick up date:<input name="DayOfReservation" [(ngModel)]="DayOfReservation" min={{currentDate}} max={{ReturnDate}}  type="date" ></p>
+        <p><i class="fas fa-clock info"></i>Return date:<input (change) = "CalculateDay()" name="ReturnDate" [(ngModel)]="ReturnDate" min={{DayOfReservation}} type="date" ></p>
+        <p><i class="fas fa-dollar-sign info"></i>Total price: {{car.pricePerDay*numberOfDays}}</p>
         <hr>
             <br>
            

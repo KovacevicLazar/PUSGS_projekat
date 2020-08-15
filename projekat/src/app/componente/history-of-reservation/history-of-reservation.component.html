@@ -62,26 +62,25 @@
             <thead>
                     <tr class="booking-cta">
                         <th >Location:</th>
+                        <th>Return Location:</th>
+                        
                         <th >Brand:</th>
                         <th >Duration:</th>
+                        
                     </tr>
                
             </thead>
-            <tbody >
-                <tr >
-                    <td>ddd</td>
-                    <td>ddd </td>
-                    <td>dd</td>
-                    <td>ddd </td>
+            <tbody *ngIf="user.carReservations.length > 0">
+                <tr  *ngFor="let ReservedCar of user.carReservations">
+                    <td>{{ReservedCar.car.location}} <br> {{ReservedCar.checkedInDate | date:'medium' }}</td>
+                    <td> {{ReservedCar.returnedLocation}} <br> {{ReservedCar.checkedOutDate | date:'medium' }}</td>
+                    <td> {{ReservedCar.car.brand}} </td>             
                     <td>
-                        Price:<span class="price-text">100€</span> <br/>
-                        <button  class="button1">
-                            Otkazi
-                        </button>
-                    </td>
-                
+                    Price:<span class="price-text">{{ReservedCar.car.pricePerDay*ReservedCar.numberOfDays}}€</span> <br/>
+                    <button class="buttonCancellations" (click)="buttonCancellations()">Cancellations</button></td>
+                        
                 </tr>
-            </tbody>
+            </tbody> 
         </table>
     </div>
 </div>

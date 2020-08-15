@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { User } from 'src/app/entities/user/user';
 import { Flight } from 'src/app/entities/flight/flight';
 import { ReservedFlight } from 'src/app/entities/ReservedFlight/reserved-flight';
+import { Car } from 'src/app/entities/car/car';
+import { ReservedCar } from 'src/app/entities/ReservedCar/reserved-car';
 
 @Injectable({
     providedIn: 'root'
@@ -45,10 +47,17 @@ export class UserService{
         const FlightReserved1= new ReservedFlight(f1,new Array("A2", "A3"),"obican1@gmail.com");
         const FlightReserved2= new ReservedFlight(f2,new Array("A2", "A3"),"obican1@gmail.com");
 
+        const c1 = new Car(1,"Sekovici","Solunska 5","Audi","A7",2017,198,true,1,"Yes");
+        const c2 = new Car(2,"Tokio","New Street 22","Golf","5",2010,220,true,2,"Yes");
+        const CarReserved1 = new ReservedCar(c1,5,"obican1@gmail.com",new Date(2020,7,14,12,30,0,0),"Sarajevo",new Date(2020,7,14,12,30,0,0));
+        const CarReserved2 = new ReservedCar(c2,3,"obican1@gmail.com",new Date(2020,8,14,12,30,0,0),"Loznica",new Date(2020,8,16,12,30,0,0));
+
         u1.flightReservations.push(FlightReserved1);
         u1.flightReservations.push(FlightReserved2);
         u2.flightReservations.push(FlightReserved1);
         u2.flightReservations.push(FlightReserved2);
+        u1.carReservations.push(CarReserved1);
+        u1.carReservations.push(CarReserved2);
 
         u1.RequestsflightReservation.push(FlightReserved1);
         u1.RequestsflightReservation.push(FlightReserved2);
@@ -63,6 +72,8 @@ export class UserService{
         allUsers.push(u8);
         allUsers.push(u9);
         allUsers.push(u10);
+
+       
 
         return allUsers;
     }
