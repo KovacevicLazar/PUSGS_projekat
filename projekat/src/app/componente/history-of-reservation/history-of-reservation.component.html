@@ -15,37 +15,6 @@
     </div>
 </div>
 <div class="row">
-    
-    
-
-
-
-    <div class="col-md-6">
-        <table  class="table table-hover">
-            <thead>
-                <tr class="booking-cta">
-                    <th >Location:</th>
-                    <th >Brand:</th>
-                    <th >Duration:</th>
-                </tr>
-            </thead>
-            <tbody >
-                <tr *ngFor="let flight of user.flightReservations">
-                    <td>{{flight.flyingfrom}} <br> {{flight.dateDepart | date:'medium' }}</td>
-                    <td> {{flight.flyingTo}} <br> {{flight.dateArrival | date:'medium' }}</td>
-                    <td> {{flight.numberTransit}} </td>
-                    <td> h:m:s <br> {{flight.flightDuration | date: "H:m:s" }} </td>
-                    <td>
-                        Price:<span class="price-text">{{flight.ticketPrice}}€</span> <br/>
-                        <button  class="button1">
-                            Otkazi
-                        </button>
-                    </td>
-                
-                </tr>
-            </tbody>
-        </table>
-    </div>
     <div class="col-md-6">
         <table  class="table table-hover">
             <thead>
@@ -56,6 +25,47 @@
                     <th >Duration:</th>
                     <th></th>
                 </tr>
+            </thead>
+            <tbody *ngIf="user.flightReservations.length > 0">
+                <tr  *ngFor="let Reservedflight of user.flightReservations">
+                    <td>{{Reservedflight.flight.flyingfrom}} <br> {{Reservedflight.flight.dateDepart | date:'medium' }}</td>
+                    <td> {{Reservedflight.flight.flyingTo}} <br> {{Reservedflight.flight.dateArrival | date:'medium' }}</td>
+                    <td> {{Reservedflight.flight.numberTransit}} </td>
+                    <td> h:m:s <br> {{Reservedflight.flight.flightDuration | date: "H:m:s" }} </td>
+                    <td>
+                    Price:<span class="price-text">{{Reservedflight.flight.ticketPrice*Reservedflight.numberOfReservedSeats}}€</span> <br/>
+                    <button class="buttonCancellations" (click)="buttonCancellations()">Cancellations</button></td>
+                        
+                </tr>
+            </tbody> 
+            <tbody *ngIf="user.RequestsflightReservation.length > 0">
+                <tr *ngFor="let Requestsflight of user.RequestsflightReservation">
+                    <td>{{Requestsflight.flight.flyingfrom}} <br> {{Requestsflight.flight.dateDepart | date:'medium' }}</td>
+                    <td> {{Requestsflight.flight.flyingTo}} <br> {{Requestsflight.flight.dateArrival | date:'medium' }}</td>
+                    <td> {{Requestsflight.flight.numberTransit}} </td>
+                    <td> h:m:s <br> {{Requestsflight.flight.flightDuration | date: "H:m:s" }} </td>
+                    <td>
+                        Ticket Price:<span class="price-text">{{Requestsflight.flight.ticketPrice}}€</span> <br/>
+                        <button  class="buttonAccept"  (click)="buttonAccept()">
+                            Accept
+                        </button>
+                        <button  class="buttonReject"  (click)="buttonReject()">
+                            Reject
+                        </button>
+                    </td>
+                </tr>
+            </tbody> 
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table  class="table table-hover">
+            <thead>
+                    <tr class="booking-cta">
+                        <th >Location:</th>
+                        <th >Brand:</th>
+                        <th >Duration:</th>
+                    </tr>
+               
             </thead>
             <tbody >
                 <tr >

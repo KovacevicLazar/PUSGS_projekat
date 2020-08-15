@@ -25,4 +25,16 @@ export class HistoryOfReservationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  buttonCancellations(){
+
+  }
+
+  buttonAccept(){
+
+  }
+
+  buttonReject(){
+    
+  }
+
 }
