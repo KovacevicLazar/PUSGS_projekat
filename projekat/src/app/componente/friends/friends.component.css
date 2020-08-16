@@ -6,14 +6,26 @@
 	text-align: center;
 	
 }
+
+tr:nth-child(even) {background-color:#a5c6fa;}
+
 .table{
-	width: 70%;
+	 width: 70%;
 	 margin-left: 200px;
-	 border-collapse: collapse;
+   border-collapse: collapse;
+   background-color:  #ccdffd;
 }
 tr{
 	border: solid thin;
 	border-color: blue;
+}
+.mainDiv{
+  background: #6ca1f1;
+  height: 100%;
+}
+
+thead{
+	background-color: #89b6ff;
 }
 
 
@@ -114,20 +126,21 @@ tr{
   }
 
   .td-buttons{
-	  width: 200px;
+    width: 20%;
+    padding-top: 1.5%;
   }
 
 .td-info{
-	font-size: larger;
+	font-size: 23px;
 	font-weight: bold;
 	text-align: center;
 	padding: 25px;
 }
 
 .th-info{
-	font-size: x-large;
+	font-size:large;
 	font-weight: bold;
-	text-align: center;
+  text-align: center;
 }
 
 .avatar {

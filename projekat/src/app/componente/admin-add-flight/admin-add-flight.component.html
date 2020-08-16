@@ -16,11 +16,11 @@
       <div class="row">
         <div class="col-md-6">
           <label><b>Date and time of departure:</b></label>
-          <input [(ngModel)]="DateDepart" type="datetime-local" name="DateDepart" required>
+          <input [(ngModel)]="DateDepart" type="datetime-local" min={{DateNow}} max={{DateArrival}} name="DateDepart" required>
         </div>
         <div class="col-md-6">
           <label><b>Landing date and time:</b></label>
-          <input [(ngModel)]="DateArrival" type="datetime-local" name="DateArrival" required>
+          <input [(ngModel)]="DateArrival" type="datetime-local" min={{DateDepart}} name="DateArrival" required>
         </div>
       </div>
 
@@ -48,11 +48,11 @@
       <div class="row">
         <div class="col-md-3">
           <label><b>Flight length in Km:</b></label>
-          <input [(ngModel)]="FlightLength" placeholder="Flight length in Km" name="FlightLength" type="number">
+          <input [(ngModel)]="FlightLength" placeholder="Flight length in Km" name="FlightLength" type="number" required>
         </div>
         <div class="col-md-3">
           <label><b>Price per one ticket:</b></label>
-          <input [(ngModel)]="TicketPrice" placeholder="Price per ticket (in $)" name="TicketPrice" type="number">
+          <input [(ngModel)]="TicketPrice" placeholder="Price per ticket (in €)" name="TicketPrice" type="number" required>
         </div>
         <div class="col-md-6">
           <br>

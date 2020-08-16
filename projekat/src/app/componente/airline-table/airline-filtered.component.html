@@ -1,80 +1,83 @@
 
-<app-starting-page-nav-menu></app-starting-page-nav-menu>
-<hr/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<h5  class="booking-cta" >Avio kompanije:</h5>
-<table class="table table-hover">
-    <thead class="booking-cta">
-        <tr>
-            <th scope="col">name:</th>
-            <th scope="col"> address:</th>
-            <th scope="col">description:</th>
-            <th scope="col">mark:</th>
-            <th scope="col">destinations info:</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let airline of allAirline">
-            <td>{{airline.name}}</td>
-            <td>{{airline.address}}</td>
-            <td>
-                <!-- Prenos id-ja kao parametra putanje komponenti -->
-                <button class="btndescriptioninfo" (click) ="OnSubmit(airline)">
-                    Read more...
-                </button>
-            </td>
-            <td>
-                <div class="profile-stars">
-                    <!-- START NO 1-->
-                    <div *ngIf="airline.mark < 0.5; then thenBlock1 else elseBlock1"></div>
-                    <ng-template #thenBlock1><i class="material-icons">star_border</i></ng-template>
-                    <ng-template #elseBlock1>
-                        <div *ngIf="airline.mark < 1; then thenBlock11 else elseBlock11"></div>
-                        <ng-template #thenBlock11><i class="material-icons">star_half</i></ng-template>
-                        <ng-template #elseBlock11><i class="material-icons">star</i></ng-template>
-                    </ng-template>
-                    <!-- START NO 2-->
-                    <div *ngIf="airline.mark < 1.5; then thenBlock2 else elseBlock2"></div>
-                    <ng-template #thenBlock2><i class="material-icons">star_border</i></ng-template>
-                    <ng-template #elseBlock2>
-                        <div *ngIf="airline.mark < 2; then thenBlock22 else elseBlock22"></div>
-                        <ng-template #thenBlock22><i class="material-icons">star_half</i></ng-template>
-                        <ng-template #elseBlock22><i class="material-icons">star</i></ng-template>
-                    </ng-template>
-                    <!-- START NO 3-->
-                    <div *ngIf="airline.mark < 2.5; then thenBlock3 else elseBlock3"></div>
-                    <ng-template #thenBlock3><i class="material-icons">star_border</i></ng-template>
-                    <ng-template #elseBlock3>
-                        <div *ngIf="airline.mark < 3; then thenBlock33 else elseBlock33"></div>
-                        <ng-template #thenBlock33><i class="material-icons">star_half</i></ng-template>
-                        <ng-template #elseBlock33><i class="material-icons">star</i></ng-template>
-                    </ng-template>
-                    <!-- START NO 4-->
-                    <div *ngIf="airline.mark < 3.5; then thenBlock4 else elseBlock4"></div>
-                    <ng-template #thenBlock4><i class="material-icons">star_border</i></ng-template>
-                    <ng-template #elseBlock4>
-                        <div *ngIf="airline.mark < 4; then thenBlock44 else elseBlock44"></div>
-                        <ng-template #thenBlock44><i class="material-icons">star_half</i></ng-template>
-                        <ng-template #elseBlock44><i class="material-icons">star</i></ng-template>
-                    </ng-template>
-                    <!-- START NO 5-->
-                    <div *ngIf="airline.mark < 4.5; then thenBlock5 else elseBlock5"></div>
-                    <ng-template #thenBlock5><i class="material-icons">star_border</i></ng-template>
-                    <ng-template #elseBlock5>
-                        <div *ngIf="airline.mark < 5; then thenBlock55 else elseBlock55"></div>
-                        <ng-template #thenBlock55><i class="material-icons">star_half</i></ng-template>
-                        <ng-template #elseBlock55><i class="material-icons">star</i></ng-template>
-                    </ng-template>
-                </div>
-            </td>
-            <td>
-                <!-- Prenos id-ja kao parametra putanje komponenti -->
-                <button class="btndestinfo" (click) = "DestDugme(airline)">
-                        Destinations info...
-                </button>
-            </td>
-        </tr>
-    </tbody>
-    
-</table>
+<app-starting-page-nav-menu></app-starting-page-nav-menu>
+
+<div class="mainDiv">
+    <h5  class="booking-cta" >Lists of airlines:</h5>
+    <table  class="table table-hover">
+        <thead>
+            <tr>
+                <th class="th-info" scope="col">Name:</th>
+                <th class="th-info" scope="col">Address:</th>
+                <th class="th-info" scope="col">Description:</th>
+                <th class="th-info" scope="col">Mark:</th>
+                <th class="th-info" scope="col">Destinations info:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let airline of allAirline">
+                <td class="td-info">{{airline.name}}</td>
+                <td class="td-info">{{airline.address}}</td>
+                <td>
+                    <!-- Prenos id-ja kao parametra putanje komponenti -->
+                    <button class="buttonAccept" (click) ="OnSubmit(airline)">
+                        Read more...
+                    </button>
+                </td>
+                <td class="td-info">
+                    <div class="profile-stars">
+                        <!-- START NO 1-->
+                        <div *ngIf="airline.mark < 0.5; then thenBlock1 else elseBlock1"></div>
+                        <ng-template #thenBlock1><i class="material-icons">star_border</i></ng-template>
+                        <ng-template #elseBlock1>
+                            <div *ngIf="airline.mark < 1; then thenBlock11 else elseBlock11"></div>
+                            <ng-template #thenBlock11><i class="material-icons">star_half</i></ng-template>
+                            <ng-template #elseBlock11><i class="material-icons">star</i></ng-template>
+                        </ng-template>
+                        <!-- START NO 2-->
+                        <div *ngIf="airline.mark < 1.5; then thenBlock2 else elseBlock2"></div>
+                        <ng-template #thenBlock2><i class="material-icons">star_border</i></ng-template>
+                        <ng-template #elseBlock2>
+                            <div *ngIf="airline.mark < 2; then thenBlock22 else elseBlock22"></div>
+                            <ng-template #thenBlock22><i class="material-icons">star_half</i></ng-template>
+                            <ng-template #elseBlock22><i class="material-icons">star</i></ng-template>
+                        </ng-template>
+                        <!-- START NO 3-->
+                        <div *ngIf="airline.mark < 2.5; then thenBlock3 else elseBlock3"></div>
+                        <ng-template #thenBlock3><i class="material-icons">star_border</i></ng-template>
+                        <ng-template #elseBlock3>
+                            <div *ngIf="airline.mark < 3; then thenBlock33 else elseBlock33"></div>
+                            <ng-template #thenBlock33><i class="material-icons">star_half</i></ng-template>
+                            <ng-template #elseBlock33><i class="material-icons">star</i></ng-template>
+                        </ng-template>
+                        <!-- START NO 4-->
+                        <div *ngIf="airline.mark < 3.5; then thenBlock4 else elseBlock4"></div>
+                        <ng-template #thenBlock4><i class="material-icons">star_border</i></ng-template>
+                        <ng-template #elseBlock4>
+                            <div *ngIf="airline.mark < 4; then thenBlock44 else elseBlock44"></div>
+                            <ng-template #thenBlock44><i class="material-icons">star_half</i></ng-template>
+                            <ng-template #elseBlock44><i class="material-icons">star</i></ng-template>
+                        </ng-template>
+                        <!-- START NO 5-->
+                        <div *ngIf="airline.mark < 4.5; then thenBlock5 else elseBlock5"></div>
+                        <ng-template #thenBlock5><i class="material-icons">star_border</i></ng-template>
+                        <ng-template #elseBlock5>
+                            <div *ngIf="airline.mark < 5; then thenBlock55 else elseBlock55"></div>
+                            <ng-template #thenBlock55><i class="material-icons">star_half</i></ng-template>
+                            <ng-template #elseBlock55><i class="material-icons">star</i></ng-template>
+                        </ng-template>
+                    </div>
+                </td>
+                <td>
+                    <!-- Prenos id-ja kao parametra putanje komponenti -->
+                    <button class="buttonAccept" (click) = "DestDugme(airline)">
+                            Destinations info...
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        
+    </table>
+
+</div>

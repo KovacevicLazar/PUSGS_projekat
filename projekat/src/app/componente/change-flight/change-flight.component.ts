@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Flight } from 'src/app/entities/flight/flight';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-change-flight',
@@ -22,12 +23,15 @@ export class ChangeFlightComponent implements OnInit {
   ThirdStop="";
   TicketPrice ="";
   FlightLength="";
+  DateNow="";
+ 
   constructor(public dialogRef: MatDialogRef<ChangeFlightComponent>,@Inject(MAT_DIALOG_DATA) public data: any) { 
       this.flight=this.data.flight
       this.FlyingFrom=this.flight.flyingfrom;
       this.FlyingTo=this.flight.flyingTo;
-      this.DateDepart=this.flight.dateDepart.toString();
-      this.DateArrival=this.flight.dateArrival.toString();
+      this.DateDepart=this.converStringToDate(this.flight.dateDepart);
+      this.DateArrival=this.converStringToDate(this.flight.dateArrival);
+      this.DateNow=this.converStringToDate(new Date());
       let cnt=0;
       for (let i of this.flight.Transitlocations){
         if(cnt==0){
@@ -49,8 +53,26 @@ export class ChangeFlightComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  converStringToDate(date : Date): string
+  {
+  
+    let dateSplit = date.toLocaleString('it-IT').split("/");
+    let year=dateSplit[2].split(", ")[0];
+    let mount=  dateSplit[1];
+    let day=dateSplit[0];
+    let h=dateSplit[2].split(", ")[1].split(":")[0];
+    let min=dateSplit[2].split(", ")[1].split(":")[1];
+
+    let j=""
+    if(mount.length==1){
+      j="0" //Ako je mesec <10 dodaj 0 ispred
+    }
+    let date1= year + "-"+ j + mount + "-" + day  + "T" + h + ":" + min;
+    return date1;
+  }
+
   Submit(){
-    if(this.FlyingFrom!="" && this.FlyingTo!="" && this.DateDepart!="" && this.DateArrival!="" && this.FlightLength!="" && !isNaN(Number(this.FlightLength)) && !isNaN(Number(this.TicketPrice))){
+    if(this.FlyingFrom!="" && this.FlyingTo!="" && this.DateDepart!=""  && this.DateArrival!="" && this.FlightLength!="" && !isNaN(Number(this.FlightLength)) && !isNaN(Number(this.TicketPrice))){
       
       let transitList= new Array<string>();
       let numberOfStops=0;

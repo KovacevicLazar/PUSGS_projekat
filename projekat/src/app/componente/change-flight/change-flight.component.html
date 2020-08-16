@@ -15,11 +15,11 @@
       <div class="row">
         <div class="col-md-6">
           <label><b>Date and time of departure:</b></label>
-          <input [(ngModel)]="DateDepart"  type="datetime-local" name="DateDepart" required>
+          <input [(ngModel)]="DateDepart"  type="datetime-local" min={{DateNow}} max={{DateArrival}}  name="DateDepart" required>
         </div>
         <div class="col-md-6">
           <label><b>Landing date and time:</b></label>
-          <input [(ngModel)]="DateArrival" type="datetime-local" name="DateArrival" required>
+          <input [(ngModel)]="DateArrival" type="datetime-local" min={{DateDepart}}  name="DateArrival" required>
         </div>
       </div>
 

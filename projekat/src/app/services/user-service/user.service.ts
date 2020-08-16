@@ -42,7 +42,7 @@ export class UserService{
         u1.friends.push(u5);
        
 
-        const f1=new Flight(0,"Beograd","Budimpesta",new Date(2020,7,14,10,30,0,0),new Date(2020,7,14,11,30,0,0),110,0,null,250);
+        const f1=new Flight(0,"Beograd","Budimpesta",new Date(2020,7,14,9,30,0,0),new Date(2020,7,14,11,30,0,0),110,0,null,250);
         const f2=new Flight(1,"Beograd","Bec",new Date(2020,7,14,12,30,0,0),new Date(2020,7,14,11,30,0,0),210,0,null,330);
         const FlightReserved1= new ReservedFlight(f1,new Array("A2", "A3"),"obican1@gmail.com");
         const FlightReserved2= new ReservedFlight(f2,new Array("A2", "A3"),"obican1@gmail.com");

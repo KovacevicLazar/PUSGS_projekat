@@ -3,84 +3,85 @@
     <app-nav-menu [user]="user"></app-nav-menu> 
 </div>
 <div class="header">
-  
     <div class="headerTitle">YOUR RESERVATIONS </div>
 </div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="headerTitle">YOUR FLIGHT RESERVATIONS </div>
+<div class="mainDiv">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="headerTitle2">YOUR FLIGHT RESERVATIONS </div>
+        </div>
+        <div class="col-md-6">
+            <div class="headerTitle2">YOUR CAR RESERVATIONS </div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <div class="headerTitle">YOUR CAR RESERVATIONS </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <table  class="table table-hover">
-            <thead>
-                <tr class="booking-cta">
-                    <th >Depart:</th>
-                    <th >Landing:</th>
-                    <th >Transit:</th>
-                    <th >Duration:</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody *ngIf="user.flightReservations.length > 0">
-                <tr  *ngFor="let Reservedflight of user.flightReservations">
-                    <td>{{Reservedflight.flight.flyingfrom}} <br> {{Reservedflight.flight.dateDepart | date:'medium' }}</td>
-                    <td> {{Reservedflight.flight.flyingTo}} <br> {{Reservedflight.flight.dateArrival | date:'medium' }}</td>
-                    <td> {{Reservedflight.flight.numberTransit}} </td>
-                    <td> h:m:s <br> {{Reservedflight.flight.flightDuration | date: "H:m:s" }} </td>
-                    <td>
-                    Price:<span class="price-text">{{Reservedflight.flight.ticketPrice*Reservedflight.numberOfReservedSeats}}€</span> <br/>
-                    <button class="buttonCancellations" (click)="buttonCancellations()">Cancellations</button></td>
-                        
-                </tr>
-            </tbody> 
-            <tbody *ngIf="user.RequestsflightReservation.length > 0">
-                <tr *ngFor="let Requestsflight of user.RequestsflightReservation">
-                    <td>{{Requestsflight.flight.flyingfrom}} <br> {{Requestsflight.flight.dateDepart | date:'medium' }}</td>
-                    <td> {{Requestsflight.flight.flyingTo}} <br> {{Requestsflight.flight.dateArrival | date:'medium' }}</td>
-                    <td> {{Requestsflight.flight.numberTransit}} </td>
-                    <td> h:m:s <br> {{Requestsflight.flight.flightDuration | date: "H:m:s" }} </td>
-                    <td>
-                        Ticket Price:<span class="price-text">{{Requestsflight.flight.ticketPrice}}€</span> <br/>
-                        <button  class="buttonAccept"  (click)="buttonAccept()">
-                            Accept
-                        </button>
-                        <button  class="buttonReject"  (click)="buttonReject()">
-                            Reject
-                        </button>
-                    </td>
-                </tr>
-            </tbody> 
-        </table>
-    </div>
-    <div class="col-md-6">
-        <table  class="table table-hover">
-            <thead>
-                    <tr class="booking-cta">
-                        <th >Location:</th>
-                        <th>Return Location:</th>
-                        
-                        <th >Brand:</th>
-                        <th >Duration:</th>
-                        
+    <div class="row">
+        <div class="col-md-6">
+            <table  class="table table-hover">
+                <thead>
+                    <tr >
+                        <th class="th-info">Depart:</th>
+                        <th class="th-info" >Landing:</th>
+                        <th class="th-info">Transit:</th>
+                        <th class="th-info">Duration:</th>
+                        <th></th>
                     </tr>
-               
-            </thead>
-            <tbody *ngIf="user.carReservations.length > 0">
-                <tr  *ngFor="let ReservedCar of user.carReservations">
-                    <td>{{ReservedCar.car.location}} <br> {{ReservedCar.checkedInDate | date:'medium' }}</td>
-                    <td> {{ReservedCar.returnedLocation}} <br> {{ReservedCar.checkedOutDate | date:'medium' }}</td>
-                    <td> {{ReservedCar.car.brand}} </td>             
-                    <td>
-                    Price:<span class="price-text">{{ReservedCar.car.pricePerDay*ReservedCar.numberOfDays}}€</span> <br/>
-                    <button class="buttonCancellations" (click)="buttonCancellations()">Cancellations</button></td>
-                        
-                </tr>
-            </tbody> 
-        </table>
+                </thead>
+                <tbody *ngIf="user.flightReservations.length > 0">
+                    <tr  *ngFor="let Reservedflight of user.flightReservations">
+                        <td>{{Reservedflight.flight.flyingfrom}} <br> {{Reservedflight.flight.dateDepart | date:'medium' }}</td>
+                        <td> {{Reservedflight.flight.flyingTo}} <br> {{Reservedflight.flight.dateArrival | date:'medium' }}</td>
+                        <td> {{Reservedflight.flight.numberTransit}} </td>
+                        <td> h:m:s <br> {{Reservedflight.flight.flightDuration | date: "H:m:s" }} </td>
+                        <td>
+                        Price:<span class="price-text">{{Reservedflight.flight.ticketPrice*Reservedflight.numberOfReservedSeats}}€</span> <br/>
+                        <button class="buttonCancellations" (click)="buttonCancellations()">Cancellations</button></td>
+                            
+                    </tr>
+                </tbody> 
+                <tbody *ngIf="user.RequestsflightReservation.length > 0">
+                    <tr *ngFor="let Requestsflight of user.RequestsflightReservation">
+                        <td>{{Requestsflight.flight.flyingfrom}} <br> {{Requestsflight.flight.dateDepart | date:'medium' }}</td>
+                        <td> {{Requestsflight.flight.flyingTo}} <br> {{Requestsflight.flight.dateArrival | date:'medium' }}</td>
+                        <td> {{Requestsflight.flight.numberTransit}} </td>
+                        <td> h:m:s <br> {{Requestsflight.flight.flightDuration | date: "H:m:s" }} </td>
+                        <td>
+                            Ticket Price:<span class="price-text">{{Requestsflight.flight.ticketPrice}}€</span> <br/>
+                            <button  class="buttonAccept"  (click)="buttonAccept()">
+                                Accept
+                            </button>
+                            <button  class="buttonReject"  (click)="buttonReject()">
+                                Reject
+                            </button>
+                        </td>
+                    </tr>
+                </tbody> 
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table  class="table table-hover">
+                <thead>
+                        <tr>
+                            <th class="th-info">Location:</th>
+                            <th class="th-info">Return Location:</th>
+                            
+                            <th class="th-info">Brand:</th>
+                            <th class="th-info" >Duration:</th>
+                            
+                        </tr>
+                
+                </thead>
+                <tbody *ngIf="user.carReservations.length > 0">
+                    <tr  *ngFor="let ReservedCar of user.carReservations">
+                        <td>{{ReservedCar.car.location}} <br> {{ReservedCar.checkedInDate | date:'medium' }}</td>
+                        <td> {{ReservedCar.returnedLocation}} <br> {{ReservedCar.checkedOutDate | date:'medium' }}</td>
+                        <td> {{ReservedCar.car.brand}} </td>             
+                        <td>
+                        Price:<span class="price-text">{{ReservedCar.car.pricePerDay*ReservedCar.numberOfDays}}€</span> <br/>
+                        <button class="buttonCancellations" (click)="buttonCancellations()">Cancellations</button></td>
+                            
+                    </tr>
+                </tbody> 
+            </table>
+        </div>
     </div>
 </div>
