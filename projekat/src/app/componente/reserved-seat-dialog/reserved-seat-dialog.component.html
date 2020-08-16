@@ -1,34 +1,56 @@
-<h2 mat-dialog-title style="text-align:center ;">Podaci o korisniku za koga se sediste rezervse</h2>
+<h2 mat-dialog-title >Podaci o korisniku za koga se sediste rezervse</h2>
 
 <mat-dialog-content>
-    <table>
-        <tr>
-            <td>
-                <form >
-                    <label style="margin-right: 52px;">Ime:</label>
-                    <input style="background-color: #a3d1f7;" type="text" [(ngModel)]="name" name="name"/>
-                    <br/>
-                    <br/>
-                    <label style="margin-right: 25px;">Prezime:</label>
-                    <input style="background-color: #a3d1f7;" type="text"  [(ngModel)]="surname" name="surname"  />
-                    <br/>
-                    <br/>
-                    <label>Broj Pasosa:</label>
-                    <input style="background-color: #a3d1f7;" type="text"  [(ngModel)]="passportNumber" name="passportNumber" />
-                </form>
-            </td>
-            <td>
-                OR:
-                <button mat-button style="margin-right: 10px; font-weight: bold; background: rgb(8, 245, 0); margin-left: 10px; width: 70px;" (click)="myData()">My data</button>
-                OR:
-            </td>
-            <td>
-                <div style="overflow-x:auto; height: 200px; width: 230px;">
-                    <table class="classtabletr"style=" width: 230px;">
-                        <tr *ngFor="let friend of user.friends" class="classtabletr" style="background:#a3d1f7; font-weight: bold; height: 40px;">
-                            <td scope="col">{{friend.name}}</td>
-                            <td scope="col">{{friend.surname}}</td>
-                            <td scope="col">
+<div class="container">
+        <div class="row">
+            <div class="col-md-6">
+            <h2>Insert data:</h2>
+            </div>
+            <div class="col-md-6">
+                <h2>Invite friend:</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-4 divCol">
+                            <label class="label">Ime:</label>
+                        </div>
+                        <div class="col-md-8 divCol">
+                            <input class="input" type="text" [(ngModel)]="name" name="name"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 divCol">
+                            <label class="label">Prezime:</label>
+                        </div>
+                        <div class="col-md-8 divCol">
+                           <input class="input" type="text"  [(ngModel)]="surname" name="surname"  />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 divCol">
+                            <label class="label">Broj Pasosa:</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="input" type="text"  [(ngModel)]="passportNumber" name="passportNumber" />
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row" >
+                    <button mat-button class="buttonMyData" (click)="myData()">Use my data for this seat</button>
+                </div>
+            
+            </div>
+            <div class="col-md-6">
+                <div class="table-wrap" >
+                    <table class="table">
+                        <tr *ngFor="let friend of user.friends"  >
+                            <td class="td">{{friend.name}}</td>
+                            <td class="td">{{friend.surname}}</td>
+                            <td class="td">
                             <button mat-raised-button  (click) ="inviteFriend(friend)" style="background:rgb(8, 245, 0);; border-color: gray; height:30px;">
                                 Invite
                             </button>
@@ -37,17 +59,15 @@
                         </tr>
                     </table>
                 </div>  
-            </td>
-        </tr>
-        <tr>
-
-        </tr>
-    </table>
+            </div>
+        </div>
+      
+</div>
    
 </mat-dialog-content>
 <br/>
 <br/>
 <mat-dialog-actions>
- <button mat-button style="margin-right: 450px; height: 40px; width: 100px; background:red ;font-size: 25px; font-weight: bold;" (click)="cancel()">Cancel</button>
- <button mat-raised-button style="height: 40px;width: 100px;background:  rgb(8, 245, 0);font-size: 25px; font-weight: bold;" (click)="save()">Save</button>
+ <button mat-button class="buttonRemove" (click)="cancel()">Cancel</button>
+ <button mat-raised-button class="buttonModify" (click)="save()">Save</button>
 </mat-dialog-actions>

@@ -13,7 +13,7 @@ export class ReservedSeatDialogComponent implements OnInit {
   public surname : string="";
   public passportNumber: string="";
   user: User;
-
+  
 
   constructor(public dialogRef: MatDialogRef<ReservedSeatDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { this.user=this.data.user}
@@ -46,11 +46,14 @@ export class ReservedSeatDialogComponent implements OnInit {
     this.surname=friend.surname;
     this.passportNumber="231";//treba dodati u klasu user i ovo polje
     //Potrebno prijatelju je poslati poruku sa zahtevom ovde
+    this.save();
   }
   myData(){
     this.name=this.user.name;
     this.surname=this.user.surname;
     this.passportNumber="1212";//treba dodati u klasu user i ovo polje
+    this.save();
+
   }
 
 }

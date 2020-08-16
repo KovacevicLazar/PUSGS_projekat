@@ -32,8 +32,8 @@ export class AirlineService{
        TransitLocations1.push("Subotica");
        TransitLocations2.push("Novi Sad");
        TransitLocations2.push("Subotica");
-       const f1=new Flight(0,"Beograd","Budimpesta",new Date(2020,7,14,9,30,0,0),new Date(2020,7,14,11,30,0,0),110,0,TransitLocations1,250);
-       const f2=new Flight(1,"Beograd","Bec",new Date(2020,7,14,12,30,0,0),new Date(2020,7,14,11,30,0,0),210,0,TransitLocations2,330);
+       const f1=new Flight(0,"Beograd","Budimpesta",new Date(2020,10,14,9,30,0,0),new Date(2020,10,14,11,30,0,0),110,0,TransitLocations1,250);
+       const f2=new Flight(1,"Beograd","Bec",new Date(2020,10,14,12,30,0,0),new Date(2020,10,14,11,30,0,0),210,0,TransitLocations2,330);
      
       
 

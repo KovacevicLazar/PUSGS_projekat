@@ -52,8 +52,11 @@ const routes: Routes = [
       { path: ":id/admin-add-car", component: AdminAddCarComponent },
       { path: ":id/myCarList", component: MyCarListComponent},
 
-      { path: ":id/admin-add-flight", component: AdminAddFlightComponent },
+      { path: ":id/admin-add-iflght", component: AdminAddFlightComponent },
 
+      
+      { path: ":id/rent-a-car-table", component: RentACarFilteredComponent },
+      { path: ":id/airline-table", component: AirlineFilteredComponent },
 
 
       { path: ":id/myAirLineService",

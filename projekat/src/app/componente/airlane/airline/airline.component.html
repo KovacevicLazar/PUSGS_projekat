@@ -61,14 +61,14 @@
 								<div class="col-sm-3">
 									<div class="form-group">
 										<span class="form-label">Departing</span>
-										<input name="dateDepart" [(ngModel)]="dateDepart" class="form-control" type="date" required>
+										<input name="dateDepart" [(ngModel)]="dateDepart" value={{DateNow}} min={{DateNow}} class="form-control" type="date" required>
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<div [hidden]="way != 'Round Trip'">
 											<span class="form-label">Returning</span>
-											<input name="dateReturn" [(ngModel)]="dateReturn" class="form-control" type="date" required>
+											<input name="dateReturn" [(ngModel)]="dateReturn" min={{dateDepart}} class="form-control" type="date" required>
 										</div>
 									</div>
 								</div>

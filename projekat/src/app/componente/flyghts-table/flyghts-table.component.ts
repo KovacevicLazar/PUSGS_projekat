@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/entities/user/user';
 
 @Component({
   selector: 'app-flyghts-table',
@@ -8,7 +9,14 @@ import { Router } from '@angular/router';
 })
 export class FlyghtsTableComponent implements OnInit {
   @Input() Flights;
-  constructor(private router: Router) { }
+
+  id: number;
+  user: User;
+  RegistratedUser : number;
+  
+  constructor(private router: Router ) {
+
+   }
 
   ngOnInit(): void {
   }

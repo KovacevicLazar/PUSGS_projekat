@@ -42,10 +42,10 @@ export class SignInComponent implements OnInit {
               this.router.navigate(['/regus/'.concat(element.id.toString())+'/all-airline']);
             }
             else if(element.role===Role.CarAdmin){
-              this.router.navigate(['/regus/'.concat(element.id.toString())]);
+              this.router.navigate(['/regus/'.concat(element.id.toString()) + '/myCarList']);
             }
             else if(element.role===Role.AirlineAdmin){
-              this.router.navigate(['/regus/'.concat(element.id.toString())]);
+              this.router.navigate(['/regus/'.concat(element.id.toString())+'/myFlightList']);
             }
           }
           else{
