@@ -37,15 +37,19 @@ export class SignInComponent implements OnInit {
           if(element.password===this.password){
             if(element.role===Role.Registred){
               this.router.navigate(['/regus/'.concat(element.id.toString())]);
+              localStorage.setItem("sessionUserRole",JSON.stringify('Registred'));
             }
             else if(element.role===Role.SystemAdmin){
               this.router.navigate(['/regus/'.concat(element.id.toString())+'/all-airline']);
+              localStorage.setItem("sessionUserRole",JSON.stringify('SystemAdmin'));
             }
             else if(element.role===Role.CarAdmin){
               this.router.navigate(['/regus/'.concat(element.id.toString()) + '/myCarList']);
+              localStorage.setItem("sessionUserRole",JSON.stringify('CarAdmin'));
             }
             else if(element.role===Role.AirlineAdmin){
               this.router.navigate(['/regus/'.concat(element.id.toString())+'/myFlightList']);
+              localStorage.setItem("sessionUserRole",JSON.stringify('AirlineAdmin'));
             }
           }
           else{

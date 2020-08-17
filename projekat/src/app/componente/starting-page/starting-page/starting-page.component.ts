@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartingPageComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    localStorage.setItem("sessionUserRole",JSON.stringify("NonRegistred"))
+   }
 
   ngOnInit(): void {
   }

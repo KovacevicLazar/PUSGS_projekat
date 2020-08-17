@@ -10,7 +10,7 @@
   <a  style="float: left;"  [hidden]="user.role ==3 || user.role == 1 || user.role == 2" routerLink ="/regus/{{user.id}}/history-of-reservation">RESERVATIONS</a>
 
 
-  <a  style="float: right;" routerLink="">LOGOUT</a>
+  <a  style="float: right;" (click) = "Logout()" routerLink="">LOGOUT </a>
   <a style="float: right;" [hidden]="user.role ==0 || user.role == 1 || user.role==2" routerLink ="/regus/{{user.id}}/all-rc-servis">CAR COMPANIES</a>
   <a style="float: right;" [hidden]="user.role ==0 ||  user.role == 1 || user.role == 2" routerLink ="/regus/{{user.id}}/all-airline"> AIRLINES</a>
   <a style="float: right;" [hidden]="user.role == 0 || user.role == 2 || user.role == 3" routerLink ="/regus/{{user.id}}/myRCservis"> SERVICE INFO</a>

@@ -3,4 +3,5 @@ export enum Role {
     CarAdmin,
     AirlineAdmin,
     SystemAdmin,
+    NonRegistred
 }

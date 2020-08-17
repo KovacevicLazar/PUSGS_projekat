@@ -30,6 +30,13 @@ import { ListOfAirlinesComponent } from './componente/list-of-airlines/list-of-a
 import { ListOfCarCompaniesComponent } from './componente/list-of-car-companies/list-of-car-companies.component';
 import { AdminAddCarComponent } from './componente/admin-add-car/admin-add-car.component';
 import { AdminAddFlightComponent } from './componente/admin-add-flight/admin-add-flight.component';
+import { RegistredGuardGuard } from './guards/registred-guard.guard';
+import { SuperAdminGuardGuard } from './guards/super-admin-guard.guard';
+import { CarAdminGuardGuard } from './guards/car-admin--guard.guard';
+import { AirlineAdminGuardGuard } from './guards/airline-admin--guard.guard';
+import { UnregistredGuardGuard } from './guards/unregistred-guard.guard';
+
+
 
 const routes: Routes = [
   {
@@ -41,8 +48,12 @@ const routes: Routes = [
     children: [
       { path: "", component: RegisteredUserComponent },
       { path: ":id", component: RegisteredUserComponent},
-      { path: ":id/profile", component: ProfileComponent },
-      { path: ":id/friends", component: FriendsComponent },
+      { path: ":id/profile", component: ProfileComponent 
+
+     
+     },
+      { path: ":id/friends", component: FriendsComponent,
+      canActivate: [RegistredGuardGuard] },
       { path: ":id/myRCservis",
         children:[
          { path: "", component: MyRcServisComponent},
@@ -55,8 +66,10 @@ const routes: Routes = [
       { path: ":id/admin-add-iflght", component: AdminAddFlightComponent },
 
       
-      { path: ":id/rent-a-car-table", component: RentACarFilteredComponent },
-      { path: ":id/airline-table", component: AirlineFilteredComponent },
+      { path: ":id/rent-a-car-table", component: RentACarFilteredComponent ,
+      canActivate: [RegistredGuardGuard],},
+      { path: ":id/airline-table", component: AirlineFilteredComponent ,
+      canActivate: [RegistredGuardGuard],},
 
 
       { path: ":id/myAirLineService",
@@ -69,14 +82,18 @@ const routes: Routes = [
 
     
       { path: ":id/airline", 
+      canActivate: [RegistredGuardGuard],
       children:[
         {path: "" , component: AirlineComponent},
         {path: ":flightID" , component: SeatReservationComponent}
       ]
       },
-      { path: ":id/history-of-reservation", component: HistoryOfReservationComponent},
-      {  path: ":id/rent-a-car", component: RentACarComponent},
-      { path: ":id/all-rc-servis",component: ListOfCarCompaniesComponent},
+      { path: ":id/history-of-reservation", component: HistoryOfReservationComponent,
+    canActivate: [RegistredGuardGuard]},
+      {  path: ":id/rent-a-car", component: RentACarComponent,
+      canActivate: [RegistredGuardGuard]},
+      { path: ":id/all-rc-servis",component: ListOfCarCompaniesComponent,
+      canActivate: [SuperAdminGuardGuard]},
       { path: ":id/all-airline",component: ListOfAirlinesComponent},
       { path: ":id/add-airline",component: AddAirlineComponent},
       { path: ":id/add-rcServis",component: AddRcServisComponent}
@@ -104,10 +121,11 @@ const routes: Routes = [
   {
     path: "airline",
     component: AirlineComponent,
+    canActivate: [UnregistredGuardGuard],
     children: [
       { path: "", component: AirlineComponent },
-      { path: ":id", component: RegisteredUserComponent},
-      { path: "airline-filtered", component: AirlineFilteredComponent, }
+      { path: ":flightID" , component: SeatReservationComponent }
+     
     ]
   },
 
@@ -116,10 +134,12 @@ const routes: Routes = [
   {
     path: "airline-table",
     component: AirlineFilteredComponent,
+    canActivate: [UnregistredGuardGuard],
   },
   {
     path: "rent-a-car-table",
     component: RentACarFilteredComponent,
+    canActivate: [UnregistredGuardGuard],
   },
 
 
@@ -131,6 +151,7 @@ const routes: Routes = [
   {
     path: "rent-a-car",
     component: RentACarComponent,
+    canActivate: [UnregistredGuardGuard],
     children: [
     {
       path: "rent-a-car-filtered",
@@ -144,11 +165,17 @@ const routes: Routes = [
   },
   {
     path: "sign-in",
-    component: SignInComponent
+    component: SignInComponent,
+    canActivate: [UnregistredGuardGuard]
+   
   },
+ 
+   
   {
     path: "sign-up",
     component: SignUpComponent,
+    canActivate: [UnregistredGuardGuard]
+   
   },
   {
     path: "rent-a-car",

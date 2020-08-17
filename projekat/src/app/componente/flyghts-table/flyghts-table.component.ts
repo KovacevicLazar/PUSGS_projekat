@@ -22,7 +22,27 @@ export class FlyghtsTableComponent implements OnInit {
   }
 
   SelectFlight(flight){
-    this.router.navigate(['/regus/1/airline/' ,flight.id]) 
+
+    if(this.check())
+    {
+      this.router.navigate(['/regus/1/airline/' ,flight.id]) 
+    }
+    else
+    {
+      this.router.navigate(['/airline/' ,flight.id])
+    }
+   
+  }
+  check()
+  {
+    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
+    if(userRole === 'Registred')
+    {
+      return true;
+    }
+    else
+      return false;
+    
   }
 
 }

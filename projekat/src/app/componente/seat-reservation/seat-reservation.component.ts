@@ -41,14 +41,23 @@ export class SeatReservationComponent implements OnInit {
   totalPrice: number = 0;
 
   constructor(private userService : UserService, private router: Router ,private route: ActivatedRoute, private airlineService : AirlineService, public dialog: MatDialog) {
-    let flightid = parseInt(this.route.snapshot.paramMap.get('flightID'));
-    let userid = parseInt(this.route.snapshot.paramMap.get('id'));
+  
     
-    this.userService.loadUsers().forEach(element => {
-      if(element.id==userid){
-        this.user=element;
-      }
-    });
+    let flightid = parseInt(this.route.snapshot.paramMap.get('flightID'));
+
+    if(this.check())
+    {
+      let userid = parseInt(this.route.snapshot.paramMap.get('id'));
+
+      this.userService.loadUsers().forEach(element => {
+        if(element.id==userid){
+          this.user=element;
+        }
+      });
+    }
+    
+    
+    
     
     airlineService.loadAirlines().forEach(airline => {
       airline.flights.forEach(element => {
@@ -130,13 +139,32 @@ export class SeatReservationComponent implements OnInit {
       }
   }
 
+  check()
+  {
+    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
+    if(userRole === 'Registred')
+    {
+      return true;
+    }
+    else
+      return false;
+    
+  }
+
   openDialog(seatPos: string): any{
-    return this.dialog.open(ReservedSeatDialogComponent, {
-      disableClose: true,
-      data:{
-         user : this.user,
-        }
-    });
+    if(this.check())
+    {
+      return this.dialog.open(ReservedSeatDialogComponent, {
+        disableClose: true,
+        data:{
+           user : this.user,
+          }
+      });
+    }
+   else
+   {
+     alert("Morate biti registrovani za dalje akcije ")
+   }
 
   }
 

@@ -14,4 +14,9 @@ export class NavMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  Logout()
+  {
+    localStorage.removeItem('sessionUserRole');
+  }
+
 }
