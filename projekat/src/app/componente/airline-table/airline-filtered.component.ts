@@ -19,14 +19,13 @@ export class AirlineFilteredComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private userService : UserService, private Airlines : AirlineService) {
 
     this.RegistratedUser=0;
-    route.params.subscribe(params => { this.id = params['id']; })
-    this.userService.loadUsers().forEach(element => {
-      if(element.id==this.id){
-        this.user=element;
-        this.RegistratedUser=1;
-      }
+    
+    if(this.check())
+    {
+      this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
+      this.RegistratedUser =1;
+    }
 
-    });
     this.allAirline=Airlines.loadAirlines();
   }
 
@@ -35,12 +34,32 @@ export class AirlineFilteredComponent implements OnInit {
 
   OnSubmit(airline)
   {
-    this.router.navigate(['/nonreg/'.concat(airline.id.toString(),'/airDesc')]);
+    this.router.navigate(['/airDesc/'.concat(airline.id.toString())]);
   }
 
   DestDugme(airline)
   {
-    this.router.navigate(['/nonreg/'.concat(airline.id.toString(),'/airDest')]);
+    this.router.navigate(['/airDest/'.concat(airline.id.toString())]);
+  }
+
+  check()
+  {
+    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
+    if(userRole === 'Registred')
+    {
+      return true;
+    }
+    else
+      return false; 
+  }
+
+  FindUserWithUserEmail(){
+    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
+    this.userService.loadUsers().forEach(element => {
+      if(element.email== userEmail){
+        this.user=element;
+      }
+    });
   }
 
 }

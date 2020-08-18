@@ -1,11 +1,8 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div *ngIf="RegistratedUser != 0">
-    <app-nav-menu [user]="user"></app-nav-menu> 
-</div>
-<div *ngIf="RegistratedUser == 0">
-    <app-starting-page-nav-menu></app-starting-page-nav-menu>
-</div>
+
+<app-nav-menu></app-nav-menu> 
+
 
 <div class="mainDiv">
     <h5  class="booking-cta" >Lists of airlines:</h5>

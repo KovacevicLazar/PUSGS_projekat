@@ -1,20 +1,22 @@
 <div class="topnav">
-  <a style="float: left;" [hidden]="user.role ==3 || user.role == 1 || user.role == 2" routerLink ="/regus/{{user.id}}/airline">FLIGHT</a>
-  <a style="float: left;" [hidden]="user.role ==3 || user.role == 1 || user.role == 2 " routerLink ="/regus/{{user.id}}/rent-a-car" >CAR</a>
+  <a style="float: left;"  [hidden]="userRole == 'SystemAdmin' || userRole == 'CarAdmin' || userRole == 'AirlineAdmin'" routerLink ="/airline">FLIGHT</a>
+  <a style="float: left;"  [hidden]="userRole == 'SystemAdmin' || userRole == 'CarAdmin' || userRole == 'AirlineAdmin'" routerLink ="/rent-a-car" >CAR</a>
 
-  <a style="float: left;" [hidden]="user.role==3 || user.role ==2 || user.role==1" routerLink ="/regus/{{user.id}}/airline-table">AIRLINES</a>
-  <a style="float: left;" [hidden]="user.role==3 || user.role ==2 || user.role==1" routerLink ="/regus/{{user.id}}/rent-a-car-table" >CAR COMPANIES</a>
+  <a style="float: left;"  [hidden]="userRole== 'SystemAdmin' || userRole == 'AirlineAdmin' || userRole == 'CarAdmin'" routerLink ="/airline-table">AIRLINES</a>
+  <a style="float: left;"  [hidden]="userRole== 'SystemAdmin' || userRole == 'AirlineAdmin' || userRole== 'CarAdmin'" routerLink ="/rent-a-car-table" >CAR COMPANIES</a>
 
-  <a style="float: left;" [hidden]="user.role==3 || user.role ==2 || user.role==1" routerLink ="/regus/{{user.id}}/friends">FRIENDS</a>
-  <a  style="float: left;" routerLink ="/regus/{{user.id}}/profile">PROFILE</a>
-  <a  style="float: left;"  [hidden]="user.role ==3 || user.role == 1 || user.role == 2" routerLink ="/regus/{{user.id}}/history-of-reservation">RESERVATIONS</a>
+  <a style="float: left;"  [hidden]="userRole== 'SystemAdmin' || userRole == 'AirlineAdmin' || userRole== 'CarAdmin' || userRole == 'NonRegistred'" routerLink ="/friends">FRIENDS</a>
+  <a style="float: left;"  [hidden]="userRole == 'NonRegistred'" routerLink ="/profile">PROFILE</a>
+  <a style="float: left;"  [hidden]="userRole == 'SystemAdmin' || userRole == 'CarAdmin' || userRole == 'AirlineAdmin' || userRole == 'NonRegistred'" routerLink ="/history-of-reservation">RESERVATIONS</a>
 
 
-  <a  style="float: right;" (click) = "Logout()" routerLink="">LOGOUT </a>
-  <a style="float: right;" [hidden]="user.role ==0 || user.role == 1 || user.role==2" routerLink ="/regus/{{user.id}}/all-rc-servis">CAR COMPANIES</a>
-  <a style="float: right;" [hidden]="user.role ==0 ||  user.role == 1 || user.role == 2" routerLink ="/regus/{{user.id}}/all-airline"> AIRLINES</a>
-  <a style="float: right;" [hidden]="user.role == 0 || user.role == 2 || user.role == 3" routerLink ="/regus/{{user.id}}/myRCservis"> SERVICE INFO</a>
-  <a style="float: right;" [hidden] ="user.role == 0 || user.role == 2 || user.role == 3" routerLink ="/regus/{{user.id}}/myCarList"> LIST OF CARS</a>
-  <a style="float: right;" [hidden]="user.role == 0 || user.role == 1 || user.role == 3" routerLink ="/regus/{{user.id}}/myAirLineService"> SERVICE INFO</a>
-  <a style="float: right;" [hidden] ="user.role == 0 || user.role == 1 || user.role == 3" routerLink ="/regus/{{user.id}}/myFlightList"> LIST OF FLIGHT</a>
+  <a style="float: right;" [hidden]="userRole == 'NonRegistred'" (click) = "Logout()" routerLink="">LOGOUT </a>
+  <a style="float: right;" [hidden]="userRole == 'SystemAdmin' || userRole == 'CarAdmin' || userRole == 'AirlineAdmin' || userRole == 'Registred'" routerLink ="/sign-in">SING IN</a>
+  <a style="float: right;" [hidden]="userRole == 'SystemAdmin' || userRole == 'CarAdmin' || userRole == 'AirlineAdmin' || userRole == 'Registred'" routerLink ="/sign-up">SING UP</a>
+  <a style="float: right;" [hidden]="userRole == 'Registred' || userRole == 'CarAdmin' || userRole == 'AirlineAdmin' || userRole == 'NonRegistred'" routerLink ="/all-rc-servis">CAR COMPANIES</a>
+  <a style="float: right;" [hidden]="userRole == 'Registred' || userRole == 'CarAdmin' || userRole == 'AirlineAdmin' || userRole == 'NonRegistred'" routerLink ="/all-airline"> AIRLINES</a>
+  <a style="float: right;" [hidden]="userRole == 'Registred' || userRole == 'AirlineAdmin' || userRole == 'SystemAdmin' || userRole == 'NonRegistred'" routerLink ="/myRCservis"> SERVICE INFO</a>
+  <a style="float: right;" [hidden]="userRole == 'Registred' || userRole == 'AirlineAdmin' || userRole == 'SystemAdmin' || userRole == 'NonRegistred'" routerLink ="/myCarList"> LIST OF CARS</a>
+  <a style="float: right;" [hidden]="userRole == 'Registred' || userRole == 'CarAdmin' || userRole == 'SystemAdmin' || userRole == 'NonRegistred'" routerLink ="/myAirLineService"> SERVICE INFO</a>
+  <a style="float: right;" [hidden]="userRole == 'Registred' || userRole == 'CarAdmin' || userRole == 'SystemAdmin' || userRole == 'NonRegistred'" routerLink ="/myFlightList"> LIST OF FLIGHT</a>
 </div> 

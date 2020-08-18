@@ -4,13 +4,9 @@
    
 
 	<body>
-		<div *ngIf="RegistratedUser != 0">
-			<app-nav-menu [user]="user"></app-nav-menu> 
-		</div>
-		<div *ngIf="RegistratedUser == 0">
-			<app-starting-page-nav-menu></app-starting-page-nav-menu>
-		</div>
-			
+		
+		<app-nav-menu></app-nav-menu> 
+		
 		<div id="booking" class="section">
 			<div class="section-center">
 				<div class="container">

@@ -22,14 +22,11 @@ export class RentACarFilteredComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private userService : UserService, private RentACars : RentCarService) {
 
     this.RegistratedUser=0;
-    route.params.subscribe(params => { this.id = params['id']; })
-    this.userService.loadUsers().forEach(element => {
-      if(element.id==this.id){
-        this.user=element;
-        this.RegistratedUser=1;
-      }
-
-    });
+    if(this.check())
+    {
+      this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
+      this.RegistratedUser=1;
+    }
     this.allrentcars=RentACars.loadRentCars();
   }
 
@@ -39,11 +36,31 @@ export class RentACarFilteredComponent implements OnInit {
   OnSubmit(rentcars)
   {
       
-    this.router.navigate(['/nonregRC/'.concat(rentcars.id.toString(),'/rentcDesc')]);
+    this.router.navigate(['/rentcDesc/'.concat(rentcars.id.toString())]);
   }
   FilialsClick(rentcars)
   {
-    this.router.navigate(['/nonregRC/'.concat(rentcars.id.toString(),'/rentCarDest')]);
+    this.router.navigate(['/rentCarDest/'.concat(rentcars.id.toString())]);
+  }
+
+  check()
+  {
+    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
+    if(userRole === 'Registred')
+    {
+      return true;
+    }
+    else
+      return false; 
+  }
+
+  FindUserWithUserEmail(){
+    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
+    this.userService.loadUsers().forEach(element => {
+      if(element.email== userEmail){
+        this.user=element;
+      }
+    });
   }
   
 

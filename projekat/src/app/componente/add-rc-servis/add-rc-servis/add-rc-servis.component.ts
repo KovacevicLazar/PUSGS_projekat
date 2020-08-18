@@ -53,7 +53,7 @@ export class AddRcServisComponent implements OnInit {
      // let newRentCar = new  RentCar(6,this.name,this.address,this.description,this.mark,this.branches);
       //this.allRentCars.push(newRentCar);
       alert("The new rent a car service is succesfully added! ");
-      this.router.navigate(['/regus/4/all-rc-servis']);
+      this.router.navigate(['/all-rc-servis']);
       
 
     }

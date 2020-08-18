@@ -19,7 +19,7 @@ import { from } from 'rxjs';
 import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';
 
 import { ProfileComponent } from './componente/profile/profile.component';
-import { StartingPageNavMenuComponent } from './componente/starting-page-nav-menu/starting-page-nav-menu.component';
+
 
 import { PageNotFoundComponent } from './componente/page-not-found/page-not-found/page-not-found.component';
 import { RentCarDescriptionComponent } from './componente/rent-car-description/rent-car-description/rent-car-description.component';
@@ -36,7 +36,7 @@ import { AirlineDestinationsComponent } from './componente/airline-destinations/
 import { RentCarBranchComponent } from './componente/rent-car-branch/rent-car-branch/rent-car-branch.component';
 import { MyRcServisComponent } from './componente/my-rc-servis/my-rc-servis/my-rc-servis.component';
 import { MyCarListComponent } from './componente/my-car-list/my-car-list/my-car-list.component';
-import { ChangeRcInfoComponent } from './componente/change-rc-info/change-rc-info/change-rc-info.component';
+
 import { MyAirlineServisComponent } from './componente/my-airline-servis/my-airline-servis.component';
 import { MyFlightListComponent } from './componente/my-flight-list/my-flight-list.component';
 import { ListOfAirlinesComponent } from './componente/list-of-airlines/list-of-airlines.component';
@@ -63,7 +63,6 @@ import { ReservationCarDialogComponent } from './componente/reservation-car-dial
     RentACarFilteredComponent,
     RegisteredUserComponent,
     ProfileComponent,
-    StartingPageNavMenuComponent,   
     PageNotFoundComponent,
     RentCarDescriptionComponent,
     AirlineDescriptionComponent,
@@ -78,7 +77,6 @@ import { ReservationCarDialogComponent } from './componente/reservation-car-dial
     RentCarBranchComponent,
     MyRcServisComponent,
     MyCarListComponent,
-    ChangeRcInfoComponent,
     MyAirlineServisComponent,
     MyFlightListComponent,
     ListOfAirlinesComponent,

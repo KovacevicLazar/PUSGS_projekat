@@ -27,14 +27,9 @@ export class AdminAddFlightComponent implements OnInit {
   DateNow="";
 
   constructor(private userService: UserService, private route: ActivatedRoute,private router: Router) { 
-    route.params.subscribe(params => { this.id = params['id']; })
-    this.userService.loadUsers().forEach(element => {
-      if(element.id==this.id){
-        this.user=element;
-       
-      }
-
-    });
+    
+    this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
+    
 
     this.DateNow=this.converStringToDate(new Date());
     this.DateDepart=this.DateNow;
@@ -88,6 +83,17 @@ export class AdminAddFlightComponent implements OnInit {
       alert("Podaci nisu dobro uneti");
     }
   }
+
+  FindUserWithUserEmail(){
+    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
+    this.userService.loadUsers().forEach(element => {
+      if(element.email== userEmail){
+        this.user=element;
+      }
+    });
+  }
+
+
 }
 
 

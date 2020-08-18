@@ -47,17 +47,8 @@ export class SeatReservationComponent implements OnInit {
 
     if(this.check())
     {
-      let userid = parseInt(this.route.snapshot.paramMap.get('id'));
-
-      this.userService.loadUsers().forEach(element => {
-        if(element.id==userid){
-          this.user=element;
-        }
-      });
+      this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
     }
-    
-    
-    
     
     airlineService.loadAirlines().forEach(airline => {
       airline.flights.forEach(element => {
@@ -94,7 +85,7 @@ export class SeatReservationComponent implements OnInit {
   Back() {
       this.selected = [];
       this.reservedSeat=[];
-      this.router.navigate(['/regus/' + this.user.id.toString() + '/airline']) 
+      this.router.navigate(['/airline']) 
   }
   //click handler
   seatClicked(seatPos: string) {
@@ -132,7 +123,7 @@ export class SeatReservationComponent implements OnInit {
         //Ovde poslati mejl korisniku za informaciju o destinaciji
         alert("Reserved Seats: " + this.selected + "\nTotal: "+(this.ticketPrice * this.selected.length) + "€");
 
-        this.router.navigate(['/regus/' + this.user.id.toString() + '/history-of-reservation']) 
+        this.router.navigate(['/history-of-reservation']) 
 
       } else {
           alert("No seats selected!");
@@ -147,8 +138,16 @@ export class SeatReservationComponent implements OnInit {
       return true;
     }
     else
-      return false;
-    
+      return false; 
+  }
+
+  FindUserWithUserEmail(){
+    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
+    this.userService.loadUsers().forEach(element => {
+      if(element.email= userEmail){
+        this.user=element;
+      }
+    });
   }
 
   openDialog(seatPos: string): any{

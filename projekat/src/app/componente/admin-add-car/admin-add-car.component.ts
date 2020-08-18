@@ -23,14 +23,7 @@ export class AdminAddCarComponent implements OnInit {
  Babyseats ="";
 
   constructor(private userService: UserService, private route: ActivatedRoute,private router: Router) { 
-    route.params.subscribe(params => { this.id = params['id']; })
-    this.userService.loadUsers().forEach(element => {
-      if(element.id==this.id){
-        this.user=element;
-       
-      }
-
-    });
+    this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
   }
 
   ngOnInit(): void {
@@ -45,9 +38,19 @@ export class AdminAddCarComponent implements OnInit {
     else
     {
       let newCar = new Car(10,this.Location,"",this.Brand,this.CarModel,Number(this.year),Number(this.PricePerDay),true,Number(this.Babyseats),"");
-      this.router.navigate(['/regus/'.concat(this.user.id.toString(),'/myCarList')]);
+      this.router.navigate(['/myCarList']);
    
     }
+  }
+
+
+  FindUserWithUserEmail(){
+    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
+    this.userService.loadUsers().forEach(element => {
+      if(element.email== userEmail){
+        this.user=element;
+      }
+    });
   }
 
 }

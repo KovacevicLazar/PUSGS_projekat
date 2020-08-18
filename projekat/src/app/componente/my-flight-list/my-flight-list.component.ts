@@ -20,22 +20,19 @@ export class MyFlightListComponent implements OnInit {
 
   constructor(private airlineService: AirlineService ,private router: Router,private route: ActivatedRoute,private userService : UserService,public dialog: MatDialog) { 
 
-    route.params.subscribe(params => { this.id = params['id']; })
-      this.userService.loadUsers().forEach(element => {
-        if(element.id==this.id){
-          this.user=element;
-          this.airlineService.loadAirlines().forEach(element1 =>
-            {
-              if(element.id == element1.adminId)
-              {
-                element1.flights.forEach(flight =>
-                  {
-                    this.Flights.push(flight);
-                  });
-              }
-            });
+    
+    this.FindUserWithUserEmail(); 
+    
+    this.airlineService.loadAirlines().forEach(element1 =>
+    {
+      if(this.user.id == element1.adminId)
+      {
+        element1.flights.forEach(flight =>
+        {
+          this.Flights.push(flight);
+          });
         }
-      });
+    });
   }
 
 
@@ -83,6 +80,15 @@ export class MyFlightListComponent implements OnInit {
       data:{
          flight : flight1,
         }
+    });
+  }
+
+  FindUserWithUserEmail(){
+    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
+    this.userService.loadUsers().forEach(element => {
+      if(element.email== userEmail){
+        this.user=element;
+      }
     });
   }
 

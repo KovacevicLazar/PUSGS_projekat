@@ -20,16 +20,23 @@ export class CarTableComponent implements OnInit {
 
   Reserve(car)
   {
-    this.openDialog(car).afterClosed().subscribe(result => {
-      if(result=="Cancel"){
-        alert("Podaci nisu menjani.")
-      }
-      else{
-        let newCar= result as Car;
-        //Samo zameniti podatke za flight podacima iz NewFlight
-      
-      }
-    }); 
+    if(this.check()){
+      this.openDialog(car).afterClosed().subscribe(result => {
+        if(result=="Cancel"){
+          alert("Podaci nisu menjani.")
+        }
+        else{
+          let newCar= result as Car;
+          //Samo zameniti podatke za flight podacima iz NewFlight
+        
+        }
+      }); 
+    }
+    else
+    {
+      alert("Morate biti registrovani za dalje akcije ")
+    }
+   
   }
 
   openDialog(car1: Car): any{
@@ -39,6 +46,18 @@ export class CarTableComponent implements OnInit {
          car : car1,
         }
     });
+  }
+
+
+  check()
+  {
+    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
+    if(userRole === 'Registred')
+    {
+      return true;
+    }
+    else
+      return false; 
   }
 
 }

@@ -7,9 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NavMenuComponent implements OnInit {
 
-  @Input() user;
+   userRole = "";
   
-  constructor() { }
+  constructor() { 
+    this.userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
+  }
 
   ngOnInit(): void {
   }
@@ -17,6 +19,7 @@ export class NavMenuComponent implements OnInit {
   Logout()
   {
     localStorage.removeItem('sessionUserRole');
+    localStorage.removeItem("UserEmail");
   }
 
 }

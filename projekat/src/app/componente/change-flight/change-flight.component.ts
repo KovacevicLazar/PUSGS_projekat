@@ -11,8 +11,6 @@ import { DatePipe } from '@angular/common';
 export class ChangeFlightComponent implements OnInit {
 
   flight:Flight;
-  
-  id: number;
  
   FlyingFrom="";
   FlyingTo ="";

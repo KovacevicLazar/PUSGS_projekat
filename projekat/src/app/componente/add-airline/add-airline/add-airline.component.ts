@@ -56,7 +56,7 @@ export class AddAirlineComponent implements OnInit {
       let newAirline = new  Airline(6,this.name,this.address,this.description,this.mark,this.destinations,1,this.username);
       this.allAirlines.push(newAirline);
       alert("The new airline is succesfully added! ");
-      this.router.navigate(['/regus/4/all-airline']);
+      this.router.navigate(['/all-airline']);
 
     }
   }

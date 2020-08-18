@@ -36,14 +36,13 @@ export class AirlineComponent implements OnInit {
   constructor(private userService: UserService, private airlineService: AirlineService, private route: ActivatedRoute) { 
     this.RegistratedUser=0;
     this.SearchButtonClicket=0;
-    route.params.subscribe(params => { this.id = params['id']; })
-    this.userService.loadUsers().forEach(element => {
-      if(element.id==this.id){
-        this.user=element;
-        this.RegistratedUser=1;
-      }
+    
+    if(this.check())
+    {
+      this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
+      this.RegistratedUser =1;
+    }
 
-    });
     this.allAirline = this.airlineService.loadAirlines();
 
     this.DateNow=this.converStringToDate(new Date());
@@ -107,8 +106,26 @@ export class AirlineComponent implements OnInit {
         });
       });
     }
+  }
 
+  check()
+  {
+    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
+    if(userRole === 'Registred')
+    {
+      return true;
+    }
+    else
+      return false; 
+  }
 
+  FindUserWithUserEmail(){
+    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
+    this.userService.loadUsers().forEach(element => {
+      if(element.email== userEmail){
+        this.user=element;
+      }
+    });
   }
 
 }

@@ -23,7 +23,6 @@ import { AirlineDestinationsComponent } from './componente/airline-destinations/
 import { RentCarBranchComponent } from './componente/rent-car-branch/rent-car-branch/rent-car-branch.component';
 import { MyRcServisComponent } from './componente/my-rc-servis/my-rc-servis/my-rc-servis.component';
 import { MyCarListComponent } from './componente/my-car-list/my-car-list/my-car-list.component';
-import { ChangeRcInfoComponent } from './componente/change-rc-info/change-rc-info/change-rc-info.component';
 import { MyAirlineServisComponent } from './componente/my-airline-servis/my-airline-servis.component';
 import { MyFlightListComponent } from './componente/my-flight-list/my-flight-list.component';
 import { ListOfAirlinesComponent } from './componente/list-of-airlines/list-of-airlines.component';
@@ -35,6 +34,8 @@ import { SuperAdminGuardGuard } from './guards/super-admin-guard.guard';
 import { CarAdminGuardGuard } from './guards/car-admin--guard.guard';
 import { AirlineAdminGuardGuard } from './guards/airline-admin--guard.guard';
 import { UnregistredGuardGuard } from './guards/unregistred-guard.guard';
+import { NonRegistredComponent } from './componente/non-registred/non-registred/non-registred.component';
+import { ProfileComponentGuard } from './guards/profile-component.guard';
 
 
 
@@ -43,158 +44,78 @@ const routes: Routes = [
     path: "",
     component: StartingPageComponent
   },
-  {
-    path: "regus",
-    children: [
-      { path: "", component: RegisteredUserComponent },
-      { path: ":id", component: RegisteredUserComponent},
-      { path: ":id/profile", component: ProfileComponent 
-
-     
-     },
-      { path: ":id/friends", component: FriendsComponent,
-      canActivate: [RegistredGuardGuard] },
-      { path: ":id/myRCservis",
-        children:[
-         { path: "", component: MyRcServisComponent},
-         { path:"changeInfo",component: ChangeRcInfoComponent }
-        ]
-      },
-      { path: ":id/admin-add-car", component: AdminAddCarComponent },
-      { path: ":id/myCarList", component: MyCarListComponent},
-
-      { path: ":id/admin-add-iflght", component: AdminAddFlightComponent },
-
-      
-      { path: ":id/rent-a-car-table", component: RentACarFilteredComponent ,
-      canActivate: [RegistredGuardGuard],},
-      { path: ":id/airline-table", component: AirlineFilteredComponent ,
-      canActivate: [RegistredGuardGuard],},
 
 
-      { path: ":id/myAirLineService",
-      children:[
-       { path: "", component: MyAirlineServisComponent},
-       //{ path:"changeInfo",component: ChangeRcInfoComponent }
-      ]
-    },
-    { path: ":id/myFlightList", component: MyFlightListComponent},
-
-    
-      { path: ":id/airline", 
-      canActivate: [RegistredGuardGuard],
-      children:[
-        {path: "" , component: AirlineComponent},
-        {path: ":flightID" , component: SeatReservationComponent}
-      ]
-      },
-      { path: ":id/history-of-reservation", component: HistoryOfReservationComponent,
-    canActivate: [RegistredGuardGuard]},
-      {  path: ":id/rent-a-car", component: RentACarComponent,
-      canActivate: [RegistredGuardGuard]},
-      { path: ":id/all-rc-servis",component: ListOfCarCompaniesComponent,
-      canActivate: [SuperAdminGuardGuard]},
-      { path: ":id/all-airline",component: ListOfAirlinesComponent},
-      { path: ":id/add-airline",component: AddAirlineComponent},
-      { path: ":id/add-rcServis",component: AddRcServisComponent}
-      
-    ]
-  },
-
-  {
-    path: "nonreg",
-    children: [
-     { path : ":idAir/airDesc", component: AirlineDescriptionComponent },
-     { path : ":idAir/airDest",component: AirlineDestinationsComponent}
-    ]
-  },
-
-  { path: "nonregRC",
-  children: [
-    { path : ":idRC/rentcDesc",component: RentCarDescriptionComponent },
-    { path : ":idRC/rentCarDest",component: RentCarBranchComponent}
-  ]
-},
-
-
- 
-  {
-    path: "airline",
-    component: AirlineComponent,
-    canActivate: [UnregistredGuardGuard],
-    children: [
-      { path: "", component: AirlineComponent },
-      { path: ":flightID" , component: SeatReservationComponent }
-     
-    ]
-  },
-
-
-
-  {
-    path: "airline-table",
-    component: AirlineFilteredComponent,
-    canActivate: [UnregistredGuardGuard],
-  },
-  {
-    path: "rent-a-car-table",
-    component: RentACarFilteredComponent,
-    canActivate: [UnregistredGuardGuard],
-  },
-
-
-
-  {
-    path: "airline-filtered",
-    component: AirlineFilteredComponent,
-  },
-  {
-    path: "rent-a-car",
-    component: RentACarComponent,
-    canActivate: [UnregistredGuardGuard],
-    children: [
-    {
-      path: "rent-a-car-filtered",
-      component: RentACarFilteredComponent, 
-    }
-   ]
-  },
-  {
-    path: "rent-a-car-filtered",
-    component: RentACarFilteredComponent, 
-  },
-  {
-    path: "sign-in",
-    component: SignInComponent,
-    canActivate: [UnregistredGuardGuard]
-   
-  },
- 
-   
-  {
-    path: "sign-up",
-    component: SignUpComponent,
-    canActivate: [UnregistredGuardGuard]
-   
-  },
-  {
-    path: "rent-a-car",
-    component: RentACarComponent
-  },
+  { path: "", component: RegisteredUserComponent },
   
 
-  {
-    path: "profile",
-    children: [
-      { path: "", component: ProfileComponent },
-      { path: ":id", component: ProfileComponent},
-      
+ 
+  //Rute kojima meze pristupiti neregistrovani korisnik ( Ovaj gard omogucava i pristup Registrovanom Obicnom korisniku)
+  {path: "sign-in", component: SignInComponent, canActivate: [UnregistredGuardGuard]},
+  {path: "sign-up", component: SignUpComponent, canActivate: [UnregistredGuardGuard]},
+  { path: "rent-a-car-table", component: RentACarFilteredComponent ,  canActivate: [UnregistredGuardGuard]},
+  { path: "airline-table", component: AirlineFilteredComponent , canActivate: [UnregistredGuardGuard]},  
+  { path: "airline",canActivate: [UnregistredGuardGuard],
+    children:[
+      {path: "" , component: AirlineComponent},
+      {path: ":flightID" , component: SeatReservationComponent}
     ]
   },
-  {
-    path: "friends",
-    component: FriendsComponent
+  { path: "rent-a-car", component: RentACarComponent, canActivate: [UnregistredGuardGuard]},
+  { path: "airDesc",   canActivate: [UnregistredGuardGuard],
+    children:[
+      {path: ":idAir" , component:  AirlineDescriptionComponent}
+    ]
   },
+  { path: "airDest",  canActivate: [UnregistredGuardGuard],
+    children:[
+      {path: ":idAir" , component:  AirlineDestinationsComponent}
+    ]
+  },
+  { path: "rentcDesc", canActivate: [UnregistredGuardGuard],
+    children:[
+      {path: ":idRC" , component:   RentCarDescriptionComponent}
+    ]
+  },
+  { path: "rentCarDest", canActivate: [UnregistredGuardGuard],
+    children:[
+      {path: ":idRC" , component:  RentCarBranchComponent}
+    ]
+  },
+
+
+  //Rute kojima sme pristupiti samo registrovani obican korisnik
+  { path: "friends", component: FriendsComponent, canActivate: [RegistredGuardGuard] },
+  { path: "history-of-reservation", component: HistoryOfReservationComponent, canActivate: [RegistredGuardGuard]},
+
+  
+  //Ovim rutama moze pristupiti samo Airlineadmin
+  { path: "myFlightList", component: MyFlightListComponent, canActivate: [AirlineAdminGuardGuard]},
+  { path: "admin-add-flight", component: AdminAddFlightComponent,canActivate: [AirlineAdminGuardGuard]},
+  { path: "myAirLineService",canActivate: [AirlineAdminGuardGuard],
+    children:[
+    { path: "", component: MyAirlineServisComponent},
+    ]
+  },
+
+  //Ovim rutama moze pristupiti samo CARadmin
+  { path: "myRCservis", canActivate: [CarAdminGuardGuard],
+    children:[
+      { path: "", component: MyRcServisComponent},
+    ]
+  },
+  { path: "admin-add-car", component: AdminAddCarComponent, canActivate: [CarAdminGuardGuard]},
+  { path: "myCarList", component: MyCarListComponent , canActivate: [CarAdminGuardGuard]},
+
+  //Ovim rutama moze pristupiti samo glavni admin
+  { path: "all-rc-servis",component: ListOfCarCompaniesComponent, canActivate: [SuperAdminGuardGuard]},
+  { path: "all-airline",component: ListOfAirlinesComponent, canActivate: [SuperAdminGuardGuard]},
+  { path: "add-airline",component: AddAirlineComponent, canActivate: [SuperAdminGuardGuard]},
+  { path: "add-rcServis",component: AddRcServisComponent, canActivate: [SuperAdminGuardGuard]},
+
+  //Profilu pristupaju svi registrovani korisnici
+  { path: "profile", component: ProfileComponent , canActivate: [ProfileComponentGuard] }, 
+
   { path: "**", component: PageNotFoundComponent }
 ];
 

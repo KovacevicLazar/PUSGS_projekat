@@ -27,20 +27,18 @@ export class RentACarComponent implements OnInit {
  
 
   ClickedToCheck: number;
-  id : number;
+  
   user : User;
   RegistratedUser : number;
   constructor(private rentCarService: RentCarService, private route: ActivatedRoute,private userService : UserService) {
       this.RegistratedUser= 0;
       this.ClickedToCheck = 0;
       this.allrentcars = this.rentCarService.loadRentCars();
-      route.params.subscribe(params => { this.id = params['id']; })
-      this.userService.loadUsers().forEach(element => {
-        if(element.id==this.id){
-          this.user=element;
-          this.RegistratedUser=1;
-        }
-      });
+      if(this.check())
+      {
+        this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
+        this.RegistratedUser=1;
+      }
    }
 
 
@@ -116,6 +114,27 @@ export class RentACarComponent implements OnInit {
         
       })
     })
+  }
+
+
+  check()
+  {
+    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
+    if(userRole === 'Registred')
+    {
+      return true;
+    }
+    else
+      return false; 
+  }
+
+  FindUserWithUserEmail(){
+    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
+    this.userService.loadUsers().forEach(element => {
+      if(element.email== userEmail){
+        this.user=element;
+      }
+    });
   }
 
 }

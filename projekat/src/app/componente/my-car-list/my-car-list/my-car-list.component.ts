@@ -32,26 +32,18 @@ export class MyCarListComponent implements OnInit {
 
     this.allRentcCars = this.rentcarService.loadRentCars();
 
-    route.params.subscribe(params => { this.id = params['id']; })
-    this.userService.loadUsers().forEach(element => {
-     if(element.id==this.id){
-       this.user=element;
-     }
-   });
+   
+    this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
     
-    route.params.subscribe(params => { this.id = params['id']; })
-      this.userService.loadUsers().forEach(element => {
-        if(element.id==this.id){
-          this.allRentcCars.forEach(element1 =>
-            {
-              if(element.id == element1.adminId)
-              {
-                 this.allcars = element1.availableCars;
-              }
-            })
-         
+  
+      this.allRentcCars.forEach(element1 =>
+      {
+        if(this.user.id == element1.adminId)
+        {
+          this.allcars = element1.availableCars;
         }
-      });
+      })
+     
   }
 
   ngOnInit(): void {
@@ -86,6 +78,16 @@ export class MyCarListComponent implements OnInit {
     {
       //
     }
+  }
+
+
+  FindUserWithUserEmail(){
+    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
+    this.userService.loadUsers().forEach(element => {
+      if(element.email== userEmail){
+        this.user=element;
+      }
+    });
   }
 
 }

@@ -20,19 +20,17 @@ export class MyAirlineServisComponent implements OnInit {
 
   constructor(private rentcarService: AirlineService ,private router: Router,private route: ActivatedRoute,private userService : UserService) { 
 
-    route.params.subscribe(params => { this.id = params['id']; })
-      this.userService.loadUsers().forEach(element => {
-        if(element.id==this.id){
-          this.user=element;
-          this.rentcarService.loadAirlines().forEach(element1 =>
-            {
-              if(element.id == element1.adminId)
-              {
-                 this.airline = element1;
-              }
-            })
+    
+    this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
+    
+    this.rentcarService.loadAirlines().forEach(element1 =>
+      {
+        if(this.user.id == element1.adminId)
+        {
+           this.airline = element1;
         }
-      });
+      })
+
   }
 
 
@@ -41,7 +39,17 @@ export class MyAirlineServisComponent implements OnInit {
 
   ChangeInfos()
   {
-    //this.router.navigate(['/regus/'.concat(this.user.id.toString(),'/myRCservis/changeInfo')]);
+    //this.router.navigate(['/myRCservis/changeInfo']);
+  }
+
+
+  FindUserWithUserEmail(){
+    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
+    this.userService.loadUsers().forEach(element => {
+      if(element.email== userEmail){
+        this.user=element;
+      }
+    });
   }
 
 

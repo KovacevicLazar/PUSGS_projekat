@@ -25,7 +25,7 @@ export class FlyghtsTableComponent implements OnInit {
 
     if(this.check())
     {
-      this.router.navigate(['/regus/1/airline/' ,flight.id]) 
+      this.router.navigate(['/airline/' ,flight.id]) 
     }
     else
     {
