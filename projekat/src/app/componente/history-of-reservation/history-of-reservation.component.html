@@ -34,7 +34,7 @@
                         <td> h:m:s <br> {{Reservedflight.flight.flightDuration | date: "H:m:s" }} </td>
                         <td>
                         Price:<span class="price-text">{{Reservedflight.flight.ticketPrice*Reservedflight.numberOfReservedSeats}}€</span> <br/>
-                        <button class="buttonCancellations" (click)="buttonCancellations()">Cancellations</button></td>
+                        <button class="buttonCancellations" (click)="buttonCancellations(Reservedflight.flight)">Cancellations</button></td>
                             
                     </tr>
                 </tbody> 
@@ -77,7 +77,7 @@
                         <td> {{ReservedCar.car.brand}} </td>             
                         <td>
                         Price:<span class="price-text">{{ReservedCar.car.pricePerDay*ReservedCar.numberOfDays}}€</span> <br/>
-                        <button class="buttonCancellations" (click)="buttonCancellations()">Cancellations</button></td>
+                        <button class="buttonCancellations" (click)="buttonCancellationsCarReservation(ReservedCar)">Cancellations</button></td>
                             
                     </tr>
                 </tbody> 

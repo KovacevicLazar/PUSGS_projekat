@@ -14,8 +14,7 @@
 				</div>
 			</div>
 			<div class="row">
-				
-				<div class="col-xl-7 col-xl-offset-1">
+				<div>
 					<div class="booking-form">
 						<form>
 							<div class="row">
@@ -102,7 +101,7 @@
 				</div>
 			</div>
 			
-			<div style="background:  #cce0ff;opacity: 90%; " [hidden]="SearchButtonClicket == 0 || Flights.length === 0 ">
+			<div class="flyghts-table" [hidden]="SearchButtonClicket == 0 || Flights.length === 0 ">
 				<app-flyghts-table [Flights]="Flights"></app-flyghts-table>
 			</div>
 			<div  style="background:  #cce0ff" [hidden]="Flights.length !== 0 || SearchButtonClicket == 0">

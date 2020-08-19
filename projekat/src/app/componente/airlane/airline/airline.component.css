@@ -3,14 +3,6 @@
 	height: 120vh;
 }
 
-.section .section-center {
-	position: absolute;
-	top: 50%;
-	left: 0;
-	right: 0;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
-}
 
 #booking {
 	font-family: 'Montserrat', sans-serif;
@@ -21,21 +13,19 @@
 }
 
 .booking-form {
-	position: relative;
-	width: 1200px;
+   margin-top: 1%;
+	width:100%;
 	height: 300px;
 	background: #fafafa;
 	opacity: 90%;
-	margin-top: -330px;
+
 	padding: 35px 25px 25px;
-	border-radius: 4px;
-	-webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
-	box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
+	
 }
 
 .booking-form .form-group {
 	position: relative;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .booking-form .form-control {
@@ -115,7 +105,7 @@
 
 .booking-form .form-checkbox input {
 	position: absolute !important;
-	margin-left: -9999px !important;
+	
 	visibility: hidden !important;
 }
 
@@ -149,7 +139,7 @@
 	left: 50%;
 	width: 0px;
 	height: 0px;
-	border-radius: 50%;
+	
 	background-color: #0066ff;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
@@ -182,7 +172,7 @@
 }
 
 .booking-cta {
-	margin-top: -430px;
+	margin-top: 6px;
 	text-align: center;
 }
 
@@ -198,4 +188,11 @@
 	color: #191a1e;
 }
 
+
+.flyghts-table{
+	background:  #cce0ff;
+	opacity: 90%; 
+	overflow-y: scroll;
+	height: 500px;
+}
 

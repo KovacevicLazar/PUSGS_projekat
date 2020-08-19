@@ -75,6 +75,16 @@ export class AirlineComponent implements OnInit {
     if(this.dateDepart=="" || (this.dateReturn=="" && this.way=="Round Trip") || this.flyingfrom=="" || this.flyingTo=="")
     {
       alert("Morate uneti polaznu i krajnju destinaciju, kao i datum polaska")
+      
+      
+      this.allAirline.forEach(airline => { // ako nije nista uneo prikazati mu sve, lakse zbog testiranja uradjenih stvari
+        airline.flights.forEach(flight => {
+           this.Flights.push(flight);
+
+        });
+      });
+      this.SearchButtonClicket=1;
+
     }
     else{
       this.SearchButtonClicket=1;

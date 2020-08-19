@@ -144,7 +144,7 @@ export class SeatReservationComponent implements OnInit {
   FindUserWithUserEmail(){
     const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
     this.userService.loadUsers().forEach(element => {
-      if(element.email= userEmail){
+      if(element.email == userEmail){
         this.user=element;
       }
     });
