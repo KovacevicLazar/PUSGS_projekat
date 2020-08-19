@@ -4,7 +4,7 @@ import { User } from 'src/app/entities/user/user';
 import { NgForm } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { Role } from 'src/app/entities/Enums/role.enum';
-
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-sign-in',
@@ -29,41 +29,35 @@ export class SignInComponent implements OnInit {
   onSubmit() 
   {
     
-      let emailExist = false;
-      this.allUsers.forEach(element => {
+     
+      this.userService.Login(this.password,this.email).subscribe((res: any) => {
+        localStorage.setItem("token",res.token); //
 
-        if(element.email===this.email){
-          emailExist=true;
-          if(element.password===this.password){
-
-            localStorage.setItem("UserEmail",JSON.stringify(element.email)); //
-
-            if(element.role===Role.Registred){
-              this.router.navigate(['/profile']);
-              localStorage.setItem("sessionUserRole",JSON.stringify('Registred'));
-            }
-            else if(element.role===Role.SystemAdmin){
-              this.router.navigate(['/all-airline']);
-              localStorage.setItem("sessionUserRole",JSON.stringify('SystemAdmin'));
-            }
-            else if(element.role===Role.CarAdmin){
-              this.router.navigate(['/myCarList']);
-              localStorage.setItem("sessionUserRole",JSON.stringify('CarAdmin'));
-            }
-            else if(element.role===Role.AirlineAdmin){
-              this.router.navigate(['/myFlightList']);
-              localStorage.setItem("sessionUserRole",JSON.stringify('AirlineAdmin'));
-            }
+        try {
+          var decoded=jwt_decode(res.token);
+         
+          if (decoded.Roles == "Registred") {
+            this.router.navigate(['/profile']);
+         
           }
-          else{
-            alert("Password incorrect");
-          }
-        } 
+          else if(decoded.Roles == "SystemAdmin"){
 
+            this.router.navigate(['/all-airline']);
+          }
+          else if(decoded.Roles == "CarAdmin"){
+
+            this.router.navigate(['/myCarList']);
+          }
+          else if(decoded.Roles == "AirlineAdmin"){
+
+            this.router.navigate(['/myFlightList']);
+          }
+
+
+        }catch{}
       });
-      if(!emailExist){
-        alert("Email incorrect");
-      }
+
+         
 
   }
 

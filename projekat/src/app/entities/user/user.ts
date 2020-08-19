@@ -12,7 +12,8 @@ export class User{
     phone: string;
     address: string;
     role: Role;  
-    password : string; 
+    password : string;
+    username: string; 
 
     friends = new Array<User>();
     friendsRequests = new Array<User>();

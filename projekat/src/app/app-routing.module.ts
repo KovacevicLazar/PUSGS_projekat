@@ -51,8 +51,8 @@ const routes: Routes = [
 
  
   //Rute kojima meze pristupiti neregistrovani korisnik ( Ovaj gard omogucava i pristup Registrovanom Obicnom korisniku)
-  {path: "sign-in", component: SignInComponent, canActivate: [UnregistredGuardGuard]},
-  {path: "sign-up", component: SignUpComponent, canActivate: [UnregistredGuardGuard]},
+  {path: "sign-in", component: SignInComponent},
+  {path: "sign-up", component: SignUpComponent},
   { path: "rent-a-car-table", component: RentACarFilteredComponent ,  canActivate: [UnregistredGuardGuard]},
   { path: "airline-table", component: AirlineFilteredComponent , canActivate: [UnregistredGuardGuard]},  
   { path: "airline",canActivate: [UnregistredGuardGuard],

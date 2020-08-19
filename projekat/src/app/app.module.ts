@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule}from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog'; 
-
+import { HttpClientModule ,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './componente/nav-menu/nav-menu/nav-menu.component';
@@ -45,6 +45,9 @@ import { AdminAddCarComponent } from './componente/admin-add-car/admin-add-car.c
 import { AdminAddFlightComponent } from './componente/admin-add-flight/admin-add-flight.component';
 import { ChangeFlightComponent } from './componente/change-flight/change-flight.component';
 import { ReservationCarDialogComponent } from './componente/reservation-car-dialog/reservation-car-dialog.component';
+import { AuthInterceptor } from './componente/auth/auth.interceptor';
+import { TokenInterceptor } from './componente/auth/tokenInterceptor';
+import { UserService } from './services/user-service/user.service';
 
 
 
@@ -92,12 +95,30 @@ import { ReservationCarDialogComponent } from './componente/reservation-car-dial
     AppRoutingModule,
     FormsModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+   
+
   ],
   entryComponents:[
     ReservedSeatDialogComponent
   ],
-  providers: [],
+  providers: [
+    UserService,
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+   {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
+
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,17 +4,45 @@ import { Flight } from 'src/app/entities/flight/flight';
 import { ReservedFlight } from 'src/app/entities/ReservedFlight/reserved-flight';
 import { Car } from 'src/app/entities/car/car';
 import { ReservedCar } from 'src/app/entities/ReservedCar/reserved-car';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class UserService{
-    constructor() {}
+    readonly BaseURI = 'http://localhost:51716/api';
+    constructor(private http: HttpClient) { }
 
     loadUsers(){
         console.log("Ucitavanje svih korisnika...");
         return this.mockedUsers();
+    }
+
+    Register(newUser: User)
+    {
+        var body =  {
+            name: newUser.name,
+            surname: newUser.surname,
+            username: newUser.username,
+            email: newUser.email,
+            PhoneNumber: newUser.phone,
+            address: newUser.address,        
+            password : newUser.password
+
+        }
+
+        return this.http.post(this.BaseURI + '/User/Register', body);
+    }
+
+    Login(password: string,email: string)
+    {
+        var body ={
+            Email : email,
+            Password : password 
+        }
+
+        return this.http.post(this.BaseURI + '/User/Login', body);
     }
 
     mockedUsers(): Array<User>{
