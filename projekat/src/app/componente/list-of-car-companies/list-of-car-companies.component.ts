@@ -19,21 +19,19 @@ export class ListOfCarCompaniesComponent implements OnInit {
   user: User;
   
   constructor(private RentACars:RentCarService,private userService : UserService , private route: ActivatedRoute ) { 
-    this.AllRentACar= RentACars.loadRentCars();
-    this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
+    userService.GetCarAdmins().subscribe((res : any )=>{
+
+      for (let i = 0; i < res.users.length; i++) {
+          var rentACar = new RentCar(1,res.users[i].carCompany.companyName,"","",1,"","",res.users[i].userName);
+          this.AllRentACar.push(rentACar);
+      }
+      
+
+    });
   }
 
   ngOnInit(): void {
   }
 
-
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
-      }
-    });
-  }
 
 }

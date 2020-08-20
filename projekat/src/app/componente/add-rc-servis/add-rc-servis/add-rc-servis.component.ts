@@ -4,6 +4,7 @@ import { RentCar } from 'src/app/entities/rent-a-car/rent-a-car';
 import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-service';
 import { NgForm } from '@angular/forms';
 import { RouterModule,Router }  from '@angular/router';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 @Component({
   selector: 'app-add-rc-servis',
@@ -19,9 +20,10 @@ export class AddRcServisComponent implements OnInit {
   public mark;
   public destinations ="";
   public description="";
+  public email ="";
   ocijena: number;
 
-  constructor(private rentcarService : RentCarService,private router :Router) {
+  constructor(private rentcarService : RentCarService,private router :Router,private userService: UserService) {
     this.allRentCars = this.rentcarService.loadRentCars();
   }
  
@@ -33,16 +35,11 @@ export class AddRcServisComponent implements OnInit {
   {
     this.ocijena = this.mark;
     let temp = true;
-    this.allRentCars.forEach(element =>{
-      if(element.name.toUpperCase() === this.name.toUpperCase())
-      {       
-          alert("This name is taken, a rent a car service with this name already exsists");   
-          temp = false;                               
-      }    
+   
                    
-    })
+   
 
-      if(this.name == "" || this.address == "" || this.username == "")
+      if(this.name == "" || this.address == "" || this.username == "" || this.email == "")
       {
         alert("You have to fill all fields, invalid request");
         temp = false;
@@ -50,9 +47,8 @@ export class AddRcServisComponent implements OnInit {
 
     if(temp)
     {
-     // let newRentCar = new  RentCar(6,this.name,this.address,this.description,this.mark,this.branches);
-      //this.allRentCars.push(newRentCar);
-      alert("The new rent a car service is succesfully added! ");
+      this.userService.AddAdmin(this.name,this.description,this.username,this.address,"rentcar",this.email).subscribe((res: any ) =>{} );
+      
       this.router.navigate(['/all-rc-servis']);
       
 

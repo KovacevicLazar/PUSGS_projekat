@@ -14,6 +14,9 @@ namespace WebProjekat.Models
         public UserRole Role { get; set; }
 
         public ICollection<FriendRequest> Friends { get; set; }
+       
+        public Airline AirlineComnpany { get; set; }
+        public RentCarCompany CarCompany { get; set; }
 
 
 

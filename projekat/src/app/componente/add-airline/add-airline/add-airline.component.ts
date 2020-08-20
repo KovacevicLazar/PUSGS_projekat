@@ -3,6 +3,7 @@ import { AirlineService } from 'src/app/services/airline-service/airline.service
 import { Router } from '@angular/router';
 import { Airline } from 'src/app/entities/airline/airline';
 import { NgForm } from '@angular/forms';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 
 @Component({
@@ -22,9 +23,10 @@ export class AddAirlineComponent implements OnInit {
   public mark;
   public destinations ="";
   public description="";
+  public email= "";
   ocijena: number;
 
-  constructor(private airlineService: AirlineService,private router: Router) 
+  constructor(private airlineService: AirlineService,private router: Router,private userService: UserService) 
   { 
     this.allAirlines = this.airlineService.loadAirlines();
   }
@@ -36,16 +38,9 @@ export class AddAirlineComponent implements OnInit {
   {
     this.ocijena = this.mark;
     let temp = true;
-    this.allAirlines.forEach(element =>{
-      if(element.name.toUpperCase() === this.name.toUpperCase())
-      {       
-          alert("This name is taken, a airline with this name already exsists");   
-          temp = false;                               
-      }    
-                   
-    })
+    
 
-      if(this.name == "" || this.address == "" || this.username == "")
+      if(this.name == "" || this.address == "" || this.username == ""  || this.email == "")
       {
         alert("You have to fill all fields, invalid request");
         temp = false;
@@ -53,9 +48,8 @@ export class AddAirlineComponent implements OnInit {
 
     if(temp)
     {
-      let newAirline = new  Airline(6,this.name,this.address,this.description,this.mark,this.destinations,'1',this.username);
-      this.allAirlines.push(newAirline);
-      alert("The new airline is succesfully added! ");
+        
+      this.userService.AddAdmin(this.name,this.description,this.username,this.address,"airline", this.email).subscribe((res: any ) =>{} );
       this.router.navigate(['/all-airline']);
 
     }

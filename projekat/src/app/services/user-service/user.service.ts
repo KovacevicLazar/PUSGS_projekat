@@ -83,6 +83,30 @@ export class UserService{
         return this.http.post(this.BaseURI + '/User/SendRequest', body);
     }
 
+    AddAdmin(CompanyName: string,Description:string, AdminUsername: string, Address: string,TypeOfCompany: string,Email: string)
+    {
+        var body = {
+            CompanyName: CompanyName,
+            Description: Description,
+            AdminUsername: AdminUsername,
+            Address: Address,
+            TypeOfCompany: TypeOfCompany,
+            Email: Email
+
+        }
+
+        return this.http.post(this.BaseURI + '/User/AddingAdmin', body);
+    }
+
+
+    GetAirAdmins(){
+        return this.http.get(this.BaseURI + '/User/GetAirAdmins');
+    }
+
+    GetCarAdmins(){
+        return this.http.get(this.BaseURI + '/User/GetCarAdmins');
+    }
+
 
 
 

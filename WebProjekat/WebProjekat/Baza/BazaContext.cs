@@ -15,6 +15,12 @@ namespace WebProjekat.Baza
         public DbSet<User> Users { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
 
+        public DbSet<RentCarCompany> RentCarCompanies { get; set; }
+
+        public DbSet<Airline> Airlines { get; set; }
+
+
+
 
     }
 }
