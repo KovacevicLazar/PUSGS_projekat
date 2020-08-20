@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\icoce\\Desktop\\WebProjekat\\WebProjekat\\WebProjekat.csproj": {}
+    "C:\\Users\\icoce\\Desktop\\ProjekatWeb2\\PUSGS_projekat\\WebProjekat\\WebProjekat\\WebProjekat.csproj": {}
   },
   "projects": {
-    "C:\\Users\\icoce\\Desktop\\WebProjekat\\WebProjekat\\WebProjekat.csproj": {
+    "C:\\Users\\icoce\\Desktop\\ProjekatWeb2\\PUSGS_projekat\\WebProjekat\\WebProjekat\\WebProjekat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\icoce\\Desktop\\WebProjekat\\WebProjekat\\WebProjekat.csproj",
+        "projectUniqueName": "C:\\Users\\icoce\\Desktop\\ProjekatWeb2\\PUSGS_projekat\\WebProjekat\\WebProjekat\\WebProjekat.csproj",
         "projectName": "WebProjekat",
-        "projectPath": "C:\\Users\\icoce\\Desktop\\WebProjekat\\WebProjekat\\WebProjekat.csproj",
+        "projectPath": "C:\\Users\\icoce\\Desktop\\ProjekatWeb2\\PUSGS_projekat\\WebProjekat\\WebProjekat\\WebProjekat.csproj",
         "packagesPath": "C:\\Users\\icoce\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\icoce\\Desktop\\WebProjekat\\WebProjekat\\obj\\",
+        "outputPath": "C:\\Users\\icoce\\Desktop\\ProjekatWeb2\\PUSGS_projekat\\WebProjekat\\WebProjekat\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\icoce\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -103,7 +103,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[2.1.9, )"
+              "version": "[2.1.10, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
