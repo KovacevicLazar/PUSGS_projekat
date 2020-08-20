@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/entities/user/user';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { NgForm } from '@angular/forms';
+import { IfStmt } from '@angular/compiler';
 
 
 @Component({
@@ -13,44 +14,61 @@ import { NgForm } from '@angular/forms';
 export class ProfileComponent implements OnInit {
   id: number;
   user: User;
+
+
+  name="";
+  surname="";
+  phoneNumber="";
+  address="";
+  confirmpassword = "";
+  currentPassword = "";
+  newpassword ="";
+  checkBox =false;
   
   constructor(private userService: UserService, private route: ActivatedRoute) {
-    this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
+   
+    let user=this.userService.GetUserProfileInfo().subscribe((res: any) => {
+
+      this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
+
+      this.name=this.user.name;
+      this.surname=this.user.surname;
+      this.phoneNumber=this.user.phone;
+      this.address=this.user.address;
+    });
    }
 
   ngOnInit(): void {
   }
+
   saveChanges() : void{
-    if(this.user.name.trim()=="" || this.user.surname.trim()=="" || this.user.address.trim()=="" || this.user.email.trim()=="" || this.user.password.trim()==""){
+    let successful= true;
+    if(this.checkBox==true && this.confirmpassword.trim()==""){
+      alert('Za promenu podataka morate potvrditi vasu lozinku');
+      successful= false;
+    }
+    else if(this.name.trim()=="" || this.currentPassword =="" || this.surname.trim()=="" || this.address.trim()=="" ){
       alert('Obavezna polja moraju biti popunjena');
+      successful= false;
+    }
+    else if(this.newpassword.length <= 6 && this.checkBox==true){
+      alert('Sifra mora imati minimum 6 karaktera');
+      successful= false;
+    }
+    else if(this.checkBox==true && this.newpassword != this.confirmpassword){
+      alert('Sifre se ne podudaraju');
+      successful= false;
     }
     else{
-      this.userService.loadUsers().forEach(element => {
-        if(element.email==this.user.email && element.id!=this.user.id){
-          alert('Ovu email adresu koristi drugi korisnik');
-        }
+     //proveriti da li je mejl slobodan
+    }
+
+    if(successful){
+      this.user.password=this.currentPassword;
+      this.userService.SaveProfileInfoChanges(this.user,this.newpassword,this.confirmpassword).subscribe((res:any)=>{
+     
       });
     }
   }
-  check()
-  {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if(userRole === 'Registred')
-    {
-      return true;
-    }
-    else
-      return false; 
-  }
-
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
-      }
-    });
-  }
-
-
+  
 }

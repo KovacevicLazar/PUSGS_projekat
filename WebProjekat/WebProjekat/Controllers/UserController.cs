@@ -5,9 +5,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using WebProjekat.Baza;
@@ -100,41 +103,155 @@ namespace WebProjekat.Controllers
         }
 
         [HttpPost]
-        [Route("Login")]
-        //POST : /api/User/Login
-        public async Task<IActionResult> Login(LoginModel model)
+        [Route("SendRequest")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]       
+        public async Task<IActionResult> SendRequest( UserRequest userId)
         {
-            if (model.Password == null)
+            string UserId = User.Claims.First().Value;
+
+            User user =  _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
+            FriendRequest friendRequest = new FriendRequest();
+
+
+            friendRequest.UserId2 = userId.UserId2;
+            friendRequest.Status = StatusFriendRequest.OnWait;
+
+            user.Friends.Add(friendRequest);
+
+            _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok();
+
+        }
+
+
+
+        [HttpGet]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetUserProfileInfo")]
+        public async Task<Object> GetUserProfileInfo()
+        {
+            string UserId = User.Claims.First().Value;
+            var user = await _userManager.FindByIdAsync(UserId);
+            UserSignUp userinfo = new UserSignUp();
+            userinfo.PhoneNumber= user.PhoneNumber;
+            userinfo.Surname = user.Surname;
+            userinfo.Username = user.UserName;
+            userinfo.Name = user.Name;
+            userinfo.Email = user.Email;
+            userinfo.Address = user.Address;
+            return Ok(new { userinfo });
+        }
+
+
+       
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetOtherUsers")]
+        public async Task<Object> GetOtherUsers()
+        {
+            string UserId = User.Claims.First().Value;
+
+            List<User> allOtherUsers = _context.Users.Where(x=>x.Id != UserId).ToList();
+
+            User user = _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
+            List<int> indexs = new List<int>();
+            for (int i = 0; i < user.Friends.ToList().Count; i++)
             {
-                return BadRequest(new { message = "Bad data" });
-            }
-            if (model.Password.Length < 6)
-            {
-                return BadRequest(new { message = "Bad data" });
-            }
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
-            {
-                var tokenDescriptor = new SecurityTokenDescriptor
+                for (int j = 0; j < allOtherUsers.Count; j++)
                 {
-                    Subject = new ClaimsIdentity(new Claim[]
+                    bool found = false;
+                    if(user.Friends.ToList()[i].UserId2 == allOtherUsers[j].Id)
                     {
-                        new Claim("UserId",user.Id.ToString()),
-                        new Claim("Roles", user.Role.ToString()),
-                       
+                        found = true;
+                    }
+                    if (found)
+                    {
+                        indexs.Add(j);
+                    }
+                }
+            }
+            for (int i = indexs.Count-1; i >= 0; i--)
+            {
+                allOtherUsers.RemoveAt(indexs[i]);
+            }
 
-                     }),
-                    Expires = DateTime.UtcNow.AddDays(1),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
-                };
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                var token = tokenHandler.WriteToken(securityToken);
 
-                return Ok(new { token });
+            return Ok(new { allOtherUsers });
+        }
+
+
+
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("SaveProfileInfoChanges")]
+
+        public async Task<IActionResult> SaveProfileInfoChanges(UserSignUp userModel)
+        {
+            if (userModel.Username == "" || userModel.Username == null)
+            {
+                return BadRequest(new { message = "Bad data" });
+            }
+            if (userModel.Email == "" || userModel.Email == null)
+            {
+                return BadRequest(new { message = "Bad data" });
+            }
+            if (userModel.Name == "" || userModel.Name == null)
+            {
+                return BadRequest(new { message = "Bad data" });
+            }
+            if (userModel.Surname == "" || userModel.Surname == null)
+            {
+                return BadRequest(new { message = "Bad data" });
+            }
+            if (userModel.Address == "" || userModel.Address == null)
+            {
+                return BadRequest(new { message = "Bad data" });
+            }
+            var user = await _userManager.FindByEmailAsync(userModel.Email);
+            if (user != null)
+            {
+                user.UserName = userModel.Username;
+                user.PhoneNumber = userModel.PhoneNumber;
+                user.Address = userModel.Address;
+                user.Name = userModel.Name;
+                user.Surname = userModel.Surname;
+                if (userModel.NewPassword.Length >= 6)
+                {
+                    if (await _userManager.CheckPasswordAsync(user, userModel.Password))
+                    {
+                        if (userModel.NewPassword== userModel.ConfirmPassword)
+                        {
+                            var result = await _userManager.ChangePasswordAsync(user, userModel.Password, userModel.NewPassword);
+                        }
+                        else
+                        {
+                            return BadRequest(new { message = "Passwords are mismatched." });
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest(new { message = "Password is incorrect." });
+                    }
+                }
+
+                _context.Entry((User)user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return Ok();
             }
             else
-                return BadRequest(new { message = "Username or password is incorrect." });
+            {
+                return BadRequest();
+            }
         }
+
+
+
+
+
+
+
+
     }
 }

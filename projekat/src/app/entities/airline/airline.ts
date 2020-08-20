@@ -8,12 +8,12 @@ export class Airline{
     mark: number;
     destinations: string;
     flights = new Array<Flight>(); // obavezno ovako... ne ovako: flights: Array<Flight>;
-    adminId: number;
+    adminId: string;
     adminName: string;
     activated: boolean;
     
 
-    constructor(id:number,name: string,address: string,description: string,mark: number,destinations: string,adminId: number,adminName: string)
+    constructor(id:number,name: string,address: string,description: string,mark: number,destinations: string,adminId: string,adminName: string)
     {
         this.id = id;
         this.name = name;

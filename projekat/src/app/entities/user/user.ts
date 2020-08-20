@@ -5,7 +5,8 @@ import { ReservedFlight } from '../ReservedFlight/reserved-flight';
 import { ReservedCar } from '../ReservedCar/reserved-car';
 
 export class User{
-    id : number
+    
+    id:string;
     name: string;
     surname: string;
     email: string; //jedinstven....
@@ -27,9 +28,10 @@ export class User{
     
     
    
-    constructor(id : number,name: string,surname : string, email: string,phone: string, address: string, role: Role, password : string)
+    constructor(username: string,name: string,surname : string, email: string,phone: string, address: string, role: Role, password : string)
     {
-        this.id=id;
+        this.id='1';
+        this.username=username;
         this.name = name;
         this.surname = surname;
         this.email = email;

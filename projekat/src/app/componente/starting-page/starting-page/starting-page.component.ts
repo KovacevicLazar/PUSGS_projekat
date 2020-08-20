@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class StartingPageComponent implements OnInit {
 
   constructor() {
-    localStorage.setItem("sessionUserRole",JSON.stringify("NonRegistred"))
+    //localStorage.setItem("sessionUserRole",JSON.stringify("NonRegistred"))
+    //localStorage.setItem("token",res.token);
    }
 
   ngOnInit(): void {

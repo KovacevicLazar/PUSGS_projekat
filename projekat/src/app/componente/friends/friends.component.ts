@@ -4,6 +4,8 @@ import { UserService } from 'src/app/services/user-service/user.service';
 import { User } from 'src/app/entities/user/user';
 import { element } from 'protractor';
 
+import * as jwt_decode from "jwt-decode";
+
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
@@ -22,34 +24,30 @@ export class FriendsComponent implements OnInit {
     FilteredOtherUsers= new Array<User>();
 
   constructor(private userService :UserService,private route: ActivatedRoute) { 
-    if(this.check())
-    {
-      this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
-    }
 
-    this.userService.loadUsers().forEach(element1 => {
-      this.temp=false;
+    this.userService.GetUserProfileInfo().subscribe((res: any) => {
 
-      this.user.friends.forEach(element => {
-        if(element1.id==element.id){
-          this.temp=true;
-        }
-      });
-
-      this.user.friendsRequests.forEach(element => {
-        if(element1.id==element.id){
-          this.temp=true;
-        }
-      });
-
-      if(!this.temp && element1.role==0){ //Samo obicnim korisnicima se moze slati zahtev
-        this.OtherUser.push(element1);
-      }
+      this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
 
     });
 
+    this.GetOtherUsers();
+    
+
   }
 
+  GetOtherUsers(){
+    this.OtherUser.length=0;
+    this.userService.GetOtherUsers().subscribe((res: any) => {
+      for (let i = 0; i < res.allOtherUsers.length; i++) {
+        
+        var user= new User(res.allOtherUsers[i].username,res.allOtherUsers[i].name,res.allOtherUsers[i].surname,res.allOtherUsers[i].email,res.allOtherUsers[i].phoneNumber,res.allOtherUsers[i].address,res.allOtherUsers[i].role,"");
+        user.id=res.allOtherUsers[i].id
+        this.OtherUser.push(user);
+      }
+    });
+
+  }
   ngOnInit(): void {
   }
 
@@ -140,32 +138,15 @@ export class FriendsComponent implements OnInit {
     }
   }
 
-  SendRequest(user){
+  SendRequest(user : User){
+  
+
+    this.userService.SendRequest(user.id).subscribe((res: any) => {
+
+      this.GetOtherUsers();
+
+    });
     
-    if(this.FilteredOtherUsers.length!=0){
-
-      this.FilteredOtherUsers.forEach((element, index) => {
-        if(element.id==user.id){
-          this.FilteredOtherUsers.splice(index,1);
-          this.FilteredFriendSentRequest.push(user);
-        }
-      });
-
-      this.OtherUser.forEach((element, index) => {
-        if(element.id==user.id){
-          this.OtherUser.splice(index,1);
-          this.user.friendsSentRequests.push(user);
-        }
-      });
-    }
-    else{
-      this.OtherUser.forEach((element, index) => {
-        if(element.id==user.id){
-          this.OtherUser.splice(index,1);
-          this.user.friendsSentRequests.push(user);
-        }
-      });
-    }
    
   }
 

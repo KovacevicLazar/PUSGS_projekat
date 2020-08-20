@@ -12,7 +12,9 @@ namespace WebProjekat.Baza
         public BazaContext(DbContextOptions options) : base(options)
         {
         }
-        DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<FriendRequest> FriendRequests { get; set; }
+
 
     }
 }

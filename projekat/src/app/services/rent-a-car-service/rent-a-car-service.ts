@@ -22,8 +22,8 @@ export class RentCarService{
     {
         let allRentCar = new Array<RentCar>();
 
-        const r1 = new RentCar(1,"Avis","New York","Opis 1",3.5,"Spisak 1 filijala",7,"caradmin1");
-        const r2 = new RentCar(2,"Hertz","Frankfurt","Opis 2",1.6,"Spusak 2 filijala",8,"caradmin2");
+        const r1 = new RentCar(1,"Avis","New York","Opis 1",3.5,"Spisak 1 filijala",'7',"caradmin1");
+        const r2 = new RentCar(2,"Hertz","Frankfurt","Opis 2",1.6,"Spusak 2 filijala",'8',"caradmin2");
        
        // const r4 = new RentCar(4,"Dollar","Moskow","Opis 4",5,"Spisak 4");
       //  const r5 = new RentCar(5,"RentalCars","Dortmund","Opis 5",3,"Spisak 5");

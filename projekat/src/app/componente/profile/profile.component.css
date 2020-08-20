@@ -13,6 +13,11 @@
 	margin-top: 8%;
 }
 
+.checkBox{
+  height: 30px;
+  width: 30px;
+}
+
 .th-info{
 	font-size:40px;
 	font-weight: bold;

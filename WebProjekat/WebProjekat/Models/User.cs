@@ -13,6 +13,7 @@ namespace WebProjekat.Models
         public string Address { get; set; }
         public UserRole Role { get; set; }
 
+        public ICollection<FriendRequest> Friends { get; set; }
 
 
 

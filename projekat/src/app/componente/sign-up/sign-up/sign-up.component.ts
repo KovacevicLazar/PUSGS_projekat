@@ -54,9 +54,9 @@ export class SignUpComponent implements OnInit {
       if(broj == 1)
       {
         let id=4;
-        let newUser = new User(id,this.name,this.surname,this.email,this.phone,this.address,Role.Registred,this.password);
+        let newUser = new User(this.username,this.name,this.surname,this.email,this.phone,this.address,Role.Registred,this.password);
         //this.allUsers.push(newUser);
-        newUser.username = this.username;
+        //newUser.username = this.username;
         this.userService.Register(newUser).subscribe((res: any) => {
           this.router.navigate(['/sign-in']);
         });

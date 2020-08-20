@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import * as jwt_decode from "jwt-decode";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -9,17 +11,25 @@ export class NavMenuComponent implements OnInit {
 
    userRole = "";
   
-  constructor() { 
-    this.userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
+  constructor(private router : Router) { 
+    try {
+    var decoded = jwt_decode(localStorage.getItem("token"));
+    this.userRole = decoded.Roles;
+    
   }
+  catch
+{
+  this.userRole = 'NonRegistred';
+}  }
 
   ngOnInit(): void {
   }
 
   Logout()
   {
-    localStorage.removeItem('sessionUserRole');
-    localStorage.removeItem("UserEmail");
+    
+    localStorage.removeItem('token'); //
+    this.router.navigate(['/sign-in']);
   }
 
 }
