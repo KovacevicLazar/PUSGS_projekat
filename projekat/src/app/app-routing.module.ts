@@ -104,7 +104,13 @@ const routes: Routes = [
       { path: "", component: MyRcServisComponent},
     ]
   },
-  { path: "admin-add-car", component: AdminAddCarComponent, canActivate: [CarAdminGuardGuard]},
+  { path: "admin-add-car", canActivate: [CarAdminGuardGuard],
+  children:[
+    { path: "", component: AdminAddCarComponent},
+    { path: ":id",component: AdminAddCarComponent},
+    ]
+
+},
   { path: "myCarList", component: MyCarListComponent , canActivate: [CarAdminGuardGuard]},
 
   //Ovim rutama moze pristupiti samo glavni admin

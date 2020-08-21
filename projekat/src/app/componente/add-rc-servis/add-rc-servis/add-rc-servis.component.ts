@@ -47,9 +47,11 @@ export class AddRcServisComponent implements OnInit {
 
     if(temp)
     {
-      this.userService.AddAdmin(this.name,this.description,this.username,this.address,"rentcar",this.email).subscribe((res: any ) =>{} );
+      this.userService.AddAdmin(this.name,this.description,this.username,this.address,"rentcar",this.email).subscribe((res: any ) =>{
+        this.router.navigate(['/all-rc-servis']);
+      } );
       
-      this.router.navigate(['/all-rc-servis']);
+      
       
 
     }

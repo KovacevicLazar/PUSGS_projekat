@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user-service/user.service';
 import { User } from 'src/app/entities/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Car } from 'src/app/entities/car/car';
+import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-service';
 
 @Component({
   selector: 'app-admin-add-car',
@@ -11,19 +12,43 @@ import { Car } from 'src/app/entities/car/car';
 })
 export class AdminAddCarComponent implements OnInit {
 
-  id: number;
+  id: number = -1;
   user: User;
  Location ="";
- year :"";
+ year : number;
  dateReturn ="";
  PricePerDay="";
  Brand ="";
  NumberOfSeats ="";
  CarModel="";
  Babyseats ="";
+ modify: boolean = false;
 
-  constructor(private userService: UserService, private route: ActivatedRoute,private router: Router) { 
-    this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
+  constructor(private userService: UserService, private route: ActivatedRoute,private router: Router,private carService: RentCarService) { 
+    route.params.subscribe(params => 
+      {
+       
+        this.id=params['id'];
+        if(this.id!== undefined )
+        {
+          this.modify = true;
+        } 
+      });
+
+      if(this.modify){
+        carService.GetCarWithId(this.id).subscribe((res:any)=>{
+          this.CarModel = res.car.model;
+          this.Location = res.car.location;
+          this.PricePerDay = res.car.pricePerDay;
+          this.Brand = res.car.brand;
+          this.Babyseats = res.car.babySeats;
+          this.NumberOfSeats = res.car.numberOfSeats;
+          this.year = res.car.year;
+
+
+        });
+        
+      }
   }
 
   ngOnInit(): void {
@@ -36,9 +61,22 @@ export class AdminAddCarComponent implements OnInit {
       alert("All fields are required! ")
     }
     else
+    {      
+      let newCar = new Car(this.id,this.Location,this.Brand,this.CarModel,Number(this.year),Number(this.PricePerDay),true,Number(this.Babyseats),Number(this.NumberOfSeats));
+      if(this.modify == false)
+      {
+
+      
+      this.carService.AddCar(newCar).subscribe((res:any) => {
+        this.router.navigate(['/myCarList']);
+      });
+    }
+    else
     {
-      let newCar = new Car(10,this.Location,"",this.Brand,this.CarModel,Number(this.year),Number(this.PricePerDay),true,Number(this.Babyseats),"");
-      this.router.navigate(['/myCarList']);
+      this.carService.SaveChangesOnCar(newCar).subscribe((res:any) => {
+        this.router.navigate(['/myCarList']);
+      });
+    }
    
     }
   }

@@ -29,10 +29,10 @@
     </ng-template>
 
     <td >
-        <button  type="button" class="buttonModify" (click) ="Modify(car,allcars)">Modify</button>
+        <button  type="button" class="buttonModify" routerLink="/admin-add-car/{{car.id}}" >Modify</button>
     </td>
     <td>
-        <button  type="button" class="buttonRemove" (click)="Remove(car,allcars)">Remove</button>
+        <button  type="button" class="buttonRemove" (click)="Remove(car)">Remove</button>
     </td>
 
     

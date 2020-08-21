@@ -156,7 +156,7 @@ namespace WebProjekat.Controllers
 
 
         [HttpGet]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("GetUserProfileInfo")]
         public async Task<Object> GetUserProfileInfo()
         {

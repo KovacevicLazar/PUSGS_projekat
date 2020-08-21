@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Car } from 'src/app/entities/car/car';
 import { RentCar } from 'src/app/entities/rent-a-car/rent-a-car';
+import { HttpClient } from '@angular/common/http';
+import { NgModel } from '@angular/forms';
 
 
 @Injectable({
@@ -8,15 +10,68 @@ import { RentCar } from 'src/app/entities/rent-a-car/rent-a-car';
 })
 
 export class RentCarService{
-    constructor() {}
+    constructor(private http: HttpClient) { }
+
+    readonly BaseURI = 'http://localhost:51716/api';
 
     
+
+    GetCarForCompany()
+    {
+        return this.http.get(this.BaseURI + '/RentCar/GetCarForCompany');
+    }
+
+    GetCarWithId(id: number)
+    {
+        return this.http.get(this.BaseURI + '/RentCar/GetCarWithId/' + id);
+    }
+
+    SaveChangesOnCar(car : Car)
+    {
+        let body = {
+            Location : car.location,
+            PricePerDay : car.pricePerDay,
+            NumberOfSeats : car.numberOfSeats,
+            BabySeats : car.babySeats,
+            Brand: car.brand,
+            Year: car.year,
+            Model: car.model
+            
+        }
+
+        return this.http.post(this.BaseURI + '/RentCar/SaveChangesOnCar/' + car.id, body);
+    }
+
+
+
 
     loadRentCars() {
         
         return this.mockedRentCar();
 
     }
+
+    AddCar(car : Car)
+    {
+        let body = {
+            Location : car.location,
+            PricePerDay : car.pricePerDay,
+            NumberOfSeats : car.numberOfSeats,
+            BabySeats : car.babySeats,
+            Brand: car.brand,
+            Year: car.year,
+            Model: car.model
+            
+        }
+
+        return this.http.post(this.BaseURI + '/RentCar/AddingCar', body);
+    }
+
+    DeleteCarFromList(id: number)
+    {
+        return this.http.get(this.BaseURI + '/RentCar/DeleteCarFromList/' + id);
+    }
+
 
     mockedRentCar() : Array<RentCar>
     {
@@ -29,18 +84,18 @@ export class RentCarService{
       //  const r5 = new RentCar(5,"RentalCars","Dortmund","Opis 5",3,"Spisak 5");
        // const r6 = new RentCar(6,"DriftyCars","Doha","Opis 6", 4.5,"Spisak 6");
 
-       const c1 = new Car(1,"Sekovici","Solunska 5","Audi","A7",2017,198,true,1,"Yes");
-       const c2 = new Car(2,"Tokio","New Street 22","Golf","5",2010,220,true,2,"Yes");
-       const c3 = new Car(3,"Berlin","Tegel 46","Ford","Fiesta",1995,88,true,0,"yes");
+    //    const c1 = new Car(1,"Sekovici","Solunska 5","Audi","A7",2017,198,true,1,"Yes");
+    //    const c2 = new Car(2,"Tokio","New Street 22","Golf","5",2010,220,true,2,"Yes");
+    //    const c3 = new Car(3,"Berlin","Tegel 46","Ford","Fiesta",1995,88,true,0,"yes");
 
-       r1.availableCars.push(c1);
-       r1.availableCars.push(c2);
-       r2.availableCars.push(c3);
+    //    r1.availableCars.push(c1);
+    //    r1.availableCars.push(c2);
+    //    r2.availableCars.push(c3);
 
 
 
-        allRentCar.push(r1);
-        allRentCar.push(r2);
+        // allRentCar.push(r1);
+        // allRentCar.push(r2);
         
         //allRentCar.push(r4);
         //allRentCar.push(r5);

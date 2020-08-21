@@ -3,7 +3,7 @@ import { RentCar } from 'src/app/entities/rent-a-car/rent-a-car';
 import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/entities/user/user';
-import { RouterModule,Router }  from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { Car } from 'src/app/entities/car/car';
 import { element } from 'protractor';
@@ -19,75 +19,46 @@ export class MyCarListComponent implements OnInit {
 
   allRentcCars: Array<RentCar>;
   rentcar: RentCar;
-  
-  id : number;
-  user : User;
+
+  id: number;
+  user: User;
   imeneko: string;
-  allcars: Array<Car>;
+  allcars: Array<Car> = new Array<Car>();
   check1: boolean;
   check2: boolean;
 
-  
-  constructor(private rentcarService: RentCarService  ,private router: Router,private route: ActivatedRoute,private userService : UserService) { 
 
-    this.allRentcCars = this.rentcarService.loadRentCars();
+  constructor(private rentcarService: RentCarService, private router: Router, private route: ActivatedRoute, private userService: UserService) {
+    this.AllCarsFun();
 
-   
-    this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
-    
-  
-      this.allRentcCars.forEach(element1 =>
-      {
-        if(this.user.id == element1.adminId)
-        {
-          this.allcars = element1.availableCars;
-        }
-      })
-     
+  }
+
+  AllCarsFun() {
+    this.allcars.length = 0;
+    this.rentcarService.GetCarForCompany().subscribe((res: any) => {
+      for (let i = 0; i < res.listcar.length; i++) {
+        var temp = new Car(res.listcar[i].id, res.listcar[i].location, res.listcar[i].brand, res.listcar[i].model, res.listcar[i].year, res.listcar[i].pricePerDay, true, res.listcar[i].babySeats, res.listcar[i].numberOfSeats)
+        this.allcars.push(temp);
+
+
+
+      }
+    });
   }
 
   ngOnInit(): void {
   }
 
-  Remove(car,allcars)
-  {
-      if(car.currentlyAvailable != true)
-      {
-        alert("You can't remove this car, it's booked for a customer")
-
-      }
-      else
-      {
-        allcars.forEach((element,index) =>
-          {
-            if(element.id == car.id)
-            {
-              allcars.splice(index,1);
-            }
-          })
-      }
-  }
-
-  Modify(car,allcars)
-  {
-    if(car.currentlyAvailable != true)
-    {
-      alert("You can't modify this car, it's already booked for a customer,")
-    }
-    else
-    {
-      //
-    }
-  }
-
-
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
-      }
+  Remove(car: Car) {
+    this.rentcarService.DeleteCarFromList(car.id).subscribe((res: any) => {
+      this.AllCarsFun();
     });
   }
 
 }
+
+
+
+
+
+
