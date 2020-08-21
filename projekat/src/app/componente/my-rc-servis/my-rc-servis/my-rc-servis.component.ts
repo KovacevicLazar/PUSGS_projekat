@@ -31,13 +31,13 @@ export class MyRcServisComponent implements OnInit {
 
     this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
 
-    this.allRentcCars.forEach(element1 =>
-    {
-      if(this.user.id == element1.adminId)
-      {
-        this.myrentcar = element1;
-      }
-    })
+    // this.allRentcCars.forEach(element1 =>
+    // {
+    //   if(this.user.id == element1.adminId)
+    //   {
+    //     this.myrentcar = element1;
+    //   }
+    // })
   }
 
   ngOnInit(): void {

@@ -23,12 +23,12 @@ export class RentCarBranchComponent implements OnInit {
     this.rentcarId = id;
 
 
-    this.allrentcars.forEach(element =>{
-      if(element.id == this.rentcarId)
-      {
-           this.branches = element.branches;
-      }
-    })
+    // this.allrentcars.forEach(element =>{
+    //   if(element.id == this.rentcarId)
+    //   {
+    //        this.branches = element.branches;
+    //   }
+    // })
     
   }
 

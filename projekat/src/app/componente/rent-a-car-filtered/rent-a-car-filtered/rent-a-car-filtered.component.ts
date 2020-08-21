@@ -1,8 +1,9 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-service';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { AirlineService } from 'src/app/services/airline-service/airline.service';
+import { RentCar } from 'src/app/entities/rent-a-car/rent-a-car';
 
 
 
@@ -13,55 +14,44 @@ import { AirlineService } from 'src/app/services/airline-service/airline.service
 })
 export class RentACarFilteredComponent implements OnInit {
 
-  @Input() allrentcars;
+  allrentcars : Array<RentCar> = new Array<RentCar>();
   @Input() user;
-  
-  id : number;
-  RegistratedUser : number;
 
-  constructor(private router: Router, private route: ActivatedRoute, private userService : UserService, private RentACars : RentCarService) {
+  id: number;
+  RegistratedUser: number;
 
-    this.RegistratedUser=0;
-    if(this.check())
-    {
-      this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
-      this.RegistratedUser=1;
-    }
-    this.allrentcars=RentACars.loadRentCars();
+  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private RentACars: RentCarService) {
+
+    this.RentACars.GetAllCarCompanies().subscribe((res:any) =>{
+      for (let i = 0; i < res.allCompanies.length; i++) {
+          var temp = new RentCar(res.allCompanies[i].id,res.allCompanies[i].companyName,res.allCompanies[i].adress,res.allCompanies[i].description,4);
+          this.allrentcars.push(temp);
+      }
+    });
+    
   }
 
   ngOnInit(): void {
-  
+
   }
-  OnSubmit(rentcars)
-  {
-      
+  OnSubmit(rentcars) {
+
     this.router.navigate(['/rentcDesc/'.concat(rentcars.id.toString())]);
   }
-  FilialsClick(rentcars)
-  {
+  FilialsClick(rentcars) {
     this.router.navigate(['/rentCarDest/'.concat(rentcars.id.toString())]);
   }
 
-  check()
-  {
+  check() {
     const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if(userRole === 'Registred')
-    {
+    if (userRole === 'Registred') {
       return true;
     }
     else
-      return false; 
+      return false;
   }
 
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
-      }
-    });
-  }
-  
+
+
 
 }

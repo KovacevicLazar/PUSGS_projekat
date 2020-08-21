@@ -15,16 +15,13 @@ export class RentCarDescriptionComponent implements OnInit {
   allrentcars: Array<RentCar>;
 
   constructor(private rentCarService: RentCarService,private route: ActivatedRoute) {
-    this.allrentcars = this.rentCarService.loadRentCars();
+    
     let id = parseInt(this.route.snapshot.paramMap.get('idRC'));
     this.rentcarId = id;
-
-    this.allrentcars.forEach(element =>{
-      if(element.id == this.rentcarId)
-      {
-           this.description = element.description;
-      }
-    })
+    this.rentCarService.GetDescription(this.rentcarId).subscribe((res:any) => {
+      this.description = res.description;
+    });
+   
    }
 
   ngOnInit(): void {

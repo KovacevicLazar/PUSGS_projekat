@@ -155,5 +155,24 @@ namespace WebProjekat.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("GetAllCarCompanies")]
+
+        public async Task<Object> GetAllCarCompanies()
+        {
+            var allCompanies = _context.RentCarCompanies.ToList();
+            return Ok(new { allCompanies});
+        }
+
+        [HttpGet]
+        [Route("GetDescription/{id}")]
+
+        public async Task<Object> GetDescription(int id)
+        {
+            var description = _context.RentCarCompanies.Where(x => x.Id == id).ToList().First().Description;
+
+            return Ok(new { description });
+        }
     }
 }

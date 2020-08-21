@@ -22,7 +22,7 @@ export class ListOfCarCompaniesComponent implements OnInit {
     userService.GetCarAdmins().subscribe((res : any )=>{
 
       for (let i = 0; i < res.users.length; i++) {
-          var rentACar = new RentCar(1,res.users[i].carCompany.companyName,"","",1,"","",res.users[i].userName);
+          var rentACar = new RentCar(1,res.users[i].carCompany.companyName,"","",1);
           this.AllRentACar.push(rentACar);
       }
       

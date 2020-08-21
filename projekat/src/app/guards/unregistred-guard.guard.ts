@@ -10,16 +10,10 @@ export class UnregistredGuardGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      try {
-        var decoded=jwt_decode(localStorage.getItem("token"));
-       
-        if (decoded.Roles == "NonRegistred" || decoded.Roles == "Registred"  ) 
-        {
+      if(localStorage.getItem("token") == null)
           return true;
-        }
-      }
-      catch{}
-   
+      
+      
    
       
     alert('Da biste pristupili ovom linku, morate imati ulogu NonRegistred ili Registred!');
