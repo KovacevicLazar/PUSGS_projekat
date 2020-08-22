@@ -18,6 +18,8 @@ namespace WebProjekat.Models
         public Airline AirlineComnpany { get; set; }
         public RentCarCompany CarCompany { get; set; }
 
+        public ICollection<CarReservation> CarReservations { get; set; }
+
 
 
     }

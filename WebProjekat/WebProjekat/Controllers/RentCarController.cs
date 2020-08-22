@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Expressions;
 using Microsoft.Extensions.Options;
 using WebProjekat.Baza;
 using WebProjekat.Models;
@@ -76,8 +77,8 @@ namespace WebProjekat.Controllers
             };
 
             var user = _context.Users.Include(x => x.CarCompany).Where(x => x.Id == userID).ToList().First();
-            var company = _context.RentCarCompanies.Include(x=> x.Cars).Where(x => x.Id == user.CarCompany.Id).ToList().First();
-           company.Cars.Add(newCar);
+            var company = _context.RentCarCompanies.Include(x => x.Cars).Where(x => x.Id == user.CarCompany.Id).ToList().First();
+            company.Cars.Add(newCar);
 
             _context.Entry(company).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -97,7 +98,7 @@ namespace WebProjekat.Controllers
             var company = _context.RentCarCompanies.Include(x => x.Cars).Where(x => x.Id == user.CarCompany.Id).ToList().First();
             var listcar = company.Cars.ToList();
 
-            return Ok(new { listcar});
+            return Ok(new { listcar });
         }
 
         [HttpGet]
@@ -108,7 +109,7 @@ namespace WebProjekat.Controllers
         {
             var car = _context.Cars.Where(x => x.Id == id).ToList().First();
 
-            return Ok(new { car});
+            return Ok(new { car });
         }
 
 
@@ -116,7 +117,7 @@ namespace WebProjekat.Controllers
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("SaveChangesOnCar/{id}")]
-        public async Task<IActionResult> SaveChangesOnCar(Car carModel,int id)
+        public async Task<IActionResult> SaveChangesOnCar(Car carModel, int id)
         {
             var car = _context.Cars.Where(x => x.Id == id).ToList().First();
 
@@ -129,11 +130,11 @@ namespace WebProjekat.Controllers
             car.Model = carModel.Model;
             car.PricePerDay = carModel.PricePerDay;
             car.Brand = carModel.Brand;
-                
 
-            
 
-        
+
+
+
 
             _context.Entry(car).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -162,7 +163,7 @@ namespace WebProjekat.Controllers
         public async Task<Object> GetAllCarCompanies()
         {
             var allCompanies = _context.RentCarCompanies.ToList();
-            return Ok(new { allCompanies});
+            return Ok(new { allCompanies });
         }
 
         [HttpGet]
@@ -174,5 +175,158 @@ namespace WebProjekat.Controllers
 
             return Ok(new { description });
         }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetCompanyInfo")]
+
+        public async Task<Object> GetCompanyInfo()
+        {
+            string userID = User.Claims.ElementAt(0).Value;
+            var user = _context.Users.Include(x => x.CarCompany).Where(x => x.Id == userID).ToList().First();
+            var comp = _context.RentCarCompanies.Where(x => x.Id == user.CarCompany.Id).ToList().First();
+
+            return Ok(new { comp });
+        }
+
+        [HttpPost]
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("SaveChangeInfo")]
+
+        public async Task<IActionResult> SaveChangeInfo(RentCarCompany rentcarmodel)
+        {
+            var rccomp = _context.RentCarCompanies.Where(x => x.Id == rentcarmodel.Id).ToList().First();
+
+            rccomp.CompanyName = rentcarmodel.CompanyName;
+            rccomp.Description = rentcarmodel.Description;
+            rccomp.Adress = rentcarmodel.Adress;
+
+            _context.Entry(rccomp).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpGet]
+        
+        [Route("ShowBranches/{id}")]
+
+        public async Task<Object> ShowBranches(int id)
+        {
+            var company = _context.RentCarCompanies.Include(x => x.Cars).Where(x => x.Id == id).ToList().First();
+            var listcar = company.Cars.ToList();
+            return Ok(new { listcar });
+        }
+
+        [HttpGet]
+        [Route("GetSearchedCars/{location}/{pickUpDate1}/{numberOfSeats}/{babySeats}")]
+       
+        public async Task<Object> GetSearchedCars(string location,string pickUpDate1,int numberOfSeats,int babySeats)
+        {
+            List<Car> cars = null;
+            if(location != "_")
+            {
+                cars = _context.Cars.Include(x =>x.CarReservations).Where(x => x.Location == location).ToList();
+            }
+            if(pickUpDate1 != "")
+            {
+                DateTime pickUpDate =  DateTime.Parse(pickUpDate1.Replace("_", " "));
+                if(cars == null)
+                {
+                    cars = new List<Car>();
+                   var cars1 = _context.Cars.Include(x => x.CarReservations).ToList();
+                    foreach (var item in cars1)
+                    {
+                        bool test = false;
+                        foreach (var item1 in item.CarReservations)
+                        {
+                            if(item1.FirstDayOfReservaton <= pickUpDate && item1.LastDayOfReservaton >= pickUpDate)
+                            {
+                                test = true;
+                            }
+                        }
+
+                        if(test != true)
+                        {
+                            cars.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    var cars1 = cars;
+                    cars = new List<Car>();
+
+                    foreach (var item in cars1)
+                    {
+                        bool test = false;
+                        foreach (var item1 in item.CarReservations)
+                        {
+                            if (item1.FirstDayOfReservaton <= pickUpDate && item1.LastDayOfReservaton >= pickUpDate)
+                            {
+                                test = true;
+                            }
+                        }
+
+                        if (test != true)
+                        {
+                            cars.Add(item);
+                        }
+                    }
+
+                }
+            }
+
+            if(numberOfSeats != 0)
+            {
+                if(cars == null)
+                {
+
+                    cars = _context.Cars.Include(x => x.CarReservations).Where(x => x.NumberOfSeats >= numberOfSeats).ToList();
+                }
+                else
+                {
+                    var cars1 = cars;
+                    cars = new List<Car>();
+
+                    foreach (var item in cars1)
+                    {
+                        if(item.NumberOfSeats >= numberOfSeats)
+                        {
+                            cars.Add(item);
+                        }
+                    }
+                }
+            }
+
+            if (babySeats != 0)
+            {
+                if (cars == null)
+                {
+
+                    cars = _context.Cars.Include(x => x.CarReservations).Where(x => x.BabySeats >= babySeats).ToList();
+                }
+                else
+                {
+                    var cars1 = cars;
+                    cars = new List<Car>();
+
+                    foreach (var item in cars1)
+                    {
+                        if (item.BabySeats >= babySeats)
+                        {
+                            cars.Add(item);
+                        }
+                    }
+                }
+            }
+            if(cars == null)
+            {
+                cars = _context.Cars.ToList();
+            }
+            return Ok(new { cars});
+        }
+
     }
 }

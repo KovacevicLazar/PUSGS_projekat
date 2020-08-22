@@ -1,1 +1,33 @@
-<p>{{branches}}</p>
+
+<app-nav-menu></app-nav-menu>
+
+
+
+
+<table class="responstable">
+  
+  <tr>
+    
+    <th ><span>Pickup Location:</span></th>
+    <th>Car type: </th>
+    <th>Car model: </th>
+    <th>Year of production:</th>
+    <th>Price Per Day:</th>
+    
+  </tr>
+  
+  <tr *ngFor="let car of foundCars">
+   
+    <td>{{car.location}}</td>
+    <td>{{car.brand}} </td>  
+    <td>{{car.model}}</td>
+    <td> {{car.year}} year</td>
+    <td>{{car.pricePerDay}} $</td>
+    
+
+    
+
+    
+  </tr>
+  
+ 

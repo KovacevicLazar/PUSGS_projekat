@@ -12,7 +12,17 @@ export class UnregistredGuardGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       if(localStorage.getItem("token") == null)
           return true;
-      
+      else {
+        try {
+          var decoded=jwt_decode(localStorage.getItem("token"));
+         
+          if (decoded.Roles == "Registred") 
+          {
+            return true;
+          }
+        }
+        catch{}
+      }
       
    
       

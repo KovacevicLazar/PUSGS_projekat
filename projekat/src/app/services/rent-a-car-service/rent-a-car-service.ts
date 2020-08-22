@@ -72,6 +72,11 @@ export class RentCarService{
         return this.http.get(this.BaseURI + '/RentCar/DeleteCarFromList/' + id);
     }
 
+    GetCompanyInfo()
+    {
+        return this.http.get(this.BaseURI + '/RentCar/GetCompanyInfo'); 
+    }
+
     GetAllCarCompanies()
     {
         return this.http.get(this.BaseURI + '/RentCar/GetAllCarCompanies');
@@ -80,6 +85,32 @@ export class RentCarService{
     GetDescription(id: number)
     {
         return this.http.get(this.BaseURI + '/RentCar/GetDescription/' + id);
+    }
+
+    ShowBranches(id: number)
+    {
+        return this.http.get(this.BaseURI + '/RentCar/ShowBranches/' + id);
+    }
+
+    GetSearchedCars(location: string,pickupDate : Date,babyseats: number,numberOfSeats : number)
+    {
+        if(location == "")
+        {
+            location = "_";
+        }
+        return this.http.get(this.BaseURI + '/RentCar/GetSearchedCars/' + location+'/'+pickupDate.toDateString().replace(' ','_')+'/'+babyseats+'/'+numberOfSeats);
+    }
+
+    SaveChangeInfo(rentcar: RentCar)
+    {
+        var body = {
+            Description: rentcar.description,
+            CompanyName : rentcar.name,
+            Id: rentcar.id,
+            Adress: rentcar.address
+        }
+
+        return this.http.post(this.BaseURI + '/RentCar/SaveChangeInfo', body);
     }
 
     mockedRentCar() : Array<RentCar>

@@ -19,6 +19,8 @@ namespace WebProjekat.Models
         public int Year { get; set; }
         public string Model { get; set; }
 
+        public ICollection<CarReservation> CarReservations { get; set; }
+
 
     }
 }
