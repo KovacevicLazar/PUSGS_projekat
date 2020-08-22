@@ -73,22 +73,18 @@ export class ChangeFlightComponent implements OnInit {
     if(this.FlyingFrom!="" && this.FlyingTo!="" && this.DateDepart!=""  && this.DateArrival!="" && this.FlightLength!="" && !isNaN(Number(this.FlightLength)) && !isNaN(Number(this.TicketPrice))){
       
       let transitList= new Array<string>();
-      let numberOfStops=0;
+
       if(this.FirstStop !=""){
         transitList.push(this.FirstStop);
-        numberOfStops++;
       }
       if(this.SecondStop!=""){
         transitList.push(this.SecondStop);
-        numberOfStops++;
       }
       if(this.ThirdStop!=""){
         transitList.push(this.ThirdStop);
-        numberOfStops++;
       }
       
-      let flight= new  Flight(this.flight.id,this.FlyingFrom,this.FlyingTo,new Date(this.DateDepart),new Date(this.DateArrival),Number(this.FlightLength),numberOfStops,transitList,Number(this.TicketPrice));
-     
+      let flight= new  Flight(this.flight.id,this.FlyingFrom,this.FlyingTo,new Date(this.DateDepart),new Date(this.DateArrival),Number(this.FlightLength),transitList,Number(this.TicketPrice), this.flight.vacantSeats, this.flight.busySeats);
       this.dialogRef.close(flight)
     }
     else{

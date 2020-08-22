@@ -83,6 +83,33 @@ export class UserService{
         return this.http.post(this.BaseURI + '/User/SendRequest', body);
     }
 
+
+    GetFriends(){
+        return this.http.get(this.BaseURI + '/User/GetFriends');
+    }
+
+    RemoveFriend(userID: string){
+        var body = {
+            userId2: userID
+        }
+        return this.http.post(this.BaseURI + '/User/RemoveFriend', body);
+    }
+
+
+    GetFriendRequests(){
+        return this.http.get(this.BaseURI + '/User/GetFriendRequests');
+    }
+
+    AcceptFriendRequest(userID: string){
+        var body = {
+            userId2: userID
+        }
+        return this.http.post(this.BaseURI + '/User/AcceptFriendRequest', body);
+    }
+
+
+
+
     AddAdmin(CompanyName: string,Description:string, AdminUsername: string, Address: string,TypeOfCompany: string,Email: string)
     {
         var body = {

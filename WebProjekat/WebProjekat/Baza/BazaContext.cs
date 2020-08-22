@@ -19,6 +19,7 @@ namespace WebProjekat.Baza
 
         public DbSet<Airline> Airlines { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Flight> Flights { get; set; }
 
 
 

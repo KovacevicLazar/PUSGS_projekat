@@ -25,7 +25,7 @@ export class AirlineDestinationsComponent implements OnInit {
     this.allAirlines.forEach(element =>{
       if(element.id == this.airlineId)
       {
-        this.airlineDestin = element.destinations;
+        this.airlineDestin = element.description;
       }
     })
 

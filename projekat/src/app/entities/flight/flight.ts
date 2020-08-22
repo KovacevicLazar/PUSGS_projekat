@@ -17,7 +17,7 @@ export class Flight {
     reservedSeats= new Array<Seat>() ;//['A2', 'A3', 'F5', 'F1', 'F2','F6', 'F7', 'F8'];
 
 
-    constructor(id: number, flyingfrom : string,flyingTo: string,dateDepart: Date,dateArrival: Date,flightDistance:number,numberTransit: number,Transitlocations: Array<string>,ticketPrice: number){
+    constructor(id: number, flyingfrom : string,flyingTo: string,dateDepart: Date,dateArrival: Date,flightDistance:number,Transitlocations: Array<string>,ticketPrice: number,  vacantSeats: number, busySeats: number){
        
         this.id=id;
 
@@ -27,10 +27,13 @@ export class Flight {
         this.dateArrival=dateArrival;
         this.flightDuration= this.calculateDuration(dateArrival,dateDepart);
         this.flightDistance=flightDistance;
-        this.numberTransit=numberTransit;
+        
         this.Transitlocations=Transitlocations;
-        this.vacantSeats=120; // svaki let nek ima isto sedista zbog grafickog prikaza za rezervaciju sedista..
+        this.vacantSeats=vacantSeats; // svaki let nek ima isto sedista zbog grafickog prikaza za rezervaciju sedista..
         this.ticketPrice=ticketPrice;
+        this.busySeats=busySeats;
+
+        this.numberTransit=this.Transitlocations.length;
     }
 
     calculateDuration(dateArrival: Date,dateDepart: Date): Date

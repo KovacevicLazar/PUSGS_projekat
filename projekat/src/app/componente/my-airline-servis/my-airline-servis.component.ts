@@ -12,25 +12,13 @@ import { Airline } from 'src/app/entities/airline/airline';
 })
 export class MyAirlineServisComponent implements OnInit {
 
-
-  id:number;
-  user: User;
   airline: Airline;
 
+  constructor(private airlineService: AirlineService ,private router: Router,private route: ActivatedRoute,private userService : UserService) { 
 
-  constructor(private rentcarService: AirlineService ,private router: Router,private route: ActivatedRoute,private userService : UserService) { 
-
-    
-    this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
-    
-    this.rentcarService.loadAirlines().forEach(element1 =>
-      {
-        if(this.user.id == element1.adminId)
-        {
-           this.airline = element1;
-        }
-      })
-
+    this.airlineService.GetCompanyInfo().subscribe((res:any)=> {
+      this.airline= new Airline(res.comp.id,res.comp.companyName,res.comp.adress,res.comp.description,1,"");
+    })
   }
 
 
@@ -39,18 +27,16 @@ export class MyAirlineServisComponent implements OnInit {
 
   ChangeInfos()
   {
-    //this.router.navigate(['/myRCservis/changeInfo']);
+    if(this.airline.name.trim() != "" && this.airline.address.trim() != "" && this.airline.description.trim() != ""){
+      this.airlineService.SaveChangeInfo(this.airline).subscribe((res:any)=>{
+        this.router.navigate(['/myFlightList'])
+        alert("Successfuly saved ! ")
+      });
+    }
+    else{
+      alert("Faild !");
+    }
+    
   }
-
-
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
-      }
-    });
-  }
-
 
 }

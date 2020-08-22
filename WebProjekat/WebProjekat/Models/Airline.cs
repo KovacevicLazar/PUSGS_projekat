@@ -13,5 +13,7 @@ namespace WebProjekat.Models
         public string Description { get; set; }
         public string CompanyName { get; set; }
         public string Adress { get; set; }
+
+        public ICollection<Flight> Flights { get; set; }
     }
 }

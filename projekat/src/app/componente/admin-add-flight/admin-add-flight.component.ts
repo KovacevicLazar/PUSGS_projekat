@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user-service/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/entities/user/user';
 import { Flight } from 'src/app/entities/flight/flight';
+import { AirlineService } from 'src/app/services/airline-service/airline.service';
 
 @Component({
   selector: 'app-admin-add-flight',
@@ -23,22 +24,26 @@ export class AdminAddFlightComponent implements OnInit {
   ThirdStop="";
   TicketPrice ="";
   FlightLength="";
+  DateArrivalMax ="";
 
   DateNow="";
 
-  constructor(private userService: UserService, private route: ActivatedRoute,private router: Router) { 
+  constructor(private userService: UserService,private airlineService : AirlineService, private route: ActivatedRoute,private router: Router) { 
     
-    this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
-    
-
-    this.DateNow=this.converStringToDate(new Date());
+    this.DateNow=this.converDateToString(new Date());
     this.DateDepart=this.DateNow;
   }
 
   ngOnInit(): void {
   }
 
-  converStringToDate(date : Date): string
+  addDay(){
+    let date=new Date(this.DateDepart);
+    date.setDate(date.getDate() + 1);
+    this.DateArrivalMax = this.converDateToString(date);
+  }
+
+  converDateToString(date : Date): string
   {
   
     let dateSplit = date.toLocaleString('it-IT').split("/");
@@ -62,36 +67,33 @@ export class AdminAddFlightComponent implements OnInit {
     if(this.FlyingFrom!="" && this.FlyingTo!="" && this.DateDepart!=""  && this.DateArrival!="" && this.FlightLength!="" && !isNaN(Number(this.FlightLength)) && !isNaN(Number(this.TicketPrice))){
       
       let transitList= new Array<string>();
-      let numberOfStops=0;
+
       if(this.FirstStop !=""){
         transitList.push(this.FirstStop);
-        numberOfStops++;
       }
       if(this.SecondStop!=""){
         transitList.push(this.SecondStop);
-        numberOfStops++;
       }
       if(this.ThirdStop!=""){
         transitList.push(this.ThirdStop);
-        numberOfStops++;
       }
       
-      let flight= new  Flight(10,this.FlyingFrom,this.FlyingTo,new Date(this.DateDepart),new Date(this.DateArrival),Number(this.FlightLength),numberOfStops,transitList,Number(this.TicketPrice));
-      let s="sdada";
+      let flight= new  Flight(10,this.FlyingFrom,this.FlyingTo,new Date(this.DateDepart),new Date(this.DateArrival),Number(this.FlightLength),transitList,Number(this.TicketPrice), 120, 0);
+      
+      
+      this.airlineService.AddingFlight(flight).subscribe((res:any) => {
+       alert(res.message);
+       this.router.navigate(['/myFlightList']);
+      });
+
+
     }
     else{
       alert("Podaci nisu dobro uneti");
     }
   }
 
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
-      }
-    });
-  }
+ 
 
 
 }

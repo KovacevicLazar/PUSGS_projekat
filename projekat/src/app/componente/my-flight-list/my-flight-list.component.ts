@@ -20,19 +20,8 @@ export class MyFlightListComponent implements OnInit {
 
   constructor(private airlineService: AirlineService ,private router: Router,private route: ActivatedRoute,private userService : UserService,public dialog: MatDialog) { 
 
+    this.AllFlightsFun();
     
-    this.FindUserWithUserEmail(); 
-    
-    this.airlineService.loadAirlines().forEach(element1 =>
-    {
-      if(this.user.id == element1.adminId)
-      {
-        element1.flights.forEach(flight =>
-        {
-          this.Flights.push(flight);
-          });
-        }
-    });
   }
 
 
@@ -40,23 +29,37 @@ export class MyFlightListComponent implements OnInit {
   }
 
 
+  AllFlightsFun() {
+    this.Flights.length = 0;
+    this.airlineService.GetFlightForAirline().subscribe((res: any) => {
+      for (let i = 0; i < res.listflight.length; i++) {
+
+        let transitList= new Array<string>();
+
+        if(res.listflight[i].firstStop !=""){
+          transitList.push(res.listflight[i].firstStop);
+        }
+        if(res.listflight[i].secondStop!=""){
+          transitList.push(res.listflight[i].secondStop);
+        }
+        if(res.listflight[i].thirdStop!=""){
+          transitList.push(res.listflight[i].thirdStop);
+        }
+
+
+         let flight= new Flight(res.listflight[i].id, res.listflight[i].flyingFrom, res.listflight[i].flyingTo, new Date(res.listflight[i].dateDepart),new Date(res.listflight[i].dateArrival), res.listflight[i].flightDistance, transitList, res.listflight[i].ticketPrice, res.listflight[i].vacantSeats, res.listflight[i].busySeats);
+         let v=10;
+         this.Flights.push(flight);
+      }
+    });
+  }
+
+
   Remove(flight : Flight,allFlight : Array<Flight>)
   {
-    if(false)
-    {
-      alert("You can't remove this flight, it's booked for a customer")
-
-    }
-    else
-    {
-      this.Flights.forEach((element,index) =>
-        {
-          if(element.id == flight.id)
-          {
-            this.Flights.splice(index,1);
-          }
-        });
-    }
+    this.airlineService.DeleteFlightFromList(flight.id).subscribe((res: any) => {
+      this.AllFlightsFun();
+    });
   }
 
   Modify(flight,allFlight)
@@ -67,7 +70,10 @@ export class MyFlightListComponent implements OnInit {
       }
       else{
         let newFlight= result as Flight;
-        //Samo zameniti podatke za flight podacima iz NewFlight
+        
+        this.airlineService.SaveChangesOnFlight(newFlight).subscribe((res:any) => {
+          this.AllFlightsFun();
+        });
       
       }
     });  
@@ -80,15 +86,6 @@ export class MyFlightListComponent implements OnInit {
       data:{
          flight : flight1,
         }
-    });
-  }
-
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
-      }
     });
   }
 

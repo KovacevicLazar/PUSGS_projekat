@@ -5,6 +5,7 @@ import { User } from 'src/app/entities/user/user';
 import { element } from 'protractor';
 
 import * as jwt_decode from "jwt-decode";
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-friends',
@@ -15,7 +16,9 @@ export class FriendsComponent implements OnInit {
     id:number;
     user: User;
     SearchFriend = "";
-    OtherUser = new Array<User>()
+    OtherUser = new Array<User>();
+    Friends = new Array<User>();
+    FriendRequests = new Array<User>();
     temp:boolean
 
     FilteredFriend= new Array<User>();
@@ -32,8 +35,32 @@ export class FriendsComponent implements OnInit {
     });
 
     this.GetOtherUsers();
-    
+    this.GetFriends();
+    this.GetFriendRequests();
+  }
 
+  GetFriends(){
+    this.Friends.length=0;
+    this.userService.GetFriends().subscribe((res: any) => {
+      for (let i = 0; i < res.friends.length; i++) {
+        
+        var user= new User(res.friends[i].username,res.friends[i].name,res.friends[i].surname,res.friends[i].email,res.friends[i].phoneNumber,res.friends[i].address,res.friends[i].role,"");
+        user.id=res.friends[i].id;
+        this.Friends.push(user);
+      }
+    });
+  }
+
+  GetFriendRequests(){
+    this.FriendRequests.length=0;
+    this.userService.GetFriendRequests().subscribe((res: any) => {
+      for (let i = 0; i < res.users.length; i++) {
+        
+        var user= new User(res.users[i].username,res.users[i].name,res.users[i].surname,res.users[i].email,res.users[i].phoneNumber,res.users[i].address,res.users[i].role,"");
+        user.id=res.users[i].id;
+        this.FriendRequests.push(user);
+      }
+    });
   }
 
   GetOtherUsers(){
@@ -48,11 +75,22 @@ export class FriendsComponent implements OnInit {
     });
 
   }
+
+
+
   ngOnInit(): void {
   }
 
   AcceptFriendRequest(friend: User){
-    if(this.FilteredFriendRequest.length!=0){
+    
+      this.userService.AcceptFriendRequest(friend.id).subscribe((res: any) => {
+
+        this.GetOtherUsers();
+        this.GetFriends();
+        this.GetFriendRequests();
+    });
+
+  /*   if(this.FilteredFriendRequest.length!=0){
 
       this.FilteredFriend.push(friend);
       this.FilteredFriendRequest.forEach((element, index) => {
@@ -76,11 +114,20 @@ export class FriendsComponent implements OnInit {
           this.user.friendsRequests.splice(index,1);
         }
       });
-    }
+    } */
   }
 
   RemoveFriend(friend: User){
-    if(this.FilteredFriend.length!=0){
+
+    this.userService.RemoveFriend(friend.id).subscribe((res: any) => {
+
+      this.GetOtherUsers();
+      this.GetFriends();
+      this.GetFriendRequests();
+    });
+
+
+   /*  if(this.FilteredFriend.length!=0){
 
       this.FilteredFriend.forEach((element, index) => {
         if(element.id==friend.id){
@@ -104,7 +151,7 @@ export class FriendsComponent implements OnInit {
           this.OtherUser.push(friend);
         }
       });
-    }
+    } */
   }
 
   DeleteRequest(friend){
@@ -144,6 +191,8 @@ export class FriendsComponent implements OnInit {
     this.userService.SendRequest(user.id).subscribe((res: any) => {
 
       this.GetOtherUsers();
+      this.GetFriends();
+      this.GetFriendRequests();
 
     });
     

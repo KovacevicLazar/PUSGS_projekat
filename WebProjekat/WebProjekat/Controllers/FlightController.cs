@@ -1,0 +1,184 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using WebProjekat.Baza;
+using WebProjekat.Models;
+
+namespace WebProjekat.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class FlightController : ControllerBase
+    {
+        private UserManager<User> _userManager;
+        private BazaContext _context;
+        private readonly ApplicationSettings _appSettings;
+        public FlightController(UserManager<User> userManager, IOptions<ApplicationSettings> appSettings, BazaContext bz)
+        {
+            this._userManager = userManager;
+            _appSettings = appSettings.Value;
+            _context = bz;
+        }
+
+        // POST: api/Flight
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
+
+        // PUT: api/Flight/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
+
+
+
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetFlightForAirline")]
+        public async Task<Object> GetFlightForAirline()
+        {
+
+            string userID = User.Claims.ElementAt(0).Value;
+
+            var user = _context.Users.Include(x => x.AirlineComnpany).Where(x => x.Id == userID).ToList().First();
+            var company = _context.Airlines.Include(x => x.Flights).Where(x => x.Id == user.AirlineComnpany.Id).ToList().First();
+            var listflight = company.Flights.ToList();
+
+            return Ok(new { listflight });
+        }
+
+        [HttpPost]
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("AddingFlight")]
+
+        public async Task<IActionResult> AddingFlight(Flight flightModel)
+        {
+
+            string userID = User.Claims.ElementAt(0).Value;
+            var newflight = new Flight()
+            {
+                FlyingFrom = flightModel.FlyingFrom,
+                FlyingTo = flightModel.FlyingTo,
+                FlightDistance = flightModel.FlightDistance,
+                DateDepart = flightModel.DateDepart,
+                DateArrival = flightModel.DateArrival,
+
+                TicketPrice = flightModel.TicketPrice,
+
+                FirstStop = flightModel.FirstStop,
+                SecondStop = flightModel.SecondStop,
+                ThirdStop = flightModel.ThirdStop
+
+            };
+
+            var user = _context.Users.Include(x => x.AirlineComnpany).Where(x => x.Id == userID).ToList().First();
+            var company = _context.Airlines.Include(x => x.Flights).Where(x => x.Id == user.AirlineComnpany.Id).ToList().First();
+            company.Flights.Add(newflight);
+
+            _context.Entry(company).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+
+            return Ok(new { message = "Successfully Adding" });
+        }
+
+
+
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("DeleteFlightFromList/{id}")]
+
+        public async Task<Object> DeleteFlightFromList(int id)
+        {
+            var flight = _context.Flights.Where(x => x.Id == id).ToList().First();
+            _context.Flights.Remove(flight);
+            _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("saveChangesOnFlight/{id}")]
+        public async Task<IActionResult> SaveChangesOnFlight(Flight flightModel, int id)
+        {
+            var s = "";
+            var flight = _context.Flights.Where(x => x.Id == id).ToList().First();
+
+
+            flight.FlyingFrom = flightModel.FlyingFrom;
+            flight.FlyingTo = flightModel.FlyingTo;
+            flight.FlightDistance = flightModel.FlightDistance;
+            flight.DateDepart = flightModel.DateDepart;
+            flight.DateArrival = flightModel.DateArrival;
+
+            flight.TicketPrice = flightModel.TicketPrice;
+
+            flight.FirstStop = flightModel.FirstStop;
+            flight.SecondStop = flightModel.SecondStop;
+            flight.ThirdStop = flightModel.ThirdStop;
+
+
+            _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetCompanyInfo")]
+
+        public async Task<Object> GetCompanyInfo()
+        {
+            string userID = User.Claims.ElementAt(0).Value;
+            var user = _context.Users.Include(x => x.AirlineComnpany).Where(x => x.Id == userID).ToList().First();
+            var comp = _context.Airlines.Where(x => x.Id == user.AirlineComnpany.Id).ToList().First();
+
+            return Ok(new { comp });
+        }
+
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("SaveChangeInfo")]
+
+        public async Task<IActionResult> SaveChangeInfo(Airline rentcarmodel)
+        {
+            var airline = _context.Airlines.Where(x => x.Id == rentcarmodel.Id).ToList().First();
+
+            airline.CompanyName = rentcarmodel.CompanyName;
+            airline.Description = rentcarmodel.Description;
+            airline.Adress = rentcarmodel.Adress;
+
+            _context.Entry(airline).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+
+    }
+}

@@ -21,7 +21,7 @@ export class ListOfAirlinesComponent implements OnInit {
     userService.GetAirAdmins().subscribe((res : any )=>{
 
       for (let i = 0; i < res.users.length; i++) {
-          var air = new Airline(1,res.users[i].airlineComnpany.companyName,"","",1,"","",res.users[i].userName);
+          var air = new Airline(1,res.users[i].airlineComnpany.companyName,"","",1,res.users[i].userName);
           this.AllAirlines.push(air);
       }
       

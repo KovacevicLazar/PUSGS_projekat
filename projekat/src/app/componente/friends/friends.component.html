@@ -22,7 +22,7 @@
           </thead>
 
           <tbody [hidden]="FilteredFriend.length != 0 || FilteredFriendRequest.length != 0 || FilteredOtherUsers.length!=0 || FilteredFriendSentRequest.length!=0 ">
-            <!-- <tr  *ngFor="let friend of user.friends" >
+            <tr  *ngFor="let friend of Friends" >
               <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
               <td class="td-info" scope="col">{{friend.name}}</td>
               <td class="td-info" scope="col">{{friend.surname}}</td>
@@ -31,9 +31,9 @@
                 Remove Friend
               </button>
               </td>
-            </tr> -->
+            </tr>
 
-            <tr *ngFor="let friend of user.friendsRequests" >
+            <tr *ngFor="let friend of FriendRequests" >
               <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
               <td class="td-info" scope="col">{{friend.name}}</td>
               <td class="td-info" scope="col">{{friend.surname}}</td>

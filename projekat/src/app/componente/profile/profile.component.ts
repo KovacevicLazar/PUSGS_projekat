@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
       alert('Za promenu podataka morate potvrditi vasu lozinku');
       successful= false;
     }
-    else if(this.name.trim()=="" || this.currentPassword =="" || this.surname.trim()=="" || this.address.trim()=="" ){
+    else if(this.name.trim()=="" || this.phoneNumber =="" || this.surname.trim()=="" || this.address.trim()=="" ){
       alert('Obavezna polja moraju biti popunjena');
       successful= false;
     }
@@ -65,8 +65,12 @@ export class ProfileComponent implements OnInit {
 
     if(successful){
       this.user.password=this.currentPassword;
+      this.user.name=this.name;
+      this.user.surname=this.surname;
+      this.user.phone=this.phoneNumber;
+      this.user.address=this.address
       this.userService.SaveProfileInfoChanges(this.user,this.newpassword,this.confirmpassword).subscribe((res:any)=>{
-     
+        alert(res.message);
       });
     }
   }

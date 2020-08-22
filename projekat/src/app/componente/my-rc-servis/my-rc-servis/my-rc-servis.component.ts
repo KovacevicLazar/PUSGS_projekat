@@ -16,14 +16,7 @@ import { UserService } from 'src/app/services/user-service/user.service';
 })
 export class MyRcServisComponent implements OnInit {
 
- 
-
-  allRentcCars: Array<RentCar>;
   myrentcar: RentCar = new RentCar(-1,"","","",1);
-  
-  id : number;
-  user: User;
-
   
   constructor(private rentcarService: RentCarService  ,private router: Router,private route: ActivatedRoute,private userService : UserService) { 
 
@@ -45,21 +38,7 @@ export class MyRcServisComponent implements OnInit {
       this.router.navigate(['myCarList'])
       alert("Successfuly saved ! ")
     });
-    
   }
-
-  check() // mora da se mijenja
-  {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if(userRole === 'Registred')
-    {
-      return true;
-    }
-    else
-      return false; 
-  }
-
 
   
-
 }

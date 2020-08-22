@@ -210,6 +210,120 @@ namespace WebProjekat.Controllers
             return Ok(new { allOtherUsers });
         }
 
+
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetFriends")]
+        public async Task<Object> GetFriends()
+        {
+            string UserId = User.Claims.First().Value;
+
+            List<User> Friends = new List<User>();
+            User user = _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
+          
+            for (int i = 0; i < user.Friends.ToList().Count; i++)
+            {
+                 if (user.Friends.ToList()[i].Status== StatusFriendRequest.Accepted)
+                 {
+                    User friend = _context.Users.Where(x => x.Id == user.Friends.ToList()[i].UserId2).ToList().First();
+                    Friends.Add(friend);
+                 }
+            }
+
+            return Ok(new { Friends });
+        }
+
+
+
+
+        [Route("RemoveFriend")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> RemoveFriend(UserRequest friendId)
+        {
+            string UserId = User.Claims.First().Value;
+
+            User user = _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
+
+            for (int i = 0; i < user.Friends.ToList().Count; i++)
+            {
+                if (user.Friends.ToList()[i].UserId2 == friendId.UserId2)
+                {
+                    FriendRequest friend = user.Friends.ToList()[i];
+                    user.Friends.Remove(friend);
+                    _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                    return Ok();
+                }
+            }
+            
+           
+            return BadRequest();
+        }
+
+
+
+        [Route("AcceptFriendRequest")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> AcceptFriendRequest(UserRequest friendId)
+        {
+            string UserId = User.Claims.First().Value;
+
+            User user = _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
+            User FriengRequestUser = _context.Users.Include(x => x.Friends).Where(x => x.Id == friendId.UserId2).ToList().First();
+
+            for (int i = 0; i < FriengRequestUser.Friends.ToList().Count; i++)
+            {
+                if (FriengRequestUser.Friends.ToList()[i].UserId2 == UserId)
+                {
+                    FriendRequest friend = FriengRequestUser.Friends.ToList()[i];
+                    friend.Status = StatusFriendRequest.Accepted;
+                   
+                    _context.Entry(FriengRequestUser).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                    return Ok();
+                }
+            }
+            return BadRequest();
+        }
+
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetFriendRequests")]
+        public async Task<Object> GetFriendRequests()
+        {
+            string UserId = User.Claims.First().Value;
+
+            List<User> allOtherUsers = _context.Users.Include(x => x.Friends).Where(x => x.Id != UserId).ToList();
+
+            List<User> users = new List<User>(); // korisnici koji su poslali zahtev
+
+
+            for (int i = 0; i < allOtherUsers.Count; i++)
+            {
+                for (int j = 0; j < allOtherUsers[i].Friends.ToList().Count; j++)
+                {
+                    var tempUser = allOtherUsers[i];
+                    if (tempUser.Friends.ToList()[j].UserId2 == UserId && tempUser.Friends.ToList()[j].Status == StatusFriendRequest.OnWait)
+                    {
+                        users.Add(tempUser);
+                        break;
+                    }
+                }
+       
+            }
+
+            return Ok(new { users });
+        }
+
+
+
+
+
+
+
+
         [HttpPost]
         [Route("Login")]
         //POST : /api/User/Login

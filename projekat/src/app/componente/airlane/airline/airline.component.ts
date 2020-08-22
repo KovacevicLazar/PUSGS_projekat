@@ -37,11 +37,6 @@ export class AirlineComponent implements OnInit {
     this.RegistratedUser=0;
     this.SearchButtonClicket=0;
     
-    if(this.check())
-    {
-      this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
-      this.RegistratedUser =1;
-    }
 
     this.allAirline = this.airlineService.loadAirlines();
 
@@ -77,12 +72,7 @@ export class AirlineComponent implements OnInit {
       alert("Morate uneti polaznu i krajnju destinaciju, kao i datum polaska")
       
       
-      this.allAirline.forEach(airline => { // ako nije nista uneo prikazati mu sve, lakse zbog testiranja uradjenih stvari
-        airline.flights.forEach(flight => {
-           this.Flights.push(flight);
-
-        });
-      });
+     
       this.SearchButtonClicket=1;
 
     }
@@ -93,8 +83,8 @@ export class AirlineComponent implements OnInit {
       //let dateDepart=new Date(this.dateDepart);
       //let dateReturn=new Date(this.dateReturn);
     
-      this.allAirline.forEach(airline => {
-        airline.flights.forEach(flight => {
+      /* this.allAirline.forEach(airline => { */
+       /*  airline.flights.forEach(flight => {
          
           let month=""; 
           if(flight.dateDepart.getMonth() < 9){ //za mesece manje od 10(9 jer je januar 0) dodaj 0 ispred..npr avgust->08
@@ -114,28 +104,8 @@ export class AirlineComponent implements OnInit {
          }
 
         });
-      });
+      }); */
     }
-  }
-
-  check()
-  {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if(userRole === 'Registred')
-    {
-      return true;
-    }
-    else
-      return false; 
-  }
-
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
-      }
-    });
   }
 
 }
