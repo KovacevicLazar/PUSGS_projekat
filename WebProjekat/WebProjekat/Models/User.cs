@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace WebProjekat.Models
         public string Address { get; set; }
         public UserRole Role { get; set; }
 
+        
         public ICollection<FriendRequest> Friends { get; set; }
        
         public Airline AirlineComnpany { get; set; }

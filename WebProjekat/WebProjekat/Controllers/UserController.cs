@@ -182,31 +182,37 @@ namespace WebProjekat.Controllers
         {
             string UserId = User.Claims.First().Value;
 
-            List<User> allOtherUsers = _context.Users.Where(x => x.Id != UserId).ToList();
+            List<User> allOtherUsers = _context.Users.Where(x => x.Id != UserId && x.Role == UserRole.Registred).ToList();
 
             User user = _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
+
+            var FriendRequests = _context.FriendRequests.Where(x => x.UserId == UserId ||  x.UserId2 == UserId).ToList();
             List<int> indexs = new List<int>();
-            for (int i = 0; i < user.Friends.ToList().Count; i++)
+
+            for (int i = 0; i < FriendRequests.Count; i++)
             {
                 for (int j = 0; j < allOtherUsers.Count; j++)
                 {
-                    bool found = false;
-                    if (user.Friends.ToList()[i].UserId2 == allOtherUsers[j].Id)
-                    {
-                        found = true;
-                    }
-                    if (found)
-                    {
-                        indexs.Add(j);
-                    }
+                   if(FriendRequests[i].UserId == UserId)
+                   {
+                        if(FriendRequests[i].UserId2 == allOtherUsers[j].Id)
+                        {
+                            indexs.Add(j);
+                        }
+                   }
+                   else if (FriendRequests[i].UserId2 == UserId && FriendRequests[i].UserId != null)
+                   {
+                        if (FriendRequests[i].UserId == allOtherUsers[j].Id)
+                        {
+                            indexs.Add(j);
+                        }
+                   }
                 }
             }
             for (int i = indexs.Count - 1; i >= 0; i--)
             {
                 allOtherUsers.RemoveAt(indexs[i]);
             }
-
-
             return Ok(new { allOtherUsers });
         }
 
@@ -220,13 +226,22 @@ namespace WebProjekat.Controllers
             string UserId = User.Claims.First().Value;
 
             List<User> Friends = new List<User>();
-            User user = _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
+            var FriendRequests = _context.FriendRequests.Where(x => x.UserId == UserId || x.UserId2 == UserId).ToList();
           
-            for (int i = 0; i < user.Friends.ToList().Count; i++)
+            for (int i = 0; i < FriendRequests.Count; i++)
             {
-                 if (user.Friends.ToList()[i].Status== StatusFriendRequest.Accepted)
+                 if (FriendRequests[i].Status== StatusFriendRequest.Accepted && FriendRequests[i].UserId2==UserId)
                  {
-                    User friend = _context.Users.Where(x => x.Id == user.Friends.ToList()[i].UserId2).ToList().First();
+                    if(FriendRequests[i].UserId != null)
+                    {
+                         User friend = _context.Users.Where(x => x.Id == FriendRequests[i].UserId).ToList().First();
+                         Friends.Add(friend);
+                    }
+                   
+                 }
+                 else if (FriendRequests[i].Status == StatusFriendRequest.Accepted && FriendRequests[i].UserId == UserId)
+                 {
+                    User friend = _context.Users.Where(x => x.Id == FriendRequests[i].UserId2).ToList().First();
                     Friends.Add(friend);
                  }
             }
@@ -235,56 +250,76 @@ namespace WebProjekat.Controllers
         }
 
 
-
-
+        [HttpPost]
         [Route("RemoveFriend")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> RemoveFriend(UserRequest friendId)
         {
             string UserId = User.Claims.First().Value;
 
-            User user = _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
+            var FriendRequests = _context.FriendRequests.Where(x => (x.UserId == UserId && x.UserId2 == friendId.UserId2) || (x.UserId == friendId.UserId2 && x.UserId2 == UserId)).ToList().First();
 
-            for (int i = 0; i < user.Friends.ToList().Count; i++)
+            if(FriendRequests != null)
             {
-                if (user.Friends.ToList()[i].UserId2 == friendId.UserId2)
-                {
-                    FriendRequest friend = user.Friends.ToList()[i];
-                    user.Friends.Remove(friend);
-                    _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                    await _context.SaveChangesAsync();
-                    return Ok();
-                }
+                _context.FriendRequests.Remove(FriendRequests);
+                _context.Entry(FriendRequests).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                await _context.SaveChangesAsync();
+                return Ok();
             }
-            
-           
-            return BadRequest();
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+
+        [HttpPost]
+        [Route("DeleteRequest")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> DeleteRequest(UserRequest friendId)
+        {
+            string UserId = User.Claims.First().Value;
+
+            var FriendRequests = _context.FriendRequests.Where(x => x.UserId == friendId.UserId2 && x.UserId2 == UserId).ToList().First();
+
+            if (FriendRequests != null)
+            {
+                _context.FriendRequests.Remove(FriendRequests);
+                _context.Entry(FriendRequests).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
 
 
+        [HttpPost]
         [Route("AcceptFriendRequest")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> AcceptFriendRequest(UserRequest friendId)
         {
             string UserId = User.Claims.First().Value;
 
-            User user = _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
-            User FriengRequestUser = _context.Users.Include(x => x.Friends).Where(x => x.Id == friendId.UserId2).ToList().First();
+            FriendRequest friendRequest = _context.FriendRequests.Where(x => x.UserId2 == UserId && x.UserId == friendId.UserId2).ToList().First();
 
-            for (int i = 0; i < FriengRequestUser.Friends.ToList().Count; i++)
+            if (friendRequest != null)
             {
-                if (FriengRequestUser.Friends.ToList()[i].UserId2 == UserId)
-                {
-                    FriendRequest friend = FriengRequestUser.Friends.ToList()[i];
-                    friend.Status = StatusFriendRequest.Accepted;
                    
-                    _context.Entry(FriengRequestUser).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                    await _context.SaveChangesAsync();
-                    return Ok();
-                }
+                friendRequest.Status = StatusFriendRequest.Accepted;
+                _context.Entry(friendRequest).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return Ok();
+           
             }
-            return BadRequest();
+            else
+            {
+                return BadRequest();
+            }
+           
         }
 
 
@@ -294,34 +329,65 @@ namespace WebProjekat.Controllers
         public async Task<Object> GetFriendRequests()
         {
             string UserId = User.Claims.First().Value;
-
-            List<User> allOtherUsers = _context.Users.Include(x => x.Friends).Where(x => x.Id != UserId).ToList();
-
+         
             List<User> users = new List<User>(); // korisnici koji su poslali zahtev
 
+            List<FriendRequest> friendRequests = _context.FriendRequests.Where(x => x.UserId2 == UserId).ToList();
 
-            for (int i = 0; i < allOtherUsers.Count; i++)
+            for (int i = 0; i < friendRequests.Count; i++)
             {
-                for (int j = 0; j < allOtherUsers[i].Friends.ToList().Count; j++)
+                if(friendRequests[i].UserId != null)
                 {
-                    var tempUser = allOtherUsers[i];
-                    if (tempUser.Friends.ToList()[j].UserId2 == UserId && tempUser.Friends.ToList()[j].Status == StatusFriendRequest.OnWait)
-                    {
-                        users.Add(tempUser);
-                        break;
-                    }
+                    var user = _context.Users.Where(x => x.Id == friendRequests[i].UserId).ToList().First();
+                    users.Add(user);
                 }
-       
             }
 
             return Ok(new { users });
         }
 
 
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetFriendSentRequest")]
+        public async Task<Object> GetFriendSentRequest()
+        {
+            string UserId = User.Claims.First().Value;
+
+            List<User> users = new List<User>(); // korisnici kojima je poslat zahtev za projateljstvo
+            List<FriendRequest> friendRequests = _context.FriendRequests.Where(x => x.UserId == UserId).ToList();
+
+            for (int i = 0; i < friendRequests.Count; i++)
+            {
+               var user = _context.Users.Where(x => x.Id == friendRequests[i].UserId2).ToList().First();
+               users.Add(user);
+            }
+
+            return Ok(new { users });
+        }
 
 
+        [HttpPost]
+        [Route("CancelRequest")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> CancelRequest(UserRequest friendId)
+        {
+            string UserId = User.Claims.First().Value;
 
+            var FriendRequests = _context.FriendRequests.Where(x => x.UserId == UserId && x.UserId2 == friendId.UserId2).ToList().First();
 
+            if (FriendRequests != null)
+            {
+                _context.FriendRequests.Remove(FriendRequests);
+                _context.Entry(FriendRequests).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
 
         [HttpPost]

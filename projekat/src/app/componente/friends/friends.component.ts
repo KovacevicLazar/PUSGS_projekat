@@ -19,6 +19,7 @@ export class FriendsComponent implements OnInit {
     OtherUser = new Array<User>();
     Friends = new Array<User>();
     FriendRequests = new Array<User>();
+    FriendSentRequests = new Array<User>();
     temp:boolean
 
     FilteredFriend= new Array<User>();
@@ -37,6 +38,7 @@ export class FriendsComponent implements OnInit {
     this.GetOtherUsers();
     this.GetFriends();
     this.GetFriendRequests();
+    this.GetFriendSentRequest();
   }
 
   GetFriends(){
@@ -77,6 +79,19 @@ export class FriendsComponent implements OnInit {
   }
 
 
+  GetFriendSentRequest(){
+    this.FriendSentRequests.length=0;
+    this.userService.GetFriendSentRequest().subscribe((res: any) => {
+      for (let i = 0; i < res.users.length; i++) {
+        
+        var user= new User(res.users[i].username,res.users[i].name,res.users[i].surname,res.users[i].email,res.users[i].phoneNumber,res.users[i].address,res.users[i].role,"");
+        user.id=res.users[i].id;
+        this.FriendSentRequests.push(user);
+      }
+    });
+  }
+
+
 
   ngOnInit(): void {
   }
@@ -88,6 +103,7 @@ export class FriendsComponent implements OnInit {
         this.GetOtherUsers();
         this.GetFriends();
         this.GetFriendRequests();
+        this.GetFriendSentRequest();
     });
 
   /*   if(this.FilteredFriendRequest.length!=0){
@@ -124,6 +140,7 @@ export class FriendsComponent implements OnInit {
       this.GetOtherUsers();
       this.GetFriends();
       this.GetFriendRequests();
+      this.GetFriendSentRequest();
     });
 
 
@@ -156,7 +173,17 @@ export class FriendsComponent implements OnInit {
 
   DeleteRequest(friend){
 
-    if(this.FilteredFriendRequest.length!=0){
+
+    this.userService.DeleteRequest(friend.id).subscribe((res: any) => {
+
+      this.GetOtherUsers();
+      this.GetFriends();
+      this.GetFriendRequests();
+      this.GetFriendSentRequest();
+    });
+
+
+    /* if(this.FilteredFriendRequest.length!=0){
 
       this.FilteredFriendRequest.forEach((element, index) => {
         if(element.id==friend.id){
@@ -182,7 +209,7 @@ export class FriendsComponent implements OnInit {
       }
       });
     
-    }
+    } */
   }
 
   SendRequest(user : User){
@@ -193,6 +220,7 @@ export class FriendsComponent implements OnInit {
       this.GetOtherUsers();
       this.GetFriends();
       this.GetFriendRequests();
+      this.GetFriendSentRequest();
 
     });
     
@@ -201,7 +229,15 @@ export class FriendsComponent implements OnInit {
 
   CancelRequest(user){
 
-    if(this.FilteredFriendSentRequest.length!=0){
+    this.userService.CancelRequest(user.id).subscribe((res: any) => {
+
+      this.GetOtherUsers();
+      this.GetFriends();
+      this.GetFriendRequests();
+      this.GetFriendSentRequest();
+    });
+
+    /* if(this.FilteredFriendSentRequest.length!=0){
       this.FilteredFriendSentRequest.forEach((element, index) => {
         if(element.id==user.id){
           this.FilteredFriendSentRequest.splice(index,1);
@@ -223,7 +259,7 @@ export class FriendsComponent implements OnInit {
           this.OtherUser.push(user);
         }
       });
-    }
+    } */
    
   }
 
@@ -275,27 +311,5 @@ export class FriendsComponent implements OnInit {
       alert("Nije pronadjen ni jedan korisnik")
     }
   }
-
-  
-  check()
-  {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if(userRole === 'Registred')
-    {
-      return true;
-    }
-    else
-      return false; 
-  }
-
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
-      }
-    });
-  }
-
 
 }

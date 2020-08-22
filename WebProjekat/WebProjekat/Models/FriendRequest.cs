@@ -12,6 +12,7 @@ namespace WebProjekat.Models
         public int Id { get; set; }
         public string UserId2 { get; set; }
         public StatusFriendRequest Status { get; set; }
+        public string UserId { get; set; }
 
 
 

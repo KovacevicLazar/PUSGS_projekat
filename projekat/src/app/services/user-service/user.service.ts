@@ -107,6 +107,26 @@ export class UserService{
         return this.http.post(this.BaseURI + '/User/AcceptFriendRequest', body);
     }
 
+    
+    GetFriendSentRequest(){
+        return this.http.get(this.BaseURI + '/User/GetFriendSentRequest');
+    }
+
+
+    DeleteRequest(userID: string){
+        var body = {
+            userId2: userID
+        }
+        return this.http.post(this.BaseURI + '/User/DeleteRequest', body);
+    }
+
+
+    CancelRequest(userID: string){
+        var body = {
+            userId2: userID
+        }
+        return this.http.post(this.BaseURI + '/User/CancelRequest', body);
+    }
 
 
 
