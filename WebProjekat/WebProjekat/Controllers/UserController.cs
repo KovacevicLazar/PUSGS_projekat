@@ -594,6 +594,22 @@ namespace WebProjekat.Controllers
         }
 
 
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetCarReservations")]
+        public async Task<Object> GetCarReservations()
+        {
+            string userId = User.Claims.ElementAt(0).Value;
+            var user = _context.Users.Include(x => x.CarReservations).Where(x => x.Id == userId).ToList().First();
+            var reservations = user.CarReservations.ToList();
+
+
+
+
+
+            return Ok(new { reservations});
+        }
+
 
     }
 }

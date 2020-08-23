@@ -61,22 +61,22 @@
             <table  class="table table-hover">
                 <thead>
                         <tr>
-                            <th class="th-info">Location:</th>
-                            <th class="th-info">Return Location:</th>
+                            <th class="th-info">Location and Price:</th>
+                            <th class="th-info">Pickup and return date: </th>
                             
-                            <th class="th-info">Brand:</th>
-                            <th class="th-info" >Duration:</th>
+                            <th class="th-info">Brand and model:</th>
+                            <th class="th-info" ></th>
                             
                         </tr>
                 
                 </thead>
-                <tbody *ngIf="user.carReservations.length > 0">
-                    <tr  *ngFor="let ReservedCar of user.carReservations">
-                        <td>{{ReservedCar.car.location}} <br> {{ReservedCar.checkedInDate | date:'medium' }}</td>
-                        <td> {{ReservedCar.returnedLocation}} <br> {{ReservedCar.checkedOutDate | date:'medium' }}</td>
-                        <td> {{ReservedCar.car.brand}} </td>             
+                <tbody *ngIf="allReservations.length > 0">
+                    <tr  *ngFor="let ReservedCar of allReservations"  style="text-align: center; vertical-align: middle;">
+                        <td>{{ReservedCar.car.location}} <br> {{ReservedCar.totalPrice}} $ </td>
+                        <td> {{ReservedCar.checkedInDate | date:'medium' }} <br> {{ReservedCar.checkedOutDate | date:'medium' }}</td>
+                        <td> {{ReservedCar.car.brand}} <br> {{ReservedCar.car.model}} </td>             
                         <td>
-                        Price:<span class="price-text">{{ReservedCar.car.pricePerDay*ReservedCar.numberOfDays}}€</span> <br/>
+                      
                         <button class="buttonCancellations" (click)="buttonCancellationsCarReservation(ReservedCar)">Cancellations</button></td>
                             
                     </tr>

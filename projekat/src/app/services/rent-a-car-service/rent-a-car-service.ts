@@ -3,6 +3,7 @@ import { Car } from 'src/app/entities/car/car';
 import { RentCar } from 'src/app/entities/rent-a-car/rent-a-car';
 import { HttpClient } from '@angular/common/http';
 import { NgModel } from '@angular/forms';
+import { ReservedCar } from 'src/app/entities/ReservedCar/reserved-car';
 
 
 @Injectable({
@@ -101,6 +102,8 @@ export class RentCarService{
         return this.http.get(this.BaseURI + '/RentCar/GetSearchedCars/' + location+'/'+pickupDate.toDateString().replace(' ','_')+'/'+babyseats+'/'+numberOfSeats);
     }
 
+
+
     SaveChangeInfo(rentcar: RentCar)
     {
         var body = {
@@ -142,6 +145,18 @@ export class RentCarService{
        // allRentCar.push(r6);
 
         return allRentCar;
+    }
+
+    CarReservation(reservation : ReservedCar)
+    {
+
+        var body = {
+            CarId: reservation.car.id,
+            PickupDate: reservation.checkedInDate,
+            ReturnDate : reservation.checkedOutDate,
+            NumberOfDays : reservation.numberOfDays
+        }
+        return this.http.post(this.BaseURI + '/RentCar/CarReservation', body);
     }
    
 

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Expressions;
 using Microsoft.Extensions.Options;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using WebProjekat.Baza;
 using WebProjekat.Models;
 
@@ -241,7 +242,7 @@ namespace WebProjekat.Controllers
                         bool test = false;
                         foreach (var item1 in item.CarReservations)
                         {
-                            if(item1.FirstDayOfReservaton <= pickUpDate && item1.LastDayOfReservaton >= pickUpDate)
+                            if(item1.PickupDate <= pickUpDate && item1.ReturnDate >= pickUpDate)
                             {
                                 test = true;
                             }
@@ -263,7 +264,7 @@ namespace WebProjekat.Controllers
                         bool test = false;
                         foreach (var item1 in item.CarReservations)
                         {
-                            if (item1.FirstDayOfReservaton <= pickUpDate && item1.LastDayOfReservaton >= pickUpDate)
+                            if (item1.PickupDate <= pickUpDate && item1.ReturnDate >= pickUpDate)
                             {
                                 test = true;
                             }
@@ -326,6 +327,72 @@ namespace WebProjekat.Controllers
                 cars = _context.Cars.ToList();
             }
             return Ok(new { cars});
+        }
+
+        [HttpPost]
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("CarReservation")]
+
+        public async Task<Object> CarReservation(MakeReservationcs reservation)
+        {
+            var car = _context.Cars.Include(x => x.CarReservations).Where(x => x.Id == reservation.CarId).ToList().First();
+            bool test = false;
+            string userID = User.Claims.ElementAt(0).Value;
+            var user = _context.Users.Include(x => x.CarReservations).Where(x => x.Id == userID).ToList().First();
+            foreach (var item in car.CarReservations)
+            {
+                if (reservation.PickupDate > item.PickupDate && reservation.PickupDate < item.ReturnDate)
+                {
+                    test = true;
+                    break;
+                }
+
+                if (reservation.PickupDate > item.PickupDate && reservation.ReturnDate < item.ReturnDate)
+                {
+                    test = true;
+                    break;
+                }
+
+
+
+                if (reservation.PickupDate < item.PickupDate && reservation.ReturnDate > item.PickupDate)
+                {
+                    test = true;
+                    break;
+                }
+
+                if (reservation.PickupDate < item.PickupDate && reservation.ReturnDate > item.ReturnDate)
+                {
+                    test = true;
+                    break;
+                }
+
+
+
+
+            }
+            if (test)
+            {
+                return BadRequest(new { message = "Already reserved in this period" });
+            }
+            else {
+                var carreservation = new CarReservation();
+                carreservation.NumberOfDays = reservation.NumberOfDays;
+                carreservation.PickupDate = reservation.PickupDate;
+                carreservation.ReturnDate = reservation.ReturnDate;
+                carreservation.TotalPrice = reservation.NumberOfDays * car.PricePerDay;
+                carreservation.Location = car.Location;
+                carreservation.Brand = car.Brand;
+                carreservation.Model = car.Model;
+                car.CarReservations.Add(carreservation);
+                user.CarReservations.Add(carreservation);
+                _context.Entry(car).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+               var result= await _context.SaveChangesAsync();
+                return Ok(new { result });
+            }
+           
         }
 
     }

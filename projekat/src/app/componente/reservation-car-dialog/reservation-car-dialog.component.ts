@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Car } from 'src/app/entities/car/car';
+import { ReservedCar } from 'src/app/entities/ReservedCar/reserved-car';
 
 @Component({
   selector: 'app-reservation-car-dialog',
@@ -30,7 +31,12 @@ export class ReservationCarDialogComponent implements OnInit {
   Cancel(){
     this.dialogRef.close("Cancel");
   }
+  Reserve(){
 
+    var reservation = new ReservedCar(this.car,this.numberOfDays,new Date(this.DayOfReservation),new Date (this.ReturnDate));
+    this.dialogRef.close(reservation);
+    
+  }
   CalculateDay()
   {
     if(this.DayOfReservation != "" && this.ReturnDate != "")

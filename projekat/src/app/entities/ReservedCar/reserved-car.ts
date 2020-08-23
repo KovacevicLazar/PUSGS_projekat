@@ -4,19 +4,19 @@ export class ReservedCar {
 
     car: Car;
     numberOfDays : number;
-    userEmail: string; //korisnik koji je rezervisao
+    
     checkedInDate: Date;
     checkedOutDate: Date;
-    returnedLocation: string;
+    totalPrice: number;
 
-    constructor(car: Car, numberOfDays : number, userEmail: string,checkedInDate: Date,returnedLocation: string,checkedOutDate: Date){
+    constructor(car: Car, numberOfDays : number,checkedInDate: Date,checkedOutDate: Date){
         this.car=car;
         this.numberOfDays=numberOfDays;
-        this.userEmail=userEmail;
-        this.checkedInDate = checkedInDate;
-        this.returnedLocation = returnedLocation;
+       
+        this.checkedInDate =new Date( checkedInDate);
+        
 
-        this.checkedOutDate = checkedOutDate;
+        this.checkedOutDate = new Date(checkedOutDate);
         let dan = this.checkedOutDate.getDay();
         this.numberOfDays = this.CalculateDay(this.checkedOutDate,this.checkedInDate);
 

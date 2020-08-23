@@ -228,4 +228,9 @@ export class UserService{
 
         return allUsers;
     }
+
+    GetCarReservations()
+    {
+        return this.http.get(this.BaseURI + '/User/GetCarReservations');
+    }
 }

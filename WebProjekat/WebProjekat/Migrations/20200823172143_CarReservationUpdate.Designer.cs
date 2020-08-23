@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProjekat.Baza;
 
 namespace WebProjekat.Migrations
 {
     [DbContext(typeof(BazaContext))]
-    partial class BazaContextModelSnapshot : ModelSnapshot
+    [Migration("20200823172143_CarReservationUpdate")]
+    partial class CarReservationUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,13 +73,7 @@ namespace WebProjekat.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Brand");
-
                     b.Property<int?>("CarId");
-
-                    b.Property<string>("Location");
-
-                    b.Property<string>("Model");
 
                     b.Property<int>("NumberOfDays");
 

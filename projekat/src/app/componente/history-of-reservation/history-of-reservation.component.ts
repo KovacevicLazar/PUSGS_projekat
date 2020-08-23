@@ -15,12 +15,19 @@ export class HistoryOfReservationComponent implements OnInit {
 
   user :User;
   DateNow : Date;
+  allReservations: Array<ReservedCar> = new Array<ReservedCar>();
 
   constructor(private userService: UserService ,private route: ActivatedRoute) { 
-    if(this.check())
-    {
-      this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
-    }
+  
+    this.userService.GetCarReservations().subscribe((res:any) =>{
+        for (let i = 0; i < res.reservations.length; i++) {
+          var newcar  = new Car(-1,res.reservations[i].location,res.reservations[i].brand,res.reservations[i].model,-1,-1,false,-1,-1);
+          var reservation = new ReservedCar(newcar,res.reservations[i].numberOfDays,res.reservations[i].pickupDate,res.reservations[i].returnDate);
+          reservation.totalPrice  = res.reservations[i].totalPrice;
+          this.allReservations.push(reservation);
+        }
+    });
+
     this.DateNow= new Date();
   }
 
@@ -74,24 +81,8 @@ export class HistoryOfReservationComponent implements OnInit {
     
   }
 
-  check()
-  {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if(userRole === 'Registred')
-    {
-      return true;
-    }
-    else
-      return false; 
-  }
+ 
 
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
-      }
-    });
-  }
+ 
 
 }

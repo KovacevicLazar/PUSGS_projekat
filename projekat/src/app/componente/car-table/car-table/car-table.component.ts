@@ -3,6 +3,7 @@ import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-s
 import { MatDialog } from '@angular/material/dialog';
 import { Car } from 'src/app/entities/car/car';
 import { ReservationCarDialogComponent } from '../../reservation-car-dialog/reservation-car-dialog.component';
+import { ReservedCar } from 'src/app/entities/ReservedCar/reserved-car';
 
 @Component({
   selector: 'app-car-table',
@@ -13,29 +14,32 @@ export class CarTableComponent implements OnInit {
 
   @Input() Cars;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,private carservice: RentCarService) { }
 
   ngOnInit(): void {
   }
 
   Reserve(car)
   {
-    if(this.check()){
+   
       this.openDialog(car).afterClosed().subscribe(result => {
         if(result=="Cancel"){
           alert("Podaci nisu menjani.")
         }
         else{
-          let newCar= result as Car;
+          let newCar= result as ReservedCar;
           //Samo zameniti podatke za flight podacima iz NewFlight
-        
+          this.carservice.CarReservation(newCar).subscribe((res:any) =>
+          {
+            alert("Successfuly reserved!");
+          },    (error) => {
+            alert("Error,already reserved in this period");
+        });
         }
       }); 
-    }
-    else
-    {
-      alert("Morate biti registrovani za dalje akcije ")
-    }
+    
+    
+   
    
   }
 
@@ -49,15 +53,6 @@ export class CarTableComponent implements OnInit {
   }
 
 
-  check()
-  {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if(userRole === 'Registred')
-    {
-      return true;
-    }
-    else
-      return false; 
-  }
+ 
 
 }
