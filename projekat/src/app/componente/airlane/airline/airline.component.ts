@@ -70,9 +70,6 @@ export class AirlineComponent implements OnInit {
     if(this.dateDepart=="" || (this.dateReturn=="" && this.way=="Round Trip") || this.flyingfrom=="" || this.flyingTo=="")
     {
       alert("Morate uneti polaznu i krajnju destinaciju, kao i datum polaska")
-      
-      
-     
       this.SearchButtonClicket=1;
 
     }
@@ -80,31 +77,42 @@ export class AirlineComponent implements OnInit {
       this.SearchButtonClicket=1;
       this.Flights.length = 0;
 
-      //let dateDepart=new Date(this.dateDepart);
-      //let dateReturn=new Date(this.dateReturn);
-    
-      /* this.allAirline.forEach(airline => { */
-       /*  airline.flights.forEach(flight => {
-         
-          let month=""; 
-          if(flight.dateDepart.getMonth() < 9){ //za mesece manje od 10(9 jer je januar 0) dodaj 0 ispred..npr avgust->08
-            month="0" + (flight.dateDepart.getMonth()+1).toString(); // +1 jer je januar 0
-          }
-          else{
-            month=(flight.dateDepart.getMonth()+1).toString();
-          }
-        
-         let flightDateDepart=flight.dateDepart.getFullYear().toString() + '-' + month + '-' + flight.dateDepart.getDate().toString(); //DOBIJEMO STRING "YYYY-MM-DD"
-         if(flightDateDepart===this.dateDepart){
-            if(flight.flyingfrom.toLowerCase() == this.flyingfrom.toLowerCase() && flight.flyingTo.toLowerCase() == this.flyingTo.toLowerCase() ){
-              if(flight.vacantSeats >= (Number(this.adults) + Number(this.children))){
-                this.Flights.push(flight);
-              }
-          }
-         }
+      let dateDepart=new Date(this.dateDepart);
+      let dateReturn: any;
+      let dateArr;
 
-        });
-      }); */
+      if(this.way != "Round Trip"){
+        dateArr="-";
+      }
+      else{
+        dateReturn=new Date(this.dateReturn);
+        dateArr=dateReturn.getDate().toString()+ '-' + (dateReturn.getMonth()+1).toString() + '-' + dateReturn.getFullYear().toString();
+      }
+    
+      let dateDep=dateDepart.getDate().toString()+ '-' + (dateDepart.getMonth()+1).toString() + '-' + dateDepart.getFullYear().toString(); 
+     
+      this.airlineService.GetSearchedFlights(this.flyingfrom, this.flyingTo, dateDep , Number(this.adults) + Number(this.children), dateArr).subscribe((res:any)=>{
+    
+        for (let i = 0; i < res.retflights.length; i++) {
+
+          let transitList= new Array<string>();
+
+          if(res.retflights[i].firstStop !=""){
+            transitList.push(res.retflights[i].firstStop);
+          }
+          if(res.retflights[i].secondStop!=""){
+            transitList.push(res.retflights[i].secondStop);
+          }
+          if(res.retflights[i].thirdStop!=""){
+            transitList.push(res.retflights[i].thirdStop);
+          }
+
+
+          let flight= new Flight(res.retflights[i].id, res.retflights[i].flyingFrom, res.retflights[i].flyingTo, new Date(res.retflights[i].dateDepart),new Date(res.retflights[i].dateArrival), res.retflights[i].flightDistance, transitList, res.retflights[i].ticketPrice, res.retflights[i].vacantSeats, res.retflights[i].busySeats);
+          this.Flights.push(flight);
+        }
+      });
+    
     }
   }
 

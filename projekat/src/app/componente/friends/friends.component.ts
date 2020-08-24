@@ -88,6 +88,9 @@ export class FriendsComponent implements OnInit {
         user.id=res.users[i].id;
         this.FriendSentRequests.push(user);
       }
+      if( this.SearchFriend != ""){
+        this.Search();
+      }
     });
   }
 
@@ -106,31 +109,7 @@ export class FriendsComponent implements OnInit {
         this.GetFriendSentRequest();
     });
 
-  /*   if(this.FilteredFriendRequest.length!=0){
 
-      this.FilteredFriend.push(friend);
-      this.FilteredFriendRequest.forEach((element, index) => {
-        if(element.id==friend.id){
-          this.FilteredFriendRequest.splice(index,1);
-        }
-      });
-
-      this.user.friends.push(friend);
-      this.user.friendsRequests.forEach((element, index) => {
-        if(element.id==friend.id){
-          this.user.friendsRequests.splice(index,1);
-        }
-      });
-
-    }
-    else{
-      this.user.friends.push(friend);
-      this.user.friendsRequests.forEach((element, index) => {
-        if(element.id==friend.id){
-          this.user.friendsRequests.splice(index,1);
-        }
-      });
-    } */
   }
 
   RemoveFriend(friend: User){
@@ -144,31 +123,7 @@ export class FriendsComponent implements OnInit {
     });
 
 
-   /*  if(this.FilteredFriend.length!=0){
-
-      this.FilteredFriend.forEach((element, index) => {
-        if(element.id==friend.id){
-          this.FilteredFriend.splice(index,1);
-          this.FilteredOtherUsers.push(friend);
-        }
-      });
-      
-      this.user.friends.forEach((element, index) => {
-        if(element.id==friend.id){
-          this.user.friends.splice(index,1);
-          this.OtherUser.push(friend);
-        }
-      });
-
-    }
-    else{
-      this.user.friends.forEach((element, index) => {
-        if(element.id==friend.id){
-          this.user.friends.splice(index,1);
-          this.OtherUser.push(friend);
-        }
-      });
-    } */
+ 
   }
 
   DeleteRequest(friend){
@@ -183,33 +138,6 @@ export class FriendsComponent implements OnInit {
     });
 
 
-    /* if(this.FilteredFriendRequest.length!=0){
-
-      this.FilteredFriendRequest.forEach((element, index) => {
-        if(element.id==friend.id){
-          this.FilteredFriendRequest.splice(index,1);
-          this.FilteredOtherUsers.push(friend);
-        }
-      });
-
-      this.user.friendsRequests.forEach((element, index) => {
-        if(element.id==friend.id){
-          this.user.friendsRequests.splice(index,1);
-          this.OtherUser.push(friend);
-        }
-      });
-
-    }
-    else{
-
-      this.user.friendsRequests.forEach((element, index) => {
-      if(element.id==friend.id){
-        this.user.friendsRequests.splice(index,1);
-        this.OtherUser.push(friend);
-      }
-      });
-    
-    } */
   }
 
   SendRequest(user : User){
@@ -237,38 +165,14 @@ export class FriendsComponent implements OnInit {
       this.GetFriendSentRequest();
     });
 
-    /* if(this.FilteredFriendSentRequest.length!=0){
-      this.FilteredFriendSentRequest.forEach((element, index) => {
-        if(element.id==user.id){
-          this.FilteredFriendSentRequest.splice(index,1);
-          this.FilteredOtherUsers.push(user);
-        }
-      });
-
-      this.user.friendsSentRequests.forEach((element, index) => {
-        if(element.id==user.id){
-          this.user.friendsSentRequests.splice(index,1);
-          this.OtherUser.push(user);
-        }
-      });
-    }
-    else{
-      this.user.friendsSentRequests.forEach((element, index) => {
-        if(element.id==user.id){
-          this.user.friendsSentRequests.splice(index,1);
-          this.OtherUser.push(user);
-        }
-      });
-    } */
    
   }
 
   Search(){
-    this.FilteredFriend.length=0;
-    this.FilteredOtherUsers.length=0;
-    this.FilteredFriendSentRequest.length=0;
-    this.FilteredFriendRequest.length=0;
-
+    this.FilteredFriend = new Array<User>();
+    this.FilteredOtherUsers= new Array<User>();
+    this.FilteredFriendSentRequest = new Array<User>();
+    this.FilteredFriendRequest = new Array<User>();
 
     if(this.SearchFriend==""){
       alert("Neuspesna pretraga")
@@ -279,21 +183,21 @@ export class FriendsComponent implements OnInit {
       return;
     }
 
-    this.user.friends.forEach((element, index) => {
+    this.Friends.forEach((element, index) => {
       let NameAndSurname=element.name.toUpperCase() + ' ' +  element.surname.toUpperCase();
       if(NameAndSurname.includes(this.SearchFriend.toUpperCase())){
         this.FilteredFriend.push(element);
       }
     });
 
-    this.user.friendsSentRequests.forEach((element, index) => {
+    this.FriendSentRequests.forEach((element, index) => {
       let NameAndSurname=element.name.toUpperCase() + ' ' +  element.surname.toUpperCase();
       if(NameAndSurname.includes(this.SearchFriend.toUpperCase())){
         this.FilteredFriendSentRequest.push(element);
       }
     });
 
-    this.user.friendsRequests.forEach((element, index) => {
+    this.FriendRequests.forEach((element, index) => {
       let NameAndSurname=element.name.toUpperCase() + ' ' +  element.surname.toUpperCase();
       if(NameAndSurname.includes(this.SearchFriend.toUpperCase())){
         this.FilteredFriendRequest.push(element);
@@ -307,9 +211,9 @@ export class FriendsComponent implements OnInit {
       }
     });
 
-    if(this.FilteredFriend.length==0 && this.FilteredFriendRequest.length==0 && this.FilteredFriendSentRequest.length==0 && this.FilteredOtherUsers.length==0){
+   /*  if(this.FilteredFriend.length==0 && this.FilteredFriendRequest.length==0 && this.FilteredFriendSentRequest.length==0 && this.FilteredOtherUsers.length==0){
       alert("Nije pronadjen ni jedan korisnik")
-    }
+    } */
   }
 
 }

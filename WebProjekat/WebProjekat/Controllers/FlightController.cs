@@ -178,6 +178,40 @@ namespace WebProjekat.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("GetSearchedFlights/{flyingfrom}/{flyingTo}/{dateDepart}/{numberOfSeat}/{dateArrival}")]
+
+        public async Task<Object> GetSearchedFlights(string flyingfrom, string flyingTo, string dateDepart, int numberOfSeat, string dateArrival)
+        {
+            List<Flight> Retflights = new List<Flight>();
+            if (flyingfrom == "" && flyingTo == "" && dateDepart == "")
+            {
+                return BadRequest();
+            }
+            else
+            {
+                var DateDepart = DateTime.Parse(dateDepart);
+                DateTime DateArrival;
+                if (dateArrival != "-")
+                {
+                    DateArrival = DateTime.Parse(dateArrival);
+                }
+
+                var flights = _context.Flights.Where(x => x.FlyingFrom.ToUpper() == flyingfrom.ToUpper() && x.FlyingTo.ToUpper() == flyingTo.ToUpper() && x.VacantSeats >= numberOfSeat).ToList();
+
+                foreach (Flight flight in flights)
+                {
+                    if (flight.DateDepart >= DateDepart && flight.DateDepart <= DateDepart.AddDays(3)) // period od 3 dana
+                    {
+                        Retflights.Add(flight);
+                    }
+                }
+            }
+
+
+            return Ok(new { Retflights });
+        }
+
 
 
     }

@@ -306,7 +306,7 @@ namespace WebProjekat.Controllers
 
             FriendRequest friendRequest = _context.FriendRequests.Where(x => x.UserId2 == UserId && x.UserId == friendId.UserId2).ToList().First();
 
-            if (friendRequest != null)
+            if (friendRequest != null && friendRequest.Status == StatusFriendRequest.OnWait)
             {
                    
                 friendRequest.Status = StatusFriendRequest.Accepted;
@@ -332,7 +332,7 @@ namespace WebProjekat.Controllers
          
             List<User> users = new List<User>(); // korisnici koji su poslali zahtev
 
-            List<FriendRequest> friendRequests = _context.FriendRequests.Where(x => x.UserId2 == UserId).ToList();
+            List<FriendRequest> friendRequests = _context.FriendRequests.Where(x => x.UserId2 == UserId && x.Status == StatusFriendRequest.OnWait).ToList();
 
             for (int i = 0; i < friendRequests.Count; i++)
             {
@@ -355,7 +355,7 @@ namespace WebProjekat.Controllers
             string UserId = User.Claims.First().Value;
 
             List<User> users = new List<User>(); // korisnici kojima je poslat zahtev za projateljstvo
-            List<FriendRequest> friendRequests = _context.FriendRequests.Where(x => x.UserId == UserId).ToList();
+            List<FriendRequest> friendRequests = _context.FriendRequests.Where(x => x.UserId == UserId && x.Status == StatusFriendRequest.OnWait).ToList();
 
             for (int i = 0; i < friendRequests.Count; i++)
             {

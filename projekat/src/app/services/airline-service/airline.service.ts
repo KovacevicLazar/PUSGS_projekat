@@ -114,6 +114,17 @@ export class AirlineService{
 
 
 
+    GetSearchedFlights(flyingfrom: string, flyingTo : string, dateDepart: string , numberOfSeat : number, dateArrival: string)
+    {
+       
+        return this.http.get(this.BaseURI + '/Flight/GetSearchedFlights/' + flyingfrom +'/'+ flyingTo +'/'+ dateDepart +'/'+ numberOfSeat +'/'+ dateArrival);
+    
+    }
+
+
+
+
+
 
     loadAirlines(){
         console.log('Ucitavanje kompanija...');

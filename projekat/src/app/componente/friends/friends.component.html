@@ -78,14 +78,15 @@
 
 
 
-          <tbody [hidden]="FilteredFriend.length == 0 ">
           
+            <tbody [hidden]="FilteredFriend.length == 0 ">
+            
               <tr  *ngFor="let friend of FilteredFriend" style="background:#b9e6f0; font-weight: bold;">
                 <td  scope="col"> <img src="../../../../assets/images/avatar.jpg" alt="Avatar" class="avatar"></td>
                 <td class="td-info" scope="col">{{friend.name}}</td>
                 <td class="td-info" scope="col">{{friend.surname}}</td>
                 <td class="td-buttons" scope="col">
-                <button (click) ="RemoveFriend(friend)" style="background:#f22222;border-color: gray; width: 140px;">
+                <button (click) ="RemoveFriend(friend)" class="buttonReject">
                   Remove Friend
                 </button>
                 </td>
@@ -100,10 +101,10 @@
                 <td class="td-info" scope="col">{{friend.name}}</td>
                 <td class="td-info" scope="col">{{friend.surname}}</td>
                 <td class="td-buttons" scope="col">
-                  <button  (click) ="AcceptFriendRequest(friend)" style="background: #56f072; border-color: gray; width: 70px;">
+                  <button  (click) ="AcceptFriendRequest(friend)" class="buttonAccept">
                     Accept Request
                   </button>
-                  <button (click) ="DeleteRequest(friend)" style="background:#f22222;border-color: gray; width: 70px;">
+                  <button (click) ="DeleteRequest(friend)" class="buttonReject">
                     Delete Request
                   </button>
                 </td>
@@ -116,7 +117,7 @@
               <td class="td-info" scope="col">{{friend.name}}</td>
               <td class="td-info" scope="col">{{friend.surname}}</td>
               <td class="td-buttons" scope="col">
-                <button  (click) ="CancelRequest(friend)" style="background: #56f072; border-color: gray; width: 140px;">
+                <button  (click) ="CancelRequest(friend)"  class="buttonReject">
                   Cancel Request
                 </button>
                 
@@ -131,7 +132,7 @@
             <td class="td-info" scope="col">{{user.name}}</td>
             <td class="td-info" scope="col">{{user.surname}}</td>
             <td class="td-buttons" scope="col">
-              <button  (click) ="SendRequest(user)" style="background: #56f072; border-color: gray; width: 140px;">
+              <button  (click) ="SendRequest(user)" class="buttonAccept">
                 Send Request
               </button>
               
@@ -139,7 +140,6 @@
             
           </tr>
       </tbody>
-
       </table>
     </div>
 </div>
