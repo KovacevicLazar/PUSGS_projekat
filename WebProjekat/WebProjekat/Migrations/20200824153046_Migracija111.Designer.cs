@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProjekat.Baza;
 
 namespace WebProjekat.Migrations
 {
     [DbContext(typeof(BazaContext))]
-    partial class BazaContextModelSnapshot : ModelSnapshot
+    [Migration("20200824153046_Migracija111")]
+    partial class Migracija111
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,29 +173,6 @@ namespace WebProjekat.Migrations
                     b.ToTable("RentCarCompanies");
                 });
 
-            modelBuilder.Entity("WebProjekat.Models.ReservedSeat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("NameOfUser");
-
-                    b.Property<string>("SeatName");
-
-                    b.Property<string>("SurnameOfUser");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<int>("passportNumberOfUser");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ReservedSeat");
-                });
-
             modelBuilder.Entity("WebProjekat.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -277,13 +256,6 @@ namespace WebProjekat.Migrations
                 {
                     b.HasOne("WebProjekat.Models.User")
                         .WithMany("Friends")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("WebProjekat.Models.ReservedSeat", b =>
-                {
-                    b.HasOne("WebProjekat.Models.User")
-                        .WithMany("ReservedSeats")
                         .HasForeignKey("UserId");
                 });
 

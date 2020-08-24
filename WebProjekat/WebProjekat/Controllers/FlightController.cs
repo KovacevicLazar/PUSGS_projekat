@@ -212,6 +212,47 @@ namespace WebProjekat.Controllers
             return Ok(new { Retflights });
         }
 
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetFlightWithId/{id}")]
+
+        public async Task<Object> GetFlightWithId(int id)
+        {
+            var flight = _context.Flights.Where(x => x.Id == id).ToList().First();
+
+            return Ok(new { flight });
+        }
+
+        [HttpPost]
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("SeatReservation")]
+
+        public async Task<Object> SeatReservation(ReservedSeat reservation)
+        {
+            ReservedSeat seat = new ReservedSeat();
+            seat.SeatName = reservation.SeatName;
+            seat.SurnameOfUser = reservation.SurnameOfUser;
+            seat.NameOfUser = reservation.NameOfUser;
+            seat.passportNumberOfUser = reservation.passportNumberOfUser;
+            //var UserId2 = reservation.UserId;
+            string userID = User.Claims.ElementAt(0).Value;
+            var user = _context.Users.Where(x => x.Id == userID).ToList().First();
+
+            if (userID == reservation.UserId) //rezervise za sebe
+            {
+                user.ReservedSeats.Add(seat);
+                _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+            }
+            else //salje zahtev prijatelju
+            {
+
+            }
+            var result = await _context.SaveChangesAsync();
+            return Ok(new { result });
+        }
+
 
 
     }
