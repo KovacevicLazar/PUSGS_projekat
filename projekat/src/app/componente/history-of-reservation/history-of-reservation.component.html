@@ -26,8 +26,8 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody *ngIf="user.flightReservations.length > 0">
-                    <tr  *ngFor="let Reservedflight of user.flightReservations">
+                <tbody *ngIf="flightReservations.length > 0">
+                    <tr  *ngFor="let Reservedflight of flightReservations">
                         <td>{{Reservedflight.flight.flyingfrom}} <br> {{Reservedflight.flight.dateDepart | date:'medium' }}</td>
                         <td> {{Reservedflight.flight.flyingTo}} <br> {{Reservedflight.flight.dateArrival | date:'medium' }}</td>
                         <td> {{Reservedflight.flight.numberTransit}} </td>
@@ -38,8 +38,8 @@
                             
                     </tr>
                 </tbody> 
-                <tbody *ngIf="user.RequestsflightReservation.length > 0">
-                    <tr *ngFor="let Requestsflight of user.RequestsflightReservation">
+                <tbody *ngIf="flightReservationsRequests.length > 0">
+                    <tr *ngFor="let Requestsflight of flightReservationsRequests">
                         <td>{{Requestsflight.flight.flyingfrom}} <br> {{Requestsflight.flight.dateDepart | date:'medium' }}</td>
                         <td> {{Requestsflight.flight.flyingTo}} <br> {{Requestsflight.flight.dateArrival | date:'medium' }}</td>
                         <td> {{Requestsflight.flight.numberTransit}} </td>

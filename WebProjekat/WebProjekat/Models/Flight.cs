@@ -27,6 +27,7 @@ namespace WebProjekat.Models
         public string SecondStop { get; set; }
         public string ThirdStop { get; set; }
 
+        public ICollection<ReservedSeat> ReservedSeats { get; set; }
 
         // Transitlocations: Array<string>;
         // reservedSeats= new Array<Seat>() ;//['A2', 'A3', 'F5', 'F1', 'F2','F6', 'F7', 'F8'];

@@ -5,6 +5,7 @@ import { User } from 'src/app/entities/user/user';
 import { Flight } from 'src/app/entities/flight/flight';
 import { Car } from 'src/app/entities/car/car';
 import { ReservedCar } from 'src/app/entities/ReservedCar/reserved-car';
+import { ReservedFlight } from 'src/app/entities/ReservedFlight/reserved-flight';
 
 @Component({
   selector: 'app-history-of-reservation',
@@ -17,6 +18,10 @@ export class HistoryOfReservationComponent implements OnInit {
   DateNow : Date;
   allReservations: Array<ReservedCar> = new Array<ReservedCar>();
 
+  flightReservations = new Array<ReservedFlight>();
+
+  flightReservationsRequests = new Array<ReservedFlight>();
+
   constructor(private userService: UserService ,private route: ActivatedRoute) { 
   
     this.userService.GetCarReservations().subscribe((res:any) =>{
@@ -25,6 +30,16 @@ export class HistoryOfReservationComponent implements OnInit {
           var reservation = new ReservedCar(newcar,res.reservations[i].numberOfDays,res.reservations[i].pickupDate,res.reservations[i].returnDate);
           reservation.totalPrice  = res.reservations[i].totalPrice;
           this.allReservations.push(reservation);
+        }
+    });
+    
+
+    this.userService.GetFlightReservations().subscribe((res:any) =>{
+      for (let i = 0; i < res.reservations.length; i++) {
+           var flight = new Flight(-1,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, new Date(res.reservations[i].flight.dateDepart),new Date(res.reservations[i].flight.dateArrival), res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
+           var numOFSeats = res.reservations[i].numberOfSeats
+           var resFlight = new ReservedFlight(flight, numOFSeats);
+           this.flightReservations.push(resFlight);
         }
     });
 
@@ -80,9 +95,4 @@ export class HistoryOfReservationComponent implements OnInit {
   buttonReject(){
     
   }
-
- 
-
- 
-
 }

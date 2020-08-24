@@ -611,5 +611,39 @@ namespace WebProjekat.Controllers
         }
 
 
+        
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetFlightReservations")]
+        public async Task<Object> GetFlightReservations()
+        {
+            string userId = User.Claims.ElementAt(0).Value;
+            var ReservedSeats = _context.ReservedSeats.Where(x => x.UserId == userId).ToList();
+            Dictionary<int, int> fllightIDAndCount = new Dictionary<int, int>(); //id lete i broj njegovih pojava..da dobijemo broj sedista koje je korisnik rezervisao
+
+            foreach( var seat in ReservedSeats)
+            {
+                if (fllightIDAndCount.ContainsKey(seat.FlightId))
+                {
+                    fllightIDAndCount[seat.FlightId]++;
+                }
+                else
+                {
+                    fllightIDAndCount[seat.FlightId] = 0;
+                }
+            }
+            List<FlightReservationsInfo> reservations = new List<FlightReservationsInfo>();
+            var Fr = new FlightReservationsInfo();
+
+            foreach(var keyValuePair in fllightIDAndCount)
+            {
+                Fr.flight = _context.Flights.Where(x => x.Id == keyValuePair.Key).ToList().First();
+                Fr.numberOfSeats = keyValuePair.Value;
+                reservations.Add(Fr);
+            }
+
+            return Ok(new { reservations });
+        }
+
     }
 }

@@ -55,6 +55,11 @@ export class SeatReservationComponent implements OnInit {
       this.flight = new Flight(res.flight.id, res.flight.flyingFrom, res.flight.flyingTo, new Date(res.flight.dateDepart),new Date(res.flight.dateArrival), res.flight.flightDistance, transitList, res.flight.ticketPrice, res.flight.vacantSeats, res.flight.busySeats);
       this.flies = "Flies from " + this.flight.flyingfrom.toUpperCase() + ' to ' + this.flight.flyingTo.toUpperCase();// + ' with ' + this.flight.name.toUpperCase();
       this.ticketPrice = this.flight.ticketPrice;
+
+      for (let i = 0; i < res.flight.reservedSeats.length; i++) {
+        var seat= new Seat();
+        this.reserved.push(res.flight.reservedSeats[i].seatName);
+      }
     });
 
     let user=this.userService.GetUserProfileInfo().subscribe((res: any) => {
@@ -119,6 +124,7 @@ export class SeatReservationComponent implements OnInit {
           seat.surnameOfUser= result[1];
           seat.passportNumberOfUser= result[2];
           seat.userID= result[3];
+          seat.flightID= this.flight.id;
               
           this.selected.push(seatPos);
           this.reservedSeats.push(seat);

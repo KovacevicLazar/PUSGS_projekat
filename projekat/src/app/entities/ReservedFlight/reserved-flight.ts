@@ -4,14 +4,12 @@ import { Seat } from '../seat/seat';
 export class ReservedFlight {
 
     flight: Flight;
-    reservedSeats= new Array<Seat>();
-    userID: string;
-    numberOfReservedSeats=0;
+    //reservedSeats= new Array<Seat>();
+    numberOfReservedSeats: number;
 
-    constructor(flight:Flight, seats : Array<Seat>, userID: string){
-        this.flight=flight;
-        this.reservedSeats=seats;
-        this.userID = userID;
-        this.numberOfReservedSeats=this.reservedSeats.length;
+    constructor(flight:Flight, numberOfSeat : number){
+        this.flight = flight;
+      
+        this.numberOfReservedSeats = numberOfSeat;
     }
 }

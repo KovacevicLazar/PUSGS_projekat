@@ -80,6 +80,8 @@ namespace WebProjekat.Controllers
                 FlightDistance = flightModel.FlightDistance,
                 DateDepart = flightModel.DateDepart,
                 DateArrival = flightModel.DateArrival,
+                VacantSeats = 120,
+                BusySeats = 0,
 
                 TicketPrice = flightModel.TicketPrice,
 
@@ -218,7 +220,7 @@ namespace WebProjekat.Controllers
 
         public async Task<Object> GetFlightWithId(int id)
         {
-            var flight = _context.Flights.Where(x => x.Id == id).ToList().First();
+            var flight = _context.Flights.Include(x => x.ReservedSeats).Where(x => x.Id == id).ToList().First();
 
             return Ok(new { flight });
         }
@@ -237,20 +239,27 @@ namespace WebProjekat.Controllers
             seat.passportNumberOfUser = reservation.passportNumberOfUser;
             //var UserId2 = reservation.UserId;
             string userID = User.Claims.ElementAt(0).Value;
-            var user = _context.Users.Where(x => x.Id == userID).ToList().First();
-
+            var user = _context.Users.Include(x => x.ReservedSeats).Where(x => x.Id == userID).ToList().First();
+            var flightID = reservation.FlightId;
+            var flight = _context.Flights.Include(x => x.ReservedSeats).Where(x => x.Id == flightID).ToList().First();
+           
             if (userID == reservation.UserId) //rezervise za sebe
             {
+                flight.ReservedSeats.Add(seat);
+                flight.VacantSeats--;
+                flight.BusySeats++;
                 user.ReservedSeats.Add(seat);
+                _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-
+                var result = await _context.SaveChangesAsync();
+                return Ok(new { result });
             }
             else //salje zahtev prijatelju
             {
 
             }
-            var result = await _context.SaveChangesAsync();
-            return Ok(new { result });
+            
+            return Ok();
         }
 
 

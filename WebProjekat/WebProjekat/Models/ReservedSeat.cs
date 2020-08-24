@@ -18,5 +18,6 @@ namespace WebProjekat.Models
         public int passportNumberOfUser { get; set; }
 
         public string UserId { get; set; }
+        public int FlightId { get; set; }
     }
 }

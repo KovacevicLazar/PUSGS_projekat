@@ -133,7 +133,8 @@ export class AirlineService{
             NameOfUser: seat.nameOfUser,
             SurnameOfUser : seat.surnameOfUser,
             passportNumberOfUser : seat.passportNumberOfUser,
-            userID: seat.userID
+            userID: seat.userID,
+            flightID: seat.flightID
         }
         return this.http.post(this.BaseURI + '/Flight/SeatReservation', body);
     }

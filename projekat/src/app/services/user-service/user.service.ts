@@ -154,6 +154,10 @@ export class UserService{
         return this.http.get(this.BaseURI + '/User/GetCarAdmins');
     }
 
+    GetFlightReservations(){
+        return this.http.get(this.BaseURI + '/User/GetFlightReservations');
+    }
+
   
 
 

@@ -5,7 +5,7 @@ export class Seat {
     surnameOfUser: string;
     passportNumberOfUser : number;
     userID: String;
-    
+    flightID: number;
 
     constructor(){
         
