@@ -3,6 +3,7 @@ import { Airline } from 'src/app/entities/airline/airline';
 import { Flight } from 'src/app/entities/flight/flight';
 import { HttpClient } from '@angular/common/http';
 import { NgModel } from '@angular/forms';
+import { Seat } from 'src/app/entities/seat/seat';
 
 @Injectable({
     providedIn: 'root'
@@ -119,6 +120,22 @@ export class AirlineService{
        
         return this.http.get(this.BaseURI + '/Flight/GetSearchedFlights/' + flyingfrom +'/'+ flyingTo +'/'+ dateDepart +'/'+ numberOfSeat +'/'+ dateArrival);
     
+    }
+
+    GetFlightWithId(id: number)
+    {
+        return this.http.get(this.BaseURI + '/Flight/GetFlightWithId/' + id);
+    }
+
+    SeatReservation(seat : Seat){
+        var body = {
+            seatName: seat.seatName,
+            NameOfUser: seat.nameOfUser,
+            SurnameOfUser : seat.surnameOfUser,
+            passportNumberOfUser : seat.passportNumberOfUser,
+            userID: seat.userID
+        }
+        return this.http.post(this.BaseURI + '/Flight/SeatReservation', body);
     }
 
 

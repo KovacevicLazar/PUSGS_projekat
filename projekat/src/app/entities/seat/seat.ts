@@ -4,6 +4,12 @@ export class Seat {
     nameOfUser: string;
     surnameOfUser: string;
     passportNumberOfUser : number;
+    userID: String;
+    
+
+    constructor(){
+        
+    }
 
 
 }

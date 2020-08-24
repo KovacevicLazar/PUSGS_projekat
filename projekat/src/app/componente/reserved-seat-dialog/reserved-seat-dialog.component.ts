@@ -12,11 +12,14 @@ export class ReservedSeatDialogComponent implements OnInit {
   public name : string="";
   public surname : string="";
   public passportNumber: string="";
+  public UserID: string="";
   user: User;
   
 
-  constructor(public dialogRef: MatDialogRef<ReservedSeatDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { this.user=this.data.user}
+  constructor(public dialogRef: MatDialogRef<ReservedSeatDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { 
+    this.user=this.data.user;
+    this.UserID = this.user.id;
+  }
 
   ngOnInit(): void {
   }
@@ -28,16 +31,16 @@ export class ReservedSeatDialogComponent implements OnInit {
       userData.push(this.name);
       userData.push(this.surname);
       userData.push(this.passportNumber);
+      userData.push(this.UserID);
       this.dialogRef.close(userData)
     }
     else{
-      this.dialogRef.close("Cancel");
+      this.cancel();
     }
   
   }
 
   cancel(){
-
     this.dialogRef.close("Cancel");
   }
 
@@ -46,6 +49,7 @@ export class ReservedSeatDialogComponent implements OnInit {
     this.surname=friend.surname;
     this.passportNumber="231";//treba dodati u klasu user i ovo polje
     //Potrebno prijatelju je poslati poruku sa zahtevom ovde
+    this.UserID= friend.id;
     this.save();
   }
   myData(){
@@ -53,7 +57,6 @@ export class ReservedSeatDialogComponent implements OnInit {
     this.surname=this.user.surname;
     this.passportNumber="1212";//treba dodati u klasu user i ovo polje
     this.save();
-
   }
 
 }

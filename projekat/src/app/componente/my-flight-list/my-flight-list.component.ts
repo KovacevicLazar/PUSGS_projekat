@@ -48,7 +48,7 @@ export class MyFlightListComponent implements OnInit {
 
 
          let flight= new Flight(res.listflight[i].id, res.listflight[i].flyingFrom, res.listflight[i].flyingTo, new Date(res.listflight[i].dateDepart),new Date(res.listflight[i].dateArrival), res.listflight[i].flightDistance, transitList, res.listflight[i].ticketPrice, res.listflight[i].vacantSeats, res.listflight[i].busySeats);
-         let v=10;
+      
          this.Flights.push(flight);
       }
     });

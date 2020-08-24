@@ -23,7 +23,7 @@ export class RegistredGuardGuard implements CanActivate {
     
       
     alert('Da biste pristupili ovom linku, morate imati ulogu Registred!');
-    return ;
+    return false;
   }
   
 }

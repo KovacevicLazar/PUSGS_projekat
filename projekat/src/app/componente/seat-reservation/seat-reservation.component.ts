@@ -8,6 +8,8 @@ import { Seat } from 'src/app/entities/seat/seat';
 import { getMatScrollStrategyAlreadyAttachedError } from '@angular/cdk/overlay/scroll/scroll-strategy';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { User } from 'src/app/entities/user/user';
+import { RegistredGuardGuard } from 'src/app/guards/registred-guard.guard';
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-seat-reservation',
@@ -15,24 +17,17 @@ import { User } from 'src/app/entities/user/user';
   styleUrls: ['./seat-reservation.component.css']
 })
 export class SeatReservationComponent implements OnInit {
-
-  
-  userData= new Array<string>();
-
-
+ 
   flight : Flight; 
   user : User;
 
-  
-  //
   flies:string ="";//Tekst koji se ispisuje na vrhu
  
-
   rows: string[] = ['A', 'B', 'C', 'D', 'E', 'F'];
   cols: number[]  = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16,17,18,19,20];
 
   reserved = new Array<string>(); //koristimo za prikaz sedista koja su vec bila rezervisana
-  reservedSeat= new Array<Seat>(); //sedista koja smo slektoval(sa podacima o korisniku sedista)
+  reservedSeats = new Array<Seat>(); //sedista koja smo slektoval(sa podacima o korisniku sedista)
 
   selected: string[] = []; // pozicija selektovanih sedista
  
@@ -44,28 +39,48 @@ export class SeatReservationComponent implements OnInit {
   
     
     let flightid = parseInt(this.route.snapshot.paramMap.get('flightID'));
-
-    if(this.check())
-    {
-      this.FindUserWithUserEmail(); // ako je korisnik ulogovan pronadji ga pomocu mejla
-    }
     
-    airlineService.loadAirlines().forEach(airline => {
-      airline.flights.forEach(element => {
-        if(element.id==flightid){
-          this.flight=element;
-          this.flies="Flies from " + element.flyingfrom.toUpperCase() + ' to ' + element.flyingTo.toUpperCase() + ' with ' + airline.name.toUpperCase();
-          this.ticketPrice=element.ticketPrice;
-          this.flight.reservedSeats.forEach(reservedSeat => {
-            this.reserved.push(reservedSeat.seatName);
-            this.reservedSeat.push(reservedSeat);
-          });
-        }
-      });
+    airlineService.GetFlightWithId(flightid).subscribe((res:any)=>{
+      let transitList= new Array<string>();
+
+      if(res.flight.firstStop !=""){
+        transitList.push(res.flight.firstStop);
+      }
+      if(res.flight.secondStop!=""){
+        transitList.push(res.flight.secondStop);
+      }
+      if(res.flight.thirdStop!=""){
+        transitList.push(res.flight.thirdStop);
+      }
+      this.flight = new Flight(res.flight.id, res.flight.flyingFrom, res.flight.flyingTo, new Date(res.flight.dateDepart),new Date(res.flight.dateArrival), res.flight.flightDistance, transitList, res.flight.ticketPrice, res.flight.vacantSeats, res.flight.busySeats);
+      this.flies = "Flies from " + this.flight.flyingfrom.toUpperCase() + ' to ' + this.flight.flyingTo.toUpperCase();// + ' with ' + this.flight.name.toUpperCase();
+      this.ticketPrice = this.flight.ticketPrice;
     });
-    if(this.flight == null){
-     //
-    }
+
+    let user=this.userService.GetUserProfileInfo().subscribe((res: any) => {
+
+      this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
+      if(this.user != null){
+        try {
+          var decoded=jwt_decode(localStorage.getItem("token"));
+          if (decoded.Roles == "Registred") 
+          {
+            this.user.id=decoded.UserId;
+          
+              this.userService.GetFriends().subscribe((res: any) => {
+                for (let i = 0; i < res.friends.length; i++) {
+                  var friend= new User(res.friends[i].username,res.friends[i].name,res.friends[i].surname,res.friends[i].email,res.friends[i].phoneNumber,res.friends[i].address,res.friends[i].role,"");
+                  friend.id=res.friends[i].id;
+                  this.user.friends.push(friend);
+                }
+              });
+            
+          }
+        }
+        catch{}  
+      }
+
+    });
   
    }
 
@@ -84,7 +99,7 @@ export class SeatReservationComponent implements OnInit {
   //clear handler
   Back() {
       this.selected = [];
-      this.reservedSeat=[];
+      this.reservedSeats = [];
       this.router.navigate(['/airline']) 
   }
   //click handler
@@ -103,9 +118,10 @@ export class SeatReservationComponent implements OnInit {
           seat.nameOfUser=result[0];
           seat.surnameOfUser= result[1];
           seat.passportNumberOfUser= result[2];
+          seat.userID= result[3];
               
           this.selected.push(seatPos);
-          this.reservedSeat.push(seat);
+          this.reservedSeats.push(seat);
         }
       });  
     }
@@ -113,9 +129,15 @@ export class SeatReservationComponent implements OnInit {
   showSelected = function() {
       if(this.selected.length > 0) 
       {
-        this.reservedSeat.forEach(element => {
-          this.flight.reservedSeats.push(element);
+        this.reservedSeats.forEach(reservedSeat => {
+          //this.flight.reservedSeats.push(element);
           //treba menjati i u bazi ovaj let
+          this.airlineService.SeatReservation(reservedSeat).subscribe((res:any) =>
+          {
+            alert("Successfuly reserved!");
+          },    (error) => {
+            alert("Error,already reserved in this period");
+          });
         });
 
         this.user.flightReservations.push(this.flight);
@@ -130,40 +152,27 @@ export class SeatReservationComponent implements OnInit {
       }
   }
 
-  check()
-  {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if(userRole === 'Registred')
-    {
-      return true;
-    }
-    else
-      return false; 
-  }
-
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email == userEmail){
-        this.user=element;
-      }
-    });
-  }
-
   openDialog(seatPos: string): any{
-    if(this.check())
-    {
-      return this.dialog.open(ReservedSeatDialogComponent, {
-        disableClose: true,
-        data:{
-           user : this.user,
-          }
-      });
+    try {
+      var decoded=jwt_decode(localStorage.getItem("token"));
+     
+      if (decoded.Roles != "Registred") 
+      {
+        alert("Morate biti registrovani za dalje akcije ")
+      }
+      else{
+        return this.dialog.open(ReservedSeatDialogComponent, {
+          disableClose: true,
+          data:{
+             user : this.user,
+             flight : this.flight
+            }
+        });
+      }
     }
-   else
-   {
-     alert("Morate biti registrovani za dalje akcije ")
-   }
+    catch{
+      alert("Morate biti registrovani za dalje akcije ")
+    }
 
   }
 
