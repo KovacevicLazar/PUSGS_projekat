@@ -13,5 +13,6 @@ namespace WebProjekat.Models
 
         public string UserId { get; set; }
         public ReservedSeat ReservedSeat { get; set; }
+        public StatusFriendRequest Status { get; set; }
     }
 }

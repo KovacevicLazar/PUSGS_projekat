@@ -47,14 +47,18 @@
                         <td class="td"> {{Requestsflight.flight.numberTransit}} </td>
                         <td class="td"> h:m:s <br> {{Requestsflight.flight.flightDuration | date: "H:m:s" }} </td>
                         <td class="td"> {{Requestsflight.numberOfReservedSeats}} </td>
-                        <td style="width: 160px ; text-align: center;">
+                        <td *ngIf="Requestsflight.status == 1" style="width: 160px ; text-align: center;">
                             <span class="td"> Friend pay this! </span> <br>
-                            <button  class="buttonAccept"  (click)="buttonAccept()">
+                            <button  class="buttonAccept"  (click)="buttonAccept(Requestsflight.flight)">
                                 Accept
                             </button>
-                            <button  class="buttonReject"  (click)="buttonReject()">
+                            <button  class="buttonReject"  (click)="buttonReject(Requestsflight.flight)">
                                 Reject
                             </button>
+                        </td>
+                        <td *ngIf="Requestsflight.status == 0" style="width: 160px ; text-align: center;">
+                            <span class="td"> Friend pay this! </span> <br>
+                            <button class="buttonCancellations" (click)="buttonReject(Requestsflight.flight)">Cancellations</button>
                         </td>
                     </tr>
                 </tbody> 

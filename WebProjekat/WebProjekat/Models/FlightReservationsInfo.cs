@@ -9,5 +9,7 @@ namespace WebProjekat.Models
     {
         public Flight flight { get; set; }
         public int numberOfSeats { get; set; }
+
+        public StatusFriendRequest status { get; set; }
     }
 }

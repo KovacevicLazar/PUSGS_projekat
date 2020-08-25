@@ -125,7 +125,7 @@ namespace WebProjekat.Controllers
         [Route("saveChangesOnFlight/{id}")]
         public async Task<IActionResult> SaveChangesOnFlight(Flight flightModel, int id)
         {
-            var s = "";
+            
             var flight = _context.Flights.Where(x => x.Id == id).ToList().First();
 
 
@@ -263,6 +263,8 @@ namespace WebProjekat.Controllers
                 var friend = _context.Users.Include(x => x.SeatReservationRequests).Where(x => x.Id == friendID).ToList().First();
                 SeatReservationRequest seatReservationRequest = new SeatReservationRequest();
                 seatReservationRequest.ReservedSeat = seat;
+                seatReservationRequest.Status = StatusFriendRequest.OnWait;
+
                 friend.SeatReservationRequests.Add(seatReservationRequest);
 
                 _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -274,6 +276,101 @@ namespace WebProjekat.Controllers
         }
 
 
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("CancelFlightReservation/{id}")]
+
+        public async Task<Object> CancelFlightReservation(int id)
+        {
+            var flightID = id;
+            var flight = _context.Flights.Include(x => x.ReservedSeats).Where(x => x.Id == flightID).ToList().First();
+            if ((flight.DateDepart - DateTime.Now).TotalHours < 3)
+            {
+                return BadRequest(new { message = "Cant canncel reservation !" });
+            }
+            else
+            {
+                string userId = User.Claims.ElementAt(0).Value;
+                
+                var seatReservations = _context.ReservedSeats.Where(x => x.UserId == userId && x.FlightId == flightID).ToList();
+
+                foreach (var reservedSeat in seatReservations)
+                {
+                    flight.VacantSeats++;
+                    flight.BusySeats--;
+
+                    var seatReservationRequests = _context.SeatReservationRequests.Include(x => x.ReservedSeat).Where(x => x.ReservedSeat.Id == reservedSeat.Id).ToList();
+                    SeatReservationRequest seatReservationRequest;
+                    if (seatReservationRequests.Count != 0) //ako je sediste rezervisani za nekog prijatelja ukloniti ga i iz te tabele
+                    {
+                        seatReservationRequest = seatReservationRequests.First();
+                        _context.Entry(seatReservationRequest).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                    }
+
+                    _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    _context.Entry(reservedSeat).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                    var result = await _context.SaveChangesAsync();
+                }
+                return Ok();
+            }
+           
+        }
+
+
+
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("AcceptReservationRequests")]
+
+        public async Task<IActionResult> AcceptReservationRequests(Flight flight)
+        {
+            string userId = User.Claims.ElementAt(0).Value;
+            var flightID = flight.Id;
+            var seatReservationRequests = _context.SeatReservationRequests.Include(x => x.ReservedSeat).Where(x => x.UserId == userId && x.ReservedSeat.FlightId == flightID).ToList();
+
+            foreach (var seatReservationRequest in seatReservationRequests)
+            {
+                seatReservationRequest.Status = StatusFriendRequest.Accepted;
+                _context.Entry(seatReservationRequest).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("RejectReservationRequests")]
+
+        public async Task<IActionResult> RejectReservationRequests(Flight flightModel)
+        {
+            var flightID = flightModel.Id;
+            var flight = _context.Flights.Include(x => x.ReservedSeats).Where(x => x.Id == flightID).ToList().First();
+            if ((flight.DateDepart - DateTime.Now).TotalHours < 3)
+            {
+                return BadRequest(new { message = "Cant canncel reservation !" });
+            }
+            else
+            {
+                string userId = User.Claims.ElementAt(0).Value;
+                
+                var seatReservationRequests = _context.SeatReservationRequests.Include(x => x.ReservedSeat).Where(x => x.UserId == userId && x.ReservedSeat.FlightId == flightID).ToList();
+
+                foreach (var seatReservationRequest in seatReservationRequests)
+                {
+                    var reservedSeat = seatReservationRequest.ReservedSeat;
+                    flight.VacantSeats++;
+                    flight.BusySeats--;
+                    _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    _context.Entry(seatReservationRequest).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                    _context.Entry(reservedSeat).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                    var result = await _context.SaveChangesAsync();
+                }
+                return Ok();
+            }
+           
+        }
 
     }
 }

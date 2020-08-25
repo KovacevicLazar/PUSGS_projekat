@@ -24,7 +24,6 @@ C:\Users\HP 650 G2\Documents\GitHub\PUSGS_projekat\WebProjekat\WebProjekat\bin\D
 C:\Users\HP 650 G2\Documents\GitHub\PUSGS_projekat\WebProjekat\WebProjekat\bin\Debug\netcoreapp2.1\WebProjekat.runtimeconfig.dev.json
 C:\Users\HP 650 G2\Documents\GitHub\PUSGS_projekat\WebProjekat\WebProjekat\bin\Debug\netcoreapp2.1\WebProjekat.dll
 C:\Users\HP 650 G2\Documents\GitHub\PUSGS_projekat\WebProjekat\WebProjekat\bin\Debug\netcoreapp2.1\WebProjekat.pdb
-C:\Users\HP 650 G2\Documents\GitHub\PUSGS_projekat\WebProjekat\WebProjekat\obj\Debug\netcoreapp2.1\WebProjekat.csprojAssemblyReference.cache
 C:\Users\HP 650 G2\Documents\GitHub\PUSGS_projekat\WebProjekat\WebProjekat\obj\Debug\netcoreapp2.1\WebProjekat.RazorAssemblyInfo.cache
 C:\Users\HP 650 G2\Documents\GitHub\PUSGS_projekat\WebProjekat\WebProjekat\obj\Debug\netcoreapp2.1\WebProjekat.RazorAssemblyInfo.cs
 C:\Users\HP 650 G2\Documents\GitHub\PUSGS_projekat\WebProjekat\WebProjekat\obj\Debug\netcoreapp2.1\WebProjekat.AssemblyInfoInputs.cache
@@ -50,3 +49,4 @@ C:\Users\icoce\Desktop\ProjekatWeb2\PUSGS_projekat\WebProjekat\WebProjekat\obj\D
 C:\Users\icoce\Desktop\ProjekatWeb2\PUSGS_projekat\WebProjekat\WebProjekat\obj\Debug\netcoreapp2.1\WebProjekat.dll
 C:\Users\icoce\Desktop\ProjekatWeb2\PUSGS_projekat\WebProjekat\WebProjekat\obj\Debug\netcoreapp2.1\WebProjekat.pdb
 C:\Users\icoce\Desktop\ProjekatWeb2\PUSGS_projekat\WebProjekat\WebProjekat\obj\Debug\netcoreapp2.1\WebProjekat.genruntimeconfig.cache
+C:\Users\HP 650 G2\Documents\GitHub\PUSGS_projekat\WebProjekat\WebProjekat\obj\Debug\netcoreapp2.1\WebProjekat.csprojAssemblyReference.cache

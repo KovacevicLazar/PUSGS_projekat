@@ -6,6 +6,7 @@ export class ReservedFlight {
     flight: Flight;
     //reservedSeats= new Array<Seat>();
     numberOfReservedSeats: number;
+    status: number;
 
     constructor(flight:Flight, numberOfSeat : number){
         this.flight = flight;

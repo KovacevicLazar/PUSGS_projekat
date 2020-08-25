@@ -680,12 +680,16 @@ namespace WebProjekat.Controllers
                 Fr = new FlightReservationsInfo();
                 Fr.flight = _context.Flights.Where(x => x.Id == keyValuePair.Key).ToList().First();
                 Fr.numberOfSeats = keyValuePair.Value;
+                Fr.status = _context.SeatReservationRequests.Include(x => x.ReservedSeat).Where(x => x.ReservedSeat.FlightId == Fr.flight.Id && x.UserId == userId).ToList().First().Status;
                 reservations.Add(Fr);
             }
 
             return Ok(new { reservations });
 
         }
+
+
+        
 
         private const string GoogleApiTokenInfoUrl = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={0}";
         public bool VerifyToken(string providerToken)

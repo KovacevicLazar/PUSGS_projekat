@@ -140,6 +140,27 @@ export class AirlineService{
     }
 
 
+    CancelFlightReservation(id : number)
+    {
+        return this.http.get(this.BaseURI + '/Flight/CancelFlightReservation/' + id);
+    }
+
+
+    AcceptReservationRequests(flight : Flight){
+        var body = {
+            id: flight.id
+        }
+        return this.http.post(this.BaseURI + '/Flight/AcceptReservationRequests',body);
+    }
+
+    RejectReservationRequests(flight : Flight){
+        var body = {
+            id: flight.id
+        }
+        return this.http.post(this.BaseURI + '/Flight/RejectReservationRequests',body);
+    }
+
+
 
 
 
