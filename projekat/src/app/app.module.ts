@@ -48,9 +48,24 @@ import { ReservationCarDialogComponent } from './componente/reservation-car-dial
 import { AuthInterceptor } from './componente/auth/auth.interceptor';
 import { TokenInterceptor } from './componente/auth/tokenInterceptor';
 import { UserService } from './services/user-service/user.service';
+import { SocialLoginModule,SocialAuthServiceConfig  } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+import { CookieService } from 'ngx-cookie-service';
+import { RentCarService } from './services/rent-a-car-service/rent-a-car-service';
+import { AirlineService } from './services/airline-service/airline.service';
 
 
-
+// let config = new  SocialAuthServiceConfig([
+//   {
+//     id: GoogleLoginProvider.PROVIDER_ID,
+//     provider: new GoogleLoginProvider("581918260318-f6jffpfs44bg56brtn48r5j3g9icuihg.apps.googleusercontent.com")
+//   },
+  
+// ]);
+ 
+// export function provideConfig() {
+//   return config;
+// }
 
 @NgModule({
   declarations: [
@@ -97,6 +112,7 @@ import { UserService } from './services/user-service/user.service';
     MatDialogModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    SocialLoginModule,
    
 
   ],
@@ -104,7 +120,10 @@ import { UserService } from './services/user-service/user.service';
     ReservedSeatDialogComponent
   ],
   providers: [
+    CookieService,
     UserService,
+    RentCarService,
+    AirlineService,
 
     {
       provide: HTTP_INTERCEPTORS,
@@ -115,8 +134,23 @@ import { UserService } from './services/user-service/user.service';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              "581918260318-f6jffpfs44bg56brtn48r5j3g9icuihg.apps.googleusercontent.com"
+            ),
+          },
+        
+      
+        ],
+      } as SocialAuthServiceConfig,
     }
-
 
   ],
   bootstrap: [AppComponent]

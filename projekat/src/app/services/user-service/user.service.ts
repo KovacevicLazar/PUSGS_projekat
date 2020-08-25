@@ -161,6 +161,11 @@ export class UserService{
     GetSeatReservationRequests(){
         return this.http.get(this.BaseURI + '/User/GetSeatReservationRequests');
     }
+
+    ExternalLogin(formData)
+    {
+        return this.http.post(this.BaseURI + '/User/GoogleLogin',formData);
+    }
   
 
 

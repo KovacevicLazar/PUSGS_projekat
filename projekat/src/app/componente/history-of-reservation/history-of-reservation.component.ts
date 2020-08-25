@@ -6,6 +6,7 @@ import { Flight } from 'src/app/entities/flight/flight';
 import { Car } from 'src/app/entities/car/car';
 import { ReservedCar } from 'src/app/entities/ReservedCar/reserved-car';
 import { ReservedFlight } from 'src/app/entities/ReservedFlight/reserved-flight';
+import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-service';
 
 @Component({
   selector: 'app-history-of-reservation',
@@ -22,17 +23,10 @@ export class HistoryOfReservationComponent implements OnInit {
 
   flightReservationsRequests = new Array<ReservedFlight>();
 
-  constructor(private userService: UserService ,private route: ActivatedRoute) { 
+  constructor(private userService: UserService ,private route: ActivatedRoute,private rentCarService: RentCarService) { 
   
-    this.userService.GetCarReservations().subscribe((res:any) =>{
-        for (let i = 0; i < res.reservations.length; i++) {
-          var newcar  = new Car(-1,res.reservations[i].location,res.reservations[i].brand,res.reservations[i].model,-1,-1,false,-1,-1);
-          var reservation = new ReservedCar(newcar,res.reservations[i].numberOfDays,res.reservations[i].pickupDate,res.reservations[i].returnDate);
-          reservation.totalPrice  = res.reservations[i].totalPrice;
-          this.allReservations.push(reservation);
-        }
-    });
     
+    this.GetReservationsCar();
 
     this.userService.GetFlightReservations().subscribe((res:any) =>{
       for (let i = 0; i < res.reservations.length; i++) {
@@ -55,17 +49,36 @@ export class HistoryOfReservationComponent implements OnInit {
     this.DateNow= new Date();
   }
 
+
+  GetReservationsCar()
+  {
+    this.allReservations.length = 0;
+    this.userService.GetCarReservations().subscribe((res:any) =>{
+      for (let i = 0; i < res.reservations.length; i++) {
+        var newcar  = new Car(-1,res.reservations[i].location,res.reservations[i].brand,res.reservations[i].model,-1,-1,false,-1,-1);
+        var reservation = new ReservedCar(newcar,res.reservations[i].numberOfDays,res.reservations[i].pickupDate,res.reservations[i].returnDate);
+        reservation.totalPrice  = res.reservations[i].totalPrice;
+        reservation.id = res.reservations[i].id;
+        this.allReservations.push(reservation);
+
+      }
+  });
+  }
   ngOnInit(): void {
   }
 
   buttonCancellationsCarReservation(reservedCar :  ReservedCar){
     this.DateNow= new Date();
-    if(this.calculateHours(reservedCar.checkedInDate,this.DateNow) < 2){
+    if(this.calculateHours(reservedCar.checkedInDate,this.DateNow) < 48 ){
       alert("Ne mozete odustati od ove rezervacije.Ostalo je manje od 2 dana do pocetka rezervacije.")
     }
     else{
-      //OVDE TREBA UKLONITI LET IZ LISTE REZERVISANIH LETOVA
+      this.rentCarService.CancelCarReservation(reservedCar.id).subscribe((res:any)=>{
+        alert("Successfuly canceled!")
+        this.GetReservationsCar();
+      });
     }
+      
   }
 
   buttonCancellations(flight : Flight){
@@ -74,7 +87,7 @@ export class HistoryOfReservationComponent implements OnInit {
       alert("Ne mozete odustati od ove rezervacije.Ostalo je manje od 3 sata do pocetka leta.")
     }
     else{
-      //OVDE TREBA UKLONITI LET IZ LISTE REZERVISANIH LETOVA
+      
     }
 
   }

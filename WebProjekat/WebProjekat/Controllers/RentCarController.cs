@@ -395,5 +395,27 @@ namespace WebProjekat.Controllers
            
         }
 
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("CancelCarReservation/{id}")]
+        public async Task<Object> CancelCarReservation(int id)
+        {
+            var res = _context.CarReservations.Find(id);
+
+            if((res.PickupDate - DateTime.Now).TotalHours < 48)
+            {
+                return BadRequest(new { message = "Cant canncel reservation !" });
+            }
+            else
+            {
+                _context.CarReservations.Remove(res);
+                _context.Entry(res).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                var result = await _context.SaveChangesAsync();
+                return Ok();
+            }
+
+        }
+
     }
 }

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using Newtonsoft.Json;
 using WebProjekat.Baza;
 using WebProjekat.Models;
 
@@ -681,6 +685,91 @@ namespace WebProjekat.Controllers
 
             return Ok(new { reservations });
 
+        }
+
+        private const string GoogleApiTokenInfoUrl = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={0}";
+        public bool VerifyToken(string providerToken)
+        {
+            var httpClient = new HttpClient();
+            var requestUri = new Uri(string.Format(GoogleApiTokenInfoUrl, providerToken));
+
+            HttpResponseMessage httpResponseMessage;
+
+            try
+            {
+                httpResponseMessage = httpClient.GetAsync(requestUri).Result;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            if (httpResponseMessage.StatusCode != HttpStatusCode.OK)
+            {
+                return false;
+            }
+
+            var response = httpResponseMessage.Content.ReadAsStringAsync().Result;
+            var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiToken>(response);
+
+            return true;
+        }
+
+        [HttpPost]
+        [Route("GoogleLogin")]
+        // POST: api/<controller>/Login
+        public async Task<IActionResult> GoogleLogin(GoogleModel model)
+        {
+            var test = _appSettings.JWT_Secret;
+            if (VerifyToken(model.idToken))
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    var applicationUser = new User()
+                    {
+                        UserName = model.name.Replace(' ', '_').ToLower().Replace('ć', 'c').Replace('č','c'),
+                        Email = model.Email,
+                        Name = model.firstName,
+                        Surname = model.lastName,
+                        Role = UserRole.Registred,
+
+                      
+                    };
+
+                    try
+                    {
+                        //   _context.Users.Add(applicationUser);
+                        //    await _context.SaveChangesAsync();
+                        await _userManager.CreateAsync(applicationUser);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw ex;
+                    }
+                }
+                user = await _userManager.FindByEmailAsync(model.Email);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                   {
+                        new Claim("UserId",user.Id.ToString()),
+                        new Claim("Roles", user.Role.ToString()),
+                         
+
+
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(1),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                var token = tokenHandler.WriteToken(securityToken);
+                return Ok(new { token });
+            }
+
+            return Ok();
         }
     }
 }

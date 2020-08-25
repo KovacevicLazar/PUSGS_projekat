@@ -43,6 +43,13 @@ export class RentCarService{
         return this.http.post(this.BaseURI + '/RentCar/SaveChangesOnCar/' + car.id, body);
     }
 
+    CancelCarReservation(id : number)
+    {
+        
+
+        return this.http.get(this.BaseURI + '/RentCar/CancelCarReservation/' + id);
+    }
+
 
 
 

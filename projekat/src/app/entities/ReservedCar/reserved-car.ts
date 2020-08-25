@@ -8,6 +8,7 @@ export class ReservedCar {
     checkedInDate: Date;
     checkedOutDate: Date;
     totalPrice: number;
+    id: number;
 
     constructor(car: Car, numberOfDays : number,checkedInDate: Date,checkedOutDate: Date){
         this.car=car;
