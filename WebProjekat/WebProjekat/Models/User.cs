@@ -23,8 +23,8 @@ namespace WebProjekat.Models
         public ICollection<CarReservation> CarReservations { get; set; }
 
         public ICollection<ReservedSeat> ReservedSeats { get; set; }
-
-
+        
+        public ICollection<SeatReservationRequest> SeatReservationRequests { get; set; }
 
 
     }

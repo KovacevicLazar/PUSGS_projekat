@@ -158,6 +158,9 @@ export class UserService{
         return this.http.get(this.BaseURI + '/User/GetFlightReservations');
     }
 
+    GetSeatReservationRequests(){
+        return this.http.get(this.BaseURI + '/User/GetSeatReservationRequests');
+    }
   
 
 

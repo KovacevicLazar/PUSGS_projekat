@@ -23,29 +23,32 @@
                         <th class="th-info" >Landing:</th>
                         <th class="th-info">Transit:</th>
                         <th class="th-info">Duration:</th>
+                        <th class="th-info">No of reserved <br> seats:</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody *ngIf="flightReservations.length > 0">
                     <tr  *ngFor="let Reservedflight of flightReservations">
-                        <td>{{Reservedflight.flight.flyingfrom}} <br> {{Reservedflight.flight.dateDepart | date:'medium' }}</td>
-                        <td> {{Reservedflight.flight.flyingTo}} <br> {{Reservedflight.flight.dateArrival | date:'medium' }}</td>
-                        <td> {{Reservedflight.flight.numberTransit}} </td>
-                        <td> h:m:s <br> {{Reservedflight.flight.flightDuration | date: "H:m:s" }} </td>
+                        <td class="td">{{Reservedflight.flight.flyingfrom}} <br> {{Reservedflight.flight.dateDepart | date:'medium' }}</td>
+                        <td class="td"> {{Reservedflight.flight.flyingTo}} <br> {{Reservedflight.flight.dateArrival | date:'medium' }}</td>
+                        <td class="td"> {{Reservedflight.flight.numberTransit}} </td>
+                        <td class="td"> h:m:s <br> {{Reservedflight.flight.flightDuration | date: "H:m:s" }} </td>
+                        <td class="td"> {{Reservedflight.numberOfReservedSeats}} </td>
                         <td>
-                        Price:<span class="price-text">{{Reservedflight.flight.ticketPrice*Reservedflight.numberOfReservedSeats}}€</span> <br/>
+                        Total Price:<span class="price-text">{{Reservedflight.flight.ticketPrice*Reservedflight.numberOfReservedSeats}}€</span> <br/>
                         <button class="buttonCancellations" (click)="buttonCancellations(Reservedflight.flight)">Cancellations</button></td>
                             
                     </tr>
                 </tbody> 
                 <tbody *ngIf="flightReservationsRequests.length > 0">
                     <tr *ngFor="let Requestsflight of flightReservationsRequests">
-                        <td>{{Requestsflight.flight.flyingfrom}} <br> {{Requestsflight.flight.dateDepart | date:'medium' }}</td>
-                        <td> {{Requestsflight.flight.flyingTo}} <br> {{Requestsflight.flight.dateArrival | date:'medium' }}</td>
-                        <td> {{Requestsflight.flight.numberTransit}} </td>
-                        <td> h:m:s <br> {{Requestsflight.flight.flightDuration | date: "H:m:s" }} </td>
-                        <td>
-                            Ticket Price:<span class="price-text">{{Requestsflight.flight.ticketPrice}}€</span> <br/>
+                        <td class="td">{{Requestsflight.flight.flyingfrom}} <br> {{Requestsflight.flight.dateDepart | date:'medium' }}</td>
+                        <td class="td"> {{Requestsflight.flight.flyingTo}} <br> {{Requestsflight.flight.dateArrival | date:'medium' }}</td>
+                        <td class="td"> {{Requestsflight.flight.numberTransit}} </td>
+                        <td class="td"> h:m:s <br> {{Requestsflight.flight.flightDuration | date: "H:m:s" }} </td>
+                        <td class="td"> {{Requestsflight.numberOfReservedSeats}} </td>
+                        <td style="width: 160px ; text-align: center;">
+                            <span class="td"> Friend pay this! </span> <br>
                             <button  class="buttonAccept"  (click)="buttonAccept()">
                                 Accept
                             </button>

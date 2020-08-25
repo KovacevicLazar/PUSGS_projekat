@@ -191,3 +191,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   thead{
     background-color: #89b6ff;
   }
+
+  .td{
+    text-align: center;
+    font-weight: bold;
+  }

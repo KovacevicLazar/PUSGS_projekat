@@ -186,27 +186,27 @@ namespace WebProjekat.Controllers
 
             User user = _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
 
-            var FriendRequests = _context.FriendRequests.Where(x => x.UserId == UserId ||  x.UserId2 == UserId).ToList();
+            var FriendRequests = _context.FriendRequests.Where(x => x.UserId == UserId || x.UserId2 == UserId).ToList();
             List<int> indexs = new List<int>();
 
             for (int i = 0; i < FriendRequests.Count; i++)
             {
                 for (int j = 0; j < allOtherUsers.Count; j++)
                 {
-                   if(FriendRequests[i].UserId == UserId)
-                   {
-                        if(FriendRequests[i].UserId2 == allOtherUsers[j].Id)
+                    if (FriendRequests[i].UserId == UserId)
+                    {
+                        if (FriendRequests[i].UserId2 == allOtherUsers[j].Id)
                         {
                             indexs.Add(j);
                         }
-                   }
-                   else if (FriendRequests[i].UserId2 == UserId && FriendRequests[i].UserId != null)
-                   {
+                    }
+                    else if (FriendRequests[i].UserId2 == UserId && FriendRequests[i].UserId != null)
+                    {
                         if (FriendRequests[i].UserId == allOtherUsers[j].Id)
                         {
                             indexs.Add(j);
                         }
-                   }
+                    }
                 }
             }
             for (int i = indexs.Count - 1; i >= 0; i--)
@@ -227,23 +227,23 @@ namespace WebProjekat.Controllers
 
             List<User> Friends = new List<User>();
             var FriendRequests = _context.FriendRequests.Where(x => x.UserId == UserId || x.UserId2 == UserId).ToList();
-          
+
             for (int i = 0; i < FriendRequests.Count; i++)
             {
-                 if (FriendRequests[i].Status== StatusFriendRequest.Accepted && FriendRequests[i].UserId2==UserId)
-                 {
-                    if(FriendRequests[i].UserId != null)
+                if (FriendRequests[i].Status == StatusFriendRequest.Accepted && FriendRequests[i].UserId2 == UserId)
+                {
+                    if (FriendRequests[i].UserId != null)
                     {
-                         User friend = _context.Users.Where(x => x.Id == FriendRequests[i].UserId).ToList().First();
-                         Friends.Add(friend);
+                        User friend = _context.Users.Where(x => x.Id == FriendRequests[i].UserId).ToList().First();
+                        Friends.Add(friend);
                     }
-                   
-                 }
-                 else if (FriendRequests[i].Status == StatusFriendRequest.Accepted && FriendRequests[i].UserId == UserId)
-                 {
+
+                }
+                else if (FriendRequests[i].Status == StatusFriendRequest.Accepted && FriendRequests[i].UserId == UserId)
+                {
                     User friend = _context.Users.Where(x => x.Id == FriendRequests[i].UserId2).ToList().First();
                     Friends.Add(friend);
-                 }
+                }
             }
 
             return Ok(new { Friends });
@@ -259,7 +259,7 @@ namespace WebProjekat.Controllers
 
             var FriendRequests = _context.FriendRequests.Where(x => (x.UserId == UserId && x.UserId2 == friendId.UserId2) || (x.UserId == friendId.UserId2 && x.UserId2 == UserId)).ToList().First();
 
-            if(FriendRequests != null)
+            if (FriendRequests != null)
             {
                 _context.FriendRequests.Remove(FriendRequests);
                 _context.Entry(FriendRequests).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
@@ -308,18 +308,18 @@ namespace WebProjekat.Controllers
 
             if (friendRequest != null && friendRequest.Status == StatusFriendRequest.OnWait)
             {
-                   
+
                 friendRequest.Status = StatusFriendRequest.Accepted;
                 _context.Entry(friendRequest).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 await _context.SaveChangesAsync();
                 return Ok();
-           
+
             }
             else
             {
                 return BadRequest();
             }
-           
+
         }
 
 
@@ -329,14 +329,14 @@ namespace WebProjekat.Controllers
         public async Task<Object> GetFriendRequests()
         {
             string UserId = User.Claims.First().Value;
-         
+
             List<User> users = new List<User>(); // korisnici koji su poslali zahtev
 
             List<FriendRequest> friendRequests = _context.FriendRequests.Where(x => x.UserId2 == UserId && x.Status == StatusFriendRequest.OnWait).ToList();
 
             for (int i = 0; i < friendRequests.Count; i++)
             {
-                if(friendRequests[i].UserId != null)
+                if (friendRequests[i].UserId != null)
                 {
                     var user = _context.Users.Where(x => x.Id == friendRequests[i].UserId).ToList().First();
                     users.Add(user);
@@ -359,8 +359,8 @@ namespace WebProjekat.Controllers
 
             for (int i = 0; i < friendRequests.Count; i++)
             {
-               var user = _context.Users.Where(x => x.Id == friendRequests[i].UserId2).ToList().First();
-               users.Add(user);
+                var user = _context.Users.Where(x => x.Id == friendRequests[i].UserId2).ToList().First();
+                users.Add(user);
             }
 
             return Ok(new { users });
@@ -435,10 +435,10 @@ namespace WebProjekat.Controllers
         public async Task<IActionResult> AddingAdmin(AddAdmin userModel)
         {
             string role = User.Claims.ElementAt(1).Value;
-            if(role != UserRole.SystemAdmin.ToString())
+            if (role != UserRole.SystemAdmin.ToString())
             {
                 return BadRequest(new { message = "Bad data" });
-                
+
             }
             var applicationUser = new User()
             {
@@ -448,7 +448,7 @@ namespace WebProjekat.Controllers
                 Surname = "",
                 PhoneNumber = "",
                 Address = userModel.Address,
-               
+
 
             };
 
@@ -607,11 +607,11 @@ namespace WebProjekat.Controllers
 
 
 
-            return Ok(new { reservations});
+            return Ok(new { reservations });
         }
 
 
-        
+
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("GetFlightReservations")]
@@ -621,7 +621,7 @@ namespace WebProjekat.Controllers
             var ReservedSeats = _context.ReservedSeats.Where(x => x.UserId == userId).ToList();
             Dictionary<int, int> fllightIDAndCount = new Dictionary<int, int>(); //id lete i broj njegovih pojava..da dobijemo broj sedista koje je korisnik rezervisao
 
-            foreach( var seat in ReservedSeats)
+            foreach (var seat in ReservedSeats)
             {
                 if (fllightIDAndCount.ContainsKey(seat.FlightId))
                 {
@@ -629,14 +629,15 @@ namespace WebProjekat.Controllers
                 }
                 else
                 {
-                    fllightIDAndCount[seat.FlightId] = 0;
+                    fllightIDAndCount[seat.FlightId] = 1;
                 }
             }
             List<FlightReservationsInfo> reservations = new List<FlightReservationsInfo>();
             var Fr = new FlightReservationsInfo();
 
-            foreach(var keyValuePair in fllightIDAndCount)
+            foreach (var keyValuePair in fllightIDAndCount)
             {
+                Fr = new FlightReservationsInfo();
                 Fr.flight = _context.Flights.Where(x => x.Id == keyValuePair.Key).ToList().First();
                 Fr.numberOfSeats = keyValuePair.Value;
                 reservations.Add(Fr);
@@ -645,5 +646,41 @@ namespace WebProjekat.Controllers
             return Ok(new { reservations });
         }
 
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetSeatReservationRequests")]
+        public async Task<Object> GetSeatReservationRequests()
+        {
+            string userId = User.Claims.ElementAt(0).Value;
+            var seatReservationRequests = _context.SeatReservationRequests.Include(x=> x.ReservedSeat).Where(x => x.UserId == userId).ToList();
+
+            Dictionary<int, int> fllightIDAndCount = new Dictionary<int, int>(); //id lete i broj njegovih pojava..da dobijemo broj sedista koje je korisnik rezervisao
+
+            foreach (var seat in seatReservationRequests)
+            {
+                if (fllightIDAndCount.ContainsKey(seat.ReservedSeat.FlightId))
+                {
+                    fllightIDAndCount[seat.ReservedSeat.FlightId]++;
+                }
+                else
+                {
+                    fllightIDAndCount[seat.ReservedSeat.FlightId] = 1;
+                }
+            }
+            List<FlightReservationsInfo> reservations = new List<FlightReservationsInfo>();
+            var Fr = new FlightReservationsInfo();
+
+            foreach (var keyValuePair in fllightIDAndCount)
+            {
+                Fr = new FlightReservationsInfo();
+                Fr.flight = _context.Flights.Where(x => x.Id == keyValuePair.Key).ToList().First();
+                Fr.numberOfSeats = keyValuePair.Value;
+                reservations.Add(Fr);
+            }
+
+            return Ok(new { reservations });
+
+        }
     }
 }

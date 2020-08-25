@@ -43,6 +43,15 @@ export class HistoryOfReservationComponent implements OnInit {
         }
     });
 
+    this.userService.GetSeatReservationRequests().subscribe((res:any) =>{
+      for (let i = 0; i < res.reservations.length; i++) {
+        var flight = new Flight(-1,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, new Date(res.reservations[i].flight.dateDepart),new Date(res.reservations[i].flight.dateArrival), res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
+        var numOFSeats = res.reservations[i].numberOfSeats
+        var resFlight = new ReservedFlight(flight, numOFSeats);
+        this.flightReservationsRequests.push(resFlight);
+      }
+    });
+
     this.DateNow= new Date();
   }
 

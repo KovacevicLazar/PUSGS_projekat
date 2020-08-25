@@ -226,7 +226,6 @@ namespace WebProjekat.Controllers
         }
 
         [HttpPost]
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("SeatReservation")]
 
@@ -256,10 +255,22 @@ namespace WebProjekat.Controllers
             }
             else //salje zahtev prijatelju
             {
+                flight.ReservedSeats.Add(seat);
+                flight.VacantSeats--;
+                flight.BusySeats++;
+                user.ReservedSeats.Add(seat);
+                var friendID = reservation.UserId;
+                var friend = _context.Users.Include(x => x.SeatReservationRequests).Where(x => x.Id == friendID).ToList().First();
+                SeatReservationRequest seatReservationRequest = new SeatReservationRequest();
+                seatReservationRequest.ReservedSeat = seat;
+                friend.SeatReservationRequests.Add(seatReservationRequest);
 
+                _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.Entry(friend).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                var result = await _context.SaveChangesAsync();
+                return Ok(new { result });
             }
-            
-            return Ok();
         }
 
 
