@@ -33,10 +33,10 @@ export class FriendsComponent implements OnInit {
       this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
     });
 
-    this.GetOtherUsers();
     this.GetFriends();
     this.GetFriendRequests();
     this.GetFriendSentRequest();
+    this.GetOtherUsers();
   }
 
   GetFriends(){
@@ -46,6 +46,9 @@ export class FriendsComponent implements OnInit {
         var user= new User(res.friends[i].username,res.friends[i].name,res.friends[i].surname,res.friends[i].email,res.friends[i].phoneNumber,res.friends[i].address,res.friends[i].role,"");
         user.id=res.friends[i].id;
         this.Friends.push(user);
+      }
+      if(this.SearchFriend != ""){
+        this.Search();
       }
     });
   }
@@ -58,6 +61,9 @@ export class FriendsComponent implements OnInit {
         user.id=res.users[i].id;
         this.FriendRequests.push(user);
       }
+      if(this.SearchFriend != ""){
+        this.Search();
+      }
     });
   }
 
@@ -68,6 +74,9 @@ export class FriendsComponent implements OnInit {
         var user= new User(res.allOtherUsers[i].username,res.allOtherUsers[i].name,res.allOtherUsers[i].surname,res.allOtherUsers[i].email,res.allOtherUsers[i].phoneNumber,res.allOtherUsers[i].address,res.allOtherUsers[i].role,"");
         user.id=res.allOtherUsers[i].id
         this.OtherUser.push(user);
+      }
+      if(this.SearchFriend != ""){
+        this.Search();
       }
     });
   }
@@ -80,7 +89,7 @@ export class FriendsComponent implements OnInit {
         user.id=res.users[i].id;
         this.FriendSentRequests.push(user);
       }
-      if( this.SearchFriend != ""){
+      if(this.SearchFriend != ""){
         this.Search();
       }
     });
@@ -91,46 +100,46 @@ export class FriendsComponent implements OnInit {
 
   AcceptFriendRequest(friend: User){
       this.userService.AcceptFriendRequest(friend.id).subscribe((res: any) => {
-        this.GetOtherUsers();
         this.GetFriends();
         this.GetFriendRequests();
         this.GetFriendSentRequest();
+        this.GetOtherUsers();
     });
   }
 
   RemoveFriend(friend: User){
     this.userService.RemoveFriend(friend.id).subscribe((res: any) => {
-      this.GetOtherUsers();
       this.GetFriends();
       this.GetFriendRequests();
       this.GetFriendSentRequest();
+      this.GetOtherUsers();
     });
   }
 
   DeleteRequest(friend){
     this.userService.DeleteRequest(friend.id).subscribe((res: any) => {
-      this.GetOtherUsers();
       this.GetFriends();
       this.GetFriendRequests();
       this.GetFriendSentRequest();
+      this.GetOtherUsers();
     });
   }
 
   SendRequest(user : User){
     this.userService.SendRequest(user.id).subscribe((res: any) => {
-      this.GetOtherUsers();
       this.GetFriends();
       this.GetFriendRequests();
       this.GetFriendSentRequest();
+      this.GetOtherUsers();
     });
   }
 
   CancelRequest(user){
     this.userService.CancelRequest(user.id).subscribe((res: any) => {
-      this.GetOtherUsers();
       this.GetFriends();
       this.GetFriendRequests();
       this.GetFriendSentRequest();
+      this.GetOtherUsers();
     });
   }
 
@@ -176,10 +185,5 @@ export class FriendsComponent implements OnInit {
         this.FilteredOtherUsers.push(element);
       }
     });
-
-   /*  if(this.FilteredFriend.length==0 && this.FilteredFriendRequest.length==0 && this.FilteredFriendSentRequest.length==0 && this.FilteredOtherUsers.length==0){
-      alert("Nije pronadjen ni jedan korisnik")
-    } */
   }
-
 }

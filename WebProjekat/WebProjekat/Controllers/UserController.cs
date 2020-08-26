@@ -193,22 +193,25 @@ namespace WebProjekat.Controllers
             var FriendRequests = _context.FriendRequests.Where(x => x.UserId == UserId || x.UserId2 == UserId).ToList();
             List<int> indexs = new List<int>();
 
-            for (int i = 0; i < FriendRequests.Count; i++)
+           
+            for (int j = 0; j < allOtherUsers.Count; j++)
             {
-                for (int j = 0; j < allOtherUsers.Count; j++)
+                for (int i = 0; i < FriendRequests.Count; i++)
                 {
                     if (FriendRequests[i].UserId == UserId)
                     {
                         if (FriendRequests[i].UserId2 == allOtherUsers[j].Id)
                         {
-                            indexs.Add(j);
+                           indexs.Add(j);
+                           break;
                         }
                     }
                     else if (FriendRequests[i].UserId2 == UserId && FriendRequests[i].UserId != null)
                     {
                         if (FriendRequests[i].UserId == allOtherUsers[j].Id)
                         {
-                            indexs.Add(j);
+                           indexs.Add(j);
+                           break;
                         }
                     }
                 }
@@ -265,7 +268,7 @@ namespace WebProjekat.Controllers
 
             if (FriendRequests != null)
             {
-                _context.FriendRequests.Remove(FriendRequests);
+                //_context.FriendRequests.Remove(FriendRequests);
                 _context.Entry(FriendRequests).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -288,7 +291,7 @@ namespace WebProjekat.Controllers
 
             if (FriendRequests != null)
             {
-                _context.FriendRequests.Remove(FriendRequests);
+                //_context.FriendRequests.Remove(FriendRequests);
                 _context.Entry(FriendRequests).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -382,7 +385,7 @@ namespace WebProjekat.Controllers
 
             if (FriendRequests != null)
             {
-                _context.FriendRequests.Remove(FriendRequests);
+                //_context.FriendRequests.Remove(FriendRequests);
                 _context.Entry(FriendRequests).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -567,7 +570,7 @@ namespace WebProjekat.Controllers
 
                 _context.Entry((User)user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 await _context.SaveChangesAsync();
-                return Ok();
+                return Ok(new { message = "Successfully changed." });
             }
             else
             {

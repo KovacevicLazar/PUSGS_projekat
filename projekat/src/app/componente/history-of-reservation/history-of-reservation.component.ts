@@ -36,6 +36,7 @@ export class HistoryOfReservationComponent implements OnInit {
     this.userService.GetFlightReservations().subscribe((res:any) =>{
       for (let i = 0; i < res.reservations.length; i++) {
            var flight = new Flight(res.reservations[i].flight.id,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, new Date(res.reservations[i].flight.dateDepart),new Date(res.reservations[i].flight.dateArrival), res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
+           flight.isOver=res.reservations[i].flight.isOver; 
            var numOFSeats = res.reservations[i].numberOfSeats
            var resFlight = new ReservedFlight(flight, numOFSeats);
            this.flightReservations.push(resFlight);
@@ -65,6 +66,7 @@ export class HistoryOfReservationComponent implements OnInit {
     this.userService.GetSeatReservationRequests().subscribe((res:any) =>{
       for (let i = 0; i < res.reservations.length; i++) {
         var flight = new Flight(res.reservations[i].flight.id,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, new Date(res.reservations[i].flight.dateDepart),new Date(res.reservations[i].flight.dateArrival), res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
+        flight.isOver=res.reservations[i].flight.isOver; 
         var numOFSeats = res.reservations[i].numberOfSeats
         var resFlight = new ReservedFlight(flight, numOFSeats);
         resFlight.status=res.reservations[i].status;
@@ -134,4 +136,6 @@ export class HistoryOfReservationComponent implements OnInit {
       });
     }
   }
+
+  buttonRate(flight : Flight){}
 }

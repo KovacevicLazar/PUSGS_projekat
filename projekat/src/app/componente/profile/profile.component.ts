@@ -44,25 +44,20 @@ export class ProfileComponent implements OnInit {
     let successful= true;
     if(this.checkBox==true && this.confirmpassword.trim()==""){
       alert('Za promenu podataka morate potvrditi vasu lozinku');
-      successful= false;
     }
     else if(this.name.trim()=="" || this.phoneNumber =="" || this.surname.trim()=="" || this.address.trim()=="" ){
       alert('Obavezna polja moraju biti popunjena');
-      successful= false;
+
     }
     else if(this.newpassword.length <= 6 && this.checkBox==true){
       alert('Sifra mora imati minimum 6 karaktera');
-      successful= false;
+
     }
     else if(this.checkBox==true && this.newpassword != this.confirmpassword){
       alert('Sifre se ne podudaraju');
-      successful= false;
+  
     }
     else{
-     //proveriti da li je mejl slobodan
-    }
-
-    if(successful){
       this.user.password=this.currentPassword;
       this.user.name=this.name;
       this.user.surname=this.surname;

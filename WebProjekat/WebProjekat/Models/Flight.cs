@@ -27,6 +27,8 @@ namespace WebProjekat.Models
         public string SecondStop { get; set; }
         public string ThirdStop { get; set; }
 
+        public bool IsOver { get; set; }
+
         public ICollection<ReservedSeat> ReservedSeats { get; set; }
 
         // Transitlocations: Array<string>;

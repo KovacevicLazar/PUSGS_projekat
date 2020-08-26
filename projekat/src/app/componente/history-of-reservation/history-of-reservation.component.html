@@ -34,9 +34,13 @@
                         <td class="td"> {{Reservedflight.flight.numberTransit}} </td>
                         <td class="td"> h:m:s <br> {{Reservedflight.flight.flightDuration | date: "H:m:s" }} </td>
                         <td class="td"> {{Reservedflight.numberOfReservedSeats}} </td>
-                        <td>
-                        Total Price:<span class="price-text">{{Reservedflight.flight.ticketPrice*Reservedflight.numberOfReservedSeats}}€</span> <br/>
-                        <button class="buttonCancellations" (click)="buttonCancellations(Reservedflight.flight)">Cancellations</button></td>
+                        <td *ngIf="!Reservedflight.flight.isOver">
+                            Total Price:<span class="price-text">{{Reservedflight.flight.ticketPrice*Reservedflight.numberOfReservedSeats}}€</span> <br/>
+                            <button  class="buttonCancellations" (click)="buttonCancellations(Reservedflight.flight)">Cancellations</button>
+                        </td>
+                        <td *ngIf="Reservedflight.flight.isOver">
+                            <button  class="buttonRate" (click)="buttonRate(Reservedflight.flight)">Rate this flight</button>
+                        </td>
                             
                     </tr>
                 </tbody> 
@@ -47,7 +51,7 @@
                         <td class="td"> {{Requestsflight.flight.numberTransit}} </td>
                         <td class="td"> h:m:s <br> {{Requestsflight.flight.flightDuration | date: "H:m:s" }} </td>
                         <td class="td"> {{Requestsflight.numberOfReservedSeats}} </td>
-                        <td *ngIf="Requestsflight.status == 1" style="width: 160px ; text-align: center;">
+                        <td *ngIf="Requestsflight.status == 1 && !Requestsflight.flight.isOver" style="width: 160px ; text-align: center;">
                             <span class="td"> Friend pay this! </span> <br>
                             <button  class="buttonAccept"  (click)="buttonAccept(Requestsflight.flight)">
                                 Accept
@@ -56,9 +60,12 @@
                                 Reject
                             </button>
                         </td>
-                        <td *ngIf="Requestsflight.status == 0" style="width: 160px ; text-align: center;">
+                        <td *ngIf="Requestsflight.status == 0 && !Requestsflight.flight.isOver" style="width: 160px ; text-align: center;">
                             <span class="td"> Friend pay this! </span> <br>
                             <button class="buttonCancellations" (click)="buttonReject(Requestsflight.flight)">Cancellations</button>
+                        </td>
+                        <td *ngIf="Requestsflight.flight.isOver">
+                            <button  class="buttonRate" (click)="buttonRate(Requestsflight.flight)">Rate this flight</button>
                         </td>
                     </tr>
                 </tbody> 

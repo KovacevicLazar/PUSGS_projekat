@@ -13,7 +13,7 @@ import { RouterModule,Router }  from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
 
-  allUsers: Array<User>;
+  
   public name ="";
   public  surname="";
   public phone ="";
@@ -24,10 +24,7 @@ export class SignUpComponent implements OnInit {
   public username = "";
 
 
-  constructor(private userService: UserService,private router : Router) { 
-    this.allUsers = this.userService.loadUsers(); //Ucitava mokovane objekte
-    
-  }
+  constructor(private userService: UserService,private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -41,26 +38,18 @@ export class SignUpComponent implements OnInit {
       alert("The passwords doesnt match please try again");
       
     }
+    else if(this.name == "" || this.surname == "" || this.phone == "" || this.address == "" || this.email == "" || this.password == "" || this.username == "" || this.password2 == "")
+    {
+      alert("Sva polja su obavezna");
+    }
     else
     {
-      this.allUsers.forEach(element =>{
-        if(element.email === this.email)
-        {       
-            alert("There is already a user with this e-mail");   
-            broj = 2;                         
-        }                    
-      });
+      let newUser = new User(this.username,this.name,this.surname,this.email,this.phone,this.address,Role.Registred,this.password);
 
-      if(broj == 1)
-      {
-        let id=4;
-        let newUser = new User(this.username,this.name,this.surname,this.email,this.phone,this.address,Role.Registred,this.password);
-        //this.allUsers.push(newUser);
-        //newUser.username = this.username;
-        this.userService.Register(newUser).subscribe((res: any) => {
-          this.router.navigate(['/sign-in']);
-        });
-      }
+      this.userService.Register(newUser).subscribe((res: any) => {
+        alert(res.message);
+        this.router.navigate(['/sign-in']);
+      });
     }
   }
 
