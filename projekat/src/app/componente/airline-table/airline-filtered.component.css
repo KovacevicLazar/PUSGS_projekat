@@ -76,12 +76,10 @@ thead{
   }
 
 
-
-  .td-buttons{
-    width: 20%;
-    padding-top: 1.5%;
-  }
-
+.td-buttons{
+  width: 20%;
+  padding-top: 1.5%;
+}
 .td-info{
 	font-size: 23px;
 	font-weight: bold;
@@ -94,9 +92,12 @@ thead{
 	font-weight: bold;
   text-align: center;
 }
-
-.avatar {
-	width: 140px;
-	height: 70px;
-	margin-left: 30%;
-  }
+.description-info{
+    font-weight: bold;
+    text-align: center;
+    background-color:  #dee9fb;
+    width: 250px;
+}
+.description-label{
+  width:250px;
+}

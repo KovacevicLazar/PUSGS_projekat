@@ -10,11 +10,11 @@ import {  RentACarComponent } from './componente/rent-a-car/rent-a-car/rent-a-ca
 import { AirlineFilteredComponent } from './componente/airline-table/airline-filtered.component';
 import { RentACarFilteredComponent} from './componente/rent-a-car-filtered/rent-a-car-filtered/rent-a-car-filtered.component';
 import { pathToFileURL } from 'url';
-import { RegisteredUserComponent } from './componente/registered-user/registered-user.component';
+
 
 import {PageNotFoundComponent} from './componente/page-not-found/page-not-found/page-not-found.component'
 import {RentCarDescriptionComponent} from './componente/rent-car-description/rent-car-description/rent-car-description.component';
-import { AirlineDescriptionComponent } from './componente/airline-description/airline-description.component';
+
 import { AddRcServisComponent} from './componente/add-rc-servis/add-rc-servis/add-rc-servis.component';
 import { AddAirlineComponent} from './componente/add-airline/add-airline/add-airline.component';
 import { SeatReservationComponent } from './componente/seat-reservation/seat-reservation.component';
@@ -34,7 +34,6 @@ import { SuperAdminGuardGuard } from './guards/super-admin-guard.guard';
 import { CarAdminGuardGuard } from './guards/car-admin--guard.guard';
 import { AirlineAdminGuardGuard } from './guards/airline-admin--guard.guard';
 import { UnregistredGuardGuard } from './guards/unregistred-guard.guard';
-import { NonRegistredComponent } from './componente/non-registred/non-registred/non-registred.component';
 import { ProfileComponentGuard } from './guards/profile-component.guard';
 
 
@@ -46,7 +45,7 @@ const routes: Routes = [
   },
 
 
-  { path: "", component: RegisteredUserComponent },
+ // { path: "", component: RegisteredUserComponent }, //Suvisna komponenta
   
 
  
@@ -62,11 +61,7 @@ const routes: Routes = [
     ]
   },
   { path: "rent-a-car", component: RentACarComponent, canActivate: [UnregistredGuardGuard]},
-  { path: "airDesc",   canActivate: [UnregistredGuardGuard],
-    children:[
-      {path: ":idAir" , component:  AirlineDescriptionComponent}
-    ]
-  },
+  
   { path: "airDest",  canActivate: [UnregistredGuardGuard],
     children:[
       {path: ":idAir" , component:  AirlineDestinationsComponent}

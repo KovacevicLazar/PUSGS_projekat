@@ -21,18 +21,13 @@ export class HistoryOfReservationComponent implements OnInit {
   allReservations: Array<ReservedCar> = new Array<ReservedCar>();
 
   flightReservations = new Array<ReservedFlight>();
-
   flightReservationsRequests = new Array<ReservedFlight>();
 
   constructor(private userService: UserService ,private route: ActivatedRoute,private rentCarService: RentCarService, private airlineService: AirlineService) { 
   
-    
     this.GetReservationsCar();
-
-   this.GetFlightReservations();
-
+    this.GetFlightReservations();
     this.GetSeatReservationRequests();
-
     this.DateNow= new Date();
   }
 
@@ -47,7 +42,6 @@ export class HistoryOfReservationComponent implements OnInit {
         }
     });
   }
-
 
   GetReservationsCar()
   {
@@ -90,7 +84,6 @@ export class HistoryOfReservationComponent implements OnInit {
         this.GetReservationsCar();
       });
     }
-      
   }
 
   buttonCancellations(flight : Flight){
@@ -104,7 +97,6 @@ export class HistoryOfReservationComponent implements OnInit {
         this.GetFlightReservations();
       });
     }
-
   }
   calculateDays(dateArrival: Date,dateDepart: Date): number
   {

@@ -65,30 +65,16 @@ export class AdminAddCarComponent implements OnInit {
       let newCar = new Car(this.id,this.Location,this.Brand,this.CarModel,Number(this.year),Number(this.PricePerDay),true,Number(this.Babyseats),Number(this.NumberOfSeats));
       if(this.modify == false)
       {
-
-      
-      this.carService.AddCar(newCar).subscribe((res:any) => {
-        this.router.navigate(['/myCarList']);
-      });
-    }
-    else
-    {
-      this.carService.SaveChangesOnCar(newCar).subscribe((res:any) => {
-        this.router.navigate(['/myCarList']);
-      });
-    }
-   
-    }
-  }
-
-
-  FindUserWithUserEmail(){
-    const userEmail = JSON.parse(localStorage.getItem('UserEmail'));
-    this.userService.loadUsers().forEach(element => {
-      if(element.email== userEmail){
-        this.user=element;
+        this.carService.AddCar(newCar).subscribe((res:any) => {
+          this.router.navigate(['/myCarList']);
+        });
       }
-    });
+      else
+      {
+        this.carService.SaveChangesOnCar(newCar).subscribe((res:any) => {
+          this.router.navigate(['/myCarList']);
+        });
+      }
+    }
   }
-
 }

@@ -13,25 +13,19 @@ import { RentCar } from 'src/app/entities/rent-a-car/rent-a-car';
 })
 export class ListOfCarCompaniesComponent implements OnInit {
   
-  
   AllRentACar :Array<RentCar>=new Array<RentCar>();
   id: number;
   user: User;
   
   constructor(private RentACars:RentCarService,private userService : UserService , private route: ActivatedRoute ) { 
     userService.GetCarAdmins().subscribe((res : any )=>{
-
       for (let i = 0; i < res.users.length; i++) {
           var rentACar = new RentCar(1,res.users[i].carCompany.companyName,"","",1);
           this.AllRentACar.push(rentACar);
       }
-      
-
     });
   }
 
   ngOnInit(): void {
   }
-
-
 }

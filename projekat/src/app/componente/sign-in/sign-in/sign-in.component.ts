@@ -15,23 +15,16 @@ import * as jwt_decode from "jwt-decode";
 })
 export class SignInComponent implements OnInit {
 
-  allUsers : Array<User>;
   public email="";
   public password="";
 
-
-  constructor(private userService : UserService,private router : Router,private authService: SocialAuthService) {
-     this.allUsers=userService.loadUsers();
-   }
+  constructor(private userService : UserService,private router : Router,private authService: SocialAuthService) {}
 
   ngOnInit(): void {
   }
 
-  
   onSubmit() 
   {
-    
-     
       this.userService.Login(this.password,this.email).subscribe((res: any) => {
         localStorage.setItem("token",res.token); //
 
@@ -40,27 +33,19 @@ export class SignInComponent implements OnInit {
          
           if (decoded.Roles == "Registred") {
             this.router.navigate(['/profile']);
-         
           }
           else if(decoded.Roles == "SystemAdmin"){
-
             this.router.navigate(['/all-airline']);
           }
           else if(decoded.Roles == "CarAdmin"){
-
             this.router.navigate(['/myCarList']);
           }
           else if(decoded.Roles == "AirlineAdmin"){
-
             this.router.navigate(['/myFlightList']);
           }
 
-
         }catch{}
-      });
-
-         
-
+      });  
   }
 
   signInWithGoogle(): void 
@@ -69,18 +54,13 @@ export class SignInComponent implements OnInit {
       this.userService.ExternalLogin(socialusers).subscribe( (res: any) => {
         localStorage.setItem('token', res.token);
         this.router.navigate(['/profile']);
-        
       },
-      err => {
-        if (err.status == 400)
-          alert('Incorrect username or password.');
-        else
-          console.log("err");
-      }
-        
-        );
-    
-     } );
+        err => {
+          if (err.status == 400)
+            alert('Incorrect username or password.');
+          else
+            console.log("err");
+      });
+    });
   }
-
 }

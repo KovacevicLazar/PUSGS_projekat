@@ -46,6 +46,16 @@ namespace WebProjekat.Controllers
         {
         }
 
+        
+        [HttpGet]
+        
+        [Route("GetAllAirlineCompanies")]
+        public async Task<Object> GetAllAirlineCompanies()
+        {
+
+            var airlines = _context.Airlines.ToList();
+            return Ok(new { airlines });
+        }
 
 
 
@@ -65,7 +75,6 @@ namespace WebProjekat.Controllers
         }
 
         [HttpPost]
-
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("AddingFlight")]
 
@@ -178,6 +187,15 @@ namespace WebProjekat.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetFlighs/{airlineID}")]
+        public async Task<Object> GetFlighs(int airlineID)
+        {
+            var airline = _context.Airlines.Include(x => x.Flights).Where(x => x.Id == airlineID).ToList().First();
+            var listflight = airline.Flights.ToList();
+            return Ok(new { listflight });
         }
 
         [HttpGet]

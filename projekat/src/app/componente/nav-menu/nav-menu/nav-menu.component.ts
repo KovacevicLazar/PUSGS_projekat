@@ -12,22 +12,22 @@ export class NavMenuComponent implements OnInit {
    userRole = "";
   
   constructor(private router : Router) { 
-    try {
-    var decoded = jwt_decode(localStorage.getItem("token"));
-    this.userRole = decoded.Roles;
     
+    try {
+      var decoded = jwt_decode(localStorage.getItem("token"));
+      this.userRole = decoded.Roles;
+    }
+    catch
+    {
+      this.userRole = 'NonRegistred';
+    }
   }
-  catch
-{
-  this.userRole = 'NonRegistred';
-}  }
 
   ngOnInit(): void {
   }
 
   Logout()
   {
-    
     localStorage.removeItem('token'); //
     this.router.navigate(['/sign-in']);
   }

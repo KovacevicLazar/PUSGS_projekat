@@ -7,8 +7,6 @@ import { RouterModule,Router }  from '@angular/router';
 import { UserService } from 'src/app/services/user-service/user.service';
 
 
-
-
 @Component({
   selector: 'app-my-rc-servis',
   templateUrl: './my-rc-servis.component.html',

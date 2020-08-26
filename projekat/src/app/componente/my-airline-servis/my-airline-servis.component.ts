@@ -21,7 +21,6 @@ export class MyAirlineServisComponent implements OnInit {
     })
   }
 
-
   ngOnInit(): void {
   }
 
@@ -36,7 +35,6 @@ export class MyAirlineServisComponent implements OnInit {
     else{
       alert("Faild !");
     }
-    
   }
 
 }

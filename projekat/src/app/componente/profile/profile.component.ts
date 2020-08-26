@@ -28,7 +28,6 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute) {
    
     let user=this.userService.GetUserProfileInfo().subscribe((res: any) => {
-
       this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
 
       this.name=this.user.name;

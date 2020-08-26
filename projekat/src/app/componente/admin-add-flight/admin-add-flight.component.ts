@@ -45,7 +45,6 @@ export class AdminAddFlightComponent implements OnInit {
 
   converDateToString(date : Date): string
   {
-  
     let dateSplit = date.toLocaleString('it-IT').split("/");
     let year=dateSplit[2].split(", ")[0];
     let mount=  dateSplit[1];
@@ -80,22 +79,16 @@ export class AdminAddFlightComponent implements OnInit {
       
       let flight= new  Flight(10,this.FlyingFrom,this.FlyingTo,new Date(this.DateDepart),new Date(this.DateArrival),Number(this.FlightLength),transitList,Number(this.TicketPrice), 120, 0);
       
-      
       this.airlineService.AddingFlight(flight).subscribe((res:any) => {
        alert(res.message);
        this.router.navigate(['/myFlightList']);
       });
-
-
     }
     else{
       alert("Podaci nisu dobro uneti");
     }
   }
-
- 
-
-
+  
 }
 
 

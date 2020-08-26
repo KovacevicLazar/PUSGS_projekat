@@ -23,7 +23,7 @@ import { ProfileComponent } from './componente/profile/profile.component';
 
 import { PageNotFoundComponent } from './componente/page-not-found/page-not-found/page-not-found.component';
 import { RentCarDescriptionComponent } from './componente/rent-car-description/rent-car-description/rent-car-description.component';
-import { AirlineDescriptionComponent } from './componente/airline-description/airline-description.component';
+
 import { FlyghtsTableComponent } from './componente/flyghts-table/flyghts-table.component';
 import { CarTableComponent } from './componente/car-table/car-table/car-table.component';
 import { AddAirlineComponent } from './componente/add-airline/add-airline/add-airline.component';
@@ -83,7 +83,6 @@ import { AirlineService } from './services/airline-service/airline.service';
     ProfileComponent,
     PageNotFoundComponent,
     RentCarDescriptionComponent,
-    AirlineDescriptionComponent,
     FlyghtsTableComponent,
     CarTableComponent,
     AddAirlineComponent,

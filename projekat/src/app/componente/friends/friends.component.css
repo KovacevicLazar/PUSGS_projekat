@@ -17,7 +17,6 @@ tr:nth-child(even) {background-color:#a5c6fa;}
 
 .table{
 	 width: 100%;
-	 
    border-collapse: collapse;
    background-color:  #ccdffd;
    overflow-y: scroll

@@ -29,8 +29,8 @@
                 </thead>
                 <tbody *ngIf="flightReservations.length > 0">
                     <tr  *ngFor="let Reservedflight of flightReservations">
-                        <td class="td">{{Reservedflight.flight.flyingfrom}} <br> {{Reservedflight.flight.dateDepart | date:'medium' }}</td>
-                        <td class="td"> {{Reservedflight.flight.flyingTo}} <br> {{Reservedflight.flight.dateArrival | date:'medium' }}</td>
+                        <td class="td">{{Reservedflight.flight.flyingfrom}} <br> {{Reservedflight.flight.dateDepart | date:'dd/MM/yyyy HH:mm' }}</td>
+                        <td class="td"> {{Reservedflight.flight.flyingTo}} <br> {{Reservedflight.flight.dateArrival | date:'dd/MM/yyyy HH:mm' }}</td>
                         <td class="td"> {{Reservedflight.flight.numberTransit}} </td>
                         <td class="td"> h:m:s <br> {{Reservedflight.flight.flightDuration | date: "H:m:s" }} </td>
                         <td class="td"> {{Reservedflight.numberOfReservedSeats}} </td>
@@ -42,8 +42,8 @@
                 </tbody> 
                 <tbody *ngIf="flightReservationsRequests.length > 0">
                     <tr *ngFor="let Requestsflight of flightReservationsRequests">
-                        <td class="td">{{Requestsflight.flight.flyingfrom}} <br> {{Requestsflight.flight.dateDepart | date:'medium' }}</td>
-                        <td class="td"> {{Requestsflight.flight.flyingTo}} <br> {{Requestsflight.flight.dateArrival | date:'medium' }}</td>
+                        <td class="td">{{Requestsflight.flight.flyingfrom}} <br> {{Requestsflight.flight.dateDepart | date:'dd/MM/yyyy HH:mm' }}</td>
+                        <td class="td"> {{Requestsflight.flight.flyingTo}} <br> {{Requestsflight.flight.dateArrival | date:'dd/MM/yyyy HH:mm' }}</td>
                         <td class="td"> {{Requestsflight.flight.numberTransit}} </td>
                         <td class="td"> h:m:s <br> {{Requestsflight.flight.flightDuration | date: "H:m:s" }} </td>
                         <td class="td"> {{Requestsflight.numberOfReservedSeats}} </td>
@@ -79,9 +79,9 @@
                 </thead>
                 <tbody *ngIf="allReservations.length > 0">
                     <tr  *ngFor="let ReservedCar of allReservations"  style="text-align: center; vertical-align: middle;">
-                        <td>{{ReservedCar.car.location}} <br> {{ReservedCar.totalPrice}} $ </td>
-                        <td> {{ReservedCar.checkedInDate | date:'medium' }} <br> {{ReservedCar.checkedOutDate | date:'medium' }}</td>
-                        <td> {{ReservedCar.car.brand}} <br> {{ReservedCar.car.model}} </td>             
+                        <td  class="td">{{ReservedCar.car.location}} <br> {{ReservedCar.totalPrice}} $ </td>
+                        <td  class="td"> {{ReservedCar.checkedInDate | date:'dd/MM/yyyy' }} <br> {{ReservedCar.checkedOutDate | date:'dd/MM/yyyy' }}</td>
+                        <td  class="td"> {{ReservedCar.car.brand}} <br> {{ReservedCar.car.model}} </td>             
                         <td>
                       
                         <button class="buttonCancellations" (click)="buttonCancellationsCarReservation(ReservedCar)">Cancellations</button></td>

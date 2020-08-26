@@ -14,14 +14,10 @@ import { NgForm } from '@angular/forms';
 })
 export class AirlineComponent implements OnInit {
   
-  allAirline : Array<Airline>;
+  
   Flights = new Array<Flight>();
   
-  id: number;
-  user: User;
-  RegistratedUser : number;
   SearchButtonClicket : number;
-
   flyingfrom ="";
   flyingTo="";
   dateDepart="";
@@ -34,11 +30,7 @@ export class AirlineComponent implements OnInit {
   DateNow="";
 
   constructor(private userService: UserService, private airlineService: AirlineService, private route: ActivatedRoute) { 
-    this.RegistratedUser=0;
     this.SearchButtonClicket=0;
-    
-
-    this.allAirline = this.airlineService.loadAirlines();
 
     this.DateNow=this.converStringToDate(new Date());
     this.dateDepart=this.DateNow;
@@ -49,7 +41,6 @@ export class AirlineComponent implements OnInit {
 
   converStringToDate(date : Date): string
   {
-  
     let dateSplit = date.toLocaleString('it-IT').split("/");
     let year=dateSplit[2].split(", ")[0];
     let mount=  dateSplit[1];
@@ -107,12 +98,10 @@ export class AirlineComponent implements OnInit {
             transitList.push(res.retflights[i].thirdStop);
           }
 
-
           let flight= new Flight(res.retflights[i].id, res.retflights[i].flyingFrom, res.retflights[i].flyingTo, new Date(res.retflights[i].dateDepart),new Date(res.retflights[i].dateArrival), res.retflights[i].flightDistance, transitList, res.retflights[i].ticketPrice, res.retflights[i].vacantSeats, res.retflights[i].busySeats);
           this.Flights.push(flight);
         }
       });
-    
     }
   }
 

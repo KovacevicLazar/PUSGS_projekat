@@ -19,22 +19,14 @@ export class RentACarComponent implements OnInit {
   allrentcars: Array<RentCar>;
   Cars = new Array<Car>();
 
-
   public pickUpLocation ="";
   seats: number = 0;
   Babyseats: number =0;
   
-  
- 
-
   ClickedToCheck: number;
   
   
-  constructor(private rentCarService: RentCarService, private route: ActivatedRoute,private userService : UserService) {
-     
-   }
-
-
+  constructor(private rentCarService: RentCarService, private route: ActivatedRoute,private userService : UserService) {}
 
   ngOnInit(): void {
   }
@@ -48,22 +40,5 @@ export class RentACarComponent implements OnInit {
           this.Cars.push(car);
         }
       });
-    
-   
   }
-
-
-  check()
-  {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if(userRole === 'Registred')
-    {
-      return true;
-    }
-    else
-      return false; 
-  }
-
-
-
 }

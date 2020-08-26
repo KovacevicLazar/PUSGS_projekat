@@ -10,39 +10,13 @@ import { User } from 'src/app/entities/user/user';
 export class FlyghtsTableComponent implements OnInit {
   @Input() Flights;
 
-  id: number;
-  user: User;
-  RegistratedUser : number;
-  
-  constructor(private router: Router ) {
-
-   }
+  constructor(private router: Router ) {}
 
   ngOnInit(): void {
   }
 
   SelectFlight(flight){
-
-    if(this.check())
-    {
-      this.router.navigate(['/airline/' ,flight.id]) 
-    }
-    else
-    {
-      this.router.navigate(['/airline/' ,flight.id])
-    }
-   
-  }
-  check()
-  {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if(userRole === 'Registred')
-    {
-      return true;
-    }
-    else
-      return false;
-    
+    this.router.navigate(['/airline/' ,flight.id]) 
   }
 
 }

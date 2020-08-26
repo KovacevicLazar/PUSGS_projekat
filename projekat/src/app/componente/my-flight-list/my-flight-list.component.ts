@@ -77,7 +77,6 @@ export class MyFlightListComponent implements OnInit {
       
       }
     });  
-  
   }
 
   openDialog(flight1: Flight): any{

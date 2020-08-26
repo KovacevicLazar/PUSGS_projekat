@@ -32,16 +32,18 @@
 tr:nth-child(even) {background-color:#a5c6fa;}
 
 .table{
-	 width: 95%;
-   margin-left: 10px;
-   height: 100%;
+	 width: 100%;
+   margin-left: 5px;
+   background-color:  #ccdffd;
+   border:1px
    
-   border-collapse: collapse;
-   background-color:  #ffffff;
 }
+
+
 tr{
-	border: solid thin;
-	border-color: rgb(248, 248, 248);
+  border: solid thin;
+  height: 40px;
+  
 }
 h2{
   text-align: center;
@@ -49,11 +51,10 @@ h2{
 
 .td{
   color: black;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   height: 40px;
 }
-
 
 
 .buttonMyData {
@@ -62,7 +63,7 @@ h2{
   border-radius: 10rem;
   color: #fff;
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: 14px;
   letter-spacing: .15rem;
   transition: all .3s;
   position: relative;
@@ -195,4 +196,25 @@ h2{
   }
   .buttonRemove:hover:before {
     width: 100%;
+  }
+
+  .or {
+    width: 40px;
+    height: 40px;
+    background: #DDD;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    line-height: 40px;
+    text-align: center;
+    margin-left: 45%;
+  }
+  .divOr{
+    width: 40px;
+    height: 40px;
+    background: #DDD;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    line-height: 40px;
+    text-align: center;
+    margin-top: 90%;
   }

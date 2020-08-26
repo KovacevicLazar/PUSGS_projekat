@@ -30,9 +30,7 @@ export class FriendsComponent implements OnInit {
   constructor(private userService :UserService,private route: ActivatedRoute) { 
 
     this.userService.GetUserProfileInfo().subscribe((res: any) => {
-
       this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
-
     });
 
     this.GetOtherUsers();
@@ -45,7 +43,6 @@ export class FriendsComponent implements OnInit {
     this.Friends.length=0;
     this.userService.GetFriends().subscribe((res: any) => {
       for (let i = 0; i < res.friends.length; i++) {
-        
         var user= new User(res.friends[i].username,res.friends[i].name,res.friends[i].surname,res.friends[i].email,res.friends[i].phoneNumber,res.friends[i].address,res.friends[i].role,"");
         user.id=res.friends[i].id;
         this.Friends.push(user);
@@ -57,7 +54,6 @@ export class FriendsComponent implements OnInit {
     this.FriendRequests.length=0;
     this.userService.GetFriendRequests().subscribe((res: any) => {
       for (let i = 0; i < res.users.length; i++) {
-        
         var user= new User(res.users[i].username,res.users[i].name,res.users[i].surname,res.users[i].email,res.users[i].phoneNumber,res.users[i].address,res.users[i].role,"");
         user.id=res.users[i].id;
         this.FriendRequests.push(user);
@@ -69,21 +65,17 @@ export class FriendsComponent implements OnInit {
     this.OtherUser.length=0;
     this.userService.GetOtherUsers().subscribe((res: any) => {
       for (let i = 0; i < res.allOtherUsers.length; i++) {
-        
         var user= new User(res.allOtherUsers[i].username,res.allOtherUsers[i].name,res.allOtherUsers[i].surname,res.allOtherUsers[i].email,res.allOtherUsers[i].phoneNumber,res.allOtherUsers[i].address,res.allOtherUsers[i].role,"");
         user.id=res.allOtherUsers[i].id
         this.OtherUser.push(user);
       }
     });
-
   }
-
 
   GetFriendSentRequest(){
     this.FriendSentRequests.length=0;
     this.userService.GetFriendSentRequest().subscribe((res: any) => {
       for (let i = 0; i < res.users.length; i++) {
-        
         var user= new User(res.users[i].username,res.users[i].name,res.users[i].surname,res.users[i].email,res.users[i].phoneNumber,res.users[i].address,res.users[i].role,"");
         user.id=res.users[i].id;
         this.FriendSentRequests.push(user);
@@ -94,78 +86,52 @@ export class FriendsComponent implements OnInit {
     });
   }
 
-
-
   ngOnInit(): void {
   }
 
   AcceptFriendRequest(friend: User){
-    
       this.userService.AcceptFriendRequest(friend.id).subscribe((res: any) => {
-
         this.GetOtherUsers();
         this.GetFriends();
         this.GetFriendRequests();
         this.GetFriendSentRequest();
     });
-
-
   }
 
   RemoveFriend(friend: User){
-
     this.userService.RemoveFriend(friend.id).subscribe((res: any) => {
-
       this.GetOtherUsers();
       this.GetFriends();
       this.GetFriendRequests();
       this.GetFriendSentRequest();
     });
-
-
- 
   }
 
   DeleteRequest(friend){
-
-
     this.userService.DeleteRequest(friend.id).subscribe((res: any) => {
-
       this.GetOtherUsers();
       this.GetFriends();
       this.GetFriendRequests();
       this.GetFriendSentRequest();
     });
-
-
   }
 
   SendRequest(user : User){
-  
-
     this.userService.SendRequest(user.id).subscribe((res: any) => {
-
       this.GetOtherUsers();
       this.GetFriends();
       this.GetFriendRequests();
       this.GetFriendSentRequest();
-
     });
-    
-   
   }
 
   CancelRequest(user){
-
     this.userService.CancelRequest(user.id).subscribe((res: any) => {
-
       this.GetOtherUsers();
       this.GetFriends();
       this.GetFriendRequests();
       this.GetFriendSentRequest();
     });
-
-   
   }
 
   Search(){

@@ -25,7 +25,7 @@ export class SignUpComponent implements OnInit {
 
 
   constructor(private userService: UserService,private router : Router) { 
-    this.allUsers = this.userService.loadUsers();
+    this.allUsers = this.userService.loadUsers(); //Ucitava mokovane objekte
     
   }
 
@@ -49,7 +49,7 @@ export class SignUpComponent implements OnInit {
             alert("There is already a user with this e-mail");   
             broj = 2;                         
         }                    
-      })
+      });
 
       if(broj == 1)
       {
@@ -60,17 +60,8 @@ export class SignUpComponent implements OnInit {
         this.userService.Register(newUser).subscribe((res: any) => {
           this.router.navigate(['/sign-in']);
         });
-        
-       // console.log('Logged');
       }
-      
     }
-
-      
-    
-    
-     
   }
-
 
 }

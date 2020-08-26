@@ -20,11 +20,13 @@
             <tr *ngFor="let airline of allAirline">
                 <td class="td-info">{{airline.name}}</td>
                 <td class="td-info">{{airline.address}}</td>
-                <td>
+                <td class="description-info">
                     <!-- Prenos id-ja kao parametra putanje komponenti -->
-                    <button class="buttonAccept" (click) ="OnSubmit(airline)">
+                   <!--  <button class="buttonAccept" (click) ="OnSubmit(airline)">
                         Read more...
-                    </button>
+                    </button> -->
+                    <label class="description-label"> {{airline.description}}</label>
+                  
                 </td>
                 <td class="td-info">
                     <div class="profile-stars">

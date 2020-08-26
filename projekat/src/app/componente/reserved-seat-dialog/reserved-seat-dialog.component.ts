@@ -37,7 +37,6 @@ export class ReservedSeatDialogComponent implements OnInit {
     else{
       this.cancel();
     }
-  
   }
 
   cancel(){

@@ -28,30 +28,15 @@ export class RentACarFilteredComponent implements OnInit {
           this.allrentcars.push(temp);
       }
     });
-    
   }
 
   ngOnInit(): void {
-
   }
+  
   OnSubmit(rentcars) {
-
     this.router.navigate(['/rentcDesc/'.concat(rentcars.id.toString())]);
   }
   FilialsClick(rentcars) {
     this.router.navigate(['/rentCarDest/'.concat(rentcars.id.toString())]);
   }
-
-  check() {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if (userRole === 'Registred') {
-      return true;
-    }
-    else
-      return false;
-  }
-
-
-
-
 }

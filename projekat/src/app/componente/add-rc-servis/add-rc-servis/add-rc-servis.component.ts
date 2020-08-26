@@ -34,27 +34,17 @@ export class AddRcServisComponent implements OnInit {
   onSubmit()
   {
     this.ocijena = this.mark;
-    let temp = true;
    
-                   
-   
-
-      if(this.name == "" || this.address == "" || this.username == "" || this.email == "")
-      {
-        alert("You have to fill all fields, invalid request");
-        temp = false;
-      }   
-
-    if(temp)
+    if(this.name == "" || this.address == "" || this.username == "" || this.email == "")
+    {
+      alert("You have to fill all fields, invalid request");
+    }   
+    else
     {
       this.userService.AddAdmin(this.name,this.description,this.username,this.address,"rentcar",this.email).subscribe((res: any ) =>{
         this.router.navigate(['/all-rc-servis']);
-      } );
-      
-      
-      
-
+      });
     }
   }
-
+  
 }

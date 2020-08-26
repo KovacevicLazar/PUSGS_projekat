@@ -37,10 +37,6 @@ export class CarTableComponent implements OnInit {
         });
         }
       }); 
-    
-    
-   
-   
   }
 
   openDialog(car1: Car): any{
@@ -51,8 +47,5 @@ export class CarTableComponent implements OnInit {
         }
     });
   }
-
-
- 
 
 }

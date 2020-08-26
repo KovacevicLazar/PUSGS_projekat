@@ -27,18 +27,9 @@ export class RentCarBranchComponent implements OnInit {
         for (let i = 0; i < res.listcar.length; i++) {
           let car = new Car(res.listcar[i].id,res.listcar[i].location,res.listcar[i].brand,res.listcar[i].model,res.listcar[i].year,res.listcar[i].pricePerDay,true,res.listcar[i].babySeats,res.listcar[i].numberOfSeats);
           this.foundCars.push(car);
-         
-
         };
-
-
       });
-
-
-
     });
-
-
   }
 
   ngOnInit(): void {

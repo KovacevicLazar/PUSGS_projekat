@@ -21,11 +21,9 @@ export class RentCarDescriptionComponent implements OnInit {
     this.rentCarService.GetDescription(this.rentcarId).subscribe((res:any) => {
       this.description = res.description;
     });
-   
-   }
+  }
 
   ngOnInit(): void {
-   
   }
 
 }
