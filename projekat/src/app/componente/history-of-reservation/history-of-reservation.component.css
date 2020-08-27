@@ -27,11 +27,27 @@
 	line-height: 28px;
 }
 
-tr:nth-child(even) {background-color: #f2f2f2;}
+
+tr:nth-child(even) {background-color:#6ba2fa;}
+
+tr{
+	border: solid thin;
+}
+
+.table{
+	 width: 100%;
+   border-collapse: collapse;
+   background-color:  #7cacf8;
+   overflow-y: scroll
+}
+
+.rateTd{
+  width: 175px;
+}
 
 .table-wrap {
-  height: 660px;
-  width: 100%;
+  width: 50%;
+  height: 100%;
   overflow-y: scroll;
 }
 
@@ -39,6 +55,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 	font-size: 18px;
 	font-weight: bold;
   text-align: center;
+  height: 94px;
 }
 
 .buttonAccept {

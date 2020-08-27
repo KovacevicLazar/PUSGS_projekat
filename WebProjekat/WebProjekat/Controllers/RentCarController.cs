@@ -417,5 +417,36 @@ namespace WebProjekat.Controllers
 
         }
 
+
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("RateCar")]
+
+        public async Task<IActionResult> RateCar(CarMark carModel)
+        {
+            int mark = carModel.mark;
+            string userId = User.Claims.ElementAt(0).Value;
+            var carID = carModel.CarId;
+            var car = _context.Cars.Include(x => x.Marks).Where(x => x.Id == carID).ToList().First();
+            var user = _context.Users.Include(x => x.CarMarks).Where(x => x.Id == userId).ToList().First();
+            if (car != null)
+            {
+                CarMark carMark = new CarMark();
+                carMark.mark = mark;
+                car.Marks.Add(carMark);
+                user.CarMarks.Add(carMark);
+                var carReservation = _context.CarReservations.Where(x => x.UserId == user.Id && x.CarId == car.Id).ToList().First();
+                carReservation.Mark = mark;
+                _context.Entry(carReservation).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.Entry(car).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                var result = await _context.SaveChangesAsync();
+                return Ok(new { result });
+
+            }
+
+            return BadRequest();
+        }
+
     }
 }

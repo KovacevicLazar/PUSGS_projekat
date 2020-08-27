@@ -22,5 +22,14 @@ namespace WebProjekat.Models
         public string Brand { get; set; }
         public string Model { get; set; }
         public string Location { get; set; }
+
+        public string UserId { get; set; }
+
+        public int CarId { get; set; }
+
+        public int Mark { get; set; }
+
+        public bool IsOver { get; set; }
+
     }
 }

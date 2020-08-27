@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProjekat.Baza;
 
 namespace WebProjekat.Migrations
 {
     [DbContext(typeof(BazaContext))]
-    partial class BazaContextModelSnapshot : ModelSnapshot
+    [Migration("20200827103403_Marks")]
+    partial class Marks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,27 +67,6 @@ namespace WebProjekat.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("WebProjekat.Models.CarMark", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CarId");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<int>("mark");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CarMarks");
-                });
-
             modelBuilder.Entity("WebProjekat.Models.CarReservation", b =>
                 {
                     b.Property<int>("Id")
@@ -94,13 +75,9 @@ namespace WebProjekat.Migrations
 
                     b.Property<string>("Brand");
 
-                    b.Property<int>("CarId");
-
-                    b.Property<bool>("IsOver");
+                    b.Property<int?>("CarId");
 
                     b.Property<string>("Location");
-
-                    b.Property<int>("Mark");
 
                     b.Property<string>("Model");
 
@@ -162,27 +139,6 @@ namespace WebProjekat.Migrations
                     b.ToTable("Flights");
                 });
 
-            modelBuilder.Entity("WebProjekat.Models.FlightMark", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FlightId");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<int>("mark");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlightId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("FlightMarks");
-                });
-
             modelBuilder.Entity("WebProjekat.Models.FriendRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -200,6 +156,27 @@ namespace WebProjekat.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("FriendRequests");
+                });
+
+            modelBuilder.Entity("WebProjekat.Models.Mark", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FlightId");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("mark");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Marks");
                 });
 
             modelBuilder.Entity("WebProjekat.Models.RentCarCompany", b =>
@@ -328,24 +305,11 @@ namespace WebProjekat.Migrations
                         .HasForeignKey("RentCarCompanyId");
                 });
 
-            modelBuilder.Entity("WebProjekat.Models.CarMark", b =>
-                {
-                    b.HasOne("WebProjekat.Models.Car")
-                        .WithMany("Marks")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WebProjekat.Models.User")
-                        .WithMany("CarMarks")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("WebProjekat.Models.CarReservation", b =>
                 {
                     b.HasOne("WebProjekat.Models.Car")
                         .WithMany("CarReservations")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CarId");
 
                     b.HasOne("WebProjekat.Models.User")
                         .WithMany("CarReservations")
@@ -359,7 +323,14 @@ namespace WebProjekat.Migrations
                         .HasForeignKey("AirlineId");
                 });
 
-            modelBuilder.Entity("WebProjekat.Models.FlightMark", b =>
+            modelBuilder.Entity("WebProjekat.Models.FriendRequest", b =>
+                {
+                    b.HasOne("WebProjekat.Models.User")
+                        .WithMany("Friends")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("WebProjekat.Models.Mark", b =>
                 {
                     b.HasOne("WebProjekat.Models.Flight")
                         .WithMany("Marks")
@@ -367,14 +338,7 @@ namespace WebProjekat.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WebProjekat.Models.User")
-                        .WithMany("FlightMarks")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("WebProjekat.Models.FriendRequest", b =>
-                {
-                    b.HasOne("WebProjekat.Models.User")
-                        .WithMany("Friends")
+                        .WithMany("Marks")
                         .HasForeignKey("UserId");
                 });
 

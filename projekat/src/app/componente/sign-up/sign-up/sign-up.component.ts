@@ -44,13 +44,13 @@ export class SignUpComponent implements OnInit {
     }
     else
     {
-      let newUser = new User(this.username,this.name,this.surname,this.email,this.phone,this.address,Role.Registred,this.password);
 
+      let id=4;
+      let newUser = new User(this.username,this.name,this.surname,this.email,this.phone,this.address,Role.Registred,this.password);
+      
       this.userService.Register(newUser).subscribe((res: any) => {
-        alert(res.message);
         this.router.navigate(['/sign-in']);
       });
     }
   }
-
 }

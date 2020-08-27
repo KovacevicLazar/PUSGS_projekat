@@ -607,12 +607,20 @@ namespace WebProjekat.Controllers
         public async Task<Object> GetCarReservations()
         {
             string userId = User.Claims.ElementAt(0).Value;
-            var user = _context.Users.Include(x => x.CarReservations).Where(x => x.Id == userId).ToList().First();
-            var reservations = user.CarReservations.ToList();
+            //var user = _context.Users.Include(x => x.CarReservations).Where(x => x.Id == userId).ToList().First();
+            //var reservations = user.CarReservations.ToList();
 
+            var reservations = _context.CarReservations.Where(x => x.UserId == userId).ToList();
 
-
-
+            foreach (var res in reservations)
+            {
+                if ((res.PickupDate - DateTime.Now).TotalHours < 48 && res.IsOver==false)
+                {
+                    res.IsOver = true;
+                    _context.Entry(res).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    var result = await _context.SaveChangesAsync();
+                }
+            }
 
             return Ok(new { reservations });
         }
@@ -647,6 +655,21 @@ namespace WebProjekat.Controllers
                 Fr = new FlightReservationsInfo();
                 Fr.flight = _context.Flights.Where(x => x.Id == keyValuePair.Key).ToList().First();
                 Fr.numberOfSeats = keyValuePair.Value;
+                var marks = _context.FlightMarks.Where(x => x.UserId == userId && x.FlightId == Fr.flight.Id).ToList();
+                if (marks.Count != 0)
+                {
+                    Fr.Mark = marks.First().mark;
+                }
+                else
+                {
+                    Fr.Mark = 0;
+                }
+                if ((Fr.flight.DateDepart - DateTime.Now).TotalHours < 3 && Fr.flight.IsOver == false)
+                {
+                    Fr.flight.IsOver = true;
+                    _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    var result = await _context.SaveChangesAsync();
+                }
                 reservations.Add(Fr);
             }
 
@@ -684,11 +707,25 @@ namespace WebProjekat.Controllers
                 Fr.flight = _context.Flights.Where(x => x.Id == keyValuePair.Key).ToList().First();
                 Fr.numberOfSeats = keyValuePair.Value;
                 Fr.status = _context.SeatReservationRequests.Include(x => x.ReservedSeat).Where(x => x.ReservedSeat.FlightId == Fr.flight.Id && x.UserId == userId).ToList().First().Status;
+                var marks = _context.FlightMarks.Where(x => x.UserId == userId && x.FlightId == Fr.flight.Id).ToList();
+                if (marks.Count != 0)
+                {
+                    Fr.Mark = marks.First().mark;
+                }
+                else
+                {
+                    Fr.Mark = 0;
+                }
+                if ((Fr.flight.DateDepart - DateTime.Now).TotalHours < 3 && Fr.flight.IsOver == false )
+                {
+                    Fr.flight.IsOver = true;
+                    _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    var result = await _context.SaveChangesAsync();
+                }
                 reservations.Add(Fr);
             }
 
             return Ok(new { reservations });
-
         }
 
 

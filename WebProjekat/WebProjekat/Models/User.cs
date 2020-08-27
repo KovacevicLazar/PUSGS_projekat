@@ -27,5 +27,10 @@ namespace WebProjekat.Models
         public ICollection<SeatReservationRequest> SeatReservationRequests { get; set; }
 
 
+        public ICollection<FlightMark> FlightMarks { get; set; }
+
+        public ICollection<CarMark> CarMarks { get; set; }
+
+
     }
 }

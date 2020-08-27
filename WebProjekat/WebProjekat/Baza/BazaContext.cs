@@ -26,6 +26,10 @@ namespace WebProjekat.Baza
         public DbSet<ReservedSeat> ReservedSeats { get; set; }
         public DbSet<SeatReservationRequest> SeatReservationRequests { get; set; }
 
+        public DbSet<FlightMark> FlightMarks { get; set; }
+
+        public DbSet<CarMark> CarMarks { get; set; }
+
 
     }
 }

@@ -46,9 +46,9 @@ namespace WebProjekat.Controllers
         {
         }
 
-        
+
         [HttpGet]
-        
+
         [Route("GetAllAirlineCompanies")]
         public async Task<Object> GetAllAirlineCompanies()
         {
@@ -96,7 +96,8 @@ namespace WebProjekat.Controllers
 
                 FirstStop = flightModel.FirstStop,
                 SecondStop = flightModel.SecondStop,
-                ThirdStop = flightModel.ThirdStop
+                ThirdStop = flightModel.ThirdStop,
+                IsOver = false
 
             };
 
@@ -134,7 +135,7 @@ namespace WebProjekat.Controllers
         [Route("saveChangesOnFlight/{id}")]
         public async Task<IActionResult> SaveChangesOnFlight(Flight flightModel, int id)
         {
-            
+
             var flight = _context.Flights.Where(x => x.Id == id).ToList().First();
 
 
@@ -259,7 +260,7 @@ namespace WebProjekat.Controllers
             var user = _context.Users.Include(x => x.ReservedSeats).Where(x => x.Id == userID).ToList().First();
             var flightID = reservation.FlightId;
             var flight = _context.Flights.Include(x => x.ReservedSeats).Where(x => x.Id == flightID).ToList().First();
-           
+
             if (userID == reservation.UserId) //rezervise za sebe
             {
                 flight.ReservedSeats.Add(seat);
@@ -305,12 +306,14 @@ namespace WebProjekat.Controllers
             var flight = _context.Flights.Include(x => x.ReservedSeats).Where(x => x.Id == flightID).ToList().First();
             if ((flight.DateDepart - DateTime.Now).TotalHours < 3)
             {
+                flight.IsOver = true;
+                _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 return BadRequest(new { message = "Cant canncel reservation !" });
             }
             else
             {
                 string userId = User.Claims.ElementAt(0).Value;
-                
+
                 var seatReservations = _context.ReservedSeats.Where(x => x.UserId == userId && x.FlightId == flightID).ToList();
 
                 foreach (var reservedSeat in seatReservations)
@@ -332,7 +335,7 @@ namespace WebProjekat.Controllers
                 }
                 return Ok();
             }
-           
+
         }
 
 
@@ -372,7 +375,7 @@ namespace WebProjekat.Controllers
             else
             {
                 string userId = User.Claims.ElementAt(0).Value;
-                
+
                 var seatReservationRequests = _context.SeatReservationRequests.Include(x => x.ReservedSeat).Where(x => x.UserId == userId && x.ReservedSeat.FlightId == flightID).ToList();
 
                 foreach (var seatReservationRequest in seatReservationRequests)
@@ -387,8 +390,55 @@ namespace WebProjekat.Controllers
                 }
                 return Ok();
             }
-           
+
         }
 
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("ChangeFlightStatus")]
+
+        public async Task<IActionResult> ChangeFlightStatus(Flight flightModel)
+        {
+            var flightID = flightModel.Id;
+            var flight = _context.Flights.Include(x => x.ReservedSeats).Where(x => x.Id == flightID).ToList().First();
+            if(flight != null)
+            {
+                flight.IsOver = true;
+                _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                var result = await _context.SaveChangesAsync();
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+
+        
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("RateFlight")]
+
+        public async Task<IActionResult> RateFlight(FlightMark flightModel)
+        {
+            int mark = flightModel.mark;
+            string userId = User.Claims.ElementAt(0).Value;
+            var flightID = flightModel.FlightId;
+            var flight = _context.Flights.Include(x => x.Marks).Where(x => x.Id == flightID).ToList().First();
+            var user = _context.Users.Include(x => x.FlightMarks).Where(x => x.Id == userId).ToList().First();
+            if (flight != null)
+            {
+                FlightMark flightMark = new FlightMark();
+                flightMark.mark = mark;
+                flight.Marks.Add(flightMark);
+                user.FlightMarks.Add(flightMark);
+                _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                var result = await _context.SaveChangesAsync();
+                return Ok(new { result }); 
+         
+            }
+
+            return BadRequest();
+        }
     }
 }

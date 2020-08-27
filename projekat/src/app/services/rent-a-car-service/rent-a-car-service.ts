@@ -51,14 +51,6 @@ export class RentCarService{
     }
 
 
-
-
-    loadRentCars() {
-        
-        return this.mockedRentCar();
-
-    }
-
     AddCar(car : Car)
     {
         let body = {
@@ -123,36 +115,7 @@ export class RentCarService{
         return this.http.post(this.BaseURI + '/RentCar/SaveChangeInfo', body);
     }
 
-    mockedRentCar() : Array<RentCar>
-    {
-        let allRentCar = new Array<RentCar>();
-
-        const r1 = new RentCar(1,"Avis","New York","Opis 1",3.5);
-        const r2 = new RentCar(2,"Hertz","Frankfurt","Opis 2",1.6);
-       
-       // const r4 = new RentCar(4,"Dollar","Moskow","Opis 4",5,"Spisak 4");
-      //  const r5 = new RentCar(5,"RentalCars","Dortmund","Opis 5",3,"Spisak 5");
-       // const r6 = new RentCar(6,"DriftyCars","Doha","Opis 6", 4.5,"Spisak 6");
-
-    //    const c1 = new Car(1,"Sekovici","Solunska 5","Audi","A7",2017,198,true,1,"Yes");
-    //    const c2 = new Car(2,"Tokio","New Street 22","Golf","5",2010,220,true,2,"Yes");
-    //    const c3 = new Car(3,"Berlin","Tegel 46","Ford","Fiesta",1995,88,true,0,"yes");
-
-    //    r1.availableCars.push(c1);
-    //    r1.availableCars.push(c2);
-    //    r2.availableCars.push(c3);
-
-
-
-        // allRentCar.push(r1);
-        // allRentCar.push(r2);
-        
-        //allRentCar.push(r4);
-        //allRentCar.push(r5);
-       // allRentCar.push(r6);
-
-        return allRentCar;
-    }
+    
 
     CarReservation(reservation : ReservedCar)
     {
@@ -164,6 +127,16 @@ export class RentCarService{
             NumberOfDays : reservation.numberOfDays
         }
         return this.http.post(this.BaseURI + '/RentCar/CarReservation', body);
+    }
+
+
+    RateCar(car : Car, mark : number){
+        var s=s;
+        var body = {
+            carId: car.id,
+            mark: mark
+        }
+        return this.http.post(this.BaseURI + '/RentCar/RateCar',body);
     }
    
 

@@ -136,13 +136,8 @@ export class SeatReservationComponent implements OnInit {
       if(this.selected.length > 0) 
       {
         this.reservedSeats.forEach(reservedSeat => {
-          //this.flight.reservedSeats.push(element);
-          //treba menjati i u bazi ovaj let
           this.airlineService.SeatReservation(reservedSeat).subscribe((res:any) =>
           {
-            alert("Successfuly reserved!");
-          },    (error) => {
-            alert("Error,already reserved in this period");
           });
         });
 

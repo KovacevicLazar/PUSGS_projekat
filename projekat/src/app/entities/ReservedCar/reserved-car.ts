@@ -10,6 +10,9 @@ export class ReservedCar {
     totalPrice: number;
     id: number;
 
+    isOver : boolean;
+    mark = 0;
+
     constructor(car: Car, numberOfDays : number,checkedInDate: Date,checkedOutDate: Date){
         this.car=car;
         this.numberOfDays=numberOfDays;

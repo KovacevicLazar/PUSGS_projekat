@@ -53,6 +53,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-logi
 import { CookieService } from 'ngx-cookie-service';
 import { RentCarService } from './services/rent-a-car-service/rent-a-car-service';
 import { AirlineService } from './services/airline-service/airline.service';
+import { RatingModule } from 'ng-starrating';
 
 
 // let config = new  SocialAuthServiceConfig([
@@ -112,6 +113,7 @@ import { AirlineService } from './services/airline-service/airline.service';
     BrowserAnimationsModule,
     HttpClientModule,
     SocialLoginModule,
+    RatingModule 
    
 
   ],

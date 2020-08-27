@@ -24,7 +24,7 @@ export class AddRcServisComponent implements OnInit {
   ocijena: number;
 
   constructor(private rentcarService : RentCarService,private router :Router,private userService: UserService) {
-    this.allRentCars = this.rentcarService.loadRentCars();
+    
   }
  
 

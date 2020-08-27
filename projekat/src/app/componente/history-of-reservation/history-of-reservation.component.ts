@@ -8,6 +8,7 @@ import { ReservedCar } from 'src/app/entities/ReservedCar/reserved-car';
 import { ReservedFlight } from 'src/app/entities/ReservedFlight/reserved-flight';
 import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-service';
 import { AirlineService } from 'src/app/services/airline-service/airline.service';
+import { StarRatingComponent } from 'ng-starrating';
 
 @Component({
   selector: 'app-history-of-reservation',
@@ -22,6 +23,7 @@ export class HistoryOfReservationComponent implements OnInit {
 
   flightReservations = new Array<ReservedFlight>();
   flightReservationsRequests = new Array<ReservedFlight>();
+  totalstar= 5;
 
   constructor(private userService: UserService ,private route: ActivatedRoute,private rentCarService: RentCarService, private airlineService: AirlineService) { 
   
@@ -39,8 +41,24 @@ export class HistoryOfReservationComponent implements OnInit {
            flight.isOver=res.reservations[i].flight.isOver; 
            var numOFSeats = res.reservations[i].numberOfSeats
            var resFlight = new ReservedFlight(flight, numOFSeats);
+           resFlight.mark = res.reservations[i].mark;
            this.flightReservations.push(resFlight);
         }
+    });
+  }
+
+  GetSeatReservationRequests(){
+    this.flightReservationsRequests.length=0;
+    this.userService.GetSeatReservationRequests().subscribe((res:any) =>{
+      for (let i = 0; i < res.reservations.length; i++) {
+        var flight = new Flight(res.reservations[i].flight.id,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, new Date(res.reservations[i].flight.dateDepart),new Date(res.reservations[i].flight.dateArrival), res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
+        flight.isOver = res.reservations[i].flight.isOver; 
+        var numOFSeats = res.reservations[i].numberOfSeats
+        var resFlight = new ReservedFlight(flight, numOFSeats);
+        resFlight.mark = res.reservations[i].mark;
+        resFlight.status=res.reservations[i].status;
+        this.flightReservationsRequests.push(resFlight);
+      }
     });
   }
 
@@ -49,10 +67,15 @@ export class HistoryOfReservationComponent implements OnInit {
     this.allReservations.length = 0;
     this.userService.GetCarReservations().subscribe((res:any) =>{
       for (let i = 0; i < res.reservations.length; i++) {
-        var newcar  = new Car(-1,res.reservations[i].location,res.reservations[i].brand,res.reservations[i].model,-1,-1,false,-1,-1);
+        var newcar  = new Car(res.reservations[i].carId,res.reservations[i].location,res.reservations[i].brand,res.reservations[i].model,-1,-1,false,-1,-1);
         var reservation = new ReservedCar(newcar,res.reservations[i].numberOfDays,res.reservations[i].pickupDate,res.reservations[i].returnDate);
         reservation.totalPrice  = res.reservations[i].totalPrice;
         reservation.id = res.reservations[i].id;
+
+        reservation.isOver =  res.reservations[i].isOver;
+        reservation.mark = res.reservations[i].mark;
+
+
         this.allReservations.push(reservation);
 
       }
@@ -61,24 +84,36 @@ export class HistoryOfReservationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  GetSeatReservationRequests(){
-    this.flightReservationsRequests.length=0;
-    this.userService.GetSeatReservationRequests().subscribe((res:any) =>{
-      for (let i = 0; i < res.reservations.length; i++) {
-        var flight = new Flight(res.reservations[i].flight.id,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, new Date(res.reservations[i].flight.dateDepart),new Date(res.reservations[i].flight.dateArrival), res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
-        flight.isOver=res.reservations[i].flight.isOver; 
-        var numOFSeats = res.reservations[i].numberOfSeats
-        var resFlight = new ReservedFlight(flight, numOFSeats);
-        resFlight.status=res.reservations[i].status;
-        this.flightReservationsRequests.push(resFlight);
-      }
-    });
-  }
+
+
+  rateFlight($event:{oldValue:number, newValue:number, starRating:StarRatingComponent}, flight : Flight) {
+    /*  alert(`Old Value:${$event.oldValue}, 
+       New Value: ${$event.newValue}, 
+       Checked Color: ${$event.starRating.checkedcolor}, 
+       Unchecked Color: ${$event.starRating.uncheckedcolor}`); */
+ 
+       this.airlineService.RateFlight(flight, $event.newValue).subscribe((res:any) =>{
+         this.GetFlightReservations();
+         this.GetSeatReservationRequests()
+       });
+   }
+
+   rateCar($event:{oldValue:number, newValue:number, starRating:StarRatingComponent}, car : Car) {
+    /*  alert(`Old Value:${$event.oldValue}, 
+       New Value: ${$event.newValue}, 
+       Checked Color: ${$event.starRating.checkedcolor}, 
+       Unchecked Color: ${$event.starRating.uncheckedcolor}`); */
+ 
+       this.rentCarService.RateCar(car, $event.newValue).subscribe((res:any) =>{
+        this.GetReservationsCar();
+       });
+   }
 
   buttonCancellationsCarReservation(reservedCar :  ReservedCar){
     this.DateNow= new Date();
     if(this.calculateHours(reservedCar.checkedInDate,this.DateNow) < 48 ){
       alert("Ne mozete odustati od ove rezervacije.Ostalo je manje od 2 dana do pocetka rezervacije.")
+    
     }
     else{
       this.rentCarService.CancelCarReservation(reservedCar.id).subscribe((res:any)=>{
@@ -92,6 +127,9 @@ export class HistoryOfReservationComponent implements OnInit {
     this.DateNow= new Date();
     if(this.calculateHours(flight.dateDepart,this.DateNow) < 3){
       alert("Ne mozete odustati od ove rezervacije.Ostalo je manje od 3 sata do pocetka leta.")
+      this.airlineService.ChangeFlightStatus(flight).subscribe((res:any) =>{
+      });
+
     }
     else{
       this.airlineService.CancelFlightReservation(flight.id).subscribe((res:any)=>{

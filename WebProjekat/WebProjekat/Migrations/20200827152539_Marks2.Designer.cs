@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProjekat.Baza;
 
 namespace WebProjekat.Migrations
 {
     [DbContext(typeof(BazaContext))]
-    partial class BazaContextModelSnapshot : ModelSnapshot
+    [Migration("20200827152539_Marks2")]
+    partial class Marks2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,27 +67,6 @@ namespace WebProjekat.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("WebProjekat.Models.CarMark", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CarId");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<int>("mark");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CarMarks");
-                });
-
             modelBuilder.Entity("WebProjekat.Models.CarReservation", b =>
                 {
                     b.Property<int>("Id")
@@ -94,13 +75,9 @@ namespace WebProjekat.Migrations
 
                     b.Property<string>("Brand");
 
-                    b.Property<int>("CarId");
-
-                    b.Property<bool>("IsOver");
+                    b.Property<int?>("CarId");
 
                     b.Property<string>("Location");
-
-                    b.Property<int>("Mark");
 
                     b.Property<string>("Model");
 
@@ -328,24 +305,11 @@ namespace WebProjekat.Migrations
                         .HasForeignKey("RentCarCompanyId");
                 });
 
-            modelBuilder.Entity("WebProjekat.Models.CarMark", b =>
-                {
-                    b.HasOne("WebProjekat.Models.Car")
-                        .WithMany("Marks")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WebProjekat.Models.User")
-                        .WithMany("CarMarks")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("WebProjekat.Models.CarReservation", b =>
                 {
                     b.HasOne("WebProjekat.Models.Car")
                         .WithMany("CarReservations")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CarId");
 
                     b.HasOne("WebProjekat.Models.User")
                         .WithMany("CarReservations")

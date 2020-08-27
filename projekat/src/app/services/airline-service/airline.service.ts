@@ -165,5 +165,19 @@ export class AirlineService{
         return this.http.post(this.BaseURI + '/Flight/RejectReservationRequests',body);
     }
 
+    ChangeFlightStatus(flight : Flight){
+        var body = {
+            id: flight.id
+        }
+        return this.http.post(this.BaseURI + '/Flight/ChangeFlightStatus',body);
+    }
+
+    RateFlight(flight : Flight, mark : number){
+        var body = {
+            FlightId: flight.id,
+            mark: mark
+        }
+        return this.http.post(this.BaseURI + '/Flight/RateFlight',body);
+    }
 
 }
