@@ -72,37 +72,12 @@ namespace WebProjekat.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/User
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-
+      
 
         [HttpPost]
         [Route("Register")]
         public async Task<Object> Register(UserSignUp model)
         {
-
             var kk = await _userManager.FindByEmailAsync(model.Email);
             if (kk == null)
             {
@@ -115,7 +90,6 @@ namespace WebProjekat.Controllers
                     PhoneNumber = model.PhoneNumber,
                     Address = model.Address,
                     Role = UserRole.Registred,
-
                 };
 
                 try
@@ -135,6 +109,7 @@ namespace WebProjekat.Controllers
             }
         }
 
+
         [HttpPost]
         [Route("SendRequest")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -145,7 +120,6 @@ namespace WebProjekat.Controllers
             User user = _context.Users.Include(x => x.Friends).Where(x => x.Id == UserId).ToList().First();
             FriendRequest friendRequest = new FriendRequest();
 
-
             friendRequest.UserId2 = userId.UserId2;
             friendRequest.Status = StatusFriendRequest.OnWait;
 
@@ -154,9 +128,7 @@ namespace WebProjekat.Controllers
             _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();
             return Ok();
-
         }
-
 
 
         [HttpGet]
@@ -177,8 +149,6 @@ namespace WebProjekat.Controllers
         }
 
 
-
-
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("GetOtherUsers")]
@@ -192,7 +162,6 @@ namespace WebProjekat.Controllers
 
             var FriendRequests = _context.FriendRequests.Where(x => x.UserId == UserId || x.UserId2 == UserId).ToList();
             List<int> indexs = new List<int>();
-
            
             for (int j = 0; j < allOtherUsers.Count; j++)
             {
@@ -224,7 +193,6 @@ namespace WebProjekat.Controllers
         }
 
 
-
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("GetFriends")]
@@ -244,7 +212,6 @@ namespace WebProjekat.Controllers
                         User friend = _context.Users.Where(x => x.Id == FriendRequests[i].UserId).ToList().First();
                         Friends.Add(friend);
                     }
-
                 }
                 else if (FriendRequests[i].Status == StatusFriendRequest.Accepted && FriendRequests[i].UserId == UserId)
                 {
@@ -268,7 +235,6 @@ namespace WebProjekat.Controllers
 
             if (FriendRequests != null)
             {
-                //_context.FriendRequests.Remove(FriendRequests);
                 _context.Entry(FriendRequests).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -291,7 +257,6 @@ namespace WebProjekat.Controllers
 
             if (FriendRequests != null)
             {
-                //_context.FriendRequests.Remove(FriendRequests);
                 _context.Entry(FriendRequests).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -301,7 +266,6 @@ namespace WebProjekat.Controllers
                 return BadRequest();
             }
         }
-
 
 
         [HttpPost]
@@ -315,18 +279,15 @@ namespace WebProjekat.Controllers
 
             if (friendRequest != null && friendRequest.Status == StatusFriendRequest.OnWait)
             {
-
                 friendRequest.Status = StatusFriendRequest.Accepted;
                 _context.Entry(friendRequest).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 await _context.SaveChangesAsync();
                 return Ok();
-
             }
             else
             {
                 return BadRequest();
             }
-
         }
 
 
@@ -385,7 +346,6 @@ namespace WebProjekat.Controllers
 
             if (FriendRequests != null)
             {
-                //_context.FriendRequests.Remove(FriendRequests);
                 _context.Entry(FriendRequests).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -419,8 +379,6 @@ namespace WebProjekat.Controllers
                     {
                         new Claim("UserId",user.Id.ToString()),
                         new Claim("Roles", user.Role.ToString()),
-
-
                      }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
@@ -435,10 +393,10 @@ namespace WebProjekat.Controllers
                 return BadRequest(new { message = "Username or password is incorrect." });
         }
 
+
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("AddingAdmin")]
-
         public async Task<IActionResult> AddingAdmin(AddAdmin userModel)
         {
             string role = User.Claims.ElementAt(1).Value;
@@ -455,8 +413,6 @@ namespace WebProjekat.Controllers
                 Surname = "",
                 PhoneNumber = "",
                 Address = userModel.Address,
-
-
             };
 
             if (userModel.TypeOfCompany == "airline")
@@ -473,12 +429,8 @@ namespace WebProjekat.Controllers
                     var kk1 = await _userManager.FindByEmailAsync(userModel.Email);
                     kk1.AirlineComnpany = air;
 
-
                     _context.Entry(kk1).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     await _context.SaveChangesAsync();
-
-
-
                 }
                 catch (Exception ex)
                 {
@@ -499,12 +451,8 @@ namespace WebProjekat.Controllers
                     var kk1 = await _userManager.FindByEmailAsync(userModel.Email);
                     kk1.CarCompany = carC;
 
-
                     _context.Entry(kk1).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     await _context.SaveChangesAsync();
-
-
-
                 }
                 catch (Exception ex)
                 {
@@ -518,7 +466,6 @@ namespace WebProjekat.Controllers
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("SaveProfileInfoChanges")]
-
         public async Task<IActionResult> SaveProfileInfoChanges(UserSignUp userModel)
         {
             if (userModel.Username == "" || userModel.Username == null)
@@ -587,8 +534,8 @@ namespace WebProjekat.Controllers
         {
             var users = _context.Users.Include(x => x.CarCompany).Where(x => x.Role == UserRole.CarAdmin).ToList();
             return Ok(new { users });
-
         }
+
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -597,7 +544,6 @@ namespace WebProjekat.Controllers
         {
             var users = _context.Users.Include(x => x.AirlineComnpany).Where(x => x.Role == UserRole.AirlineAdmin).ToList();
             return Ok(new { users });
-
         }
 
 
@@ -759,6 +705,7 @@ namespace WebProjekat.Controllers
             return true;
         }
 
+
         [HttpPost]
         [Route("GoogleLogin")]
         // POST: api/<controller>/Login
@@ -777,8 +724,6 @@ namespace WebProjekat.Controllers
                         Name = model.firstName,
                         Surname = model.lastName,
                         Role = UserRole.Registred,
-
-                      
                     };
 
                     try
@@ -797,12 +742,10 @@ namespace WebProjekat.Controllers
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
-                   {
+                    {
                         new Claim("UserId",user.Id.ToString()),
                         new Claim("Roles", user.Role.ToString()),
                          
-
-
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)

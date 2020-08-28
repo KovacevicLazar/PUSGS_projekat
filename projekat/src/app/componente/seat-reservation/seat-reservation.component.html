@@ -14,9 +14,9 @@
 
         <br/>
         <div class="screen"></div>
-
         <!-- Generate the seating grid -->
         <div *ngFor="let row of rows">
+            <span class="rows">{{row}}</span>
             <span class="seat" *ngFor="let col of cols" (click)="seatClicked(row + col)" 
                     [ngSwitch]="getStatus(row + col)">
                 <span *ngSwitchCase="'selected'" class="glyphicon glyphicon-ok-sign selectedSeat"></span>
@@ -24,7 +24,8 @@
                 <span *ngSwitchDefault class="glyphicon glyphicon-stop freeSeat"></span>
             </span>
             <span *ngIf="row=='C'">
-                <br/> <br/> <br/> <br/>          
+                <br/> <br/> <br/> 
+                
             </span>
            
         </div>
