@@ -16,6 +16,7 @@ export class AirlineFilteredComponent implements OnInit {
   @Input() user;
   id: number;
   RegistratedUser : number;
+  totalstar=5;
 
   constructor(private router: Router, private route: ActivatedRoute, private userService : UserService, private airlinesService : AirlineService) {
 
@@ -23,7 +24,7 @@ export class AirlineFilteredComponent implements OnInit {
     
     this.airlinesService.GetAllAirlineCompanies().subscribe((res:any) =>{
       for (let i = 0; i < res.airlines.length; i++) {
-          var airline = new Airline(res.airlines[i].id,res.airlines[i].companyName,res.airlines[i].adress,res.airlines[i].description,4,"");
+          var airline = new Airline(res.airlines[i].id,res.airlines[i].companyName,res.airlines[i].adress,res.airlines[i].description,res.airlines[i].mark,"");
           this.allAirline.push(airline);
       }
     });

@@ -14,6 +14,8 @@ namespace WebProjekat.Models
         public string CompanyName { get; set; }
         public string Adress { get; set; }
 
+        public int Mark { get; set; }
+
         public ICollection<Car> Cars { get; set; }
 
 

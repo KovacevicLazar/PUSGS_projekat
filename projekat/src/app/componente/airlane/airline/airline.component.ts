@@ -70,19 +70,19 @@ export class AirlineComponent implements OnInit {
 
       let dateDepart=new Date(this.dateDepart);
       let dateReturn: any;
-      let dateArr;
+     
 
       if(this.way != "Round Trip"){
-        dateArr="-";
+        dateReturn = "-";
       }
       else{
-        dateReturn=new Date(this.dateReturn);
-        dateArr=dateReturn.getDate().toString()+ '-' + (dateReturn.getMonth()+1).toString() + '-' + dateReturn.getFullYear().toString();
+        dateReturn = new Date(this.dateReturn);
+        dateReturn = dateReturn.getDate().toString()+ '-' + (dateReturn.getMonth()+1).toString() + '-' + dateReturn.getFullYear().toString();
       }
     
       let dateDep=dateDepart.getDate().toString()+ '-' + (dateDepart.getMonth()+1).toString() + '-' + dateDepart.getFullYear().toString(); 
      
-      this.airlineService.GetSearchedFlights(this.flyingfrom, this.flyingTo, dateDep , Number(this.adults) + Number(this.children), dateArr).subscribe((res:any)=>{
+      this.airlineService.GetSearchedFlights(this.flyingfrom, this.flyingTo, dateDep , Number(this.adults) + Number(this.children), dateReturn).subscribe((res:any)=>{
     
         for (let i = 0; i < res.retflights.length; i++) {
 

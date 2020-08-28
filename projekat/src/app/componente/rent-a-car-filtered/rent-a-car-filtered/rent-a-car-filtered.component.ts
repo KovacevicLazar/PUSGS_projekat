@@ -19,12 +19,13 @@ export class RentACarFilteredComponent implements OnInit {
 
   id: number;
   RegistratedUser: number;
+  totalstar=5;
 
   constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private RentACars: RentCarService) {
 
     this.RentACars.GetAllCarCompanies().subscribe((res:any) =>{
       for (let i = 0; i < res.allCompanies.length; i++) {
-          var temp = new RentCar(res.allCompanies[i].id,res.allCompanies[i].companyName,res.allCompanies[i].adress,res.allCompanies[i].description,4);
+          var temp = new RentCar(res.allCompanies[i].id,res.allCompanies[i].companyName,res.allCompanies[i].adress,res.allCompanies[i].description,res.allCompanies[i].mark);
           this.allrentcars.push(temp);
       }
     });

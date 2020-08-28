@@ -23,6 +23,9 @@ namespace WebProjekat.Models
 
         public ICollection<CarMark> Marks { get; set; }
 
+        
+        public int RentCarCompanyId { get; set; }
+
 
     }
 }

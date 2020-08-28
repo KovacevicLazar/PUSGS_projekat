@@ -52,8 +52,7 @@ namespace WebProjekat.Controllers
         [Route("GetAllAirlineCompanies")]
         public async Task<Object> GetAllAirlineCompanies()
         {
-
-            var airlines = _context.Airlines.ToList();
+            var airlines = _context.Airlines.Include(x => x.Flights).ToList();
             return Ok(new { airlines });
         }
 
@@ -200,9 +199,9 @@ namespace WebProjekat.Controllers
         }
 
         [HttpGet]
-        [Route("GetSearchedFlights/{flyingfrom}/{flyingTo}/{dateDepart}/{numberOfSeat}/{dateArrival}")]
+        [Route("GetSearchedFlights/{flyingfrom}/{flyingTo}/{dateDepart}/{numberOfSeat}/{dateReturn}")]
 
-        public async Task<Object> GetSearchedFlights(string flyingfrom, string flyingTo, string dateDepart, int numberOfSeat, string dateArrival)
+        public async Task<Object> GetSearchedFlights(string flyingfrom, string flyingTo, string dateDepart, int numberOfSeat, string dateReturn)
         {
             List<Flight> Retflights = new List<Flight>();
             if (flyingfrom == "" && flyingTo == "" && dateDepart == "")
@@ -212,11 +211,11 @@ namespace WebProjekat.Controllers
             else
             {
                 var DateDepart = DateTime.Parse(dateDepart);
-                DateTime DateArrival;
-                if (dateArrival != "-")
+                if (DateTime.Now.Date == DateDepart.Date) //Ako izaberemo danasnji datum..pokazati samo letove koji polecu nakon trenutnog vremena
                 {
-                    DateArrival = DateTime.Parse(dateArrival);
+                    DateDepart = DateTime.Now;
                 }
+
 
                 var flights = _context.Flights.Where(x => x.FlyingFrom.ToUpper() == flyingfrom.ToUpper() && x.FlyingTo.ToUpper() == flyingTo.ToUpper() && x.VacantSeats >= numberOfSeat).ToList();
 
@@ -227,6 +226,22 @@ namespace WebProjekat.Controllers
                         Retflights.Add(flight);
                     }
                 }
+
+                DateTime DateReturn;
+                if (dateReturn != "-") //ako je korisnik naveo i datum vracanja
+                {
+                    DateReturn = DateTime.Parse(dateReturn);
+                    flights = _context.Flights.Where(x => x.FlyingFrom.ToUpper() == flyingTo.ToUpper() && x.FlyingTo.ToUpper() == flyingfrom.ToUpper() && x.VacantSeats >= numberOfSeat).ToList();
+
+                    foreach (Flight flight in flights)
+                    {
+                        if (flight.DateDepart >= DateReturn && flight.DateArrival <= DateReturn.AddDays(3)) // period od 3 dana
+                        {
+                            Retflights.Add(flight);
+                        }
+                    }
+                }
+              
             }
 
 
@@ -431,6 +446,28 @@ namespace WebProjekat.Controllers
                 flightMark.mark = mark;
                 flight.Marks.Add(flightMark);
                 user.FlightMarks.Add(flightMark);
+
+                var airline = _context.Airlines.Include(x => x.Flights).Where(x => x.Id == flight.AirlineId).ToList().First();
+                int sum=0;
+                int cnt=0;
+                foreach (var fli in airline.Flights)
+                {
+                    if(fli.Marks != null)
+                    {
+                        foreach (var mark1 in fli.Marks)
+                        {
+                            sum += mark1.mark;
+                            cnt++;
+                        }
+                    }
+                    
+                }
+                if(cnt > 0)
+                {
+                    sum = sum / cnt;
+                    airline.Mark = sum;
+                }
+                _context.Entry(airline).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 var result = await _context.SaveChangesAsync();

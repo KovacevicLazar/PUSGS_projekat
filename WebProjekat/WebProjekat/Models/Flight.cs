@@ -33,7 +33,10 @@ namespace WebProjekat.Models
 
         public ICollection<FlightMark> Marks { get; set; }
 
-  
+
+        public int AirlineId { get; set; }
+
+
 
     }
 }

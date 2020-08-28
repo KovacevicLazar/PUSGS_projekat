@@ -437,6 +437,28 @@ namespace WebProjekat.Controllers
                 user.CarMarks.Add(carMark);
                 var carReservation = _context.CarReservations.Where(x => x.UserId == user.Id && x.CarId == car.Id).ToList().First();
                 carReservation.Mark = mark;
+
+                var carCompany = _context.RentCarCompanies.Include(x => x.Cars).Where(x => x.Id == car.RentCarCompanyId).ToList().First();
+                int sum = 0;
+                int cnt = 0;
+                foreach (var car1 in carCompany.Cars)
+                {
+                    if (car1.Marks != null)
+                    {
+                        foreach (var mark1 in car1.Marks)
+                        {
+                            sum += mark1.mark;
+                            cnt++;
+                        }
+                    }
+
+                }
+                if (cnt > 0)
+                {
+                    sum = sum / cnt;
+                    carCompany.Mark = sum;
+                }
+                _context.Entry(carCompany).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.Entry(carReservation).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.Entry(car).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
