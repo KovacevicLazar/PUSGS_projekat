@@ -5,6 +5,8 @@ import { RentCarService } from 'src/app/services/rent-a-car-service/rent-a-car-s
 import { User } from 'src/app/entities/user/user';
 import { RouterModule,Router }  from '@angular/router';
 import { UserService } from 'src/app/services/user-service/user.service';
+import { FirstLoginDialogComponent } from '../../first-login-dialog/first-login-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -15,8 +17,9 @@ import { UserService } from 'src/app/services/user-service/user.service';
 export class MyRcServisComponent implements OnInit {
 
   myrentcar: RentCar = new RentCar(-1,"","","",1);
+  user: User;
   
-  constructor(private rentcarService: RentCarService  ,private router: Router,private route: ActivatedRoute,private userService : UserService) { 
+  constructor(private rentcarService: RentCarService  ,private router: Router,private route: ActivatedRoute,private userService : UserService,public dialog: MatDialog) { 
 
     this.rentcarService.GetCompanyInfo().subscribe((res:any)=> {
       this.myrentcar.address = res.comp.adress;
@@ -25,6 +28,21 @@ export class MyRcServisComponent implements OnInit {
       this.myrentcar.id = res.comp.id;
 
     })
+
+    let user=this.userService.GetUserProfileInfo().subscribe((res: any) => {
+      this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
+      this.user.IsConfirmed = res.userinfo.isConfirmed;
+
+      if(this.user.IsConfirmed == false)
+      {
+        this.openDialog1().afterClosed().subscribe(result =>
+          {
+            
+          });
+      }
+      
+    });
+   
   }
 
   ngOnInit(): void {
@@ -38,5 +56,11 @@ export class MyRcServisComponent implements OnInit {
     });
   }
 
+  openDialog1(): any{
+    return this.dialog.open(FirstLoginDialogComponent, {
+      disableClose: true,
+     
+    });
+  }
   
 }

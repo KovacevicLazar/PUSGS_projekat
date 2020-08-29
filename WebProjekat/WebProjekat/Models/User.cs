@@ -31,6 +31,8 @@ namespace WebProjekat.Models
 
         public ICollection<CarMark> CarMarks { get; set; }
 
+        public bool isConfirmed { get; set; }
+
 
     }
 }

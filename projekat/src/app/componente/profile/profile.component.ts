@@ -4,6 +4,8 @@ import { User } from 'src/app/entities/user/user';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { NgForm } from '@angular/forms';
 import { IfStmt } from '@angular/compiler';
+import { FirstLoginDialogComponent } from '../first-login-dialog/first-login-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class ProfileComponent implements OnInit {
   newpassword ="";
   checkBox =false;
   
-  constructor(private userService: UserService, private route: ActivatedRoute) {
+  constructor(private userService: UserService, private route: ActivatedRoute,public dialog: MatDialog) {
    
     let user=this.userService.GetUserProfileInfo().subscribe((res: any) => {
       this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
@@ -34,6 +36,16 @@ export class ProfileComponent implements OnInit {
       this.surname=this.user.surname;
       this.phoneNumber=this.user.phone;
       this.address=this.user.address;
+
+      this.user.IsConfirmed = res.userinfo.isConfirmed;
+
+      if(this.user.IsConfirmed == false)
+      {
+        this.openDialog1().afterClosed().subscribe(result =>
+          {
+            
+          });
+      }
     });
    }
 
@@ -67,6 +79,13 @@ export class ProfileComponent implements OnInit {
         alert(res.message);
       });
     }
+  }
+
+  openDialog1(): any{
+    return this.dialog.open(FirstLoginDialogComponent, {
+      disableClose: true,
+     
+    });
   }
   
 }

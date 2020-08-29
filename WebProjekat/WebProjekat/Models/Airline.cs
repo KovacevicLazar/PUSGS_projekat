@@ -17,5 +17,7 @@ namespace WebProjekat.Models
         public int Mark { get; set; }
 
         public ICollection<Flight> Flights { get; set; }
+
+        
     }
 }

@@ -7,6 +7,8 @@ import { RouterModule, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { Car } from 'src/app/entities/car/car';
 import { element } from 'protractor';
+import { MatDialog } from '@angular/material/dialog';
+import { FirstLoginDialogComponent } from '../../first-login-dialog/first-login-dialog.component';
 
 
 
@@ -28,8 +30,22 @@ export class MyCarListComponent implements OnInit {
   check2: boolean;
 
 
-  constructor(private rentcarService: RentCarService, private router: Router, private route: ActivatedRoute, private userService: UserService) {
+  constructor(private rentcarService: RentCarService, private router: Router, private route: ActivatedRoute, private userService: UserService,public dialog: MatDialog) {
     this.AllCarsFun();
+    let user=this.userService.GetUserProfileInfo().subscribe((res: any) => {
+      this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
+      this.user.IsConfirmed = res.userinfo.isConfirmed;
+
+      if(this.user.IsConfirmed == false)
+      {
+        this.openDialog1().afterClosed().subscribe(result =>
+          {
+            
+          });
+      }
+      
+    });
+   
   }
 
   AllCarsFun() {
@@ -49,6 +65,14 @@ export class MyCarListComponent implements OnInit {
     this.rentcarService.DeleteCarFromList(car.id).subscribe((res: any) => {
       this.AllCarsFun();
     });
+  }
+
+  openDialog1(): any{
+    return this.dialog.open(FirstLoginDialogComponent, {
+      disableClose: true,
+     
+    });
+  
   }
 
 }

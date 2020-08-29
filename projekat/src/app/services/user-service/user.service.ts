@@ -172,4 +172,20 @@ export class UserService{
     {
         return this.http.get(this.BaseURI + '/User/GetCarReservations');
     }
+
+    SaveFirstLoginChanges(userId: string,currentPassword: string,newPassword: string, confirmPassword: string)
+    {
+        var body = {
+              
+            userId : userId,
+            password : currentPassword,
+            newPassword: newPassword,
+            confirmPassword: confirmPassword
+
+        }
+
+        return this.http.post(this.BaseURI + '/User/SaveFirstLoginChanges',body);
+    }
+  
+
 }

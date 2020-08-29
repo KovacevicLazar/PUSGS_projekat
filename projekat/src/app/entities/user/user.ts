@@ -25,6 +25,7 @@ export class User{
 
     RequestsflightReservation =  new Array<ReservedFlight>(); //Zahtevi od prijatelja
     RequestscarReservation = new Array<ReservedCar>(); //Zahtevi od prijatelja
+    IsConfirmed: boolean;
     
     
    

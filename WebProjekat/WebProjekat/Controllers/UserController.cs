@@ -145,6 +145,7 @@ namespace WebProjekat.Controllers
             userinfo.Name = user.Name;
             userinfo.Email = user.Email;
             userinfo.Address = user.Address;
+            userinfo.isConfirmed = user.isConfirmed;
             return Ok(new { userinfo });
         }
 
@@ -757,6 +758,42 @@ namespace WebProjekat.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("SaveFirstLoginChanges")]
+        // POST: api/<controller>/Login
+        public async Task<IActionResult> SaveFirstLoginChanges(UserSignUp model)
+        {
+            var user = _context.Users.Where(x => x.Id == model.UserId).ToList().First();
+            
+
+            if (model.NewPassword.Length >= 6)
+            {
+                if (await _userManager.CheckPasswordAsync(user, model.Password))
+                {
+                    if (model.NewPassword == model.ConfirmPassword)
+                    {
+                        var result = await _userManager.ChangePasswordAsync(user, model.Password, model.NewPassword);
+                        user.isConfirmed = true;
+                        _context.Entry((User)user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                        await _context.SaveChangesAsync();
+                   
+                        return Ok(new { message = "Successfully changed." });
+                    }
+                    else
+                    {
+                        return BadRequest(new { message = "Passwords are mismatched." });
+                    }
+                }
+                else
+                {
+                    return BadRequest(new { message = "Password is incorrect." });
+                }
+            }
+
+            return BadRequest(new { message = "Password is too short, needs at least 6 characters!" });
+
         }
     }
 }

@@ -54,6 +54,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { RentCarService } from './services/rent-a-car-service/rent-a-car-service';
 import { AirlineService } from './services/airline-service/airline.service';
 import { RatingModule } from 'ng-starrating';
+import { FirstLoginDialogComponent } from './componente/first-login-dialog/first-login-dialog.component';
 
 
 // let config = new  SocialAuthServiceConfig([
@@ -102,7 +103,8 @@ import { RatingModule } from 'ng-starrating';
     AdminAddCarComponent,
     AdminAddFlightComponent,
     ChangeFlightComponent,
-    ReservationCarDialogComponent
+    ReservationCarDialogComponent,
+    FirstLoginDialogComponent
     
   ],
   imports: [

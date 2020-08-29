@@ -6,6 +6,7 @@ import { User } from 'src/app/entities/user/user';
 import { Flight } from 'src/app/entities/flight/flight';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeFlightComponent } from '../change-flight/change-flight.component';
+import { FirstLoginDialogComponent } from '../first-login-dialog/first-login-dialog.component';
 
 @Component({
   selector: 'app-my-flight-list',
@@ -21,6 +22,21 @@ export class MyFlightListComponent implements OnInit {
   constructor(private airlineService: AirlineService ,private router: Router,private route: ActivatedRoute,private userService : UserService,public dialog: MatDialog) { 
 
     this.AllFlightsFun();
+    let user=this.userService.GetUserProfileInfo().subscribe((res: any) => {
+      this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
+      this.user.IsConfirmed = res.userinfo.isConfirmed;
+
+      if(this.user.IsConfirmed == false)
+      {
+        this.openDialog1().afterClosed().subscribe(result =>
+          {
+            
+          });
+      }
+      
+    });
+   
+   
     
   }
 
@@ -85,6 +101,13 @@ export class MyFlightListComponent implements OnInit {
       data:{
          flight : flight1,
         }
+    });
+  }
+
+  openDialog1(): any{
+    return this.dialog.open(FirstLoginDialogComponent, {
+      disableClose: true,
+     
     });
   }
 

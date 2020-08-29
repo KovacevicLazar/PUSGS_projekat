@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProjekat.Baza;
 
 namespace WebProjekat.Migrations
 {
     [DbContext(typeof(BazaContext))]
-    partial class BazaContextModelSnapshot : ModelSnapshot
+    [Migration("20200829163548_promenaLozinkeAdmin")]
+    partial class promenaLozinkeAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,6 +34,8 @@ namespace WebProjekat.Migrations
                     b.Property<string>("Description");
 
                     b.Property<int>("Mark");
+
+                    b.Property<bool>("isConfirmed");
 
                     b.HasKey("Id");
 
@@ -218,6 +222,8 @@ namespace WebProjekat.Migrations
 
                     b.Property<int>("Mark");
 
+                    b.Property<bool>("isConfirmed");
+
                     b.HasKey("Id");
 
                     b.ToTable("RentCarCompanies");
@@ -315,8 +321,6 @@ namespace WebProjekat.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName");
-
-                    b.Property<bool>("isConfirmed");
 
                     b.HasKey("Id");
 

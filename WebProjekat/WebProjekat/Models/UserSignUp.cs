@@ -7,6 +7,8 @@ namespace WebProjekat.Models
 {
     public class UserSignUp
     {
+
+        public string UserId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Address { get; set; }
@@ -19,5 +21,7 @@ namespace WebProjekat.Models
 
         public string NewPassword { get; set; }
         public string ConfirmPassword { get; set; }
+
+        public bool isConfirmed { get; set; }
     }
 }
