@@ -34,6 +34,9 @@ export class ReservedSeatDialogComponent implements OnInit {
       userData.push(this.UserID);
       this.dialogRef.close(userData)
     }
+    else if(this.passportNumber =="" || isNaN(Number(this.passportNumber))){
+      alert("Unesite broj pasosa");
+    }
     else{
       this.cancel();
     }
@@ -46,16 +49,15 @@ export class ReservedSeatDialogComponent implements OnInit {
   inviteFriend(friend: User){
     this.name=friend.name;
     this.surname=friend.surname;
-    this.passportNumber="231";//treba dodati u klasu user i ovo polje
+  
     //Potrebno prijatelju je poslati poruku sa zahtevom ovde
     this.UserID= friend.id;
-    this.save();
+   
   }
   myData(){
     this.name=this.user.name;
     this.surname=this.user.surname;
-    this.passportNumber="1212";//treba dodati u klasu user i ovo polje
-    this.save();
+   
   }
 
 }

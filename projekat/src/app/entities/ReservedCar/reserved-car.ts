@@ -11,6 +11,7 @@ export class ReservedCar {
     id: number;
 
     isOver : boolean;
+    CancellingIsOver : boolean;
     discount: number;
     mark = 0;
 

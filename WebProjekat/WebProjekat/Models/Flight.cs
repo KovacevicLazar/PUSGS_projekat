@@ -28,7 +28,7 @@ namespace WebProjekat.Models
         public string ThirdStop { get; set; }
 
         public bool IsOver { get; set; }
-
+        public bool CancellingIsOver { get; set; }
         public ICollection<ReservedSeat> ReservedSeats { get; set; }
 
         public ICollection<FlightMark> Marks { get; set; }

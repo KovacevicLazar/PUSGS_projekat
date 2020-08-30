@@ -39,6 +39,7 @@ export class HistoryOfReservationComponent implements OnInit {
       for (let i = 0; i < res.reservations.length; i++) {
            var flight = new Flight(res.reservations[i].flight.id,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, new Date(res.reservations[i].flight.dateDepart),new Date(res.reservations[i].flight.dateArrival), res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
            flight.isOver=res.reservations[i].flight.isOver; 
+           flight.CancellingIsOver=res.reservations[i].flight.cancellingIsOver; 
            var numOFSeats = res.reservations[i].numberOfSeats
            var resFlight = new ReservedFlight(flight, numOFSeats);
            resFlight.mark = res.reservations[i].mark;
@@ -53,6 +54,7 @@ export class HistoryOfReservationComponent implements OnInit {
       for (let i = 0; i < res.reservations.length; i++) {
         var flight = new Flight(res.reservations[i].flight.id,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, new Date(res.reservations[i].flight.dateDepart),new Date(res.reservations[i].flight.dateArrival), res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
         flight.isOver = res.reservations[i].flight.isOver; 
+        flight.CancellingIsOver=res.reservations[i].flight.cancellingIsOver; 
         var numOFSeats = res.reservations[i].numberOfSeats
         var resFlight = new ReservedFlight(flight, numOFSeats);
         resFlight.mark = res.reservations[i].mark;
@@ -73,6 +75,7 @@ export class HistoryOfReservationComponent implements OnInit {
         reservation.id = res.reservations[i].id;
 
         reservation.isOver =  res.reservations[i].isOver;
+        reservation.CancellingIsOver =  res.reservations[i].cancellingIsOver;
         reservation.mark = res.reservations[i].mark;
 
 

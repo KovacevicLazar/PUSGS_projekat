@@ -561,9 +561,17 @@ namespace WebProjekat.Controllers
 
             foreach (var res in reservations)
             {
-                if ((res.PickupDate - DateTime.Now).TotalHours < 48 && res.IsOver==false)
+                if ((res.ReturnDate - DateTime.Now).TotalHours < 0 && res.IsOver==false)
                 {
                     res.IsOver = true;
+                    res.CancellingIsOver = true;
+                    _context.Entry(res).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    var result = await _context.SaveChangesAsync();
+                }
+                else if((res.PickupDate - DateTime.Now).TotalHours < 48 && res.CancellingIsOver == false)
+                {
+           
+                    res.CancellingIsOver = true;
                     _context.Entry(res).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     var result = await _context.SaveChangesAsync();
                 }
@@ -611,9 +619,16 @@ namespace WebProjekat.Controllers
                 {
                     Fr.Mark = 0;
                 }
-                if ((Fr.flight.DateDepart - DateTime.Now).TotalHours < 3 && Fr.flight.IsOver == false)
+                if ((Fr.flight.DateArrival - DateTime.Now).TotalHours < 0 && Fr.flight.IsOver == false)
                 {
                     Fr.flight.IsOver = true;
+                    Fr.flight.CancellingIsOver = true;
+                    _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    var result = await _context.SaveChangesAsync();
+                }
+                else if((Fr.flight.DateDepart - DateTime.Now).TotalHours < 3 && Fr.flight.CancellingIsOver == false)
+                {
+                    Fr.flight.CancellingIsOver = true;
                     _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     var result = await _context.SaveChangesAsync();
                 }
@@ -663,9 +678,31 @@ namespace WebProjekat.Controllers
                 {
                     Fr.Mark = 0;
                 }
-                if ((Fr.flight.DateDepart - DateTime.Now).TotalHours < 3 && Fr.flight.IsOver == false )
+                if ((Fr.flight.DateDepart - DateTime.Now).TotalHours < 3 && Fr.status==StatusFriendRequest.OnWait) //ako nije prihvacen a ostalo manje od 3,automatski se brise
+                {
+                    seatReservationRequests = _context.SeatReservationRequests.Include(x => x.ReservedSeat).Where(x => x.UserId == userId && x.ReservedSeat.FlightId == Fr.flight.Id).ToList();
+                    foreach (var seatReservationRequest in seatReservationRequests)
+                    {
+                        var reservedSeat = seatReservationRequest.ReservedSeat;
+                        Fr.flight.VacantSeats++;
+                        Fr.flight.BusySeats--;
+                        _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                        _context.Entry(seatReservationRequest).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                        _context.Entry(reservedSeat).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                        var result = await _context.SaveChangesAsync();
+                    }
+                    continue;
+                }
+                else if ((Fr.flight.DateArrival - DateTime.Now).TotalHours < 0 && Fr.flight.IsOver == false)
                 {
                     Fr.flight.IsOver = true;
+                    Fr.flight.CancellingIsOver = true;
+                    _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    var result = await _context.SaveChangesAsync();
+                }
+                else if ((Fr.flight.DateDepart - DateTime.Now).TotalHours < 3 && Fr.flight.CancellingIsOver == false)
+                {
+                    Fr.flight.CancellingIsOver = true;
                     _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     var result = await _context.SaveChangesAsync();
                 }

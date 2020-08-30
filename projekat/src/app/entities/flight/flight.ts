@@ -16,6 +16,7 @@ export class Flight {
     ticketPrice: number;
     reservedSeats= new Array<Seat>() ;//['A2', 'A3', 'F5', 'F1', 'F2','F6', 'F7', 'F8'];
     isOver : boolean;
+    CancellingIsOver : boolean;
 
     mark = 0;  
 
