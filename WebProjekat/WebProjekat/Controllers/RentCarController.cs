@@ -470,5 +470,62 @@ namespace WebProjekat.Controllers
             return BadRequest();
         }
 
+        [HttpPost]
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("MakeFastReservation")]
+
+        public async Task<Object> MakeFastReservation(FastReservationCarModel model)
+        {
+            var car = _context.Cars.Include(x => x.CarReservations).Where(x => x.Id == model.Id).ToList().First();
+            var reservation = new CarReservation();
+            reservation.IsFastRes = true;
+            reservation.Location = car.Location;
+            reservation.Model = car.Model;
+            reservation.Brand = car.Brand;
+            reservation.Discount = model.Discount;
+            reservation.CarId = car.Id;
+            reservation.PickupDate = model.FirstDate;
+            reservation.ReturnDate = model.SecondDate;
+            var days = (model.SecondDate - model.FirstDate).Days;
+            reservation.TotalPrice = car.PricePerDay * days;
+            car.CarReservations.Add(reservation);
+
+            _context.Entry(car).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            var result = await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("GetFastReservation")]
+        public async Task<Object> GetFastReservation()
+        {
+            var result = _context.CarReservations.Where(x => x.IsFastRes == true && x.UserId == null).ToList();
+            return Ok(new { result });
+        }
+
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("ReserveFastReservation/{id}")]
+        public async Task<Object> ReserveFastReservation(int Id)
+        {
+            var reservation = _context.CarReservations.Find(Id);
+            string userId = User.Claims.ElementAt(0).Value;
+            var user = _context.Users.Include(x => x.CarReservations).Where(x => x.Id == userId).ToList().First();
+            reservation.TotalPrice = reservation.TotalPrice - (reservation.Discount * reservation.TotalPrice) / 100;
+
+            _context.Entry(reservation).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            user.CarReservations.Add(reservation);
+            _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+            var result = await _context.SaveChangesAsync();
+
+
+            return Ok();
+        }
+
     }
 }

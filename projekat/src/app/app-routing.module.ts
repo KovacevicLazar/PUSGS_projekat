@@ -35,6 +35,8 @@ import { CarAdminGuardGuard } from './guards/car-admin--guard.guard';
 import { AirlineAdminGuardGuard } from './guards/airline-admin--guard.guard';
 import { UnregistredGuardGuard } from './guards/unregistred-guard.guard';
 import { ProfileComponentGuard } from './guards/profile-component.guard';
+import { FastCarReservationsComponent } from './componente/fast-car-reservations/fast-car-reservations.component';
+import { FastCarResListComponent } from './componente/fast-car-res-list/fast-car-res-list.component';
 
 
 
@@ -82,6 +84,7 @@ const routes: Routes = [
   //Rute kojima sme pristupiti samo registrovani obican korisnik
   { path: "friends", component: FriendsComponent, canActivate: [RegistredGuardGuard] },
   { path: "history-of-reservation", component: HistoryOfReservationComponent, canActivate: [RegistredGuardGuard]},
+  { path: "fast-car-res", component: FastCarResListComponent, canActivate: [RegistredGuardGuard] },
 
   
   //Ovim rutama moze pristupiti samo Airlineadmin
@@ -113,7 +116,7 @@ const routes: Routes = [
   { path: "all-airline",component: ListOfAirlinesComponent, canActivate: [SuperAdminGuardGuard]},
   { path: "add-airline",component: AddAirlineComponent, canActivate: [SuperAdminGuardGuard]},
   { path: "add-rcServis",component: AddRcServisComponent, canActivate: [SuperAdminGuardGuard]},
-
+  { path : "fast-car-reservation/:id",component : FastCarReservationsComponent,canActivate: [CarAdminGuardGuard]},
   //Profilu pristupaju svi registrovani korisnici
   { path: "profile", component: ProfileComponent , canActivate: [ProfileComponentGuard] }, 
 

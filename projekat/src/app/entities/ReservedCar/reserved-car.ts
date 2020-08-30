@@ -11,6 +11,7 @@ export class ReservedCar {
     id: number;
 
     isOver : boolean;
+    discount: number;
     mark = 0;
 
     constructor(car: Car, numberOfDays : number,checkedInDate: Date,checkedOutDate: Date){

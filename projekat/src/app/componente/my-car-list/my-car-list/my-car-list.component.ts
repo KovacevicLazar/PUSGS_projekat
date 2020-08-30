@@ -88,6 +88,11 @@ export class MyCarListComponent implements OnInit {
   
   }
 
+  AddFastReservation(car: Car)
+  {
+    this.router.navigate(["fast-car-reservation/" + car.id]);
+  }
+
 }
 
 

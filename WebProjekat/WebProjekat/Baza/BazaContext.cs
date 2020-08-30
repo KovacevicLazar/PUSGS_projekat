@@ -30,6 +30,12 @@ namespace WebProjekat.Baza
 
         public DbSet<CarMark> CarMarks { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelbuilder)
+        {
+            base.OnModelCreating(modelbuilder);
+            modelbuilder.Entity<CarReservation>().Property(b => b.Discount).HasDefaultValue(0);
+        }
+
 
     }
 }

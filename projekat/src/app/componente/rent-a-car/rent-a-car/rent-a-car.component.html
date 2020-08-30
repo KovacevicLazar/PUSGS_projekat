@@ -57,15 +57,10 @@
 								<div class="col-md-4">
 									<div class="form-group">
 										<span class="form-label">Check In</span>
-										<input class="form-control" type="date" required>
+										<input class="form-control" type="date" [(ngModel)] = "pickUpDate" required>
 									</div>
 								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<span class="form-label">Check out</span>
-										<input class="form-control" type="date" required>
-									</div>
-								</div>
+								
 								<div class="col-md-4">
 									<div class="form-btn">
 										<button class="submit-btn" (click)="CheckCars()">Check available cars</button>

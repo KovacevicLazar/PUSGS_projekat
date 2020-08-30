@@ -31,5 +31,9 @@ namespace WebProjekat.Models
 
         public bool IsOver { get; set; }
 
+        public bool IsFastRes { get; set; }
+
+        public int Discount { get; set; }
+
     }
 }

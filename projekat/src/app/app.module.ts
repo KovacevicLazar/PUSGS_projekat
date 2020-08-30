@@ -55,6 +55,8 @@ import { RentCarService } from './services/rent-a-car-service/rent-a-car-service
 import { AirlineService } from './services/airline-service/airline.service';
 import { RatingModule } from 'ng-starrating';
 import { FirstLoginDialogComponent } from './componente/first-login-dialog/first-login-dialog.component';
+import { FastCarReservationsComponent } from './componente/fast-car-reservations/fast-car-reservations.component';
+import { FastCarResListComponent } from './componente/fast-car-res-list/fast-car-res-list.component';
 
 
 // let config = new  SocialAuthServiceConfig([
@@ -104,7 +106,9 @@ import { FirstLoginDialogComponent } from './componente/first-login-dialog/first
     AdminAddFlightComponent,
     ChangeFlightComponent,
     ReservationCarDialogComponent,
-    FirstLoginDialogComponent
+    FirstLoginDialogComponent,
+    FastCarReservationsComponent,
+    FastCarResListComponent
     
   ],
   imports: [

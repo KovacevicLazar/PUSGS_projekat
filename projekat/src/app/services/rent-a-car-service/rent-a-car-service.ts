@@ -138,6 +138,32 @@ export class RentCarService{
         }
         return this.http.post(this.BaseURI + '/RentCar/RateCar',body);
     }
+
+    MakeFastReservation(id: number, firstDate: Date,secondDate: Date,discount: number)
+    {
+        let body=
+        {
+            Id : id,
+            FirstDate : firstDate,
+            SecondDate: secondDate,
+            Dicount: discount
+
+        }
+        return this.http.post(this.BaseURI + '/RentCar/MakeFastReservation', body);
+    }
+
+    GetFastReservation()
+    {
+
+        return this.http.get(this.BaseURI + '/RentCar/GetFastReservation');
+    }
+
+    
+    ReserveFastReservation(id: number)
+    {
+
+        return this.http.get(this.BaseURI + '/RentCar/ReserveFastReservation/' + id);
+    }
    
 
 }

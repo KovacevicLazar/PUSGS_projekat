@@ -8,7 +8,7 @@
   <a style="float: left;"  [hidden]="userRole== 'SystemAdmin' || userRole == 'AirlineAdmin' || userRole== 'CarAdmin' || userRole == 'NonRegistred'" routerLink ="/friends">FRIENDS</a>
   <a style="float: left;"  [hidden]="userRole == 'NonRegistred'" routerLink ="/profile">PROFILE</a>
   <a style="float: left;"  [hidden]="userRole == 'SystemAdmin' || userRole == 'CarAdmin' || userRole == 'AirlineAdmin' || userRole == 'NonRegistred'" routerLink ="/history-of-reservation">RESERVATIONS</a>
-
+  <a style="float: left;"  [hidden]="userRole == 'SystemAdmin' || userRole == 'CarAdmin' || userRole == 'AirlineAdmin' || userRole == 'NonRegistred'" routerLink ="/fast-car-res">FAST CAR RESERVATIONS</a>
 
   <a style="float: right;" [hidden]="userRole == 'NonRegistred'" (click) = "Logout()" routerLink="">LOGOUT </a>
   <a style="float: right;" [hidden]="userRole == 'SystemAdmin' || userRole == 'CarAdmin' || userRole == 'AirlineAdmin' || userRole == 'Registred'" routerLink ="/sign-in">SING IN</a>
