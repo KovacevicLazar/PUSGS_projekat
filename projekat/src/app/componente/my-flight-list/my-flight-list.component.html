@@ -13,6 +13,7 @@
                 <th class="th-info">Price:</th>
                 <th></th>
                 <th></th>
+                <th></th>
         
             </tr>
         </thead>
@@ -24,6 +25,11 @@
                 <td class="td-info"> h:m:s <br> {{flight.flightDuration | date: "H:m:s" }} </td>
                 <td class="td-info">
                     <span class="price-text">{{flight.ticketPrice}}€</span> <br/>
+                </td>
+                <td>
+                    <div class="profile-stars">
+                        <star-rating value={{flight.mark}} totalstars={{totalstar}} checkedcolor="gold" uncheckedcolor="gray" size="30px" readonly="true"></star-rating>
+                    </div>
                 </td>
                 <td >
                     <button class="buttonModify" type="button"  (click) ="Modify(flight,Flights)">Modify</button>

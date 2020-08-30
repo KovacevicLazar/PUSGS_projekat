@@ -16,11 +16,12 @@ export class MyAirlineServisComponent implements OnInit {
 
   airline: Airline;
   user: User;
+  totalstar= 5;
 
   constructor(private airlineService: AirlineService ,private router: Router,private route: ActivatedRoute,private userService : UserService,public dialog: MatDialog) { 
 
     this.airlineService.GetCompanyInfo().subscribe((res:any)=> {
-      this.airline= new Airline(res.comp.id,res.comp.companyName,res.comp.adress,res.comp.description,1,"");
+      this.airline= new Airline(res.comp.id,res.comp.companyName,res.comp.adress,res.comp.description,res.comp.mark,"");
     })
 
     let user=this.userService.GetUserProfileInfo().subscribe((res: any) => {

@@ -7,6 +7,7 @@ import { Flight } from 'src/app/entities/flight/flight';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeFlightComponent } from '../change-flight/change-flight.component';
 import { FirstLoginDialogComponent } from '../first-login-dialog/first-login-dialog.component';
+import { validateVerticalPosition } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-my-flight-list',
@@ -18,6 +19,7 @@ export class MyFlightListComponent implements OnInit {
   id: number;
   user: User;
   Flights = new Array<Flight>();
+  totalstar=5;
 
   constructor(private airlineService: AirlineService ,private router: Router,private route: ActivatedRoute,private userService : UserService,public dialog: MatDialog) { 
 
@@ -61,10 +63,17 @@ export class MyFlightListComponent implements OnInit {
         if(res.listflight[i].thirdStop!=""){
           transitList.push(res.listflight[i].thirdStop);
         }
-
-
          let flight= new Flight(res.listflight[i].id, res.listflight[i].flyingFrom, res.listflight[i].flyingTo, new Date(res.listflight[i].dateDepart),new Date(res.listflight[i].dateArrival), res.listflight[i].flightDistance, transitList, res.listflight[i].ticketPrice, res.listflight[i].vacantSeats, res.listflight[i].busySeats);
-      
+         var sum=0;
+         var cnt=0;
+         for (let j = 0; j < res.listflight[i].marks.length; j++) {
+            sum += res.listflight[i].marks[j].mark;
+            cnt++;
+         }
+         if(cnt > 0){
+           flight.mark=sum/cnt;
+         }
+
          this.Flights.push(flight);
       }
     });

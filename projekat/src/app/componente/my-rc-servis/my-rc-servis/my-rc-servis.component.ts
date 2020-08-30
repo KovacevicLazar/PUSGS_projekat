@@ -18,6 +18,7 @@ export class MyRcServisComponent implements OnInit {
 
   myrentcar: RentCar = new RentCar(-1,"","","",1);
   user: User;
+  totalstar=5;
   
   constructor(private rentcarService: RentCarService  ,private router: Router,private route: ActivatedRoute,private userService : UserService,public dialog: MatDialog) { 
 
@@ -26,6 +27,7 @@ export class MyRcServisComponent implements OnInit {
       this.myrentcar.name = res.comp.companyName;
       this.myrentcar.description = res.comp.description;
       this.myrentcar.id = res.comp.id;
+      this.myrentcar.mark=res.comp.mark
 
     })
 

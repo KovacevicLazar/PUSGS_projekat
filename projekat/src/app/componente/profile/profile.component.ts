@@ -6,6 +6,8 @@ import { NgForm } from '@angular/forms';
 import { IfStmt } from '@angular/compiler';
 import { FirstLoginDialogComponent } from '../first-login-dialog/first-login-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import * as jwt_decode from "jwt-decode";
+
 
 
 @Component({
@@ -38,8 +40,8 @@ export class ProfileComponent implements OnInit {
       this.address=this.user.address;
 
       this.user.IsConfirmed = res.userinfo.isConfirmed;
-
-      if(this.user.IsConfirmed == false)
+      var decoded=jwt_decode(localStorage.getItem("token"));
+      if(this.user.IsConfirmed == false && decoded.Roles != "Registred")
       {
         this.openDialog1().afterClosed().subscribe(result =>
           {

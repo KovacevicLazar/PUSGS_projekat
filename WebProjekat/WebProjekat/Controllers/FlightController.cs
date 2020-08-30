@@ -45,7 +45,7 @@ namespace WebProjekat.Controllers
         {
             string userID = User.Claims.ElementAt(0).Value;
             var user = _context.Users.Include(x => x.AirlineComnpany).Where(x => x.Id == userID).ToList().First();
-            var company = _context.Airlines.Include(x => x.Flights).Where(x => x.Id == user.AirlineComnpany.Id).ToList().First();
+            var company = _context.Airlines.Include(x => x.Flights).ThenInclude(fli => fli.Marks).Where(x => x.Id == user.AirlineComnpany.Id).ToList().First();
             var listflight = company.Flights.ToList();
 
             return Ok(new { listflight });

@@ -17,6 +17,8 @@ export class Flight {
     reservedSeats= new Array<Seat>() ;//['A2', 'A3', 'F5', 'F1', 'F2','F6', 'F7', 'F8'];
     isOver : boolean;
 
+    mark = 0;  
+
 
     constructor(id: number, flyingfrom : string,flyingTo: string,dateDepart: Date,dateArrival: Date,flightDistance:number,Transitlocations: Array<string>,ticketPrice: number,  vacantSeats: number, busySeats: number){
        

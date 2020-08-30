@@ -28,6 +28,7 @@ export class MyCarListComponent implements OnInit {
   allcars: Array<Car> = new Array<Car>();
   check1: boolean;
   check2: boolean;
+  totalstar=5;
 
 
   constructor(private rentcarService: RentCarService, private router: Router, private route: ActivatedRoute, private userService: UserService,public dialog: MatDialog) {
@@ -53,6 +54,18 @@ export class MyCarListComponent implements OnInit {
     this.rentcarService.GetCarForCompany().subscribe((res: any) => {
       for (let i = 0; i < res.listcar.length; i++) {
         var temp = new Car(res.listcar[i].id, res.listcar[i].location, res.listcar[i].brand, res.listcar[i].model, res.listcar[i].year, res.listcar[i].pricePerDay, true, res.listcar[i].babySeats, res.listcar[i].numberOfSeats)
+       
+        var sum=0;
+        var cnt=0;
+        for (let j = 0; j < res.listcar[i].marks.length; j++) {
+           sum += res.listcar[i].marks[j].mark;
+           cnt++;
+        }
+        if(cnt > 0){
+          temp.mark=sum/cnt;
+        }
+
+       
         this.allcars.push(temp);
       }
     });

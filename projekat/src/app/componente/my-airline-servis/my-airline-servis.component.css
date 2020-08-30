@@ -11,9 +11,15 @@
 	width: 60%;
 	height: 40%;
 	margin-left: 25%;
-	margin-top: 8%;
+	margin-top: 0%;
 }
 
+.profile-stars{
+  width: 60%;
+  height: 30%;
+	margin-left: 41%;
+	margin-top: 4%;
+}
 .th-info{
 	font-size:40px;
 	font-weight: bold;

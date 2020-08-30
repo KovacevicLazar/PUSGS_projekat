@@ -96,7 +96,7 @@ namespace WebProjekat.Controllers
             string userID = User.Claims.ElementAt(0).Value;
 
             var user = _context.Users.Include(x => x.CarCompany).Where(x => x.Id == userID).ToList().First();
-            var company = _context.RentCarCompanies.Include(x => x.Cars).Where(x => x.Id == user.CarCompany.Id).ToList().First();
+            var company = _context.RentCarCompanies.Include(x => x.Cars).ThenInclude(car => car.Marks).Where(x => x.Id == user.CarCompany.Id).ToList().First();
             var listcar = company.Cars.ToList();
 
             return Ok(new { listcar });

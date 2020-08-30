@@ -13,7 +13,14 @@
 
     <div class="row">
       <div class="col-md-6">
-        <img src="../../../../assets/images/avioCompany.png" alt="Avatar" class="avatar">
+        <div class="row">
+          <div class="profile-stars">
+            <star-rating value={{airline.mark}} totalstars={{totalstar}} checkedcolor="gold" uncheckedcolor="gray" size="45px" readonly="true"></star-rating>
+          </div>
+        </div>
+        <div class="row">
+           <img src="../../../../assets/images/avioCompany.png" alt="Avatar" class="avatar">
+        </div>
       </div>
 
       <div class="col-md-6" style="margin-top: 4%;">

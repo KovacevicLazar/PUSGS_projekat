@@ -7,6 +7,7 @@ export class Car{
     year: number;
     pricePerDay:number;
     numberOfSeats: number;
+    mark=0;
     
     
     babySeats: number;
