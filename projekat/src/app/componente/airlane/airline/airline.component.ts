@@ -16,7 +16,7 @@ export class AirlineComponent implements OnInit {
   
   
   Flights = new Array<Flight>();
-  
+  test: boolean = false;
   SearchButtonClicket : number;
   flyingfrom ="";
   flyingTo="";
@@ -100,6 +100,7 @@ export class AirlineComponent implements OnInit {
 
           let flight= new Flight(res.retflights[i].id, res.retflights[i].flyingFrom, res.retflights[i].flyingTo, new Date(res.retflights[i].dateDepart),new Date(res.retflights[i].dateArrival), res.retflights[i].flightDistance, transitList, res.retflights[i].ticketPrice, res.retflights[i].vacantSeats, res.retflights[i].busySeats);
           this.Flights.push(flight);
+          this.test = true;
         }
       });
     }

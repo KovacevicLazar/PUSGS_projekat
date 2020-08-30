@@ -31,7 +31,7 @@ export class FlyghtsTableComponent implements OnInit {
     var output1 = document.getElementById("price");
     this.filteredFlights.length = 0;
     this.Flights.forEach(element => {
-      if(element.pricePerDay < parseInt(output1.innerText))
+      if(element.ticketPrice < parseInt(output1.innerText))
       {
         this.filteredFlights.push(element);
       }
