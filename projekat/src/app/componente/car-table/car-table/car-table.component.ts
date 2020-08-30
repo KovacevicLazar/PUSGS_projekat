@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Car } from 'src/app/entities/car/car';
 import { ReservationCarDialogComponent } from '../../reservation-car-dialog/reservation-car-dialog.component';
 import { ReservedCar } from 'src/app/entities/ReservedCar/reserved-car';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-car-table',
@@ -13,10 +14,16 @@ import { ReservedCar } from 'src/app/entities/ReservedCar/reserved-car';
 export class CarTableComponent implements OnInit {
 
   @Input() Cars;
+  filteredCars :Array<Car> = new Array<Car>();
+  price: number = 500;
 
   constructor(public dialog: MatDialog,private carservice: RentCarService) { }
 
   ngOnInit(): void {
+    this.Cars.forEach(element => {
+      this.filteredCars.push(element);
+      
+    });
   }
 
   Reserve(car)
@@ -46,6 +53,25 @@ export class CarTableComponent implements OnInit {
          car : car1,
         }
     });
+  }
+
+  filterPrice()
+  {
+    var output1 = document.getElementById("price");
+    this.filteredCars.length = 0;
+    this.Cars.forEach(element => {
+      if(element.pricePerDay < parseInt(output1.innerText))
+      {
+        this.filteredCars.push(element);
+      }
+    });
+  }
+
+  ChangeText(value : number)
+  {
+
+    var output = document.getElementById("price");
+    output.innerText = value.toString();
   }
 
 }

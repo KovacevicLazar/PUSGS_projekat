@@ -22,6 +22,7 @@ export class RentACarComponent implements OnInit {
   public pickUpLocation ="";
   seats: number = 0;
   Babyseats: number =0;
+  test: boolean = false;
   
   ClickedToCheck: number;
   
@@ -39,6 +40,7 @@ export class RentACarComponent implements OnInit {
             let car = new Car(res.cars[i].id,res.cars[i].location,res.cars[i].brand,res.cars[i].model,res.cars[i].year,res.cars[i].pricePerDay,true,res.cars[i].babySeats,res.cars[i].numberOfSeats)
           this.Cars.push(car);
         }
+        this.test = true;
       });
   }
 }

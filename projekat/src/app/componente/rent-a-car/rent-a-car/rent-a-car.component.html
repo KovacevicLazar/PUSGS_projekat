@@ -75,7 +75,7 @@
 						</div>
 					</div>
 					
-					<div   [hidden]="Cars.length == 0 || ClickedToCheck == 0">
+					<div  *ngIf = "test == true" >
 						<app-car-table [Cars] ="Cars"></app-car-table>
 					</div>
 					<div [hidden]="Cars.length !== 0 || ClickedToCheck == 0">
