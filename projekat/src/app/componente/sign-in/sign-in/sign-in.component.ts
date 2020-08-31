@@ -45,7 +45,13 @@ export class SignInComponent implements OnInit {
           }
 
         }catch{}
-      });  
+      },
+      err => {
+        if (err.status == 400)
+          alert('Incorrect username or password.');
+        else
+          console.log("err");
+      });
   }
 
   signInWithGoogle(): void 

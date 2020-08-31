@@ -105,9 +105,6 @@ export class MyFlightListComponent implements OnInit {
         this.airlineService.SaveChangesOnFlight(newFlight).subscribe((res:any) => {
           this.AllFlightsFun();
           alert(res.message);
-        },err =>
-        {
-          console.log(err);
         });
       }
     });  

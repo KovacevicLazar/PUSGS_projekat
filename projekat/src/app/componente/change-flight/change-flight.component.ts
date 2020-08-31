@@ -65,7 +65,11 @@ export class ChangeFlightComponent implements OnInit {
     if(mount.length==1){
       j="0" //Ako je mesec <10 dodaj 0 ispred
     }
-    let date1= year + "-"+ j + mount + "-" + day  + "T" + h + ":" + min;
+    let k=""
+    if(day.length==1){
+      k="0" //Ako je mesec <10 dodaj 0 ispred
+    }
+    let date1= year + "-"+ j + mount + "-" + k + day  + "T" + h + ":" + min;
     return date1;
   }
 

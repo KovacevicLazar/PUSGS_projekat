@@ -96,7 +96,7 @@ namespace WebProjekat.Controllers
                 {
                     var result = await _userManager.CreateAsync(applicationUser, model.Password);
 
-                    return Ok(result);
+                    return Ok(new { message = "Succesfuly registred" });
                 }
                 catch (Exception ex)
                 {

@@ -146,7 +146,7 @@ export class RentCarService{
             Id : id,
             FirstDate : firstDate,
             SecondDate: secondDate,
-            Dicount: discount
+            Discount: discount
 
         }
         return this.http.post(this.BaseURI + '/RentCar/MakeFastReservation', body);

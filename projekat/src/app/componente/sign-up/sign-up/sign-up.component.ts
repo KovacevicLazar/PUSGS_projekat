@@ -49,7 +49,14 @@ export class SignUpComponent implements OnInit {
       let newUser = new User(this.username,this.name,this.surname,this.email,this.phone,this.address,Role.Registred,this.password);
       
       this.userService.Register(newUser).subscribe((res: any) => {
+        alert(res.message);
         this.router.navigate(['/sign-in']);
+      },
+      err => {
+        if (err.status == 400)
+          alert('Incorrect data.');
+        else
+          console.log("err");
       });
     }
   }

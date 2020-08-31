@@ -520,6 +520,7 @@ namespace WebProjekat.Controllers
         {
             var reservation = _context.CarReservations.Find(Id);
             string userId = User.Claims.ElementAt(0).Value;
+           
             var user = _context.Users.Include(x => x.CarReservations).Where(x => x.Id == userId).ToList().First();
             reservation.TotalPrice = reservation.TotalPrice - (reservation.Discount * reservation.TotalPrice) / 100;
 
