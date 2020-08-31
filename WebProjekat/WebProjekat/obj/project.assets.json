@@ -12202,19 +12202,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\icoce\\.nuget\\packages\\": {}
+    "C:\\Users\\HP 650 G2\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\icoce\\Desktop\\ProjekatWeb2\\PUSGS_projekat\\WebProjekat\\WebProjekat\\WebProjekat.csproj",
+      "projectUniqueName": "C:\\Users\\HP 650 G2\\Documents\\GitHub\\PUSGS_projekat\\WebProjekat\\WebProjekat\\WebProjekat.csproj",
       "projectName": "WebProjekat",
-      "projectPath": "C:\\Users\\icoce\\Desktop\\ProjekatWeb2\\PUSGS_projekat\\WebProjekat\\WebProjekat\\WebProjekat.csproj",
-      "packagesPath": "C:\\Users\\icoce\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\icoce\\Desktop\\ProjekatWeb2\\PUSGS_projekat\\WebProjekat\\WebProjekat\\obj\\",
+      "projectPath": "C:\\Users\\HP 650 G2\\Documents\\GitHub\\PUSGS_projekat\\WebProjekat\\WebProjekat\\WebProjekat.csproj",
+      "packagesPath": "C:\\Users\\HP 650 G2\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\HP 650 G2\\Documents\\GitHub\\PUSGS_projekat\\WebProjekat\\WebProjekat\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\icoce\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\HP 650 G2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12320,7 +12324,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

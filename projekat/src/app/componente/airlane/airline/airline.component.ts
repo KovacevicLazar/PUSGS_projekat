@@ -57,7 +57,7 @@ export class AirlineComponent implements OnInit {
   }
 
   filterFlights(): void{
-
+    this.test=false;
     if(this.dateDepart=="" || (this.dateReturn=="" && this.way=="Round Trip") || this.flyingfrom=="" || this.flyingTo=="")
     {
       alert("Morate uneti polaznu i krajnju destinaciju, kao i datum polaska")

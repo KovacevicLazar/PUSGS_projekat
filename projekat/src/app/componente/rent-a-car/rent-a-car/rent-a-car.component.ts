@@ -35,6 +35,7 @@ export class RentACarComponent implements OnInit {
   CheckCars(): void
   {
     this.Cars.length = 0;
+    this.test=false;
       this.rentCarService.GetSearchedCars(this.pickUpLocation,this.pickUpDate == ""?new Date():new Date(this.pickUpDate),this.Babyseats,this.seats).subscribe((res:any)=>{
         for (let i = 0; i < res.cars.length; i++) {
             let car = new Car(res.cars[i].id,res.cars[i].location,res.cars[i].brand,res.cars[i].model,res.cars[i].year,res.cars[i].pricePerDay,true,res.cars[i].babySeats,res.cars[i].numberOfSeats)

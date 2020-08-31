@@ -1,3 +1,10 @@
+.filterDiv{
+	width: 250px;
+	height: 100px;
+	background-color: white;
+}
+
+
 .booking-cta {
 	font-size: 16px;
 	text-transform: uppercase;

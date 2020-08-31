@@ -2,32 +2,29 @@
 <app-nav-menu></app-nav-menu>
 
 
-
-
-<table class="responstable">
-  
-  <tr>
+<div class="mainDiv">
+  <h5  class="booking-cta">Infos about the cars</h5>
+  <table  class="table table-hover">
     
-    <th ><span>Pickup Location:</span></th>
-    <th>Car type: </th>
-    <th>Car model: </th>
-    <th>Year of production:</th>
-    <th>Price Per Day:</th>
+    <tr>
+      
+      <th class="th-info" >Pickup Location:</th>
+      <th class="th-info" >Car type: </th>
+      <th class="th-info" >Car model: </th>
+      <th class="th-info" >Year of production:</th>
+      <th class="th-info" >Price Per Day:</th>
+      
+    </tr>
     
-  </tr>
-  
-  <tr *ngFor="let car of foundCars">
-   
-    <td>{{car.location}}</td>
-    <td>{{car.brand}} </td>  
-    <td>{{car.model}}</td>
-    <td> {{car.year}} year</td>
-    <td>{{car.pricePerDay}} $</td>
+    <tr *ngFor="let car of foundCars">
     
-
+      <td class="td-info" >{{car.location}}</td>
+      <td  class="td-info">{{car.brand}} </td>  
+      <td  class="td-info">{{car.model}}</td>
+      <td  class="td-info"> {{car.year}} year</td>
+      <td  class="td-info">{{car.pricePerDay}} $</td>
     
-
-    
-  </tr>
-  
+    </tr>
+  </table>
+</div>
  

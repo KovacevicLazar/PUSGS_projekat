@@ -26,11 +26,8 @@ export class FriendsComponent implements OnInit {
     FilteredFriendRequest= new Array<User>();
     FilteredFriendSentRequest= new Array<User>();
     FilteredOtherUsers= new Array<User>();
-    Loaded: Boolean = false;
-
+  
   constructor(private userService :UserService,private route: ActivatedRoute) { 
-
-    this.Loaded  = false;
     this.userService.GetUserProfileInfo().subscribe((res: any) => {
       this.user = new User(res.userinfo.username,res.userinfo.name,res.userinfo.surname,res.userinfo.email,res.userinfo.phoneNumber,res.userinfo.address,0,"");
     });
@@ -39,8 +36,6 @@ export class FriendsComponent implements OnInit {
     this.GetFriendRequests();
     this.GetFriendSentRequest();
     this.GetOtherUsers();
-
-    this.Loaded  = true;
   }
 
   GetFriends(){
@@ -190,10 +185,4 @@ export class FriendsComponent implements OnInit {
       }
     });
   }
-
-  sTable(res){
-  var s="S";
-  }
-
-  
 }

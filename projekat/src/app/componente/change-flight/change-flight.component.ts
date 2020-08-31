@@ -70,8 +70,16 @@ export class ChangeFlightComponent implements OnInit {
   }
 
   Submit(){
-    if(this.FlyingFrom!="" && this.FlyingTo!="" && this.DateDepart!=""  && this.DateArrival!="" && this.FlightLength!="" && !isNaN(Number(this.FlightLength)) && !isNaN(Number(this.TicketPrice))){
+    if(this.FlyingFrom == "" && this.FlyingTo == "" && this.DateDepart == ""  && this.DateArrival == "" && this.FlightLength == "" && isNaN(Number(this.FlightLength)) && isNaN(Number(this.TicketPrice))){
       
+      alert("All fields are required! ")
+
+    }
+    else if(Number(this.FlightLength) <= 0 || Number(this.TicketPrice) <= 0)
+    {
+      alert("Invalid input! ")
+    }
+    else{
       let transitList= new Array<string>();
 
       if(this.FirstStop !=""){
@@ -83,12 +91,9 @@ export class ChangeFlightComponent implements OnInit {
       if(this.ThirdStop!=""){
         transitList.push(this.ThirdStop);
       }
-      
+   
       let flight= new  Flight(this.flight.id,this.FlyingFrom,this.FlyingTo,new Date(this.DateDepart),new Date(this.DateArrival),Number(this.FlightLength),transitList,Number(this.TicketPrice), this.flight.vacantSeats, this.flight.busySeats);
       this.dialogRef.close(flight)
-    }
-    else{
-      alert("Podaci nisu dobro uneti");
     }
   }
   

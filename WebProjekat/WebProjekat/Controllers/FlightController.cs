@@ -110,7 +110,7 @@ namespace WebProjekat.Controllers
                 _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 await _context.SaveChangesAsync();
 
-                return Ok();
+                return Ok(new { message = "Successfully Delleted" });
             }
             else
             {
@@ -146,7 +146,7 @@ namespace WebProjekat.Controllers
                 _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 await _context.SaveChangesAsync();
 
-                return Ok();
+                return Ok(new { message = "Successfully Changed!" });
             }
             else
             {

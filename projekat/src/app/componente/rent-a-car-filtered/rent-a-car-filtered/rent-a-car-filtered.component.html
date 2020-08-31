@@ -1,49 +1,38 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
 <app-nav-menu></app-nav-menu> 
-
-
-<h5  class="booking-ctar" >List of the car companyes</h5>
-
-<table class="table table-hover">
-    <thead class="booking-cta">
-        <tr>
-            <th scope="col">name:</th>
-            <th scope="col"> address:</th>
-            <th scope="col">description:</th>
-            <th scope="col">mark:</th>
-            <th scope="col">available cars</th>
-        </tr>
-    </thead>
-    <tbody class="results">
-        <tr *ngFor="let rentcars of allrentcars">
-            <td>{{rentcars.name}}</td>
-            <td>{{rentcars.address}}</td>
-            <td>
-                <!-- Prenos id-ja kao parametra putanje komponenti -->
-                <button class="btndescricarsinfo" (click) = "OnSubmit(rentcars)">
-                   Read more...
-                </button>
-            </td>
-            <td>
-                <div class="profile-stars">
-                    <star-rating value={{rentcars.mark}} totalstars={{totalstar}} checkedcolor="gold" uncheckedcolor="gray" size="30px" readonly="true"></star-rating>
-                </div>
-            </td>
-            <td>
-                <!-- Prenos id-ja kao parametra putanje komponenti -->
-                <button class="btnavcarsinfo" (click) ="FilialsClick(rentcars)">
-                    More about the branches...
-                </button>
-            </td>
+<div class="mainDiv">
+    <h5  class="booking-cta" >List of the car companyes</h5>
+    <table class="table table-hover">
+        <thead class="booking-cta">
+            <tr>
+                <th class="th-info" scope="col">name:</th>
+                <th  class="th-info" scope="col"> address:</th>
+                <th  class="th-info" scope="col">description:</th>
+                <th class="th-info" scope="col">mark:</th>
+                <th class="th-info" scope="col">available cars</th>
+            </tr>
+        </thead>
+        <tbody class="results">
+            <tr *ngFor="let rentcars of allrentcars">
+                <td class="td-info">{{rentcars.name}}</td>
+                <td  class="td-info">{{rentcars.address}}</td>
+                <td class="description-info">
             
-        </tr>
-        
-        
-    </tbody>
-
-    
-    
-</table>
+                    <label class="description-label"> {{rentcars.description}}</label>
+                  
+                </td>
+                <td class="td-info">
+                    <div class="profile-stars">
+                        <star-rating value={{rentcars.mark}} totalstars={{totalstar}} checkedcolor="gold" uncheckedcolor="gray" size="30px" readonly="true"></star-rating>
+                    </div>
+                </td>
+                <td>
+                    <button class="buttonAccept" (click) ="FilialsClick(rentcars)">
+                        More about the branches...
+                    </button>
+                </td>               
+            </tr>
+        </tbody>
+    </table>
+</div>

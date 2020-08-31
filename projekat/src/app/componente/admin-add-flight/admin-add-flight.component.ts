@@ -63,8 +63,16 @@ export class AdminAddFlightComponent implements OnInit {
   
   AddNewFlight(){
 
-    if(this.FlyingFrom!="" && this.FlyingTo!="" && this.DateDepart!=""  && this.DateArrival!="" && this.FlightLength!="" && !isNaN(Number(this.FlightLength)) && !isNaN(Number(this.TicketPrice))){
+    if(this.FlyingFrom == "" && this.FlyingTo == "" && this.DateDepart == ""  && this.DateArrival == "" && this.FlightLength == "" && isNaN(Number(this.FlightLength)) && isNaN(Number(this.TicketPrice))){
       
+      alert("All fields are required! ")
+
+    }
+    else if(Number(this.FlightLength) <= 0 || Number(this.TicketPrice) <= 0)
+    {
+      alert("Invalid input! ")
+    }
+    else{
       let transitList= new Array<string>();
 
       if(this.FirstStop !=""){
@@ -82,10 +90,10 @@ export class AdminAddFlightComponent implements OnInit {
       this.airlineService.AddingFlight(flight).subscribe((res:any) => {
        alert(res.message);
        this.router.navigate(['/myFlightList']);
+      },err =>
+      {
+        console.log(err);
       });
-    }
-    else{
-      alert("Podaci nisu dobro uneti");
     }
   }
 }
