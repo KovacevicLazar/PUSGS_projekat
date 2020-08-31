@@ -98,7 +98,13 @@ export class AirlineComponent implements OnInit {
             transitList.push(res.retflights[i].thirdStop);
           }
 
-          let flight= new Flight(res.retflights[i].id, res.retflights[i].flyingFrom, res.retflights[i].flyingTo, new Date(res.retflights[i].dateDepart),new Date(res.retflights[i].dateArrival), res.retflights[i].flightDistance, transitList, res.retflights[i].ticketPrice, res.retflights[i].vacantSeats, res.retflights[i].busySeats);
+           var dateDepart =  new Date(res.retflights[i].dateDepart); 
+          dateDepart = new Date(Date.UTC(dateDepart.getFullYear(), dateDepart.getMonth(),dateDepart.getDate(), dateDepart.getHours(), dateDepart.getMinutes(), dateDepart.getSeconds()));
+          var dateArrival = new Date(res.retflights[i].dateArrival);
+          dateArrival = new Date(Date.UTC(dateArrival.getFullYear(), dateArrival.getMonth(),dateArrival.getDate(), dateArrival.getHours(), dateArrival.getMinutes(), dateArrival.getSeconds()));
+        
+
+          let flight= new Flight(res.retflights[i].id, res.retflights[i].flyingFrom, res.retflights[i].flyingTo, dateDepart, dateArrival , res.retflights[i].flightDistance, transitList, res.retflights[i].ticketPrice, res.retflights[i].vacantSeats, res.retflights[i].busySeats);
           this.Flights.push(flight);
           this.test = true;
         }

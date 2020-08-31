@@ -37,13 +37,19 @@ export class HistoryOfReservationComponent implements OnInit {
     this.flightReservations.length = 0;
     this.userService.GetFlightReservations().subscribe((res:any) =>{
       for (let i = 0; i < res.reservations.length; i++) {
-           var flight = new Flight(res.reservations[i].flight.id,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, new Date(res.reservations[i].flight.dateDepart),new Date(res.reservations[i].flight.dateArrival), res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
-           flight.isOver=res.reservations[i].flight.isOver; 
-           flight.CancellingIsOver=res.reservations[i].flight.cancellingIsOver; 
-           var numOFSeats = res.reservations[i].numberOfSeats
-           var resFlight = new ReservedFlight(flight, numOFSeats);
-           resFlight.mark = res.reservations[i].mark;
-           this.flightReservations.push(resFlight);
+
+          var dateDepart =  new Date(res.reservations[i].flight.dateDepart); 
+          dateDepart = new Date(Date.UTC(dateDepart.getFullYear(), dateDepart.getMonth(),dateDepart.getDate(), dateDepart.getHours(), dateDepart.getMinutes(), dateDepart.getSeconds()));
+          var dateArrival = new Date(res.reservations[i].flight.dateArrival);
+          dateArrival = new Date(Date.UTC(dateArrival.getFullYear(), dateArrival.getMonth(),dateArrival.getDate(), dateArrival.getHours(), dateArrival.getMinutes(), dateArrival.getSeconds()));
+        
+          var flight = new Flight(res.reservations[i].flight.id,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo,dateDepart , dateArrival, res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
+          flight.isOver=res.reservations[i].flight.isOver; 
+          flight.CancellingIsOver=res.reservations[i].flight.cancellingIsOver; 
+          var numOFSeats = res.reservations[i].numberOfSeats
+          var resFlight = new ReservedFlight(flight, numOFSeats);
+          resFlight.mark = res.reservations[i].mark;
+          this.flightReservations.push(resFlight);
         }
     });
   }
@@ -52,7 +58,13 @@ export class HistoryOfReservationComponent implements OnInit {
     this.flightReservationsRequests.length=0;
     this.userService.GetSeatReservationRequests().subscribe((res:any) =>{
       for (let i = 0; i < res.reservations.length; i++) {
-        var flight = new Flight(res.reservations[i].flight.id,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, new Date(res.reservations[i].flight.dateDepart),new Date(res.reservations[i].flight.dateArrival), res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
+
+        var dateDepart =  new Date(res.reservations[i].flight.dateDepart); 
+        dateDepart = new Date(Date.UTC(dateDepart.getFullYear(), dateDepart.getMonth(),dateDepart.getDate(), dateDepart.getHours(), dateDepart.getMinutes(), dateDepart.getSeconds()));
+        var dateArrival = new Date(res.reservations[i].flight.dateArrival);
+        dateArrival = new Date(Date.UTC(dateArrival.getFullYear(), dateArrival.getMonth(),dateArrival.getDate(), dateArrival.getHours(), dateArrival.getMinutes(), dateArrival.getSeconds()));
+
+        var flight = new Flight(res.reservations[i].flight.id,res.reservations[i].flight.flyingFrom, res.reservations[i].flight.flyingTo, dateDepart , dateArrival, res.reservations[i].flight.flightDistance, new Array<string>(), res.reservations[i].flight.ticketPrice, res.reservations[i].flight.vacantSeats, res.reservations[i].flight.busySeats);
         flight.isOver = res.reservations[i].flight.isOver; 
         flight.CancellingIsOver=res.reservations[i].flight.cancellingIsOver; 
         var numOFSeats = res.reservations[i].numberOfSeats

@@ -27,8 +27,8 @@ export class Flight {
 
         this.flyingfrom=flyingfrom;
         this.flyingTo=flyingTo;
-        this.dateDepart=dateDepart;
-        this.dateArrival=dateArrival;
+        this.dateDepart=new Date(dateDepart.toLocaleString());
+        this.dateArrival=new Date(dateArrival.toLocaleString());
         this.flightDuration= this.calculateDuration(dateArrival,dateDepart);
         this.flightDistance=flightDistance;
         
@@ -39,6 +39,8 @@ export class Flight {
 
         this.numberTransit=this.Transitlocations.length;
     }
+
+    
 
     calculateDuration(dateArrival: Date,dateDepart: Date): Date
     {

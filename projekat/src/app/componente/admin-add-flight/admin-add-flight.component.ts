@@ -76,7 +76,7 @@ export class AdminAddFlightComponent implements OnInit {
       if(this.ThirdStop!=""){
         transitList.push(this.ThirdStop);
       }
-      
+   
       let flight= new  Flight(10,this.FlyingFrom,this.FlyingTo,new Date(this.DateDepart),new Date(this.DateArrival),Number(this.FlightLength),transitList,Number(this.TicketPrice), 120, 0);
       
       this.airlineService.AddingFlight(flight).subscribe((res:any) => {
@@ -88,7 +88,6 @@ export class AdminAddFlightComponent implements OnInit {
       alert("Podaci nisu dobro uneti");
     }
   }
-  
 }
 
 

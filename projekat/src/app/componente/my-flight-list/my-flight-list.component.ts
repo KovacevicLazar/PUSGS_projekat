@@ -63,7 +63,12 @@ export class MyFlightListComponent implements OnInit {
         if(res.listflight[i].thirdStop!=""){
           transitList.push(res.listflight[i].thirdStop);
         }
-         let flight= new Flight(res.listflight[i].id, res.listflight[i].flyingFrom, res.listflight[i].flyingTo, new Date(res.listflight[i].dateDepart),new Date(res.listflight[i].dateArrival), res.listflight[i].flightDistance, transitList, res.listflight[i].ticketPrice, res.listflight[i].vacantSeats, res.listflight[i].busySeats);
+        var dateDepart =  new Date(res.listflight[i].dateDepart); 
+        dateDepart = new Date(Date.UTC(dateDepart.getFullYear(), dateDepart.getMonth(),dateDepart.getDate(), dateDepart.getHours(), dateDepart.getMinutes(), dateDepart.getSeconds()));
+        var dateArrival = new Date(res.listflight[i].dateArrival);
+        dateArrival = new Date(Date.UTC(dateArrival.getFullYear(), dateArrival.getMonth(),dateArrival.getDate(), dateArrival.getHours(), dateArrival.getMinutes(), dateArrival.getSeconds()));
+
+         let flight= new Flight(res.listflight[i].id, res.listflight[i].flyingFrom, res.listflight[i].flyingTo, dateDepart, dateArrival , res.listflight[i].flightDistance, transitList, res.listflight[i].ticketPrice, res.listflight[i].vacantSeats, res.listflight[i].busySeats);
          var sum=0;
          var cnt=0;
          for (let j = 0; j < res.listflight[i].marks.length; j++) {

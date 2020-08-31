@@ -91,6 +91,7 @@ thead{
 	font-size:large;
 	font-weight: bold;
   text-align: center;
+  cursor: pointer;
 }
 .description-info{
     font-weight: bold;

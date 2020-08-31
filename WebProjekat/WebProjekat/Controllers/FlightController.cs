@@ -208,9 +208,9 @@ namespace WebProjekat.Controllers
             else
             {
                 var DateDepart = DateTime.Parse(dateDepart);
-                if (DateTime.Now.Date == DateDepart.Date) //Ako izaberemo danasnji datum..pokazati samo letove koji polecu nakon trenutnog vremena
+                if (DateTime.UtcNow.Date == DateDepart.Date) //Ako izaberemo danasnji datum..pokazati samo letove koji polecu nakon trenutnog vremena
                 {
-                    DateDepart = DateTime.Now;
+                    DateDepart = DateTime.UtcNow;
                 }
 
                 var flights = _context.Flights.Where(x => x.FlyingFrom.ToUpper() == flyingfrom.ToUpper() && x.FlyingTo.ToUpper() == flyingTo.ToUpper() && x.VacantSeats >= numberOfSeat).ToList();
@@ -310,7 +310,7 @@ namespace WebProjekat.Controllers
         {
             var flightID = id;
             var flight = _context.Flights.Include(x => x.ReservedSeats).Where(x => x.Id == flightID).ToList().First();
-            if ((flight.DateDepart - DateTime.Now).TotalHours < 3)
+            if ((flight.DateDepart - DateTime.UtcNow).TotalHours < 3)
             {
                 flight.IsOver = true;
                 _context.Entry(flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -369,7 +369,7 @@ namespace WebProjekat.Controllers
         {
             var flightID = flightModel.Id;
             var flight = _context.Flights.Include(x => x.ReservedSeats).Where(x => x.Id == flightID).ToList().First();
-            if ((flight.DateDepart - DateTime.Now).TotalHours < 3)
+            if ((flight.DateDepart - DateTime.UtcNow).TotalHours < 3)
             {
                 return BadRequest(new { message = "Cant canncel reservation !" });
             }

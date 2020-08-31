@@ -619,14 +619,14 @@ namespace WebProjekat.Controllers
                 {
                     Fr.Mark = 0;
                 }
-                if ((Fr.flight.DateArrival - DateTime.Now).TotalHours < 0 && Fr.flight.IsOver == false)
+                if ((Fr.flight.DateArrival - DateTime.UtcNow).TotalHours < 0 && Fr.flight.IsOver == false)
                 {
                     Fr.flight.IsOver = true;
                     Fr.flight.CancellingIsOver = true;
                     _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     var result = await _context.SaveChangesAsync();
                 }
-                else if((Fr.flight.DateDepart - DateTime.Now).TotalHours < 3 && Fr.flight.CancellingIsOver == false)
+                else if((Fr.flight.DateDepart - DateTime.UtcNow).TotalHours < 3 && Fr.flight.CancellingIsOver == false)
                 {
                     Fr.flight.CancellingIsOver = true;
                     _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -678,7 +678,7 @@ namespace WebProjekat.Controllers
                 {
                     Fr.Mark = 0;
                 }
-                if ((Fr.flight.DateDepart - DateTime.Now).TotalHours < 3 && Fr.status==StatusFriendRequest.OnWait) //ako nije prihvacen a ostalo manje od 3,automatski se brise
+                if ((Fr.flight.DateDepart - DateTime.UtcNow).TotalHours < 3 && Fr.status==StatusFriendRequest.OnWait) //ako nije prihvacen a ostalo manje od 3,automatski se brise
                 {
                     seatReservationRequests = _context.SeatReservationRequests.Include(x => x.ReservedSeat).Where(x => x.UserId == userId && x.ReservedSeat.FlightId == Fr.flight.Id).ToList();
                     foreach (var seatReservationRequest in seatReservationRequests)
@@ -693,14 +693,14 @@ namespace WebProjekat.Controllers
                     }
                     continue;
                 }
-                else if ((Fr.flight.DateArrival - DateTime.Now).TotalHours < 0 && Fr.flight.IsOver == false)
+                else if ((Fr.flight.DateArrival - DateTime.UtcNow).TotalHours < 0 && Fr.flight.IsOver == false)
                 {
                     Fr.flight.IsOver = true;
                     Fr.flight.CancellingIsOver = true;
                     _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     var result = await _context.SaveChangesAsync();
                 }
-                else if ((Fr.flight.DateDepart - DateTime.Now).TotalHours < 3 && Fr.flight.CancellingIsOver == false)
+                else if ((Fr.flight.DateDepart - DateTime.UtcNow).TotalHours < 3 && Fr.flight.CancellingIsOver == false)
                 {
                     Fr.flight.CancellingIsOver = true;
                     _context.Entry(Fr.flight).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
