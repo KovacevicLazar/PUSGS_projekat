@@ -84,8 +84,11 @@ export class AdminAddFlightComponent implements OnInit {
       if(this.ThirdStop!=""){
         transitList.push(this.ThirdStop);
       }
+      
+      var dateDepart = new Date(this.DateDepart).toUTCString();
+      var dateArrival = new Date(this.DateArrival).toUTCString();
    
-      let flight= new  Flight(10,this.FlyingFrom,this.FlyingTo,new Date(this.DateDepart),new Date(this.DateArrival),Number(this.FlightLength),transitList,Number(this.TicketPrice), 120, 0);
+      let flight= new  Flight(10,this.FlyingFrom,this.FlyingTo,new Date(dateDepart),new Date(dateArrival),Number(this.FlightLength),transitList,Number(this.TicketPrice), 120, 0);
       
       this.airlineService.AddingFlight(flight).subscribe((res:any) => {
        alert(res.message);
