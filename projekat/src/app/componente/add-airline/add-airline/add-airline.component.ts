@@ -37,7 +37,10 @@ export class AddAirlineComponent implements OnInit {
     }   
     else
     {
-      this.userService.AddAdmin(this.name,this.description,this.username,this.address,"airline", this.email).subscribe((res: any ) =>{} );
+      this.userService.AddAdmin(this.name,this.description,this.username,this.address,"airline", this.email).subscribe((res: any ) =>{ 
+        alert(res.message);
+      } );
+      
       this.router.navigate(['/all-airline']);
     }
   }

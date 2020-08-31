@@ -20,8 +20,11 @@ export class ListOfCarCompaniesComponent implements OnInit {
   constructor(private RentACars:RentCarService,private userService : UserService , private route: ActivatedRoute ) { 
     userService.GetCarAdmins().subscribe((res : any )=>{
       for (let i = 0; i < res.users.length; i++) {
-          var rentACar = new RentCar(1,res.users[i].carCompany.companyName,"","",1);
+          var rentACar = new RentCar(1,res.users[i].carCompany.companyName,res.users[i].carCompany.adress,"",1);
+          rentACar.adminName = res.users[i].userName;
+          
           this.AllRentACar.push(rentACar);
+
       }
     });
   }

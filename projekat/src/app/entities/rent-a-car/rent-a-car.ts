@@ -7,6 +7,7 @@ export class RentCar{
     description: string;
     mark: number;
     activated:boolean;
+    adminName= "";
 
     constructor(id: number,name: string,address: string,description: string,mark: number)
     {

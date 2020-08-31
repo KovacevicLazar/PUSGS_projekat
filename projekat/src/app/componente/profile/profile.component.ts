@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
 
       this.user.IsConfirmed = res.userinfo.isConfirmed;
       var decoded=jwt_decode(localStorage.getItem("token"));
-      if(this.user.IsConfirmed == false && decoded.Roles != "Registred")
+      if(this.user.IsConfirmed == false && decoded.Roles != "Registred" && decoded.Roles != "SystemAdmin")
       {
         this.openDialog1().afterClosed().subscribe(result =>
           {

@@ -432,10 +432,13 @@ namespace WebProjekat.Controllers
 
                     _context.Entry(kk1).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     await _context.SaveChangesAsync();
+                    return Ok(new { message = "Succesfuly added ! " });
                 }
                 catch (Exception ex)
                 {
+                    return BadRequest(new { Message = "Invalid Data" });
                     throw ex;
+                    
                 }
             }
             else
@@ -454,13 +457,16 @@ namespace WebProjekat.Controllers
 
                     _context.Entry(kk1).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     await _context.SaveChangesAsync();
+                    return Ok(new { message = "Succesfuly added ! " });
+
                 }
                 catch (Exception ex)
                 {
+                    return BadRequest(new { Message = "Invalid Data" });
                     throw ex;
                 }
             }
-            return Ok();
+            
         }
 
 

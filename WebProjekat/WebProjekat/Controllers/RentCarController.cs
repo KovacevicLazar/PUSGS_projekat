@@ -76,7 +76,10 @@ namespace WebProjekat.Controllers
 
 
             };
-
+            if (newCar.PricePerDay <= 0 || newCar.Year <= 0 || newCar.NumberOfSeats <= 0 || newCar.BabySeats < 0 )
+            {
+                return BadRequest(new { message = "Invalid data! All field have to be possitive numbers!" });
+            }
             var user = _context.Users.Include(x => x.CarCompany).Where(x => x.Id == userID).ToList().First();
             var company = _context.RentCarCompanies.Include(x => x.Cars).Where(x => x.Id == user.CarCompany.Id).ToList().First();
             company.Cars.Add(newCar);
@@ -85,7 +88,7 @@ namespace WebProjekat.Controllers
             await _context.SaveChangesAsync();
 
 
-            return Ok();
+            return Ok(new { message = "Succesfuly added ! " });
         }
 
         [HttpGet]
@@ -134,14 +137,17 @@ namespace WebProjekat.Controllers
 
 
 
-
+            if (car.PricePerDay <= 0 || car.Year <= 0 || car.NumberOfSeats <= 0 || car.BabySeats < 0)
+            {
+                return BadRequest(new { message = "Invalid data! All field have to be possitive numbers!" });
+            }
 
 
             _context.Entry(car).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();
 
 
-            return Ok();
+            return Ok(new { message = "Successfuly saved" });
         }
 
         [HttpGet]

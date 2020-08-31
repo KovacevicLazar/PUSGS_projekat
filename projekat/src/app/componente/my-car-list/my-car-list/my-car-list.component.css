@@ -147,15 +147,15 @@ If you like this solution, you might also want to check out the 1.0 version:
     border-radius: 10rem;
     color: #fff;
     text-transform: uppercase;
-    font-size: 2rem;
+    font-size: 10px;
     letter-spacing: .15rem;
     transition: all .3s;
     position: relative;
     overflow: hidden;
     z-index: 1;
-    width: 140px;
-    height: 40px;
-    margin-left: 10%;
+    width: 120px;
+    height: 60px;
+   
   }
   .buttonModify:after {
     content: '';
@@ -195,14 +195,14 @@ If you like this solution, you might also want to check out the 1.0 version:
     border-radius: 10rem;
     color: #fff;
     text-transform: uppercase;
-    font-size: 2rem;
+    font-size: 14px;
     letter-spacing: .15rem;
     transition: all .3s;
     position: relative;
     overflow: hidden;
     z-index: 1;
-    width: 140px;
-    height: 40px;
+    width: 120px;
+    height: 60px;
     margin-left: 10%;
   }
   .buttonRemove:after {

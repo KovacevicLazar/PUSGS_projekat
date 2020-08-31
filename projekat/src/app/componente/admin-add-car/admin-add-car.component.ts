@@ -60,19 +60,33 @@ export class AdminAddCarComponent implements OnInit {
     {
       alert("All fields are required! ")
     }
+    else if(Number(this.year) <= 0 || Number(this.PricePerDay) <= 0 || Number(this.Babyseats) <=0 ||Number(this.NumberOfSeats) <=0)
+    {
+      alert("Invalid input! ")
+    }
     else
     {      
       let newCar = new Car(this.id,this.Location,this.Brand,this.CarModel,Number(this.year),Number(this.PricePerDay),true,Number(this.Babyseats),Number(this.NumberOfSeats));
       if(this.modify == false)
       {
         this.carService.AddCar(newCar).subscribe((res:any) => {
+          alert(res.message);
           this.router.navigate(['/myCarList']);
+
+        },err =>
+        {
+          console.log(err);
         });
+
       }
       else
       {
         this.carService.SaveChangesOnCar(newCar).subscribe((res:any) => {
+          alert(res.message);
           this.router.navigate(['/myCarList']);
+        },err =>
+        {
+          console.log(err);
         });
       }
     }

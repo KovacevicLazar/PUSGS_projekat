@@ -43,7 +43,7 @@ import { FastCarResListComponent } from './componente/fast-car-res-list/fast-car
 const routes: Routes = [
   {
     path: "",
-    component: StartingPageComponent
+    component: StartingPageComponent,  canActivate: [UnregistredGuardGuard]
   },
 
 
@@ -52,8 +52,8 @@ const routes: Routes = [
 
  
   //Rute kojima meze pristupiti neregistrovani korisnik ( Ovaj gard omogucava i pristup Registrovanom Obicnom korisniku)
-  {path: "sign-in", component: SignInComponent},
-  {path: "sign-up", component: SignUpComponent},
+  {path: "sign-in", component: SignInComponent,canActivate: [UnregistredGuardGuard]},
+  {path: "sign-up", component: SignUpComponent,canActivate: [UnregistredGuardGuard]},
   { path: "rent-a-car-table", component: RentACarFilteredComponent ,  canActivate: [UnregistredGuardGuard]},
   { path: "airline-table", component: AirlineFilteredComponent , canActivate: [UnregistredGuardGuard]},  
   { path: "airline",canActivate: [UnregistredGuardGuard],
